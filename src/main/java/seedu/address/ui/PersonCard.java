@@ -58,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
             } else if (tagName.equals("neighbours")) {
                 colour = "#1D24CB";
             }
-            String style = "-fx-background-color: "+ colour + ";";
+            String style = "-fx-background-color: " + colour + ";";
             label.setStyle(style);
             tags.getChildren().add(label);
         });
