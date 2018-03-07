@@ -26,6 +26,12 @@ public class PersonCardTest extends GuiUnitTest {
         personCard = new PersonCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
+
+        // test for tag colours
+        Person personWithColouredTags = new PersonBuilder().withTags("friends").build();
+        personCard = new PersonCard(personWithColouredTags, 3);
+        uiPartRule.setUiPart(personCard);
+        assertTagColours(personCard, "#19BF09");
     }
 
     @Test
@@ -68,5 +74,21 @@ public class PersonCardTest extends GuiUnitTest {
 
         // verify person details are displayed correctly
         assertCardDisplaysPerson(expectedPerson, personCardHandle);
+    }
+
+    /**
+     * Asserts that {@code personCard} displays the right coloured tags that matches the value input
+     * by {@code colours}.
+     * @param personCard
+     * @param colours
+     */
+    private void assertTagColours(PersonCard personCard, String... colours) {
+        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        int index = 0;
+        personCardHandle.getTagLabels().forEach(n -> {
+            String style = n.getStyle();
+            String styleToBeComparedAgainst = "-fx-background-color: " + colours[index] + ";";
+            assertEquals(style, styleToBeComparedAgainst);
+        });
     }
 }

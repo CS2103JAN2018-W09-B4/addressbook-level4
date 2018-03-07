@@ -47,7 +47,25 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getTags().forEach(tag -> {
+            String tagName = tag.tagName;
+            String colour = "";
+            Label label = new Label(tag.tagName);
+            if (tagName.equals("colleagues")) {
+                colour = "#C01E19";
+            } else if (tagName.equals("friends")) {
+                colour = "#19BF09";
+            } else if (tagName.equals("neighbours")) {
+                colour = "#1D24CB";
+            } else if (tagName.equals("classmates")) {
+                colour = "#BB00BF";
+            } else if (tagName.equals("family")) {
+                colour = "#9E6600";
+            }
+            String style = "-fx-background-color: " + colour + ";";
+            label.setStyle(style);
+            tags.getChildren().add(label);
+        });
     }
 
     @Override
