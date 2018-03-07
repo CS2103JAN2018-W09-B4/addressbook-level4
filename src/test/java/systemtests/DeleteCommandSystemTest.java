@@ -277,7 +277,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(
                 DeleteCommand.COMMAND_ALIAS + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
     }
-    
+
     /**
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
