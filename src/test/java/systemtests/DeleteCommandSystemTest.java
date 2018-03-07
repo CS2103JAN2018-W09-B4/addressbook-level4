@@ -244,20 +244,6 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Deletes the person at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
-     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
-     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
-     */
-    private void assertAliasCommandSuccess(Index toDelete) {
-        Model expectedModel = getModel();
-        Person deletedPerson = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-
-        assertCommandSuccess(
-                DeleteCommand.COMMAND_ALIAS + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
-    }
-
-    /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
@@ -278,6 +264,20 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
+    /**
+     * Deletes the person at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
+     */
+    private void assertAliasCommandSuccess(Index toDelete) {
+        Model expectedModel = getModel();
+        Person deletedPerson = removePerson(expectedModel, toDelete);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+
+        assertCommandSuccess(
+                DeleteCommand.COMMAND_ALIAS + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+    }
+    
     /**
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
