@@ -73,6 +73,51 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
+    @Test
+    public void openHelpWindowAlias() {
+        //use accelerator
+        getCommandBox().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
+
+        getResultDisplay().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
+
+        getPersonListPanel().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
+
+        getBrowserPanel().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowNotOpen();
+
+        //use menu button
+        getMainMenu().openHelpWindowUsingMenu();
+        assertHelpWindowOpen();
+
+        //use command box
+        executeCommand(HelpCommand.COMMAND_ALIAS);
+        assertHelpWindowOpen();
+
+        // open help window and give it focus
+        executeCommand(HelpCommand.COMMAND_ALIAS);
+        getMainWindowHandle().focus();
+
+        // assert that while the help window is open the UI updates correctly for a command execution
+        executeCommand(SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals("", getCommandBox().getInput());
+        assertCommandBoxShowsDefaultStyle();
+        assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
+        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+
+        // assert that the status bar too is updated correctly while the help window is open
+        // note: the select command tested above does not update the status bar
+        executeCommand(DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+    }
+
     /**
      * Asserts that the help window is open, and closes it after checking.
      */
