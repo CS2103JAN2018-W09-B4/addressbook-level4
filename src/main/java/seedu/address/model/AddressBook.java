@@ -171,6 +171,41 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tags.asObservableList();
     }
 
+    /**
+     * Removes {@code tag} from all persons in this {@code AddressBook}.
+     */
+    public void removeTag(Tag tag) {
+        for (Person person: persons) {
+            try {
+                removeTagFromPerson(tag, person);
+            } catch (PersonNotFoundException e) {
+                throw new AssertionError("Person not found.");
+            }
+        }
+    }
+
+    /**
+     * Removes {@code tag} from {@code person} in this {@code AddressBook}
+     * @throws PersonNotFoundException if {@code person} not found in this {@code AddressBook}
+     */
+    public void removeTagFromPerson(Tag tag, Person person) throws PersonNotFoundException {
+        Set<Tag> newTags = new HashSet<>(person.getTags());
+        boolean isPersonTagged = newTags.remove(tag);
+
+        if (!isPersonTagged) {
+            return;
+        }
+
+        Person newPerson = new Person(person.getName(), person.getPhone(),
+                person.getEmail(), person.getAddress(), newTags);
+
+        try {
+            updatePerson(person, newPerson);
+        } catch (DuplicatePersonException e) {
+            throw new AssertionError("Modifying person's should not result in duplicate persons.");
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
