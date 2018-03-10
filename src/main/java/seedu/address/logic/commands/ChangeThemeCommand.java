@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_THEME;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ChangeThemeRequestEvent;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_THEME;
-
+/**
+ * Changes the theme of the UI.
+ */
 public class ChangeThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
