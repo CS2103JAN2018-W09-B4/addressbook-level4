@@ -40,6 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
 
+    // The default starting theme that will be loaded on init
+    private String currentTheme = "view/DarkTheme.css";
+
     @FXML
     private StackPane browserPlaceholder;
 
@@ -70,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
+        primaryStage.getScene().getStylesheets().add(this.currentTheme);
 
         setAccelerators();
         registerAsAnEventHandler(this);
@@ -198,7 +202,8 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handleChangeThemeEvent(ChangeThemeRequestEvent event) {
-        primaryStage.getScene().getStylesheets().remove(1);
+        primaryStage.getScene().getStylesheets().removeAll(currentTheme);
         primaryStage.getScene().getStylesheets().add(event.theme);
+        this.currentTheme = event.theme;
     }
 }
