@@ -10,7 +10,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_THEME;
 
 /**
- * Parsses input arguments and returns a new ChangeThemeCommand object
+ * Parses input arguments and returns a new ChangeThemeCommand object
  */
 public class ChangeThemeCommandParser implements Parser<ChangeThemeCommand> {
 
