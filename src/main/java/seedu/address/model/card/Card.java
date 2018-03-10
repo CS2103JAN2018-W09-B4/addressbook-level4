@@ -4,23 +4,25 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Flashcard.
- * Guarantees: Question and Answer must not be null.
+ * Guarantees: Front and Back must not be null.
+ *
+ * TODO: Allow for different kinds of Front and Back
  */
 public class Card {
-    private final String question;
-    private final String answer;
+    private final String front;
+    private final String back;
 
-    public Card(String question, String answer) {
-        requireAllNonNull(question, answer);
-        this.question = question;
-        this.answer = answer;
+    public Card(String front, String back) {
+        requireAllNonNull(front, back);
+        this.front = front;
+        this.back = back;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getFront() {
+        return front;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getBack() {
+        return back;
     }
 }
