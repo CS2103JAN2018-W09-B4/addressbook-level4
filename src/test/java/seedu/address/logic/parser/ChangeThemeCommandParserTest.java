@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static seedu.address.logic.commands.ChangeThemeCommand.COMMAND_WORD;
-import static seedu.address.logic.commands.ChangeThemeCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.ChangeThemeCommand.MESSAGE_USAGE;
 import static seedu.address.logic.commands.CommandTestUtil.CORRESPONDING_THEME_INDEX_1;
 import static seedu.address.logic.commands.CommandTestUtil.CORRESPONDING_THEME_INDEX_2;
@@ -15,12 +15,12 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_THEME;
 
 import org.junit.Test;
+
 import seedu.address.logic.commands.ChangeThemeCommand;
-import seedu.address.logic.commands.Command;
 
 public class ChangeThemeCommandParserTest {
+    private static final String SPACE = " ";
     private ChangeThemeCommandParser parser = new ChangeThemeCommandParser();
-    private final String SPACE = " ";
 
     @Test
     public void parse_allFieldsPresent_success() {

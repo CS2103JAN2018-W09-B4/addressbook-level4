@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
+
 import seedu.address.commons.events.ui.ChangeThemeRequestEvent;
 import seedu.address.ui.testutil.EventsCollectorRule;
 

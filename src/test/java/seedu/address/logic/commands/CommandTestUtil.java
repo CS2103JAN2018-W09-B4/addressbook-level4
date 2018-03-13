@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.print.DocFlavor;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
