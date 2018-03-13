@@ -22,15 +22,15 @@ import seedu.address.model.UserPrefs;
  * The manager of the UI component.
  */
 public class UiManager extends ComponentManager implements Ui {
-
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
-
     public static final String FILE_OPS_ERROR_DIALOG_STAGE_TITLE = "File Op Error";
     public static final String FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE = "Could not save data";
     public static final String FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE = "Could not save data to file";
-
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
+
+    // Set the default theme to Dark Theme
+    private static String currentTheme = "view/DarkTheme.css";
 
     private Logic logic;
     private Config config;
@@ -42,6 +42,14 @@ public class UiManager extends ComponentManager implements Ui {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+    }
+
+    public static void setCurrentTheme(String currentTheme) {
+        UiManager.currentTheme = currentTheme;
+    }
+
+    public static String getCurrentTheme() {
+        return currentTheme;
     }
 
     @Override
@@ -89,7 +97,7 @@ public class UiManager extends ComponentManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add(currentTheme);
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
