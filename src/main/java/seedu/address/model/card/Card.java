@@ -3,6 +3,7 @@ package seedu.address.model.card;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.UUID;
 
 
 /**
@@ -22,6 +23,7 @@ public class Card {
      */
     public static final String CARD_VALIDATION_REGEX = "[^\\s].*";
 
+    private final UUID id;
     private final String front;
     private final String back;
 
@@ -29,6 +31,11 @@ public class Card {
         requireAllNonNull(front, back);
         this.front = front;
         this.back = back;
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getFront() {
