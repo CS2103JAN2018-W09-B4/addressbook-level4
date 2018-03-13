@@ -83,6 +83,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
+
+        List<Card> syncedCardList = newData.getCardList().stream()
+                .collect(Collectors.toList());
+
+        try {
+            setCards(syncedCardList);
+        } catch (DuplicateCardException e) {
+            throw new AssertionError("AddressBooks should not have duplicate cards");
+        }
     }
 
     //// person-level operations
@@ -172,7 +181,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags";
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size()
+                +  " tags, " + cards.asObservableList().size() + " cards";
         // TODO: refine later
     }
 

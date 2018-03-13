@@ -5,6 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
+
 
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -26,6 +28,7 @@ public class Card {
      */
     public static final String CARD_VALIDATION_REGEX = "[^\\s].*";
 
+    private final UUID id;
     private final String front;
     private final String back;
 
@@ -37,6 +40,11 @@ public class Card {
         this.back = back;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getFront() {
