@@ -23,7 +23,7 @@ public class CardBuilder {
      */
     public CardBuilder(Card cardToCopy) {
         front = cardToCopy.getFront();
-        back = cardToCopy.getFront();
+        back = cardToCopy.getBack();
     }
 
     /**
