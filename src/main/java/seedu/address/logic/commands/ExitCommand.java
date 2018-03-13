@@ -8,7 +8,8 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
  */
 public class ExitCommand extends Command {
 
-    public static final String COMMAND_WORD = "exit";
+    public static final String COMMAND_WORD_EXIT = "exit";
+    public static final String COMMAND_WORD_QUIT = "quit";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
 
