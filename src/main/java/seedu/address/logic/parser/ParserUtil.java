@@ -31,6 +31,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+    public static final String MESSAGE_INVALID_THEME = "Theme must be either 'light' or 'dark'.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -194,7 +195,7 @@ public class ParserUtil {
         final ArrayList<String> validThemes = new ArrayList<String>(Arrays.asList(validThemeStrings));
         requireNonNull(theme);
         if (!validThemes.contains(theme.get())) {
-            throw new IllegalValueException("Theme must be either 'light' or 'dark'.");
+            throw new IllegalValueException(MESSAGE_INVALID_THEME);
         }
         return validThemes.indexOf(theme.get());
     }

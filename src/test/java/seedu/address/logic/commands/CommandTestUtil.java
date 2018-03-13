@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.print.DocFlavor;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
@@ -67,6 +69,13 @@ public class CommandTestUtil {
     public static final String VALID_BACK_CARD_1 = "9th August";
     public static final String VALID_FRONT_CARD_2 = "Who was Singapore's first President?";
     public static final String VALID_BACK_CARD_2 = "Yushof Ishak";
+
+    public static final String VALID_THEME_1 = "light";
+    public static final String VALID_THEME_2 = "dark";
+    public static final Integer CORRESPONDING_THEME_INDEX_1 = 0;
+    public static final Integer CORRESPONDING_THEME_INDEX_2 = 1;
+
+    public static final String INVALID_THEME = "solarized";
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
