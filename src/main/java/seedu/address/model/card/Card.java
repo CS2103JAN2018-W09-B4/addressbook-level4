@@ -1,14 +1,13 @@
 package seedu.address.model.card;
 
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Flashcard.
