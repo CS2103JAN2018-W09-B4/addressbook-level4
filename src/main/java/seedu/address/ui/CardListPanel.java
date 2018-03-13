@@ -29,9 +29,6 @@ public class CardListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void registerAsAnEventHandler(CardListPanel cardListPanel) {
-    }
-
     public void setConnections(ObservableList<Card> cardList) {
         ObservableList<CardCard> mappedList = EasyBind.map(
                 cardList, (card) -> new CardCard(card, cardList.indexOf(card) + 1));
