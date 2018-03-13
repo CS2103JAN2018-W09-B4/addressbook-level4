@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Flashy - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -11,13 +11,13 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103JAN2018-W09-B4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Flashy`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Flashy is for those who *prefer to use a desktop app for managing flashcards*. More importantly, Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Flashy can get your flashcard management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -60,6 +60,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Changing the theme : `theme`
+
+Format: `theme t/THEME`
+
+Examples:
+
+* `theme t/light`
+* `theme t/dark`
+
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -72,6 +81,15 @@ Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+
+=== Adding a flashcard: `addc`
+
+Adds a flash card +
+Format: `addc f/FRONT b/BACK...`
+
+Examples:
+
+* `addc f/What is the best flashcard application? b/Flashy!`
 
 === Listing all persons : `list`
 
@@ -223,10 +241,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exiting the program : `exit` or `quit`
 
 Exits the program. +
-Format: `exit`
+Format: `exit` or `quit`
 
 === Saving the data
 
@@ -248,6 +266,8 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add Flashcard* : `addc f/FRONT b/BACK` +
+e.g. `addc f/What is the best flashcard application? b/Flashy!`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -255,6 +275,8 @@ e.g. `delete 3`
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Theme* :  `theme t/THEME` +
+e.g. `theme t/light`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
