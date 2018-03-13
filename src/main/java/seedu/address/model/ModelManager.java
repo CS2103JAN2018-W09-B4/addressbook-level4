@@ -133,4 +133,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return FXCollections.unmodifiableObservableList(filteredCards);
+    }
+
 }

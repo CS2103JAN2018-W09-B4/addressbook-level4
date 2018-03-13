@@ -56,4 +56,7 @@ public interface Model {
 
     /** Adds the given card */
     void addCard(Card card) throws DuplicateCardException;
+
+    /** Returns an unmodifiable view of the filtered card list */
+    ObservableList<Card> getFilteredCardList();
 }
