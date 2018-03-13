@@ -13,7 +13,7 @@ public class ChangeThemeCommand extends Command {
     public static final String COMMAND_WORD = "theme";
 
     public static final String MESSAGE_SUCCESS = "Theme changed successfully";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the colour scheme of the application."
             + "Parameters: "
             + PREFIX_THEME + "THEME "
             + "Example: " + COMMAND_WORD + " "
