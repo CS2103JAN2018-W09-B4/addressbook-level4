@@ -17,6 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.card.Card;
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  * {@code ParserUtil} contains methods that take in {@code Optional} as parameters. However, it goes against Java's
@@ -165,6 +166,21 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String card} into an {@code Card}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code card} is invalid.
+     */
+    public static String parseCard(String card) throws IllegalValueException {
+        requireNonNull(card);
+        String trimmedCard = card.trim();
+        if (!Card.isValidCard(trimmedCard)) {
+            throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+        }
+        return trimmedCard;
     }
 
     /**

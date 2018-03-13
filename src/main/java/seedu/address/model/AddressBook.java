@@ -17,6 +17,10 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.UniqueCardList;
+import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.CardNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -26,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
+    private final UniqueCardList cards;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -37,6 +42,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
+        cards = new UniqueCardList();
     }
 
     public AddressBook() {}
@@ -57,6 +63,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
+    }
+
+    public void setCards(List<Card> cards) throws DuplicateCardException {
+        this.cards.setCards(cards);
     }
 
     /**
@@ -153,6 +163,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
+    //// card-level operations
+
+    public void addCard(Card c) throws DuplicateCardException {
+        cards.add(c);
+    }
+
     //// util methods
 
     @Override
@@ -169,6 +185,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Tag> getTagList() {
         return tags.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Card> getCardList() {
+        return cards.asObservableList();
     }
 
     @Override
