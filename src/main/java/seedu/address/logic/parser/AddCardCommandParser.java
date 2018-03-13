@@ -3,13 +3,16 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -33,8 +36,9 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
         try {
             String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
             String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
+            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-            Card card = new Card(front, back);
+            Card card = new Card(front, back, tagList);
 
             return new AddCardCommand(card);
         } catch (IllegalValueException ive) {
