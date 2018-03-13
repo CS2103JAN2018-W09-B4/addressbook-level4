@@ -47,47 +47,27 @@ public class XmlAdaptedCard {
         back = source.getBack();
     }
 
-//    /**
-//     * Converts this jaxb-friendly adapted person object into the model's Person object.
-//     *
-//     * @throws IllegalValueException if there were any data constraints violated in the adapted person
-//     */
-//    public Card toModelType() throws IllegalValueException {
-//        if (this.name == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-//        }
-//        if (!Name.isValidName(this.name)) {
-//            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-//        }
-//        final Name name = new Name(this.name);
-//
-//        if (this.phone == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-//        }
-//        if (!Phone.isValidPhone(this.phone)) {
-//            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-//        }
-//        final Phone phone = new Phone(this.phone);
-//
-//        if (this.email == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-//        }
-//        if (!Email.isValidEmail(this.email)) {
-//            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-//        }
-//        final Email email = new Email(this.email);
-//
-//        if (this.address == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-//        }
-//        if (!Address.isValidAddress(this.address)) {
-//            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-//        }
-//        final Address address = new Address(this.address);
-//
-//        final Set<Tag> tags = new HashSet<>(personTags);
-//        return new Person(name, phone, email, address, tags);
-//    }
+    /**
+     * Converts this jaxb-friendly adapted person object into the model's Card object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted card
+     */
+    public Card toModelType() throws IllegalValueException {
+        if (this.front == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
+        }
+        if (!Card.isValidCard(this.front)) {
+            throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+        }
+
+        if (this.back == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
+        }
+        if (!Card.isValidCard(this.back)) {
+            throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+        }
+        return new Card(front, back);
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -95,7 +75,7 @@ public class XmlAdaptedCard {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedCard)) {
             return false;
         }
 
