@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
