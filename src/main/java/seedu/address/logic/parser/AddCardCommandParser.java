@@ -26,7 +26,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
      */
     public AddCardCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK);
+                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FRONT, PREFIX_BACK)
                 || !argMultimap.getPreamble().isEmpty()) {
