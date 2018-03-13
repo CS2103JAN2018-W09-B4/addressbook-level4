@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,24 +20,24 @@ public class TypicalCards {
 
     public static final Card CARD_3 = new CardBuilder().withFront("Who is the current POTUS?").withBack("Donald Trump")
             .build();
-    public static final Card CARD_4 = new CardBuilder().withFront("Who was the previous POTUS?").withBack("Barack Obama")
-            .build();
-    public static final Card CARD_5 = new CardBuilder().withFront("Who is Singapore's current Prime Minister?").withBack("Lee Hsien Loong")
-            .build();
-    public static final Card CARD_6 = new CardBuilder().withFront("Who was Singapore's first Prime Minister?").withBack("Lee Kuan Yew")
-            .build();
-    public static final Card CARD_7 = new CardBuilder().withFront("What does NUS stand for?").withBack("National University of Singapore")
-            .build();
-    public static final Card CARD_8 = new CardBuilder().withFront("What does NTU stand for?").withBack("Nayang Technological University")
-            .build();
-    public static final Card CARD_9 = new CardBuilder().withFront("What does SMU stand for?").withBack("Singapore Management University")
-            .build();
+    public static final Card CARD_4 = new CardBuilder().withFront("Who was the previous POTUS?")
+            .withBack("Barack Obama").build();
+    public static final Card CARD_5 = new CardBuilder().withFront("Who is Singapore's current Prime Minister?")
+            .withBack("Lee Hsien Loong").build();
+    public static final Card CARD_6 = new CardBuilder().withFront("Who was Singapore's first Prime Minister?")
+            .withBack("Lee Kuan Yew").build();
+    public static final Card CARD_7 = new CardBuilder().withFront("What does NUS stand for?")
+            .withBack("National University of Singapore").build();
+    public static final Card CARD_8 = new CardBuilder().withFront("What does NTU stand for?")
+            .withBack("Nayang Technological University").build();
+    public static final Card CARD_9 = new CardBuilder().withFront("What does SMU stand for?")
+            .withBack("Singapore Management University").build();
 
     // Manually added
-    public static final Card CARD_10 = new CardBuilder().withFront("What does SUTD stand for?").withBack("Singapore University of Technology and Design")
-            .build();
-    public static final Card CARD_11 = new CardBuilder().withFront("What does SUSS stand for?").withBack("Singapore University of Social Sciences")
-            .build();
+    public static final Card CARD_10 = new CardBuilder().withFront("What does SUTD stand for?")
+            .withBack("Singapore University of Technology and Design").build();
+    public static final Card CARD_11 = new CardBuilder().withFront("What does SUSS stand for?")
+            .withBack("Singapore University of Social Sciences").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Card CARD_1 = new CardBuilder().withFront(VALID_FRONT_CARD_1).withBack(VALID_BACK_CARD_1)

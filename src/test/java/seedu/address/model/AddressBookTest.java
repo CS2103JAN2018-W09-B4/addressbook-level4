@@ -20,7 +20,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.TypicalCards;
 
 public class AddressBookTest {
 
