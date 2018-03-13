@@ -22,7 +22,7 @@ Responsibilities: UI
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
+Role: Developer +
 Responsibilities: Model
 
 '''
