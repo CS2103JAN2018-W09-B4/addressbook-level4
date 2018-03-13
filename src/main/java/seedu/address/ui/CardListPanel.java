@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.fxmisc.easybind.EasyBind;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -36,13 +35,9 @@ public class CardListPanel extends UiPart<Region> {
         cardListView.setCellFactory(listView -> new CardListViewCell());
     }
 
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            cardListView.scrollTo(index);
-            cardListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code CardCard}.
+     */
     class CardListViewCell extends ListCell<CardCard> {
         @Override
         protected void updateItem(CardCard card, boolean empty) {

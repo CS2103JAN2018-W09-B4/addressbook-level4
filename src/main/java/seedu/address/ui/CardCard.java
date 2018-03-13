@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.card.Card;
 
+/**
+ * A UI component that displays information about a {@code Card}.
+ */
 public class CardCard extends UiPart<Region> {
     private static final String FXML = "CardListCard.fxml";
 
