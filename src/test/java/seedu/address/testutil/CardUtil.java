@@ -28,7 +28,7 @@ public class CardUtil {
      */
     private static String getCardDetails(Card card) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(PREFIX_FRONT + card.getFront());
+        stringBuilder.append(PREFIX_FRONT + card.getFront() + " ");
         stringBuilder.append(PREFIX_BACK + card.getBack());
         return stringBuilder.toString();
     }
