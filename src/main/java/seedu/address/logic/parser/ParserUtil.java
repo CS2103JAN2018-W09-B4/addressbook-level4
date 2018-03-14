@@ -193,8 +193,7 @@ public class ParserUtil {
      * @throws IllegalValueException if the given {@code theme} is invalid.
      */
     public static Integer parseTheme(Optional<String> theme) throws IllegalValueException {
-        final String[] validThemeStrings = {"light", "dark"};
-        final ArrayList<String> validThemes = new ArrayList<String>(Arrays.asList(validThemeStrings));
+        final ArrayList<String> validThemes = new ArrayList<String>(Arrays.asList(VALID_THEMES));
         requireNonNull(theme);
         if (!validThemes.contains(theme.get())) {
             throw new IllegalValueException(MESSAGE_INVALID_THEME);
