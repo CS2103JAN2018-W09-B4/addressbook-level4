@@ -33,17 +33,18 @@
 <li><a href="#adding-a-person-code-add-code">3.3. Adding a person: <code>add</code></a></li>
 <li><a href="#adding-a-flashcard-code-addc-code">3.4. Adding a flashcard: <code>addc</code></a></li>
 <li><a href="#listing-all-persons-code-list-code">3.5. Listing all persons : <code>list</code></a></li>
-<li><a href="#editing-a-person-code-edit-code">3.6. Editing a person : <code>edit</code></a></li>
-<li><a href="#locating-persons-by-name-code-find-code">3.7. Locating persons by name: <code>find</code></a></li>
-<li><a href="#deleting-a-person-code-delete-code">3.8. Deleting a person : <code>delete</code></a></li>
-<li><a href="#selecting-a-person-code-select-code">3.9. Selecting a person : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.13. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">3.14. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
-<li><a href="#saving-the-data">3.15. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.16. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#listing-all-cards-code-listc-code">3.6. Listing all cards : <code>listc</code></a></li>
+<li><a href="#editing-a-person-code-edit-code">3.7. Editing a person : <code>edit</code></a></li>
+<li><a href="#locating-persons-by-name-code-find-code">3.8. Locating persons by name: <code>find</code></a></li>
+<li><a href="#deleting-a-person-code-delete-code">3.9. Deleting a person : <code>delete</code></a></li>
+<li><a href="#selecting-a-person-code-select-code">3.10. Selecting a person : <code>select</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">3.15. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
+<li><a href="#saving-the-data">3.16. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -232,7 +233,14 @@ Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.6. Editing a person : <code>edit</code></a></h3>
+<h3 id="listing-all-cards-code-listc-code"><a class="link" href="#listing-all-cards-code-listc-code">3.6. Listing all cards : <code>listc</code></a></h3>
+<div class="paragraph">
+<p>Shows a list of all cards in the card book.<br>
+Format: <code>listc</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.7. Editing a person : <code>edit</code></a></h3>
 <div class="paragraph">
 <p>Edits an existing person in the address book.<br>
 Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
@@ -277,7 +285,7 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.7. Locating persons by name: <code>find</code></a></h3>
+<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.8. Locating persons by name: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds persons whose names contain any of the given keywords.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -322,7 +330,7 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>J
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.8. Deleting a person : <code>delete</code></a></h3>
+<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.9. Deleting a person : <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified person from the address book.<br>
 Format: <code>delete INDEX</code></p>
@@ -363,7 +371,7 @@ Deletes the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.9. Selecting a person : <code>select</code></a></h3>
+<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.10. Selecting a person : <code>select</code></a></h3>
 <div class="paragraph">
 <p>Selects the person identified by the index number used in the last person listing.<br>
 Format: <code>select INDEX</code></p>
@@ -404,7 +412,7 @@ Selects the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -425,7 +433,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -470,7 +478,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -502,28 +510,28 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.13. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the address book.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">3.14. Exiting the program : <code>exit</code> or <code>quit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">3.15. Exiting the program : <code>exit</code> or <code>quit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code> or <code>quit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.15. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.16. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.16. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -575,6 +583,9 @@ e.g. <code>theme t/light</code></p>
 <p><strong>List</strong> : <code>list</code></p>
 </li>
 <li>
+<p><strong>List Flashcards</strong> : <code>listc</code></p>
+</li>
+<li>
 <p><strong>Help</strong> : <code>help</code></p>
 </li>
 <li>
@@ -597,7 +608,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-14 01:32:16 UTC
+Last updated 2018-03-14 01:32:46 UTC
 </div>
 </div>
 </body>
