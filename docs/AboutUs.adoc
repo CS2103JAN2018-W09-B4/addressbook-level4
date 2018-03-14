@@ -19,8 +19,8 @@ Responsibilities: UI
 '''
 
 === Jethro Kuan
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::jethro.png[width="150", align="left"]
+{empty}[http://github.com/jethro[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model
