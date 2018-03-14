@@ -28,8 +28,8 @@ Responsibilities: Model
 '''
 
 === Shawn Chua
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::Shawnclq.jpg[width="150", align="left"]
+{empty}[http://github.com/shawnclq[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic
