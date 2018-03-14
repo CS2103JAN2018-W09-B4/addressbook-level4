@@ -5,9 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.CardCardHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 
 /**
@@ -38,6 +40,15 @@ public class GuiTestAssert {
                 actualCard.getTags());
     }
 
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedCard}
+     * @param expectedCard
+     * @param actualCard
+     */
+    public static void assertCardDisplaysCard(Card expectedCard, CardCardHandle actualCard) {
+        assertEquals(expectedCard.getBack(), actualCard.getBack());
+        assertEquals(expectedCard.getFront(), actualCard.getFront());
+    }
     /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.

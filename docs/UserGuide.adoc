@@ -96,6 +96,10 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+=== Listing all cards : `listc`
+Shows a list of all cards in the card book. +
+Format: `listc`
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -278,6 +282,7 @@ e.g. `find James Jake`
 * *Theme* :  `theme t/THEME` +
 e.g. `theme t/light`
 * *List* : `list`
+* *List Flashcards* : `listc`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
