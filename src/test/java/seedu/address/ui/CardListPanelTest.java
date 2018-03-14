@@ -35,7 +35,7 @@ public class CardListPanelTest extends GuiUnitTest {
             CardCardHandle actualCard = cardListPanelHandle.getCardCardHandle(i);
 
             assertCardDisplaysCard(expectedCard, actualCard);
-            assertEquals(Integer.toString(i+1)+ ". ", actualCard.getId());
+            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
 }

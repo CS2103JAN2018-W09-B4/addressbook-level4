@@ -13,7 +13,7 @@ public class CardCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        Card card =new CardBuilder().build();
+        Card card = new CardBuilder().build();
         CardCard cardCard = new CardCard(card, 1);
         uiPartRule.setUiPart(cardCard);
         assertCardDisplay(cardCard, card, 1);

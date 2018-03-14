@@ -40,6 +40,11 @@ public class GuiTestAssert {
                 actualCard.getTags());
     }
 
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedCard}
+     * @param expectedCard
+     * @param actualCard
+     */
     public static void assertCardDisplaysCard(Card expectedCard, CardCardHandle actualCard) {
         assertEquals(expectedCard.getBack(), actualCard.getBack());
         assertEquals(expectedCard.getFront(), actualCard.getFront());

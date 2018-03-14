@@ -6,6 +6,9 @@ import javafx.scene.control.ListView;
 import seedu.address.model.card.Card;
 import seedu.address.ui.CardCard;
 
+/**
+ * Provides a handle for {@code CardListPanel} containing the list of {@code CardCard}
+ */
 public class CardListPanelHandle extends  NodeHandle<ListView<CardCard>> {
     public static final String CARD_LIST_VIEW_ID = "#cardListView";
 
