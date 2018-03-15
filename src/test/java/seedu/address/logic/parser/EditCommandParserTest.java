@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -61,10 +61,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_DESCRIPTION_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
+                Description.MESSAGE_DESCRIPTION_CONSTRAINTS); // invalid address
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_DESCRIPTION_ENGLISH, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_DESCRIPTION_ENGLISH,
+                Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
@@ -86,7 +88,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_TAG;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_COMSCI;
 
-        EditCommand.EditTagDescriptor descriptor = new EditTagDescriptorBuilder().withDescription(VALID_DESCRIPTION_COMSCI)
+        EditCommand.EditTagDescriptor descriptor = new EditTagDescriptorBuilder()
+                .withDescription(VALID_DESCRIPTION_COMSCI)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

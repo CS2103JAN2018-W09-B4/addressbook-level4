@@ -40,7 +40,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_COMSCI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_COMSCI;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
-    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // empty string not allowed for addresses
+    public static final String INVALID_DESCRIPTION_DESC = " "
+            + PREFIX_DESCRIPTION; // empty string not allowed for description
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

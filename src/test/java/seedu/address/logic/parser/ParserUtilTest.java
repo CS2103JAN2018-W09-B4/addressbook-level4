@@ -92,7 +92,8 @@ public class ParserUtilTest {
     @Test
     public void parseDescription_invalidValue_throwsIllegalValueException() {
         Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseDescription(Optional.of(INVALID_DESCRIPTION)));
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseDescription(
+                Optional.of(INVALID_DESCRIPTION)));
     }
 
     @Test

@@ -37,7 +37,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         EditCommand.EditTagDescriptor editTagDescriptor = new EditTagDescriptor();
         try {
             ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).ifPresent(editTagDescriptor::setName);
-            ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION)).ifPresent(editTagDescriptor::setDescription);
+            ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION))
+                    .ifPresent(editTagDescriptor::setDescription);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

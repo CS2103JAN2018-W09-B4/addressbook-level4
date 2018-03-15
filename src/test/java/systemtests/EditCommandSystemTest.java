@@ -2,18 +2,18 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
-import static seedu.address.testutil.TypicalTags.ENGLISH;
 import static seedu.address.testutil.TypicalTags.COMSCI;
+import static seedu.address.testutil.TypicalTags.ENGLISH;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;

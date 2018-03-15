@@ -31,11 +31,11 @@ public class XmlUtilTest {
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
 
 
-  private static final String INVALID_NAME = "Phys!cs";
+    private static final String INVALID_NAME = "Phys!cs";
     private static final String VALID_NAME = "Physics";
-  private static final String VALID_DESCRIPTION = "physics physics";
+    private static final String VALID_DESCRIPTION = "physics physics";
 
-  @Rule
+    @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
@@ -135,5 +135,6 @@ public class XmlUtilTest {
      * objects.
      */
     @XmlRootElement(name = "tag")
-    private static class XmlAdaptedTagWithRootElement extends XmlAdaptedTag {}
+    private static class XmlAdaptedTagWithRootElement extends XmlAdaptedTag {
+    }
 }

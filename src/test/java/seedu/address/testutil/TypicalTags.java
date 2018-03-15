@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
 
 import java.util.ArrayList;
 import java.util.Arrays;
