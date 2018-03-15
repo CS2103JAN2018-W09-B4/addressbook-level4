@@ -63,9 +63,9 @@ public class Card {
             return false;
         }
 
-        Card otherPerson = (Card) other;
-        return otherPerson.getFront().equals(this.getFront())
-                && otherPerson.getBack().equals(this.getBack());
+        Card otherCard = (Card) other;
+        return otherCard.getFront().equals(this.getFront())
+                && otherCard.getBack().equals(this.getBack());
     }
 
     @Override

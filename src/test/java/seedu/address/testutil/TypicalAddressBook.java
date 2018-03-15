@@ -5,8 +5,8 @@ import static seedu.address.testutil.TypicalCards.getTypicalCards;
 import seedu.address.model.AddressBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.DuplicateTagException;
 
 /**
  * Class that creates a typical address book.
@@ -17,10 +17,10 @@ public class TypicalAddressBook {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook addressBook = new AddressBook();
-        for (Person person : TypicalPersons.getTypicalPersons()) {
+        for (Tag tag : TypicalTags.getTypicalTags()) {
             try {
-                addressBook.addPerson(person);
-            } catch (DuplicatePersonException e) {
+                addressBook.addTag(tag);
+            } catch (DuplicateTagException e) {
                 throw new AssertionError("not possible");
             }
         }

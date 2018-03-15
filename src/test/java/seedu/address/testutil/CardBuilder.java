@@ -19,7 +19,7 @@ public class CardBuilder {
     }
 
     /**
-     * Initializes the CardBuilder with the data of {@code personToCopy}.
+     * Initializes the CardBuilder with the data of {@code tagToCopy}.
      */
     public CardBuilder(Card cardToCopy) {
         front = cardToCopy.getFront();

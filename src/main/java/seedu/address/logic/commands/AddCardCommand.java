@@ -9,7 +9,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
- * Adds a person to the address book.
+ * Adds a tag to the address book.
  */
 public class AddCardCommand extends UndoableCommand {
 
@@ -26,7 +26,7 @@ public class AddCardCommand extends UndoableCommand {
     private final Card toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Tag}
      */
     public AddCardCommand(Card card) {
         requireNonNull(card);

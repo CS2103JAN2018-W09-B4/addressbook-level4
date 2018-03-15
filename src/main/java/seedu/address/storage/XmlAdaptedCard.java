@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Card;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Tag.
  */
 public class XmlAdaptedCard {
 
@@ -20,13 +20,13 @@ public class XmlAdaptedCard {
     private String back;
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedCard() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedTag} with the given tag details.
      */
     public XmlAdaptedCard(String front, String back) {
         this.front = front;
@@ -34,9 +34,9 @@ public class XmlAdaptedCard {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Tag into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTag
      */
     public XmlAdaptedCard(Card source) {
         front = source.getFront();
@@ -44,7 +44,7 @@ public class XmlAdaptedCard {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Card object.
+     * Converts this jaxb-friendly adapted tag object into the model's Card object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted card
      */

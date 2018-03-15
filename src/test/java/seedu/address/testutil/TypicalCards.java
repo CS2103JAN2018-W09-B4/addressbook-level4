@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Tag} objects to be used in tests.
  */
 public class TypicalCards {
 
@@ -39,28 +37,13 @@ public class TypicalCards {
     public static final Card CARD_11 = new CardBuilder().withFront("What does SUSS stand for?")
             .withBack("Singapore University of Social Sciences").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    // Manually added - Tag's details found in {@code CommandTestUtil}
     public static final Card CARD_1 = new CardBuilder().withFront(VALID_FRONT_CARD_1).withBack(VALID_BACK_CARD_1)
             .build();
     public static final Card CARD_2 = new CardBuilder().withFront(VALID_FRONT_CARD_2).withBack(VALID_BACK_CARD_2)
             .build();
 
     private TypicalCards() {} // prevents instantiation
-
-    /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     */
-    public static AddressBook getTypicalAddressBookWithCards() {
-        AddressBook ab = new AddressBook();
-        for (Card card : getTypicalCards()) {
-            try {
-                ab.addCard(card);
-            } catch (DuplicateCardException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        return ab;
-    }
 
     public static List<Card> getTypicalCards() {
         return new ArrayList<>(Arrays.asList(CARD_3, CARD_4, CARD_5, CARD_6, CARD_7, CARD_8, CARD_9, CARD_10, CARD_11));
