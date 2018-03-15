@@ -33,8 +33,6 @@ public class TagCard extends UiPart<Region> {
     private Label phone;
     @FXML
     private Label address;
-    @FXML
-    private Label email;
 
     public TagCard(Tag tag, int displayedIndex) {
         super(FXML);
@@ -43,7 +41,6 @@ public class TagCard extends UiPart<Region> {
         name.setText(tag.getName().fullName);
         phone.setText(tag.getPhone().value);
         address.setText(tag.getAddress().value);
-        email.setText(tag.getEmail().value);
     }
 
     @Override

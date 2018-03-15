@@ -12,17 +12,15 @@ public class Tag {
 
     private final Name name;
     private final Phone phone;
-    private final Email email;
     private final Address address;
 
     /**
      * Every field must be present and not null.
      */
-    public Tag(Name name, Phone phone, Email email, Address address) {
-        requireAllNonNull(name, phone, email, address);
+    public Tag(Name name, Phone phone, Address address) {
+        requireAllNonNull(name, phone, address);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.address = address;
     }
 
@@ -32,10 +30,6 @@ public class Tag {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Address getAddress() {
@@ -55,14 +49,13 @@ public class Tag {
         Tag otherTag = (Tag) other;
         return otherTag.getName().equals(this.getName())
                 && otherTag.getPhone().equals(this.getPhone())
-                && otherTag.getEmail().equals(this.getEmail())
                 && otherTag.getAddress().equals(this.getAddress());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address);
+        return Objects.hash(name, phone, address);
     }
 
     @Override
@@ -71,8 +64,6 @@ public class Tag {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress());
         return builder.toString();

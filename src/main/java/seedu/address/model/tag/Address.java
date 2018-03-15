@@ -32,7 +32,7 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is a valid tag email.
+     * Returns true if a given string is a valid tag address.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);

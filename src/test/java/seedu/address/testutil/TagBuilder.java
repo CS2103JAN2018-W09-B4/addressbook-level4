@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.model.tag.Address;
-import seedu.address.model.tag.Email;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Phone;
 import seedu.address.model.tag.Tag;
@@ -13,18 +12,15 @@ public class TagBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
-    private Email email;
     private Address address;
 
     public TagBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
     }
 
@@ -34,7 +30,6 @@ public class TagBuilder {
     public TagBuilder(Tag tagToCopy) {
         name = tagToCopy.getName();
         phone = tagToCopy.getPhone();
-        email = tagToCopy.getEmail();
         address = tagToCopy.getAddress();
     }
 
@@ -62,16 +57,8 @@ public class TagBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Email} of the {@code Tag} that we are building.
-     */
-    public TagBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
     public Tag build() {
-        return new Tag(name, phone, email, address);
+        return new Tag(name, phone, address);
     }
 
 }

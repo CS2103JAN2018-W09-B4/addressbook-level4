@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
@@ -16,7 +15,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.Address;
-import seedu.address.model.tag.Email;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Phone;
 import seedu.address.model.tag.Tag;
@@ -36,11 +34,9 @@ public class EditCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_PHONE + "91234567";
 
     public static final String MESSAGE_EDIT_TAG_SUCCESS = "Edited Tag: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -98,10 +94,9 @@ public class EditCommand extends UndoableCommand {
 
         Name updatedName = editTagDescriptor.getName().orElse(tagToEdit.getName());
         Phone updatedPhone = editTagDescriptor.getPhone().orElse(tagToEdit.getPhone());
-        Email updatedEmail = editTagDescriptor.getEmail().orElse(tagToEdit.getEmail());
         Address updatedAddress = editTagDescriptor.getAddress().orElse(tagToEdit.getAddress());
 
-        return new Tag(updatedName, updatedPhone, updatedEmail, updatedAddress);
+        return new Tag(updatedName, updatedPhone, updatedAddress);
     }
 
     @Override
@@ -130,7 +125,6 @@ public class EditCommand extends UndoableCommand {
     public static class EditTagDescriptor {
         private Name name;
         private Phone phone;
-        private Email email;
         private Address address;
 
         public EditTagDescriptor() {}
@@ -142,7 +136,6 @@ public class EditCommand extends UndoableCommand {
         public EditTagDescriptor(EditTagDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
             setAddress(toCopy.address);
         }
 
@@ -150,7 +143,7 @@ public class EditCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address);
+            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.address);
         }
 
         public void setName(Name name) {
@@ -167,14 +160,6 @@ public class EditCommand extends UndoableCommand {
 
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
         }
 
         public void setAddress(Address address) {
@@ -202,7 +187,6 @@ public class EditCommand extends UndoableCommand {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress());
         }
     }

@@ -201,7 +201,7 @@ public class EditCommandTest {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
-        Tag editedTag = new TagBuilder().build();
+        Tag editedTag = new TagBuilder().withName("Jethro Kuan").build();
         EditTagDescriptor descriptor = new EditTagDescriptorBuilder(editedTag).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TAG, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());

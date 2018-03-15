@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTagDescriptor;
 import seedu.address.model.tag.Address;
-import seedu.address.model.tag.Email;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Phone;
 import seedu.address.model.tag.Tag;
@@ -30,7 +29,6 @@ public class EditTagDescriptorBuilder {
         descriptor = new EditTagDescriptor();
         descriptor.setName(tag.getName());
         descriptor.setPhone(tag.getPhone());
-        descriptor.setEmail(tag.getEmail());
         descriptor.setAddress(tag.getAddress());
     }
 
@@ -47,14 +45,6 @@ public class EditTagDescriptorBuilder {
      */
     public EditTagDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditTagDescriptor} that we are building.
-     */
-    public EditTagDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
         return this;
     }
 

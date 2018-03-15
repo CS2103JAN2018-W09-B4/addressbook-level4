@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <!-- Tag with invalid email field -->
+    <!-- Tag with invalid phone field -->
     <tags>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@exam!32ple</email>
+        <phone isPrivate="false">94auea424</phone>
         <address isPrivate="false">4th street</address>
     </tags>
 </addressbook>

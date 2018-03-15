@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newTag_success() throws Exception {
-        Tag validTag = new TagBuilder().build();
+        Tag validTag = new TagBuilder().withName("Jethro Kuan").build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addTag(validTag);
