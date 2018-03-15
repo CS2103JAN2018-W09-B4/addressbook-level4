@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
-            "Tag addresses can take any values, and it should not be blank";
+            "Tag description can take any values, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
