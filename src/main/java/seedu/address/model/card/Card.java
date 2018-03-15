@@ -2,9 +2,13 @@ package seedu.address.model.card;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Flashcard.
@@ -27,10 +31,14 @@ public class Card {
     private final String front;
     private final String back;
 
-    public Card(String front, String back) {
-        requireAllNonNull(front, back);
+    private final UniqueTagList tags;
+
+    public Card(String front, String back, Set<Tag> tags) {
+        requireAllNonNull(front, back, tags);
         this.front = front;
         this.back = back;
+        // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags);
         this.id = UUID.randomUUID();
     }
 
@@ -44,6 +52,10 @@ public class Card {
 
     public String getBack() {
         return back;
+    }
+
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags.toSet());
     }
 
     /**
@@ -71,7 +83,7 @@ public class Card {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(front, back);
+        return Objects.hash(front, back, tags);
     }
 
     @Override
@@ -80,7 +92,9 @@ public class Card {
         builder.append("Front: ")
                 .append(getFront())
                 .append(" Back: ")
-                .append(getBack());
+                .append(getBack())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 }

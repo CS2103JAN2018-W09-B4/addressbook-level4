@@ -62,7 +62,7 @@ public class XmlAdaptedCard {
         if (!Card.isValidCard(this.back)) {
             throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
         }
-        return new Card(front, back);
+        return new Card(front, back, null);
     }
 
     @Override

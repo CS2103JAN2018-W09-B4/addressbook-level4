@@ -85,11 +85,11 @@ Examples:
 === Adding a flashcard: `addc`
 
 Adds a flash card +
-Format: `addc f/FRONT b/BACK...`
+Format: `addc f/FRONT b/BACK t/TAGS`
 
 Examples:
 
-* `addc f/What is the best flashcard application? b/Flashy!`
+* `addc f/What is the best flashcard application? b/Flashy! t/APPS`
 
 === Listing all persons : `list`
 
