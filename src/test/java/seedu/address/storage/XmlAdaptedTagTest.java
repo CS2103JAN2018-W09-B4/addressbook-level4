@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalTags.BENSON;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.testutil.Assert;
 
@@ -16,7 +16,7 @@ public class XmlAdaptedTagTest {
     private static final String INVALID_ADDRESS = " ";
 
     private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    private static final String VALID_ADDRESS = BENSON.getDescription().toString();
 
     @Test
     public void toModelType_validTagDetails_returnsTag() throws Exception {
@@ -45,14 +45,14 @@ public class XmlAdaptedTagTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedTag tag =
                 new XmlAdaptedTag(VALID_NAME, INVALID_ADDRESS);
-        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
+        String expectedMessage = Description.MESSAGE_DESCRIPTION_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, tag::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         XmlAdaptedTag tag = new XmlAdaptedTag(VALID_NAME, null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, tag::toModelType);
     }
 }

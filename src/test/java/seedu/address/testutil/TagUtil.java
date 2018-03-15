@@ -24,7 +24,7 @@ public class TagUtil {
     public static String getTagDetails(Tag tag) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + tag.getName().fullName + " ");
-        sb.append(PREFIX_ADDRESS + tag.getAddress().value + " ");
+        sb.append(PREFIX_ADDRESS + tag.getDescription().value + " ");
         return sb.toString();
     }
 }

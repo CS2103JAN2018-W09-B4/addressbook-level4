@@ -20,7 +20,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTagDescriptor;
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.testutil.EditTagDescriptorBuilder;
 
@@ -61,7 +61,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_DESCRIPTION_CONSTRAINTS); // invalid address
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_ADDRESS_AMY, Name.MESSAGE_NAME_CONSTRAINTS);

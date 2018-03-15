@@ -2,38 +2,38 @@
 <addressbook>
     <tags>
         <name>Hans Muster</name>
-        <address isPrivate="false">4th street</address>
+        <description isPrivate="false">4th street</description>
     </tags>
     <tags>
         <name>Ruth Mueller</name>
-        <address isPrivate="false">81th street</address>
+        <description isPrivate="false">81th street</description>
     </tags>
     <tags>
         <name>Heinz Kurz</name>
-        <address isPrivate="false">wall street</address>
+        <description isPrivate="false">wall street</description>
     </tags>
     <tags>
         <name>Cornelia Meier</name>
-        <address isPrivate="false">10th street</address>
+        <description isPrivate="false">10th street</description>
     </tags>
     <tags>
         <name>Werner Meyer</name>
-        <address isPrivate="false">michegan ave</address>
+        <description isPrivate="false">michegan ave</description>
     </tags>
     <tags>
         <name>Lydia Kunz</name>
-        <address isPrivate="false">little tokyo</address>
+        <description isPrivate="false">little tokyo</description>
     </tags>
     <tags>
         <name>Anna Best</name>
-        <address isPrivate="false">4th street</address>
+        <description isPrivate="false">4th street</description>
     </tags>
     <tags>
         <name>Stefan Meier</name>
-        <address isPrivate="false">little india</address>
+        <description isPrivate="false">little india</description>
     </tags>
     <tags>
         <name>Martin Mueller</name>
-        <address isPrivate="false">chicago ave</address>
+        <description isPrivate="false">chicago ave</description>
     </tags>
 </addressbook>

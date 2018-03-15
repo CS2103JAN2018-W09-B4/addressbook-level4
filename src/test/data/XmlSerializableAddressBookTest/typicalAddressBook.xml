@@ -4,31 +4,31 @@
 <addressbook>
     <tags>
         <name>Alice Pauline</name>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <description>123, Jurong West Ave 6, #08-111</description>
     </tags>
     <tags>
         <name>Benson Meier</name>
-        <address>311, Clementi Ave 2, #02-25</address>
+        <description>311, Clementi Ave 2, #02-25</description>
     </tags>
     <tags>
         <name>Carl Kurz</name>
-        <address>wall street</address>
+        <description>wall street</description>
     </tags>
     <tags>
         <name>Daniel Meier</name>
-        <address>10th street</address>
+        <description>10th street</description>
     </tags>
     <tags>
         <name>Elle Meyer</name>
-        <address>michegan ave</address>
+        <description>michegan ave</description>
     </tags>
     <tags>
         <name>Fiona Kunz</name>
-        <address>little tokyo</address>
+        <description>little tokyo</description>
     </tags>
     <tags>
         <name>George Best</name>
-        <address>4th street</address>
+        <description>4th street</description>
     </tags>
     <cards>
         <front>Who is the current POTUS?</front>

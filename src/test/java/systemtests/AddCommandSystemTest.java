@@ -26,7 +26,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -115,7 +115,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(command, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
     }
 
     /**

@@ -5,11 +5,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Address {
+public class Description {
 
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Tag addresses can take any values, and it should not be blank";
 
     /*
@@ -21,20 +21,20 @@ public class Address {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Description}.
      *
      * @param address A valid address.
      */
-    public Address(String address) {
+    public Description(String address) {
         requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
+        checkArgument(isValidDescription(address), MESSAGE_DESCRIPTION_CONSTRAINTS);
         this.value = address;
     }
 
     /**
      * Returns true if a given string is a valid tag address.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidDescription(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
@@ -46,8 +46,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && this.value.equals(((Address) other).value)); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && this.value.equals(((Description) other).value)); // state check
     }
 
     @Override

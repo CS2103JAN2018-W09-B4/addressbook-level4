@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Tag with missing name field -->
 <tag>
-    <address>4th street</address>
+    <description>4th street</description>
 </tag>

@@ -3,6 +3,6 @@
     <!-- Tag with invalid name field -->
     <tags>
         <name>H@n!s Muster</name>
-        <address isPrivate="false">4th street</address>
+        <description isPrivate="false">4th street</description>
     </tags>
 </addressbook>

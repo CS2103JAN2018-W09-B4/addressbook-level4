@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 
@@ -34,9 +34,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         try {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).get();
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
+            Description description = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
 
-            Tag tag = new Tag(name, address);
+            Tag tag = new Tag(name, description);
 
             return new AddCommand(tag);
         } catch (IllegalValueException ive) {

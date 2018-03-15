@@ -3,11 +3,11 @@
     <!-- Valid Tag -->
     <tags>
         <name>Hans Muster</name>
-        <address isPrivate="false">4th street</address>
+        <description isPrivate="false">4th street</description>
     </tags>
     <!-- Tag with invalid name field -->
     <tags>
         <name>H@ns! Muster</name>
-        <address isPrivate="false">4th street</address>
+        <description isPrivate="false">4th street</description>
     </tags>
 </addressbook>

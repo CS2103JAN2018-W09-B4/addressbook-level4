@@ -13,7 +13,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -90,9 +90,9 @@ public class EditCommand extends UndoableCommand {
         assert tagToEdit != null;
 
         Name updatedName = editTagDescriptor.getName().orElse(tagToEdit.getName());
-        Address updatedAddress = editTagDescriptor.getAddress().orElse(tagToEdit.getAddress());
+        Description updatedDescription = editTagDescriptor.getDescription().orElse(tagToEdit.getDescription());
 
-        return new Tag(updatedName, updatedAddress);
+        return new Tag(updatedName, updatedDescription);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class EditCommand extends UndoableCommand {
      */
     public static class EditTagDescriptor {
         private Name name;
-        private Address address;
+        private Description description;
 
         public EditTagDescriptor() {}
 
@@ -130,14 +130,14 @@ public class EditCommand extends UndoableCommand {
          */
         public EditTagDescriptor(EditTagDescriptor toCopy) {
             setName(toCopy.name);
-            setAddress(toCopy.address);
+            setDescription(toCopy.description);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.name, this.address);
+            return CollectionUtil.isAnyNonNull(this.name, this.description);
         }
 
         public void setName(Name name) {
@@ -148,12 +148,12 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(name);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         @Override
@@ -172,7 +172,7 @@ public class EditCommand extends UndoableCommand {
             EditTagDescriptor e = (EditTagDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getAddress().equals(e.getAddress());
+                    && getDescription().equals(e.getDescription());
         }
     }
 }

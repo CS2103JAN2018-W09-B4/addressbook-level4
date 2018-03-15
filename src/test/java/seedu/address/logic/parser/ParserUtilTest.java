@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.testutil.Assert;
 
@@ -102,17 +102,17 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
-        assertEquals(Optional.of(expectedAddress), ParserUtil.parseAddress(Optional.of(VALID_ADDRESS)));
+        Description expectedDescription = new Description(VALID_ADDRESS);
+        assertEquals(expectedDescription, ParserUtil.parseAddress(VALID_ADDRESS));
+        assertEquals(Optional.of(expectedDescription), ParserUtil.parseAddress(Optional.of(VALID_ADDRESS)));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
-        assertEquals(Optional.of(expectedAddress), ParserUtil.parseAddress(Optional.of(addressWithWhitespace)));
+        Description expectedDescription = new Description(VALID_ADDRESS);
+        assertEquals(expectedDescription, ParserUtil.parseAddress(addressWithWhitespace));
+        assertEquals(Optional.of(expectedDescription), ParserUtil.parseAddress(Optional.of(addressWithWhitespace)));
     }
 
     @Test

@@ -31,14 +31,14 @@ public class TagCard extends UiPart<Region> {
     private Label id;
 
     @FXML
-    private Label address;
+    private Label description;
 
     public TagCard(Tag tag, int displayedIndex) {
         super(FXML);
         this.tag = tag;
         id.setText(displayedIndex + ". ");
         name.setText(tag.getName().fullName);
-        address.setText(tag.getAddress().value);
+        description.setText(tag.getDescription().value);
     }
 
     @Override

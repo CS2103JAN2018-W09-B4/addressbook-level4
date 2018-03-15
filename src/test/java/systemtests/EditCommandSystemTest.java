@@ -24,7 +24,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -132,7 +132,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TAG.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_ADDRESS_CONSTRAINTS);
+                Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: edit a tag with new values same as another tag's values -> rejected */
         executeCommand(TagUtil.getAddCommand(BOB));

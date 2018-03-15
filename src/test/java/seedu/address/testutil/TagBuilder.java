@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.tag.Address;
+import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 
@@ -13,11 +13,11 @@ public class TagBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
-    private Address address;
+    private Description description;
 
     public TagBuilder() {
         name = new Name(DEFAULT_NAME);
-        address = new Address(DEFAULT_ADDRESS);
+        description = new Description(DEFAULT_ADDRESS);
     }
 
     /**
@@ -25,7 +25,7 @@ public class TagBuilder {
      */
     public TagBuilder(Tag tagToCopy) {
         name = tagToCopy.getName();
-        address = tagToCopy.getAddress();
+        description = tagToCopy.getDescription();
     }
 
     /**
@@ -37,15 +37,15 @@ public class TagBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Tag} that we are building.
+     * Sets the {@code Description} of the {@code Tag} that we are building.
      */
     public TagBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.description = new Description(address);
         return this;
     }
 
     public Tag build() {
-        return new Tag(name, address);
+        return new Tag(name, description);
     }
 
 }
