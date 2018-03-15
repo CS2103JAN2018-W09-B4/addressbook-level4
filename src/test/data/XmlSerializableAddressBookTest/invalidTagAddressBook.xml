@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <!-- Tag with invalid phone field -->
+    <!-- Tag with invalid name field -->
     <tags>
-        <name>Hans Muster</name>
-        <phone isPrivate="false">94auea424</phone>
+        <name>H@n!s Muster</name>
         <address isPrivate="false">4th street</address>
     </tags>
 </addressbook>

@@ -29,8 +29,7 @@ public class TagCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label phone;
+
     @FXML
     private Label address;
 
@@ -39,7 +38,6 @@ public class TagCard extends UiPart<Region> {
         this.tag = tag;
         id.setText(displayedIndex + ". ");
         name.setText(tag.getName().fullName);
-        phone.setText(tag.getPhone().value);
         address.setText(tag.getAddress().value);
     }
 

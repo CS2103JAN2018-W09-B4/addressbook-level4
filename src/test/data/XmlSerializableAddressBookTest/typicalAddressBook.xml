@@ -4,37 +4,30 @@
 <addressbook>
     <tags>
         <name>Alice Pauline</name>
-        <phone>85355255</phone>
         <address>123, Jurong West Ave 6, #08-111</address>
     </tags>
     <tags>
         <name>Benson Meier</name>
-        <phone>98765432</phone>
         <address>311, Clementi Ave 2, #02-25</address>
     </tags>
     <tags>
         <name>Carl Kurz</name>
-        <phone>95352563</phone>
         <address>wall street</address>
     </tags>
     <tags>
         <name>Daniel Meier</name>
-        <phone>87652533</phone>
         <address>10th street</address>
     </tags>
     <tags>
         <name>Elle Meyer</name>
-        <phone>9482224</phone>
         <address>michegan ave</address>
     </tags>
     <tags>
         <name>Fiona Kunz</name>
-        <phone>9482427</phone>
         <address>little tokyo</address>
     </tags>
     <tags>
         <name>George Best</name>
-        <phone>9482442</phone>
         <address>4th street</address>
     </tags>
     <cards>

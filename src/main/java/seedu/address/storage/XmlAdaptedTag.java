@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Address;
 import seedu.address.model.tag.Name;
-import seedu.address.model.tag.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,8 +18,7 @@ public class XmlAdaptedTag {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
-    private String phone;
+
     @XmlElement(required = true)
     private String address;
 
@@ -33,9 +31,8 @@ public class XmlAdaptedTag {
     /**
      * Constructs an {@code XmlAdaptedTag} with the given tag details.
      */
-    public XmlAdaptedTag(String name, String phone, String address) {
+    public XmlAdaptedTag(String name, String address) {
         this.name = name;
-        this.phone = phone;
         this.address = address;
     }
 
@@ -46,7 +43,6 @@ public class XmlAdaptedTag {
      */
     public XmlAdaptedTag(Tag source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
         address = source.getAddress().value;
     }
 
@@ -65,14 +61,6 @@ public class XmlAdaptedTag {
         }
         final Name name = new Name(this.name);
 
-        if (this.phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(this.phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
-        }
-        final Phone phone = new Phone(this.phone);
-
         if (this.address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
@@ -81,7 +69,7 @@ public class XmlAdaptedTag {
         }
         final Address address = new Address(this.address);
 
-        return new Tag(name, phone, address);
+        return new Tag(name, address);
     }
 
     @Override
@@ -96,7 +84,6 @@ public class XmlAdaptedTag {
 
         XmlAdaptedTag otherTag = (XmlAdaptedTag) other;
         return Objects.equals(name, otherTag.name)
-                && Objects.equals(phone, otherTag.phone)
                 && Objects.equals(address, otherTag.address);
     }
 }

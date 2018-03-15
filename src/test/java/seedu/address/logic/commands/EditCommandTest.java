@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
@@ -31,7 +30,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditTagDescriptorBuilder;
 import seedu.address.testutil.TagBuilder;
 
-/**
+/**ed
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
@@ -58,11 +57,11 @@ public class EditCommandTest {
         Tag lastTag = model.getFilteredTagList().get(indexLastTag.getZeroBased());
 
         TagBuilder tagInList = new TagBuilder(lastTag);
-        Tag editedTag = tagInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Tag editedTag = tagInList.withName(VALID_NAME_BOB)
                 .build();
 
         EditCommand.EditTagDescriptor descriptor = new EditTagDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).build();
+                .build();
         EditCommand editCommand = prepareCommand(indexLastTag, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TAG_SUCCESS, editedTag);

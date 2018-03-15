@@ -11,25 +11,19 @@ import java.util.Objects;
 public class Tag {
 
     private final Name name;
-    private final Phone phone;
     private final Address address;
 
     /**
      * Every field must be present and not null.
      */
-    public Tag(Name name, Phone phone, Address address) {
-        requireAllNonNull(name, phone, address);
+    public Tag(Name name, Address address) {
+        requireAllNonNull(name, address);
         this.name = name;
-        this.phone = phone;
         this.address = address;
     }
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Address getAddress() {
@@ -48,22 +42,19 @@ public class Tag {
 
         Tag otherTag = (Tag) other;
         return otherTag.getName().equals(this.getName())
-                && otherTag.getPhone().equals(this.getPhone())
                 && otherTag.getAddress().equals(this.getAddress());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address);
+        return Objects.hash(name, address);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
                 .append(" Address: ")
                 .append(getAddress());
         return builder.toString();
