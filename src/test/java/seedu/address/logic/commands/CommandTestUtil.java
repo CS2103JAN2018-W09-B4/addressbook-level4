@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
@@ -36,11 +36,11 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_ENGLISH = " " + PREFIX_NAME + VALID_NAME_ENGLISH;
     public static final String NAME_DESC_COMSCI = " " + PREFIX_NAME + VALID_NAME_COMSCI;
-    public static final String DESCRIPTION_DESC_ENGLISH = " " + PREFIX_ADDRESS + VALID_DESCRIPTION_ENGLISH;
-    public static final String DESCRIPTION_DESC_COMSCI = " " + PREFIX_ADDRESS + VALID_DESCRIPTION_COMSCI;
+    public static final String DESCRIPTION_DESC_ENGLISH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_ENGLISH;
+    public static final String DESCRIPTION_DESC_COMSCI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_COMSCI;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
-    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // empty string not allowed for addresses
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

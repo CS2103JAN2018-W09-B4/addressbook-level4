@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.AddCommand;
@@ -24,7 +24,7 @@ public class TagUtil {
     public static String getTagDetails(Tag tag) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + tag.getName().fullName + " ");
-        sb.append(PREFIX_ADDRESS + tag.getDescription().value + " ");
+        sb.append(PREFIX_DESCRIPTION + tag.getDescription().value + " ");
         return sb.toString();
     }
 }

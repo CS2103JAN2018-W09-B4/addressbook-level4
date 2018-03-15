@@ -73,7 +73,7 @@ public class ParserUtil {
      *
      * @throws IllegalValueException if the given {@code address} is invalid.
      */
-    public static Description parseAddress(String address) throws IllegalValueException {
+    public static Description parseDescription(String address) throws IllegalValueException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Description.isValidDescription(trimmedAddress)) {
@@ -86,9 +86,9 @@ public class ParserUtil {
      * Parses a {@code Optional<String> address} into an {@code Optional<Description>} if {@code address} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
-    public static Optional<Description> parseAddress(Optional<String> address) throws IllegalValueException {
+    public static Optional<Description> parseDescription(Optional<String> address) throws IllegalValueException {
         requireNonNull(address);
-        return address.isPresent() ? Optional.of(parseAddress(address.get())) : Optional.empty();
+        return address.isPresent() ? Optional.of(parseDescription(address.get())) : Optional.empty();
     }
 
     /**

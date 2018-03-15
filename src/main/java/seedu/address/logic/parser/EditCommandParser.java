@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.index.Index;
@@ -24,7 +24,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
 
         Index index;
 
@@ -37,7 +37,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         EditCommand.EditTagDescriptor editTagDescriptor = new EditTagDescriptor();
         try {
             ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).ifPresent(editTagDescriptor::setName);
-            ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).ifPresent(editTagDescriptor::setDescription);
+            ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION)).ifPresent(editTagDescriptor::setDescription);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

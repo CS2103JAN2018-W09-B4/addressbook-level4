@@ -9,15 +9,15 @@ import seedu.address.model.tag.Tag;
  */
 public class TagBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_NAME = "Physics";
+    public static final String DEFAULT_DESCRIPTION = "physics physics";
 
     private Name name;
     private Description description;
 
     public TagBuilder() {
         name = new Name(DEFAULT_NAME);
-        description = new Description(DEFAULT_ADDRESS);
+        description = new Description(DEFAULT_DESCRIPTION);
     }
 
     /**

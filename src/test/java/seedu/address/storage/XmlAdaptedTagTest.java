@@ -12,11 +12,11 @@ import seedu.address.model.tag.Name;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedTagTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_NAME = "M@th";
+    private static final String INVALID_DESCRIPTION = " ";
 
     private static final String VALID_NAME = BIOLOGY.getName().toString();
-    private static final String VALID_ADDRESS = BIOLOGY.getDescription().toString();
+    private static final String VALID_DESCRIPTION = BIOLOGY.getDescription().toString();
 
     @Test
     public void toModelType_validTagDetails_returnsTag() throws Exception {
@@ -27,14 +27,14 @@ public class XmlAdaptedTagTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedTag tag =
-                new XmlAdaptedTag(INVALID_NAME, VALID_ADDRESS);
+                new XmlAdaptedTag(INVALID_NAME, VALID_DESCRIPTION);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, tag::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedTag tag = new XmlAdaptedTag(null, VALID_ADDRESS);
+        XmlAdaptedTag tag = new XmlAdaptedTag(null, VALID_DESCRIPTION);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, tag::toModelType);
     }
@@ -44,7 +44,7 @@ public class XmlAdaptedTagTest {
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedTag tag =
-                new XmlAdaptedTag(VALID_NAME, INVALID_ADDRESS);
+                new XmlAdaptedTag(VALID_NAME, INVALID_DESCRIPTION);
         String expectedMessage = Description.MESSAGE_DESCRIPTION_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, tag::toModelType);
     }
