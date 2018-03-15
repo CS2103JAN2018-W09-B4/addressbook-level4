@@ -31,7 +31,7 @@ public class UiManager extends ComponentManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     // Set the default theme to Dark Theme
-    private static String currentTheme = "view/DarkTheme.css";
+    private static String currentTheme;
 
     private Logic logic;
     private Config config;
@@ -43,6 +43,7 @@ public class UiManager extends ComponentManager implements Ui {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        UiManager.setCurrentTheme(prefs.getTheme());
     }
 
     public static void setCurrentTheme(String currentTheme) {
