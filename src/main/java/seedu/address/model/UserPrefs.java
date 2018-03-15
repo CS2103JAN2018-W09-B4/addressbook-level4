@@ -12,6 +12,7 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private String addressBookFilePath = "data/addressbook.xml";
     private String addressBookName = "MyAddressBook";
+    private String theme = "view/DarkTheme.css";
 
     public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
@@ -45,6 +46,14 @@ public class UserPrefs {
         this.addressBookName = addressBookName;
     }
 
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -58,7 +67,8 @@ public class UserPrefs {
 
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(addressBookName, o.addressBookName)
+                && Objects.equals(theme, o.theme);
     }
 
     @Override
@@ -72,6 +82,7 @@ public class UserPrefs {
         sb.append("Gui Settings : " + guiSettings.toString());
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nTheme : " + theme);
         return sb.toString();
     }
 

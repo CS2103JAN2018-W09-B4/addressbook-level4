@@ -210,5 +210,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.getScene().getStylesheets().removeAll(currentTheme);
         primaryStage.getScene().getStylesheets().add(event.theme);
         UiManager.setCurrentTheme(event.theme);
+        this.prefs.setTheme(event.theme);
     }
 }
