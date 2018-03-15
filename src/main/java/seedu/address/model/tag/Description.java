@@ -16,7 +16,7 @@ public class Description {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
+    public static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
@@ -35,7 +35,7 @@ public class Description {
      * Returns true if a given string is a valid tag address.
      */
     public static boolean isValidDescription(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 
     @Override

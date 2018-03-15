@@ -18,10 +18,10 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_DESCRIPTION + "ADDRESS\n"
+            + PREFIX_DESCRIPTION + "DESCRIPTION\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_DESCRIPTION + "311, Clementi Ave 2, #02-25 ";
+            + PREFIX_NAME + "Mathematics "
+            + PREFIX_DESCRIPTION + "linear algebra and statistics";
 
     public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
     public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists in the address book";
