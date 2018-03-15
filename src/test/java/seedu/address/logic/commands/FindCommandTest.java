@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TAGS_LISTED_OVERVIEW;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTags.CARL;
-import static seedu.address.testutil.TypicalTags.ELLE;
-import static seedu.address.testutil.TypicalTags.FIONA;
+import static seedu.address.testutil.TypicalTags.CHEMISTRY;
+import static seedu.address.testutil.TypicalTags.HISTORY;
+import static seedu.address.testutil.TypicalTags.MALAY;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,8 +67,8 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleTagsFound() {
         String expectedMessage = String.format(MESSAGE_TAGS_LISTED_OVERVIEW, 3);
-        FindCommand command = prepareCommand("Kurz Elle Kunz");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
+        FindCommand command = prepareCommand("Chemistry History Malay");
+        assertCommandSuccess(command, expectedMessage, Arrays.asList(CHEMISTRY, HISTORY, MALAY));
     }
 
     /**

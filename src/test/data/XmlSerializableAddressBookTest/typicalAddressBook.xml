@@ -3,32 +3,32 @@
 {@code TypicalAddressBook#getTypicalAddressBook()}-->
 <addressbook>
     <tags>
-        <name>Alice Pauline</name>
-        <description>123, Jurong West Ave 6, #08-111</description>
+        <name>Physics</name>
+        <description>physics physics</description>
     </tags>
     <tags>
-        <name>Benson Meier</name>
-        <description>311, Clementi Ave 2, #02-25</description>
+        <name>Biology Midterms</name>
+        <description>biology midterms</description>
     </tags>
     <tags>
-        <name>Carl Kurz</name>
-        <description>wall street</description>
+        <name>Chemistry</name>
+        <description>chemistry chemistry</description>
     </tags>
     <tags>
-        <name>Daniel Meier</name>
-        <description>10th street</description>
+        <name>Economics Midterms</name>
+        <description>economics economics</description>
     </tags>
     <tags>
-        <name>Elle Meyer</name>
-        <description>michegan ave</description>
+        <name>History</name>
+        <description>history history</description>
     </tags>
     <tags>
-        <name>Fiona Kunz</name>
-        <description>little tokyo</description>
+        <name>Malay</name>
+        <description>malay malay</description>
     </tags>
     <tags>
-        <name>George Best</name>
-        <description>4th street</description>
+        <name>Tamil</name>
+        <description>tamil tamil</description>
     </tags>
     <cards>
         <front>Who is the current POTUS?</front>

@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedTag.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalTags.BENSON;
+import static seedu.address.testutil.TypicalTags.BIOLOGY;
 
 import org.junit.Test;
 
@@ -15,13 +15,13 @@ public class XmlAdaptedTagTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_ADDRESS = " ";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_ADDRESS = BENSON.getDescription().toString();
+    private static final String VALID_NAME = BIOLOGY.getName().toString();
+    private static final String VALID_ADDRESS = BIOLOGY.getDescription().toString();
 
     @Test
     public void toModelType_validTagDetails_returnsTag() throws Exception {
-        XmlAdaptedTag tag = new XmlAdaptedTag(BENSON);
-        assertEquals(BENSON, tag.toModelType());
+        XmlAdaptedTag tag = new XmlAdaptedTag(BIOLOGY);
+        assertEquals(BIOLOGY, tag.toModelType());
     }
 
     @Test

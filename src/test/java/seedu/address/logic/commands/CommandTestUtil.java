@@ -29,18 +29,18 @@ import seedu.address.testutil.EditTagDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_NAME_ENGLISH = "English";
+    public static final String VALID_NAME_COMSCI = "Computer Science";
+    public static final String VALID_DESCRIPTION_ENGLISH = "english english";
+    public static final String VALID_DESCRIPTION_COMSCI = "computer science";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String NAME_DESC_ENGLISH = " " + PREFIX_NAME + VALID_NAME_ENGLISH;
+    public static final String NAME_DESC_COMSCI = " " + PREFIX_NAME + VALID_NAME_COMSCI;
+    public static final String DESCRIPTION_DESC_ENGLISH = " " + PREFIX_ADDRESS + VALID_DESCRIPTION_ENGLISH;
+    public static final String DESCRIPTION_DESC_COMSCI = " " + PREFIX_ADDRESS + VALID_DESCRIPTION_COMSCI;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -61,11 +61,11 @@ public class CommandTestUtil {
     public static final String INVALID_THEME = "solarized";
 
     static {
-        DESC_AMY = new EditTagDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAddress(VALID_ADDRESS_AMY)
+        DESC_AMY = new EditTagDescriptorBuilder().withName(VALID_NAME_ENGLISH)
+                .withDescription(VALID_DESCRIPTION_ENGLISH)
                 .build();
-        DESC_BOB = new EditTagDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAddress(VALID_ADDRESS_BOB)
+        DESC_BOB = new EditTagDescriptorBuilder().withName(VALID_NAME_COMSCI)
+                .withDescription(VALID_DESCRIPTION_COMSCI)
                 .build();
     }
 

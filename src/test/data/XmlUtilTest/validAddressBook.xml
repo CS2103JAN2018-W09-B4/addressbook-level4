@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <tags>
-        <name>Hans Muster</name>
-        <description isPrivate="false">4th street</description>
+        <name>Physics</name>
+        <description isPrivate="false">physics physics</description>
     </tags>
     <tags>
         <name>Ruth Mueller</name>
@@ -26,7 +26,7 @@
     </tags>
     <tags>
         <name>Anna Best</name>
-        <description isPrivate="false">4th street</description>
+        <description isPrivate="false">physics physics</description>
     </tags>
     <tags>
         <name>Stefan Meier</name>

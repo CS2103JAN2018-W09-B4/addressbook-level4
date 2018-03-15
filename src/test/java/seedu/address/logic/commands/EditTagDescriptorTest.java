@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 
 import org.junit.Test;
 
@@ -33,11 +33,11 @@ public class EditTagDescriptorTest {
 
         // different name -> returns false
         EditCommand.EditTagDescriptor editedAmy =
-                new EditTagDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+                new EditTagDescriptorBuilder(DESC_AMY).withName(VALID_NAME_COMSCI).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditTagDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
+        editedAmy = new EditTagDescriptorBuilder(DESC_AMY).withDescription(VALID_DESCRIPTION_COMSCI).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
     }

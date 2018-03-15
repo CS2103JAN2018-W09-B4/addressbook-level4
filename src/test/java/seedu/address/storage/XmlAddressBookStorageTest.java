@@ -3,9 +3,9 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTags.ALICE;
-import static seedu.address.testutil.TypicalTags.HOON;
-import static seedu.address.testutil.TypicalTags.IDA;
+import static seedu.address.testutil.TypicalTags.PHYSICS;
+import static seedu.address.testutil.TypicalTags.RUSSIAN;
+import static seedu.address.testutil.TypicalTags.BULGARIAN;
 
 import java.io.IOException;
 
@@ -78,14 +78,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTag(HOON);
-        original.removeTag(ALICE);
+        original.addTag(RUSSIAN);
+        original.removeTag(PHYSICS);
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
-        original.addTag(IDA);
+        original.addTag(BULGARIAN);
         xmlAddressBookStorage.saveAddressBook(original); //file path not specified
         readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));

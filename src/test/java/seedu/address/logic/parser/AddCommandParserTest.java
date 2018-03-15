@@ -1,16 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -27,27 +27,27 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Tag expectedTag = new TagBuilder().withName(VALID_NAME_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
+        Tag expectedTag = new TagBuilder().withName(VALID_NAME_COMSCI)
+                .withDescription(VALID_DESCRIPTION_COMSCI).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB, new AddCommand(expectedTag));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_COMSCI
+                + DESCRIPTION_DESC_COMSCI, new AddCommand(expectedTag));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB, new AddCommand(expectedTag));
+        assertParseSuccess(parser, NAME_DESC_ENGLISH + NAME_DESC_COMSCI
+                + DESCRIPTION_DESC_COMSCI, new AddCommand(expectedTag));
 
-        // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB, new AddCommand(expectedTag));
+        // multiple description - last description accepted
+        assertParseSuccess(parser, NAME_DESC_COMSCI + DESCRIPTION_DESC_ENGLISH
+                + DESCRIPTION_DESC_COMSCI, new AddCommand(expectedTag));
 
         // multiple tags - all accepted
-        Tag expectedTagMultipleTags = new TagBuilder().withName(VALID_NAME_BOB)
-                .withAddress(VALID_ADDRESS_BOB)
+        Tag expectedTagMultipleTags = new TagBuilder().withName(VALID_NAME_COMSCI)
+                .withDescription(VALID_DESCRIPTION_COMSCI)
                 .build();
 
-        assertParseSuccess(parser, NAME_DESC_BOB + ADDRESS_DESC_BOB,
+        assertParseSuccess(parser, NAME_DESC_COMSCI + DESCRIPTION_DESC_COMSCI,
                 new AddCommand(expectedTagMultipleTags));
     }
 
@@ -56,35 +56,35 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_COMSCI + DESCRIPTION_DESC_COMSCI,
                 expectedMessage);
 
         // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_ADDRESS_BOB,
+        assertParseFailure(parser, NAME_DESC_COMSCI + VALID_DESCRIPTION_COMSCI,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_ADDRESS_BOB,
+        assertParseFailure(parser, VALID_NAME_COMSCI + VALID_DESCRIPTION_COMSCI,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, INVALID_NAME_DESC + DESCRIPTION_DESC_COMSCI,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser, NAME_DESC_COMSCI + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_DESCRIPTION_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_COMSCI
+                + DESCRIPTION_DESC_COMSCI,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TAG_DISPLAYED_
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_TAG_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
-import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 import static seedu.address.testutil.TypicalTags.getTypicalTags;
 
 import org.junit.Test;
@@ -56,7 +56,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered tag list, select index within bounds of address book but out of bounds of tag list
          * -> rejected
          */
-        showTagsWithName(KEYWORD_MATCHING_MEIER);
+        showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         int invalidIndex = getModel().getAddressBook().getTagList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
 

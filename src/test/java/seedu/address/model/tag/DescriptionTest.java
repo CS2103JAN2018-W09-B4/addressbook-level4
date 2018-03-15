@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
-public class AddressTest {
+public class DescriptionTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -15,23 +15,23 @@ public class AddressTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Description(invalidAddress));
+    public void constructor_invalidDescription_throwsIllegalArgumentException() {
+        String invalidDescription = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Description(invalidDescription));
     }
 
     @Test
-    public void isValidAddress() {
-        // null address
+    public void isValidDescription() {
+        // null description
         Assert.assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
 
-        // invalid addresses
+        // invalid descriptions
         assertFalse(Description.isValidDescription("")); // empty string
         assertFalse(Description.isValidDescription(" ")); // spaces only
 
-        // valid addresses
-        assertTrue(Description.isValidDescription("Blk 456, Den Road, #01-355"));
+        // valid descriptions
+        assertTrue(Description.isValidDescription("This is valid description"));
         assertTrue(Description.isValidDescription("-")); // one character
-        assertTrue(Description.isValidDescription("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Description.isValidDescription("This is also a long valid description")); // long description
     }
 }

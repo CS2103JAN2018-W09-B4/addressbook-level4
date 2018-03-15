@@ -42,7 +42,7 @@ public class EditTagDescriptorBuilder {
     /**
      * Sets the {@code Description} of the {@code EditTagDescriptor} that we are building.
      */
-    public EditTagDescriptorBuilder withAddress(String address) {
+    public EditTagDescriptorBuilder withDescription(String address) {
         descriptor.setDescription(new Description(address));
         return this;
     }

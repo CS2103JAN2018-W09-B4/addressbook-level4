@@ -2,12 +2,12 @@
 <addressbook>
     <!-- Valid Tag -->
     <tags>
-        <name>Hans Muster</name>
-        <description isPrivate="false">4th street</description>
+        <name>Physics</name>
+        <description isPrivate="false">physics physics</description>
     </tags>
     <!-- Tag with invalid name field -->
     <tags>
-        <name>H@ns! Muster</name>
-        <description isPrivate="false">4th street</description>
+        <name>Phys!cs</name>
+        <description isPrivate="false">physics physics</description>
     </tags>
 </addressbook>

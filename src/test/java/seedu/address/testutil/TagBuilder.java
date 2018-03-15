@@ -39,7 +39,7 @@ public class TagBuilder {
     /**
      * Sets the {@code Description} of the {@code Tag} that we are building.
      */
-    public TagBuilder withAddress(String address) {
+    public TagBuilder withDescription(String address) {
         this.description = new Description(address);
         return this;
     }

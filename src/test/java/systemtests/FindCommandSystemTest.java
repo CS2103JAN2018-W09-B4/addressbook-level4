@@ -3,10 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_TAGS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalTags.BENSON;
-import static seedu.address.testutil.TypicalTags.CARL;
-import static seedu.address.testutil.TypicalTags.DANIEL;
-import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTags.BIOLOGY;
+import static seedu.address.testutil.TypicalTags.CHEMISTRY;
+import static seedu.address.testutil.TypicalTags.ECONOMICS;
+import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
 
@@ -24,45 +24,45 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find multiple tags in address book, command with leading spaces and trailing spaces
          * -> 2 tags found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BIOLOGY, ECONOMICS); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where tag list is displaying the tags we are finding
          * -> 2 tags found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tag where tag list is not displaying the tag we are finding -> 1 tag found */
-        command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        command = FindCommand.COMMAND_WORD + " Chemistry";
+        ModelHelper.setFilteredList(expectedModel, CHEMISTRY);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 keywords -> 2 tags found */
-        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        command = FindCommand.COMMAND_WORD + " Biology Economics";
+        ModelHelper.setFilteredList(expectedModel, BIOLOGY, ECONOMICS);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 keywords in reversed order -> 2 tags found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson";
+        command = FindCommand.COMMAND_WORD + " Economics Biology";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 keywords with 1 repeat -> 2 tags found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
+        command = FindCommand.COMMAND_WORD + " Economics Biology Economics";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 matching keywords and 1 non-matching keyword
          * -> 2 tags found
          */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " Economics Biology NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -78,60 +78,49 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find same tags in address book after deleting 1 of them -> 1 tag found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getTagList().contains(BENSON));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getAddressBook().getTagList().contains(BIOLOGY));
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tag in address book, keyword is same as name but of different case -> 1 tag found */
-        command = FindCommand.COMMAND_WORD + " MeIeR";
+        command = FindCommand.COMMAND_WORD + " MiDtErMs";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tag in address book, keyword is substring of name -> 0 tags found */
-        command = FindCommand.COMMAND_WORD + " Mei";
-        ModelHelper.setFilteredList(expectedModel);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find tag in address book, name is substring of keyword -> 0 tags found */
-        command = FindCommand.COMMAND_WORD + " Meiers";
+        command = FindCommand.COMMAND_WORD + " Mid";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tag not in address book -> 0 tags found */
-        command = FindCommand.COMMAND_WORD + " Mark";
+        command = FindCommand.COMMAND_WORD + " NotThere";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
-        assertSelectedCardUnchanged();
-
-        /* Case: find address of tag in address book -> 0 tags found */
-        command = FindCommand.COMMAND_WORD + " " + DANIEL.getDescription().value;
-        assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find while a tag is selected -> selected card deselected */
         showAllTags();
         selectTag(Index.fromOneBased(1));
-        assertFalse(getTagListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
-        command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertFalse(getTagListPanel().getHandleToSelectedCard().getName().equals(ECONOMICS.getName().fullName));
+        command = FindCommand.COMMAND_WORD + " Economics";
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find tag in empty address book -> 0 tagsfound */
         deleteAllTags();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
-        command = "FiNd Meier";
+        command = "FiNd Midterms";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 

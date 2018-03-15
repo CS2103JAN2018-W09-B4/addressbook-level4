@@ -2,19 +2,19 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
-import static seedu.address.testutil.TypicalTags.AMY;
-import static seedu.address.testutil.TypicalTags.BOB;
-import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTags.ENGLISH;
+import static seedu.address.testutil.TypicalTags.COMSCI;
+import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
 
@@ -44,10 +44,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_TAG;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + ADDRESS_DESC_BOB;
-        Tag editedTag = new TagBuilder().withName(VALID_NAME_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_COMSCI + "  "
+                + DESCRIPTION_DESC_COMSCI;
+        Tag editedTag = new TagBuilder().withName(VALID_NAME_COMSCI)
+                .withDescription(VALID_DESCRIPTION_COMSCI).build();
         assertCommandSuccess(command, index, editedTag);
 
         /* Case: undo editing the last tag in the list -> last tag restored */
@@ -63,9 +63,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a tag with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB;
-        assertCommandSuccess(command, index, BOB);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
+                + DESCRIPTION_DESC_COMSCI;
+        assertCommandSuccess(command, index, COMSCI);
 
         Tag tagToEdit = getModel().getFilteredTagList().get(index.getZeroBased());
         editedTag = new TagBuilder(tagToEdit).build();
@@ -73,20 +73,20 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered tag list, edit index within bounds of address book and tag list -> edited */
-        showTagsWithName(KEYWORD_MATCHING_MEIER);
+        showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         index = INDEX_FIRST_TAG;
         assertTrue(index.getZeroBased() < getModel().getFilteredTagList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_COMSCI;
         tagToEdit = getModel().getFilteredTagList().get(index.getZeroBased());
-        editedTag = new TagBuilder(tagToEdit).withName(VALID_NAME_BOB).build();
+        editedTag = new TagBuilder(tagToEdit).withName(VALID_NAME_COMSCI).build();
         assertCommandSuccess(command, index, editedTag);
 
         /* Case: filtered tag list, edit index within bounds of address book but out of bounds of tag list
          * -> rejected
          */
-        showTagsWithName(KEYWORD_MATCHING_MEIER);
+        showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         int invalidIndex = getModel().getAddressBook().getTagList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_COMSCI,
                 Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a tag card is selected -------------------------- */
@@ -97,29 +97,29 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showAllTags();
         index = INDEX_FIRST_TAG;
         selectTag(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
-                + ADDRESS_DESC_AMY;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ENGLISH
+                + DESCRIPTION_DESC_ENGLISH;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new tag's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, ENGLISH, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_COMSCI,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_COMSCI,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredTagList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_COMSCI,
                 Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_COMSCI,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
@@ -131,21 +131,21 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TAG.getOneBased() + INVALID_ADDRESS_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TAG.getOneBased() + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: edit a tag with new values same as another tag's values -> rejected */
-        executeCommand(TagUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getTagList().contains(BOB));
+        executeCommand(TagUtil.getAddCommand(COMSCI));
+        assertTrue(getModel().getAddressBook().getTagList().contains(COMSCI));
         index = INDEX_FIRST_TAG;
-        assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB;
+        assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(COMSCI));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
+                + DESCRIPTION_DESC_COMSCI;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TAG);
 
         /* Case: edit a tag with new values same as another tag's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
+                + DESCRIPTION_DESC_COMSCI;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TAG);
     }
 

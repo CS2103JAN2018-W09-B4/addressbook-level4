@@ -31,11 +31,11 @@ public class XmlUtilTest {
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
 
 
-    private static final String INVALID_NAME = "H@ns! Muster";
-    private static final String VALID_NAME = "Hans Muster";
-    private static final String VALID_ADDRESS = "4th street";
+  private static final String INVALID_NAME = "Phys!cs";
+    private static final String VALID_NAME = "Physics";
+  private static final String VALID_DESCRIPTION = "physics physics";
 
-    @Rule
+  @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
@@ -73,7 +73,7 @@ public class XmlUtilTest {
         XmlAdaptedTag actualTag = XmlUtil.getDataFromFile(
                 MISSING_TAG_FIELD_FILE, XmlAdaptedTagWithRootElement.class);
         XmlAdaptedTag expectedTag = new XmlAdaptedTag(
-                null, VALID_ADDRESS);
+                null, VALID_DESCRIPTION);
         assertEquals(expectedTag, actualTag);
     }
 
@@ -82,7 +82,7 @@ public class XmlUtilTest {
         XmlAdaptedTag actualTag = XmlUtil.getDataFromFile(
                 INVALID_TAG_FIELD_FILE, XmlAdaptedTagWithRootElement.class);
         XmlAdaptedTag expectedTag = new XmlAdaptedTag(
-                INVALID_NAME, VALID_ADDRESS);
+                INVALID_NAME, VALID_DESCRIPTION);
         assertEquals(expectedTag, actualTag);
     }
 
@@ -91,7 +91,7 @@ public class XmlUtilTest {
         XmlAdaptedTag actualTag = XmlUtil.getDataFromFile(
                 VALID_TAG_FILE, XmlAdaptedTagWithRootElement.class);
         XmlAdaptedTag expectedTag = new XmlAdaptedTag(
-                VALID_NAME, VALID_ADDRESS);
+                VALID_NAME, VALID_DESCRIPTION);
         assertEquals(expectedTag, actualTag);
     }
 
