@@ -29,7 +29,7 @@ public class TypicalCards {
     public static final Card CARD_7 = new CardBuilder().withFront("What does NUS stand for?")
             .withBack("National University of Singapore").build();
     public static final Card CARD_8 = new CardBuilder().withFront("What does NTU stand for?")
-            .withBack("Nayang Technological University").build();
+            .withBack("Nanyang Technological University").build();
     public static final Card CARD_9 = new CardBuilder().withFront("What does SMU stand for?")
             .withBack("Singapore Management University").build();
 
@@ -63,6 +63,6 @@ public class TypicalCards {
     }
 
     public static List<Card> getTypicalCards() {
-        return new ArrayList<>(Arrays.asList(CARD_3, CARD_4, CARD_5, CARD_6, CARD_7, CARD_8, CARD_9));
+        return new ArrayList<>(Arrays.asList(CARD_3, CARD_4, CARD_5, CARD_6, CARD_7, CARD_8, CARD_9, CARD_10, CARD_11));
     }
 }

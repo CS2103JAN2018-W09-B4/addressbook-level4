@@ -5,7 +5,6 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.CARD_3;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 public class AddressBookTest {
 
@@ -31,7 +29,6 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
-        assertEquals(Collections.emptyList(), addressBook.getTagList());
         assertEquals(Collections.emptyList(), addressBook.getCardList());
     }
 
@@ -52,9 +49,8 @@ public class AddressBookTest {
     public void resetData_withDuplicatePersons_throwsAssertionError() {
         // Repeat ALICE twice
         List<Person> newPersons = Arrays.asList(ALICE, ALICE);
-        List<Tag> newTags = new ArrayList<>(ALICE.getTags());
         List<Card> newCards = Arrays.asList(CARD_3, CARD_3);
-        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newCards);
+        AddressBookStub newData = new AddressBookStub(newPersons, newCards);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -66,34 +62,21 @@ public class AddressBookTest {
         addressBook.getPersonList().remove(0);
     }
 
-    @Test
-    public void getTagList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTagList().remove(0);
-    }
-
     /**
      * A stub ReadOnlyAddressBook whose persons and tags lists can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Card> cards = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags, Collection<Card> cards) {
+        AddressBookStub(Collection<Person> persons, Collection<Card> cards) {
             this.persons.setAll(persons);
-            this.tags.setAll(tags);
             this.cards.setAll(cards);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
-        }
-
-        @Override
-        public ObservableList<Tag> getTagList() {
-            return tags;
         }
 
         @Override

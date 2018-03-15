@@ -7,15 +7,12 @@
         <phone>85355255</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
-        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Benson Meier</name>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
-        <tagged>owesMoney</tagged>
-        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Carl Kurz</name>
@@ -47,6 +44,40 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
-    <tags>friends</tags>
-    <tags>owesMoney</tags>
+    <cards>
+        <front>Who is the current POTUS?</front>
+        <back>Donald Trump</back>
+    </cards>
+    <cards>
+        <front>Who was the previous POTUS?</front>
+        <back>Barack Obama</back>
+    </cards>
+    <cards>
+        <front>Who is Singapore's current Prime Minister?</front>
+        <back>Lee Hsien Loong</back>
+    </cards>
+    <cards>
+        <front>Who was Singapore's first Prime Minister?</front>
+        <back>Lee Kuan Yew</back>
+    </cards>
+    <cards>
+        <front>What does NUS stand for?</front>
+        <back>National University of Singapore</back>
+    </cards>
+    <cards>
+        <front>What does NTU stand for?</front>
+        <back>Nanyang Technological University</back>
+    </cards>
+    <cards>
+        <front>What does SMU stand for?</front>
+        <back>Singapore Management University</back>
+    </cards>
+    <cards>
+        <front>What does SUTD stand for?</front>
+        <back>Singapore University of Technology and Design</back>
+    </cards>
+    <cards>
+        <front>What does SUSS stand for?</front>
+        <back>Singapore University of Social Sciences</back>
+    </cards>
 </addressbook>
