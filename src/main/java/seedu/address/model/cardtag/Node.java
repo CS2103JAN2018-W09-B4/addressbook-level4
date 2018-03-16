@@ -1,4 +1,7 @@
 package seedu.address.model.cardtag;
 
-public interface INode {
+/**
+ * Marker interface for Card and Tag.
+ */
+public interface Node {
 }
