@@ -4,11 +4,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.cardtag.Node;
+
 /**
  * Represents a Tag in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Tag {
+public class Tag implements Node {
 
     private final Name name;
     private final Description description;
@@ -59,5 +61,4 @@ public class Tag {
                 .append(getDescription());
         return builder.toString();
     }
-
 }
