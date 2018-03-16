@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import seedu.address.model.cardtag.Node;
 
-
 /**
  * Represents a Flashcard.
  * Guarantees: Front and Back must not be null.
