@@ -11,6 +11,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -79,6 +80,7 @@ public class AddressBookParser {
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD_EXIT:
+
         case ExitCommand.COMMAND_WORD_QUIT:
             return new ExitCommand();
 
@@ -96,6 +98,9 @@ public class AddressBookParser {
 
         case AddCardCommand.COMMAND_WORD:
             return new AddCardCommandParser().parse(arguments);
+
+        case DeleteCardCommand.COMMAND_WORD:
+            return new DeleteCardCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

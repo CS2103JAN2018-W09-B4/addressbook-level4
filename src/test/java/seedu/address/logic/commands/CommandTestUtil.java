@@ -49,10 +49,10 @@ public class CommandTestUtil {
     public static final EditCommand.EditTagDescriptor DESC_AMY;
     public static final EditCommand.EditTagDescriptor DESC_BOB;
 
-    public static final String VALID_FRONT_CARD_1 = "When is National Day in Singapore?";
-    public static final String VALID_BACK_CARD_1 = "9th August";
-    public static final String VALID_FRONT_CARD_2 = "Who was Singapore's first President?";
-    public static final String VALID_BACK_CARD_2 = "Yushof Ishak";
+    public static final String VALID_FRONT_CARD_1 = "What is OOP?";
+    public static final String VALID_BACK_CARD_1 = "A programming paradigm";
+    public static final String VALID_FRONT_CARD_2 = "What is the main point of the class?";
+    public static final String VALID_BACK_CARD_2 = "To learn to be audience-centred";
 
     public static final String VALID_THEME_1 = "light";
     public static final String VALID_THEME_2 = "dark";

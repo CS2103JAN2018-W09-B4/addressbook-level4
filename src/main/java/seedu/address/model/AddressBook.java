@@ -9,6 +9,7 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.UniqueCardList;
+import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -119,6 +120,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addCard(Card c) throws DuplicateCardException {
         cards.add(c);
+    }
+
+    public void deleteCard(Card c) throws CardNotFoundException {
+        cards.remove(c);
     }
 
     //// util methods

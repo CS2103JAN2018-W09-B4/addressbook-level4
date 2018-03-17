@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -129,6 +130,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addCard(Card card) throws DuplicateCardException {
         addressBook.addCard(card);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void deleteCard(Card card) throws CardNotFoundException {
+        addressBook.deleteCard(card);
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
         indicateAddressBookChanged();
     }

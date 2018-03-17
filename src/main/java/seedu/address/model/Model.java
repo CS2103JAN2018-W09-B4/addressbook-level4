@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -56,6 +57,9 @@ public interface Model {
 
     /** Adds the given card */
     void addCard(Card card) throws DuplicateCardException;
+
+    /** Delete the given card */
+    void deleteCard(Card card) throws CardNotFoundException;
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
