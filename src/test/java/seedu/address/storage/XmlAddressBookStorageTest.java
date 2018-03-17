@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalTags.BULGARIAN;
-import static seedu.address.testutil.TypicalTags.PHYSICS;
+import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 import static seedu.address.testutil.TypicalTags.RUSSIAN;
 
 import java.io.IOException;
@@ -79,7 +79,7 @@ public class XmlAddressBookStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addTag(RUSSIAN);
-        original.removeTag(PHYSICS);
+        original.removeTag(PHYSICS_TAG);
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));

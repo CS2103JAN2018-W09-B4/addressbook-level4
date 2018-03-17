@@ -11,6 +11,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.UniqueCardList;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -24,6 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueTagList tags;
     private final UniqueCardList cards;
+    private final CardTag cardTag;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -35,6 +37,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         tags = new UniqueTagList();
         cards = new UniqueCardList();
+        cardTag = new CardTag();
     }
 
     public AddressBook() {}
@@ -88,6 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addTag(Tag p) throws DuplicateTagException {
         tags.add(p);
+        cardTag.addTag(p);
     }
 
     /**
@@ -120,10 +124,16 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addCard(Card c) throws DuplicateCardException {
         cards.add(c);
+        cardTag.addCard(c);
     }
 
     public void deleteCard(Card c) throws CardNotFoundException {
         cards.remove(c);
+    }
+
+    //// card-tag-level operations
+    public void associate(Card c, Tag t) {
+        cardTag.associateCardTag(c, t);
     }
 
     //// util methods

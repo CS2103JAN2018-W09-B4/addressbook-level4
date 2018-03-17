@@ -3,9 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_TAGS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalTags.BIOLOGY;
-import static seedu.address.testutil.TypicalTags.CHEMISTRY;
-import static seedu.address.testutil.TypicalTags.ECONOMICS;
+import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
+import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
+import static seedu.address.testutil.TypicalTags.ECONOMICS_TAG;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BIOLOGY, ECONOMICS); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BIOLOGY_TAG, ECONOMICS_TAG); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -39,13 +39,13 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find tag where tag list is not displaying the tag we are finding -> 1 tag found */
         command = FindCommand.COMMAND_WORD + " Chemistry";
-        ModelHelper.setFilteredList(expectedModel, CHEMISTRY);
+        ModelHelper.setFilteredList(expectedModel, CHEMISTRY_TAG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 keywords -> 2 tags found */
         command = FindCommand.COMMAND_WORD + " Biology Economics";
-        ModelHelper.setFilteredList(expectedModel, BIOLOGY, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, BIOLOGY_TAG, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -78,10 +78,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find same tags in address book after deleting 1 of them -> 1 tag found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getTagList().contains(BIOLOGY));
+        assertFalse(getModel().getAddressBook().getTagList().contains(BIOLOGY_TAG));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -105,9 +105,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find while a tag is selected -> selected card deselected */
         showAllTags();
         selectTag(Index.fromOneBased(1));
-        assertFalse(getTagListPanel().getHandleToSelectedCard().getName().equals(ECONOMICS.getName().fullName));
+        assertFalse(getTagListPanel().getHandleToSelectedCard().getName().equals(ECONOMICS_TAG.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Economics";
-        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
@@ -115,7 +115,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         deleteAllTags();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

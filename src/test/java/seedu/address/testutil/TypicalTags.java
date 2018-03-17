@@ -16,22 +16,22 @@ import seedu.address.model.tag.Tag;
  */
 public class TypicalTags {
 
-    public static final Tag PHYSICS = new TagBuilder().withName("Physics")
+    public static final Tag PHYSICS_TAG = new TagBuilder().withName("Physics")
             .withDescription("physics physics")
             .build();
-    public static final Tag BIOLOGY = new TagBuilder().withName("Biology Midterms")
+    public static final Tag BIOLOGY_TAG = new TagBuilder().withName("Biology Midterms")
             .withDescription("biology midterms")
             .build();
-    public static final Tag CHEMISTRY = new TagBuilder().withName("Chemistry")
+    public static final Tag CHEMISTRY_TAG = new TagBuilder().withName("Chemistry")
             .withDescription("chemistry chemistry").build();
-    public static final Tag ECONOMICS = new TagBuilder().withName("Economics Midterms")
+    public static final Tag ECONOMICS_TAG = new TagBuilder().withName("Economics Midterms")
             .withDescription("economics economics").build();
-    public static final Tag HISTORY = new TagBuilder().withName("History")
+    public static final Tag HISTORY_TAG = new TagBuilder().withName("History")
             .withDescription("history history").build();
-    public static final Tag MALAY = new TagBuilder().withName("Malay")
+    public static final Tag MALAY_TAG = new TagBuilder().withName("Malay")
             .withDescription("malay malay").build();
-    public static final Tag TAMIL = new TagBuilder().withName("Tamil")
-            .withDescription("tamil tamil").build();
+    public static final Tag MATHEMATICS_TAG = new TagBuilder().withName("Mathematics")
+            .withDescription("math math").build();
 
     // Manually added
     public static final Tag RUSSIAN = new TagBuilder().withName("Russian Midterms")
@@ -51,6 +51,6 @@ public class TypicalTags {
     private TypicalTags() {} // prevents instantiation
 
     public static List<Tag> getTypicalTags() {
-        return new ArrayList<>(Arrays.asList(PHYSICS, BIOLOGY, CHEMISTRY, ECONOMICS, HISTORY, MALAY, TAMIL));
+        return new ArrayList<>(Arrays.asList(PHYSICS_TAG, BIOLOGY_TAG, CHEMISTRY_TAG, ECONOMICS_TAG, HISTORY_TAG, MALAY_TAG, MATHEMATICS_TAG));
     }
 }

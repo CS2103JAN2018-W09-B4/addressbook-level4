@@ -3,7 +3,7 @@ package seedu.address.ui;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalTags.PHYSICS;
+import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
@@ -24,7 +24,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new TagPanelSelectionChangedEvent(new TagCard(PHYSICS, 0));
+        selectionChangedEventStub = new TagPanelSelectionChangedEvent(new TagCard(PHYSICS_TAG, 0));
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -41,7 +41,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // associated web page of a tag
         postNow(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + PHYSICS.getName().fullName.replaceAll(" ", "%20"));
+                + PHYSICS_TAG.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
