@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Foo Yong Jie
-image::yong-jie.jpg[width="150", align="left"]
+image::yong-jie.png[width="150", align="left"]
 {empty}[https://github.com/yong-jie[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -28,7 +28,7 @@ Responsibilities: Model
 '''
 
 === Shawn Chua
-image::Shawnclq.jpg[width="150", align="left"]
+image::Shawnclq.png[width="150", align="left"]
 {empty}[http://github.com/shawnclq[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -37,8 +37,8 @@ Responsibilities: Logic
 '''
 
 === Wong Ding Feng
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::dingfeng.png[width="150", align="left"]
+{empty}[http://github.com/pukipuki[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage

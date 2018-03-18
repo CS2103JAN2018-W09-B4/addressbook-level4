@@ -4,12 +4,17 @@ import java.util.logging.Logger;
 
 import org.fxmisc.easybind.EasyBind;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.JumpToCardRequestEvent;
 import seedu.address.model.card.Card;
 
 /**
@@ -33,6 +38,33 @@ public class CardListPanel extends UiPart<Region> {
                 cardList, (card) -> new CardCard(card, cardList.indexOf(card) + 1));
         cardListView.setItems(mappedList);
         cardListView.setCellFactory(listView -> new CardListViewCell());
+        setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void setEventHandlerForSelectionChangeEvent() {
+        cardListView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        logger.fine("Selection in tag list panel changed to : '" + newValue + "'");
+                        raise(new CardListPanelSelectionChangedEvent(newValue));
+                    }
+                });
+    }
+
+    /**
+     * Scrolls to the {@code TagCard} at the {@code index} and selects it.
+     */
+    private void scrollTo(int index) {
+        Platform.runLater(() -> {
+            cardListView.scrollTo(index);
+            cardListView.getSelectionModel().clearAndSelect(index);
+        });
+    }
+
+    @Subscribe
+    private void handleJumpToCardRequestEvent(JumpToCardRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        scrollTo(event.targetIndex);
     }
 
     /**

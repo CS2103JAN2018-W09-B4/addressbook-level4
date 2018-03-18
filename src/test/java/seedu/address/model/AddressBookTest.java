@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
-import static seedu.address.testutil.TypicalTags.PHYSICS;
+import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -47,8 +47,8 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateTags_throwsAssertionError() {
-        // Repeat PHYSICS twice
-        List<Tag> newTags = Arrays.asList(PHYSICS, PHYSICS);
+        // Repeat PHYSICS_TAG twice
+        List<Tag> newTags = Arrays.asList(PHYSICS_TAG, PHYSICS_TAG);
         List<Card> newCards = Arrays.asList(MATHEMATICS_CARD, MATHEMATICS_CARD);
         AddressBookStub newData = new AddressBookStub(newTags, newCards);
 

@@ -3,9 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_TAGS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalTags.BIOLOGY;
-import static seedu.address.testutil.TypicalTags.CHEMISTRY;
-import static seedu.address.testutil.TypicalTags.ECONOMICS;
+import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
+import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
+import static seedu.address.testutil.TypicalTags.ECONOMICS_TAG;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
@@ -26,45 +26,38 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BIOLOGY, ECONOMICS); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BIOLOGY_TAG, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where tag list is displaying the tags we are finding
          * -> 2 tags found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find tag where tag list is not displaying the tag we are finding -> 1 tag found */
         command = FindCommand.COMMAND_WORD + " Chemistry";
-        ModelHelper.setFilteredList(expectedModel, CHEMISTRY);
+        ModelHelper.setFilteredList(expectedModel, CHEMISTRY_TAG);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 keywords -> 2 tags found */
         command = FindCommand.COMMAND_WORD + " Biology Economics";
-        ModelHelper.setFilteredList(expectedModel, BIOLOGY, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, BIOLOGY_TAG, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 keywords in reversed order -> 2 tags found */
         command = FindCommand.COMMAND_WORD + " Economics Biology";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 keywords with 1 repeat -> 2 tags found */
         command = FindCommand.COMMAND_WORD + " Economics Biology Economics";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find multiple tags in address book, 2 matching keywords and 1 non-matching keyword
          * -> 2 tags found
          */
         command = FindCommand.COMMAND_WORD + " Economics Biology NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: undo previous find command -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -78,46 +71,39 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find same tags in address book after deleting 1 of them -> 1 tag found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getTagList().contains(BIOLOGY));
+        assertFalse(getModel().getAddressBook().getTagList().contains(BIOLOGY_TAG));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find tag in address book, keyword is same as name but of different case -> 1 tag found */
         command = FindCommand.COMMAND_WORD + " MiDtErMs";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find tag in address book, keyword is substring of name -> 0 tags found */
         command = FindCommand.COMMAND_WORD + " Mid";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: find tag not in address book -> 0 tags found */
         command = FindCommand.COMMAND_WORD + " NotThere";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-        assertSelectedCardUnchanged();
 
         /* Case: find while a tag is selected -> selected card deselected */
         showAllTags();
         selectTag(Index.fromOneBased(1));
-        assertFalse(getTagListPanel().getHandleToSelectedCard().getName().equals(ECONOMICS.getName().fullName));
+        assertFalse(getTagListPanel().getHandleToSelectedCard().getName().equals(ECONOMICS_TAG.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Economics";
-        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardDeselected();
 
         /* Case: find tag in empty address book -> 0 tagsfound */
         deleteAllTags();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, ECONOMICS);
+        ModelHelper.setFilteredList(expectedModel, ECONOMICS_TAG);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
         command = "FiNd Midterms";
@@ -158,7 +144,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

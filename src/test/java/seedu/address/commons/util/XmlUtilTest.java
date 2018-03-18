@@ -32,6 +32,7 @@ public class XmlUtilTest {
 
 
     private static final String INVALID_NAME = "Phys!cs";
+    private static final String VALID_ID = "ad5abcb8-801f-42b5-85ec-4d7d72afe9b3";
     private static final String VALID_NAME = "Physics";
     private static final String VALID_DESCRIPTION = "physics physics";
 
@@ -65,7 +66,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
-        assertEquals(9, dataFromFile.getTagList().size());
+        assertEquals(7, dataFromFile.getTagList().size());
     }
 
     @Test
@@ -73,7 +74,7 @@ public class XmlUtilTest {
         XmlAdaptedTag actualTag = XmlUtil.getDataFromFile(
                 MISSING_TAG_FIELD_FILE, XmlAdaptedTagWithRootElement.class);
         XmlAdaptedTag expectedTag = new XmlAdaptedTag(
-                null, VALID_DESCRIPTION);
+                VALID_ID, null, VALID_DESCRIPTION);
         assertEquals(expectedTag, actualTag);
     }
 
@@ -82,7 +83,7 @@ public class XmlUtilTest {
         XmlAdaptedTag actualTag = XmlUtil.getDataFromFile(
                 INVALID_TAG_FIELD_FILE, XmlAdaptedTagWithRootElement.class);
         XmlAdaptedTag expectedTag = new XmlAdaptedTag(
-                INVALID_NAME, VALID_DESCRIPTION);
+                VALID_ID, INVALID_NAME, VALID_DESCRIPTION);
         assertEquals(expectedTag, actualTag);
     }
 
@@ -91,7 +92,7 @@ public class XmlUtilTest {
         XmlAdaptedTag actualTag = XmlUtil.getDataFromFile(
                 VALID_TAG_FILE, XmlAdaptedTagWithRootElement.class);
         XmlAdaptedTag expectedTag = new XmlAdaptedTag(
-                VALID_NAME, VALID_DESCRIPTION);
+                VALID_ID, VALID_NAME, VALID_DESCRIPTION);
         assertEquals(expectedTag, actualTag);
     }
 

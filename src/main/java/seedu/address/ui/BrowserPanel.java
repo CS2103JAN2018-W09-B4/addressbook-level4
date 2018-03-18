@@ -12,8 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.TagPanelSelectionChangedEvent;
-import seedu.address.model.tag.Tag;
+import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 
 /**
  * The Browser Panel of the App.
@@ -41,8 +40,8 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Tag tag) {
-        loadPage(SEARCH_PAGE_URL + tag.getName().fullName);
+    private void loadPersonPage(CardCard card) {
+        loadPage(SEARCH_PAGE_URL + card.toString());
     }
 
     public void loadPage(String url) {
@@ -65,8 +64,8 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(CardListPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection().tag);
+        loadPersonPage(event.getNewSelection());
     }
 }

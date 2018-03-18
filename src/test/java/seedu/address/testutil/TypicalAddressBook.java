@@ -1,6 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalCards.CHEMISTRY_CARD;
+import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
+import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.card.Card;
@@ -32,6 +36,9 @@ public class TypicalAddressBook {
                 throw new AssertionError("not possible");
             }
         }
+
+        addressBook.associate(MATHEMATICS_CARD, MATHEMATICS_TAG);
+        addressBook.associate(CHEMISTRY_CARD, CHEMISTRY_TAG);
         return addressBook;
     }
 }

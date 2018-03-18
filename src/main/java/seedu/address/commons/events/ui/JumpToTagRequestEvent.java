@@ -6,11 +6,11 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates a request to jump to the list of tags
  */
-public class JumpToListRequestEvent extends BaseEvent {
+public class JumpToTagRequestEvent extends BaseEvent {
 
     public final int targetIndex;
 
-    public JumpToListRequestEvent(Index targetIndex) {
+    public JumpToTagRequestEvent(Index targetIndex) {
         this.targetIndex = targetIndex.getZeroBased();
     }
 

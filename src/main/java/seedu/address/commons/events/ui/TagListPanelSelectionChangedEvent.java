@@ -6,12 +6,11 @@ import seedu.address.ui.TagCard;
 /**
  * Represents a selection change in the Tag List Panel
  */
-public class TagPanelSelectionChangedEvent extends BaseEvent {
-
+public class TagListPanelSelectionChangedEvent extends BaseEvent {
 
     private final TagCard newSelection;
 
-    public TagPanelSelectionChangedEvent(TagCard newSelection) {
+    public TagListPanelSelectionChangedEvent(TagCard newSelection) {
         this.newSelection = newSelection;
     }
 

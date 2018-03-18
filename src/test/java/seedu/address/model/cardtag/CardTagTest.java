@@ -8,14 +8,13 @@ import static seedu.address.testutil.TypicalCards.COMSCI_CARD;
 import static seedu.address.testutil.TypicalCards.CS2103T_CARD;
 import static seedu.address.testutil.TypicalCards.GEOGRAPHY_CARD;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
-import static seedu.address.testutil.TypicalTags.BIOLOGY;
-import static seedu.address.testutil.TypicalTags.PHYSICS;
-import static seedu.address.testutil.TypicalTags.TAMIL;
+import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
+import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,83 +31,82 @@ public class CardTagTest {
 
     private AddressBook addressBook = TypicalAddressBook.getTypicalAddressBook();
 
+    private CardTag cardTag;
+
     @Before
     public void setUp() throws Exception {
+        cardTag = new CardTag();
+
         for (Card card : addressBook.getCardList()) {
-            CardTag.getInstance().addCard(card);
+            cardTag.addCard(card);
         }
 
         for (Tag tag : addressBook.getTagList()) {
-            CardTag.getInstance().addTag(tag);
+            cardTag.addTag(tag);
         }
 
-        // Associate CARD_3 and CARD_5 to PHYSICS
-        CardTag.getInstance().associateCardTag(MATHEMATICS_CARD, PHYSICS);
-        CardTag.getInstance().associateCardTag(COMSCI_CARD, PHYSICS);
+        // Associate CARD_3 and CARD_5 to PHYSICS_TAG
+        cardTag.associateCardTag(MATHEMATICS_CARD, PHYSICS_TAG);
+        cardTag.associateCardTag(COMSCI_CARD, PHYSICS_TAG);
 
-        // Associate CARD_4 and CARD_5 to BIOLOGY
-        CardTag.getInstance().associateCardTag(CHEMISTRY_CARD, BIOLOGY);
-        CardTag.getInstance().associateCardTag(COMSCI_CARD, BIOLOGY);
+        // Associate CARD_4 and CARD_5 to BIOLOGY_TAG
+        cardTag.associateCardTag(CHEMISTRY_CARD, BIOLOGY_TAG);
+        cardTag.associateCardTag(COMSCI_CARD, BIOLOGY_TAG);
     }
 
     @Test
     public void addingCardsAndTagsWorks() {
         // Tags in the typical address book are present
-        assertTrue(CardTag.getInstance().getGraph().nodes().contains(PHYSICS));
-        assertTrue(CardTag.getInstance().getGraph().nodes().contains(BIOLOGY));
+        assertTrue(cardTag.getGraph().nodes().contains(PHYSICS_TAG));
+        assertTrue(cardTag.getGraph().nodes().contains(BIOLOGY_TAG));
 
         // Cards in the typical address book are present
-        assertTrue(CardTag.getInstance().getGraph().nodes().contains(MATHEMATICS_CARD));
-        assertTrue(CardTag.getInstance().getGraph().nodes().contains(CHEMISTRY_CARD));
+        assertTrue(cardTag.contains(MATHEMATICS_CARD));
+        assertTrue(cardTag.contains(CHEMISTRY_CARD));
 
         // There are four edges now
-        assertEquals(CardTag.getInstance().getGraph().edges().size(), 4);
+        assertEquals(cardTag.countEdges(), 4);
     }
 
     @Test
     public void associateCardTag_existingCardsCanFormEdges() {
         // Case: there is a new connection between the card and the tag
-        assertTrue(CardTag.getInstance().hasConnection(MATHEMATICS_CARD, PHYSICS));
-        assertTrue(CardTag.getInstance().hasConnection(CHEMISTRY_CARD, BIOLOGY));
+        assertTrue(cardTag.hasConnection(MATHEMATICS_CARD, PHYSICS_TAG));
+        assertTrue(cardTag.hasConnection(CHEMISTRY_CARD, BIOLOGY_TAG));
 
         // Case: there is no connection between the card and the tag
-        assertFalse(CardTag.getInstance().hasConnection(CHEMISTRY_CARD, PHYSICS));
+        assertFalse(cardTag.hasConnection(CHEMISTRY_CARD, PHYSICS_TAG));
     }
 
     @Test
     public void associateCardTag_nonExistingCardsCannotBeAdded() {
         // CARD_1 is not in the graph yet
         thrown.expect(AssertionError.class);
-        CardTag.getInstance().associateCardTag(CS2103T_CARD, PHYSICS);
+        cardTag.associateCardTag(CS2103T_CARD, PHYSICS_TAG);
     }
 
     @Test
     public void getCards_withEdges() {
-        assertEquals(CardTag.getInstance().getCards(PHYSICS), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
+        assertEquals(cardTag.getCards(PHYSICS_TAG), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
                 .collect(Collectors.toSet()));
-        assertEquals(CardTag.getInstance().getCards(BIOLOGY), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
+        assertEquals(cardTag.getCards(BIOLOGY_TAG), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
                 .collect(Collectors.toSet()));
     }
 
     @Test
     public void getCards_withoutEdges() {
-        assertEquals(CardTag.getInstance().getCards(TAMIL), Stream.of().collect(Collectors.toSet()));
+        assertEquals(cardTag.getCards(MATHEMATICS_TAG), Stream.of().collect(Collectors.toSet()));
     }
 
     @Test
     public void getTags_withEdges() {
-        assertEquals(CardTag.getInstance().getTags(MATHEMATICS_CARD), Stream.of(PHYSICS).collect(Collectors.toSet()));
-        assertEquals(CardTag.getInstance().getTags(COMSCI_CARD), Stream.of(PHYSICS, BIOLOGY)
+        assertEquals(cardTag.getTags(MATHEMATICS_CARD), Stream.of(PHYSICS_TAG).collect(Collectors.toSet()));
+        assertEquals(cardTag.getTags(COMSCI_CARD), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
                 .collect(Collectors.toSet()));
     }
 
     @Test
     public void getTags_withoutEdges() {
-        assertEquals(CardTag.getInstance().getTags(GEOGRAPHY_CARD), Stream.of().collect(Collectors.toSet()));
-    }
-
-    @After
-    public void tearDown() {
-        CardTag.getInstance().reset();
+        assertEquals(cardTag.getTags(GEOGRAPHY_CARD), Stream.of().collect(Collectors.toSet()));
     }
 }
