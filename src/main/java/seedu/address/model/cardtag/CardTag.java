@@ -37,16 +37,28 @@ public class CardTag {
         addNode(card);
     }
 
+    /**
+     * Adds a list of cards to the graph.
+     * @param cards list of cards
+     */
     public void addCards(List<Card> cards) {
         for (Card card : cards) {
             addNode(card);
         }
     }
 
+    /**
+     * Adds a single tag to the graph.
+     * @param tag Tag to add.
+     */
     public void addTag(Tag tag) {
         addNode(tag);
     }
 
+    /**
+     * Adds a list of tags to the graph.
+     * @param tags list of tags
+     */
     public void addTags(List<Tag> tags) {
         for (Tag tag : tags) {
             addNode(tag);
@@ -98,7 +110,9 @@ public class CardTag {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
+        if (other == this) {
+            return true;
+        }
 
         if (!(other instanceof CardTag)) {
             return false;

@@ -59,9 +59,9 @@ public class Tag implements Node {
         Tag otherTag = (Tag) other;
 
         // TODO: account for ID equality. Some test cases check for object equality.
-//        return otherTag.getId().equals(this.getId())
-//                && otherTag.getName().equals(this.getName())
-//                && otherTag.getDescription().equals(this.getDescription());
+        //        return otherTag.getId().equals(this.getId())
+        //                && otherTag.getName().equals(this.getName())
+        //                && otherTag.getDescription().equals(this.getDescription());
 
         return otherTag.getName().equals(this.getName())
                 && otherTag.getDescription().equals(this.getDescription());

@@ -122,13 +122,22 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// card-level operations
 
+    /**
+     * Adds a card to the address book.
+     */
     public void addCard(Card c) throws DuplicateCardException {
         cards.add(c);
         cardTag.addCard(c);
     }
 
+    /**
+     * Removes a card from the address book.
+     * @param c card to remove
+     * @throws CardNotFoundException
+     */
     public void deleteCard(Card c) throws CardNotFoundException {
         cards.remove(c);
+        cardTag.deleteCard(c);
     }
 
     //// card-tag-level operations
@@ -144,7 +153,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         stringBuilder.append(tags.asObservableList().size());
         stringBuilder.append(" Tags:\n");
         for (Tag tag : tags.asObservableList()) {
-            stringBuilder.append(tag.toString() +"\n");
+            stringBuilder.append(tag.toString() + "\n");
         }
         stringBuilder.append(cards.asObservableList().size());
 

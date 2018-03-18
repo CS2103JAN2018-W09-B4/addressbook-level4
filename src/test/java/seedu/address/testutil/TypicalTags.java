@@ -48,9 +48,11 @@ public class TypicalTags {
             .withDescription("math math").build();
 
     // Manually added
-    public static final Tag RUSSIAN = new TagBuilder().withName("Russian Midterms")
+    public static final Tag RUSSIAN = new TagBuilder()
+            .withName("Russian Midterms")
             .withDescription("russian russian").build();
-    public static final Tag BULGARIAN = new TagBuilder().withName("Bulgarian")
+    public static final Tag BULGARIAN = new TagBuilder()
+            .withName("Bulgarian")
             .withDescription("bulgarian bulgarian").build();
 
     // Manually added - Tag's details found in {@code CommandTestUtil}
@@ -69,6 +71,7 @@ public class TypicalTags {
     private TypicalTags() {} // prevents instantiation
 
     public static List<Tag> getTypicalTags() {
-        return new ArrayList<>(Arrays.asList(PHYSICS_TAG, BIOLOGY_TAG, CHEMISTRY_TAG, ECONOMICS_TAG, HISTORY_TAG, MALAY_TAG, MATHEMATICS_TAG));
+        return new ArrayList<>(Arrays.asList(PHYSICS_TAG, BIOLOGY_TAG,
+                CHEMISTRY_TAG, ECONOMICS_TAG, HISTORY_TAG, MALAY_TAG, MATHEMATICS_TAG));
     }
 }

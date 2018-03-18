@@ -9,8 +9,8 @@ import static seedu.address.testutil.TypicalCards.CS2103T_CARD;
 import static seedu.address.testutil.TypicalCards.GEOGRAPHY_CARD;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
-import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
+import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
