@@ -3,66 +3,82 @@
 {@code TypicalAddressBook#getTypicalAddressBook()}-->
 <addressbook>
     <tags>
+        <id>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</id>
         <name>Physics</name>
         <description>physics physics</description>
     </tags>
     <tags>
+        <id>f7a33f28-8246-41ba-9347-0455124625c0</id>
         <name>Biology Midterms</name>
         <description>biology midterms</description>
     </tags>
     <tags>
+        <id>2c941c30-fde8-4572-ab41-9f29270a4245</id>
         <name>Chemistry</name>
         <description>chemistry chemistry</description>
     </tags>
     <tags>
+        <id>b7a91de5-32c9-476e-a72f-4c9fa963d4b4</id>
         <name>Economics Midterms</name>
         <description>economics economics</description>
     </tags>
     <tags>
+        <id>49af579d-3990-43e1-b11f-ed7ea0630434</id>
         <name>History</name>
         <description>history history</description>
     </tags>
     <tags>
+        <id>437f5cba-8023-47d3-8269-7d23b7a7338b</id>
         <name>Malay</name>
         <description>malay malay</description>
     </tags>
     <tags>
-        <name>Tamil</name>
-        <description>tamil tamil</description>
+        <id>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</id>
+        <name>Mathematics</name>
+        <description>math math</description>
     </tags>
     <cards>
+        <id>3648b549-d900-4f0e-8573-e3c9ab499054</id>
         <front>What is 1 + 1?</front>
         <back>2</back>
     </cards>
     <cards>
+        <id>f581860a-d5db-4925-aeab-1f1e441407f3</id>
         <front>Name two types of bonding between atoms</front>
         <back>Covalent and Ionic bonding</back>
     </cards>
     <cards>
+        <id>3f92bd2c-affc-499c-a9a0-28b46fd61791</id>
         <front>What is Java?</front>
         <back>A programming language</back>
     </cards>
     <cards>
+        <id>8c19a1f2-cfa2-4060-b9e3-67bd1ef101e0</id>
         <front>Which continent is Singapore in?</front>
         <back>Asia</back>
     </cards>
     <cards>
+        <id>8c488abb-ab40-4a5b-9b1b-7ee78d453538</id>
         <front>When is Singapore's National Day?</front>
         <back>9th August 1965</back>
     </cards>
     <cards>
+        <id>6375641d-822e-42b1-b98e-49e40b31c328</id>
         <front>What does GDP stand for?</front>
         <back>Gross Domestic Product</back>
     </cards>
     <cards>
+        <id>3dd96485-a4e4-42fe-a2fb-9e9f01d7f08d</id>
         <front>Who wrote To Kill A Mockingbird?</front>
         <back>Harper Lee</back>
     </cards>
     <cards>
+        <id>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</id>
         <front>Why do things fall?</front>
         <back>Gravity</back>
     </cards>
     <cards>
+        <id>8f4716c7-f82e-462f-bad1-e59f98b8624e</id>
         <front>What are action words?</front>
         <back>Verbs</back>
     </cards>

@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -19,16 +20,21 @@ public class XmlAdaptedCard {
     @XmlElement(required = true)
     private String back;
 
+    @XmlElement(required = true)
+    private String id;
+
     /**
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedCard() {}
 
+
     /**
      * Constructs an {@code XmlAdaptedTag} with the given tag details.
      */
-    public XmlAdaptedCard(String front, String back) {
+    public XmlAdaptedCard(String id, String front, String back) {
+        this.id = id;
         this.front = front;
         this.back = back;
     }
@@ -39,6 +45,7 @@ public class XmlAdaptedCard {
      * @param source future changes to this will not affect the created XmlAdaptedTag
      */
     public XmlAdaptedCard(Card source) {
+        id = source.getId().toString();
         front = source.getFront();
         back = source.getBack();
     }
@@ -49,6 +56,9 @@ public class XmlAdaptedCard {
      * @throws IllegalValueException if there were any data constraints violated in the adapted card
      */
     public Card toModelType() throws IllegalValueException {
+        if (this.id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
+        }
         if (this.front == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
         }
@@ -62,7 +72,7 @@ public class XmlAdaptedCard {
         if (!Card.isValidCard(this.back)) {
             throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
         }
-        return new Card(front, back);
+        return new Card(UUID.fromString(id), front, back);
     }
 
     @Override
@@ -76,7 +86,8 @@ public class XmlAdaptedCard {
         }
 
         XmlAdaptedCard otherCard = (XmlAdaptedCard) other;
-        return Objects.equals(front, otherCard.front)
+        return Objects.equals(id, otherCard.id)
+                && Objects.equals(front, otherCard.front)
                 && Objects.equals(back, otherCard.back);
     }
 }

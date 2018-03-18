@@ -12,10 +12,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ENG
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
 import static seedu.address.testutil.TypicalTags.BULGARIAN;
-import static seedu.address.testutil.TypicalTags.CHEMISTRY;
+import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
 import static seedu.address.testutil.TypicalTags.ENGLISH;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
-import static seedu.address.testutil.TypicalTags.PHYSICS;
+import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 import static seedu.address.testutil.TypicalTags.RUSSIAN;
 
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a tag without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a tag to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
         Tag toAdd = ENGLISH;
@@ -74,7 +74,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllTags();
-        assertCommandSuccess(PHYSICS);
+        assertCommandSuccess(PHYSICS_TAG);
 
         /* Case: add a tag, missing tags -> added */
         assertCommandSuccess(RUSSIAN);
@@ -89,7 +89,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: selects first card in the tag list, add a tag -> added, card selection remains unchanged */
         selectTag(Index.fromOneBased(1));
-        assertCommandSuccess(CHEMISTRY);
+        assertCommandSuccess(CHEMISTRY_TAG);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 

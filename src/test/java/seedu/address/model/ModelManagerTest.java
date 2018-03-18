@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
-import static seedu.address.testutil.TypicalTags.BIOLOGY;
-import static seedu.address.testutil.TypicalTags.PHYSICS;
+import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
+import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.Arrays;
 
@@ -28,7 +28,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withTag(PHYSICS).withTag(BIOLOGY).build();
+        AddressBook addressBook = new AddressBookBuilder().withTag(PHYSICS_TAG).withTag(BIOLOGY_TAG).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -50,7 +50,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = PHYSICS.getName().fullName.split("\\s+");
+        String[] keywords = PHYSICS_TAG.getName().fullName.split("\\s+");
         modelManager.updateFilteredTagList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

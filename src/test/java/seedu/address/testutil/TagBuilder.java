@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.UUID;
+
 import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
@@ -14,8 +16,10 @@ public class TagBuilder {
 
     private Name name;
     private Description description;
+    private UUID id;
 
     public TagBuilder() {
+        id = UUID.randomUUID();
         name = new Name(DEFAULT_NAME);
         description = new Description(DEFAULT_DESCRIPTION);
     }
@@ -24,8 +28,17 @@ public class TagBuilder {
      * Initializes the TagBuilder with the data of {@code tagToCopy}.
      */
     public TagBuilder(Tag tagToCopy) {
+        id = tagToCopy.getId();
         name = tagToCopy.getName();
         description = tagToCopy.getDescription();
+    }
+
+    /**
+     * Sets the {@code id} of the {@code Tag} that we are building
+     */
+    public TagBuilder withId(String id) {
+        this.id = UUID.fromString(id);
+        return this;
     }
 
     /**
@@ -45,7 +58,6 @@ public class TagBuilder {
     }
 
     public Tag build() {
-        return new Tag(name, description);
+        return new Tag(id, name, description);
     }
-
 }

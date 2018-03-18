@@ -3,6 +3,7 @@ package seedu.address.model.tag;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import seedu.address.model.cardtag.Node;
 
@@ -12,6 +13,7 @@ import seedu.address.model.cardtag.Node;
  */
 public class Tag implements Node {
 
+    private final UUID id;
     private final Name name;
     private final Description description;
 
@@ -22,6 +24,18 @@ public class Tag implements Node {
         requireAllNonNull(name, description);
         this.name = name;
         this.description = description;
+        this.id = UUID.randomUUID();
+    }
+
+    public Tag(UUID id, Name name, Description description) {
+        requireAllNonNull(id, name, description);
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Name getName() {
@@ -43,6 +57,12 @@ public class Tag implements Node {
         }
 
         Tag otherTag = (Tag) other;
+
+        // TODO: account for ID equality. Some test cases check for object equality.
+        //        return otherTag.getId().equals(this.getId())
+        //                && otherTag.getName().equals(this.getName())
+        //                && otherTag.getDescription().equals(this.getDescription());
+
         return otherTag.getName().equals(this.getName())
                 && otherTag.getDescription().equals(this.getDescription());
     }
@@ -56,7 +76,8 @@ public class Tag implements Node {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(" Name: ")
+                .append(getName())
                 .append(" Description: ")
                 .append(getDescription());
         return builder.toString();
