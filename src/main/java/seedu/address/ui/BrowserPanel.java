@@ -13,7 +13,6 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CardPanelSelectionChangedEvent;
-import seedu.address.model.tag.Tag;
 
 /**
  * The Browser Panel of the App.

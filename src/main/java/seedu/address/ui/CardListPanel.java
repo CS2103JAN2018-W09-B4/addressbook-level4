@@ -2,15 +2,17 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-import javafx.application.Platform;
 import org.fxmisc.easybind.EasyBind;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import org.fxmisc.easybind.EasyBind;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CardPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToCardRequestEvent;
@@ -39,7 +41,6 @@ public class CardListPanel extends UiPart<Region> {
         cardListView.setCellFactory(listView -> new CardListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
-
 
     private void setEventHandlerForSelectionChangeEvent() {
         cardListView.getSelectionModel().selectedItemProperty()
