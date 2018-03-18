@@ -1,5 +1,6 @@
 package seedu.address.model.card;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -30,6 +31,8 @@ public class Card implements Node {
 
     public Card(String front, String back) {
         requireAllNonNull(front, back);
+        checkArgument(isValidCard(front), MESSAGE_CARD_CONSTRAINTS);
+        checkArgument(isValidCard(back), MESSAGE_CARD_CONSTRAINTS);
         this.front = front;
         this.back = back;
         this.id = UUID.randomUUID();

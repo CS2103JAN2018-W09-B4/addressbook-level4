@@ -107,6 +107,24 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code Optional<String> front} into an {@code Optional<Card>} if {@code front} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<String> parseFront(Optional<String> front) throws IllegalValueException {
+        requireNonNull(front);
+        return front.isPresent() ? front : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Optional<String> front} into an {@code Optional<Card>} if {@code front} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<String> parseBack(Optional<String> back) throws IllegalValueException {
+        requireNonNull(back);
+        return back.isPresent() ? back : Optional.empty();
+    }
+
+    /**
      * Parses a {@code String theme} into an {@code Integer}.
      * Leading and trailing whitespaces will be trimmed.
      *

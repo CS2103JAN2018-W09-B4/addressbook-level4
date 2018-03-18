@@ -142,6 +142,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateCard(Card target, Card editedCard)
+            throws DuplicateCardException, CardNotFoundException {
+        requireAllNonNull(target, editedCard);
+
+        addressBook.updateCard(target, editedCard);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public ObservableList<Card> getFilteredCardList() {
         return FXCollections.unmodifiableObservableList(filteredCards);
     }

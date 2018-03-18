@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import seedu.address.model.card.UuidPredicate;
 import seedu.address.model.tag.NameContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
+import seedu.address.testutil.EditCardDescriptorBuilder;
 import seedu.address.testutil.EditTagDescriptorBuilder;
 
 /**
@@ -49,10 +52,23 @@ public class CommandTestUtil {
     public static final EditCommand.EditTagDescriptor DESC_AMY;
     public static final EditCommand.EditTagDescriptor DESC_BOB;
 
+    public static final EditCardCommand.EditCardDescriptor CS2103T_CARD;
+    public static final EditCardCommand.EditCardDescriptor CS2101_CARD;
+
     public static final String VALID_FRONT_CARD_1 = "What is OOP?";
     public static final String VALID_BACK_CARD_1 = "A programming paradigm";
     public static final String VALID_FRONT_CARD_2 = "What is the main point of the class?";
     public static final String VALID_BACK_CARD_2 = "To learn to be audience-centred";
+
+    public static final String EDIT_FRONT_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
+    public static final String EDIT_FRONT_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;
+    public static final String EDIT_BACK_CARD_1 = " " + PREFIX_BACK + VALID_BACK_CARD_1;
+    public static final String EDIT_BACK_CARD_2 = " " + PREFIX_BACK + VALID_BACK_CARD_2;
+
+    public static final String INVALID_FRONT_CARD_2 = " "
+            + PREFIX_FRONT;; // empty string not allowed
+    public static final String INVALID_BACK_CARD_2 = " "
+            + PREFIX_BACK;; // empty string not allowed
 
     public static final String VALID_THEME_1 = "light";
     public static final String VALID_THEME_2 = "dark";
@@ -67,6 +83,15 @@ public class CommandTestUtil {
                 .build();
         DESC_BOB = new EditTagDescriptorBuilder().withName(VALID_NAME_COMSCI)
                 .withDescription(VALID_DESCRIPTION_COMSCI)
+                .build();
+    }
+
+    static {
+        CS2103T_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CARD_1)
+                .withBack(VALID_BACK_CARD_1)
+                .build();
+        CS2101_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CARD_2)
+                .withBack(VALID_BACK_CARD_2)
                 .build();
     }
 

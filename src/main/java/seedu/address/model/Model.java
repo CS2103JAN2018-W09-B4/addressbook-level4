@@ -61,6 +61,16 @@ public interface Model {
     /** Delete the given card */
     void deleteCard(Card card) throws CardNotFoundException;
 
+    /**
+     * Replaces the given card {@code target} with {@code editedCard}.
+     *
+     * @throws DuplicateCardException if updating the card's details causes the tag to be equivalent to
+     *      another existing card in the list.
+     * @throws CardNotFoundException if {@code target} could not be found in the list.
+     */
+    void updateCard(Card target, Card editedCard)
+            throws DuplicateCardException, CardNotFoundException;
+
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
 }

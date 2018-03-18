@@ -126,6 +126,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         cards.remove(c);
     }
 
+    /**
+     * Replaces the given card {@code target} in the list with {@code editedCard}.
+     *
+     * @throws DuplicateCardException if updating the card's details causes the card to be equivalent to
+     *      another existing card in the list.
+     * @throws CardNotFoundException if {@code target} could not be found in the list.
+     *
+     */
+    public void updateCard(Card target, Card editedCard)
+            throws DuplicateCardException, CardNotFoundException {
+        requireNonNull(editedCard);
+        cards.setCard(target, editedCard);
+    }
+
     //// util methods
 
     @Override

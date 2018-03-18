@@ -157,6 +157,11 @@ public class AddCommandTest {
         public void deleteCard(Card target) throws CardNotFoundException {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void updateCard(Card target, Card editedCard) throws CardNotFoundException {
+            fail("This method should not be called.");
+        }
     }
 
     /**
