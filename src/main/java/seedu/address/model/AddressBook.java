@@ -140,7 +140,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return tags.asObservableList().size() + " tags, " + cards.asObservableList().size() + " cards";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(tags.asObservableList().size());
+        stringBuilder.append(" Tags:\n");
+        for (Tag tag : tags.asObservableList()) {
+            stringBuilder.append(tag.toString() +"\n");
+        }
+        stringBuilder.append(cards.asObservableList().size());
+
+        stringBuilder.append(" Cards:\n");
+        for (Card card: cards.asObservableList()) {
+            stringBuilder.append(card.toString() + "\n");
+        }
+
+        return stringBuilder.toString();
     }
 
     @Override

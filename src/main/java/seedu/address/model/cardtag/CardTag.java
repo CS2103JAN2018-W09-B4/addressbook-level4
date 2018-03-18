@@ -96,5 +96,16 @@ public class CardTag {
         this.graph.removeNode(tag);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) return true;
+
+        if (!(other instanceof CardTag)) {
+            return false;
+        }
+
+        return ((CardTag) other).getGraph().nodes().equals(this.getGraph().nodes())
+                && ((CardTag) other).getGraph().edges().equals(this.getGraph().edges());
+    }
 
 }
