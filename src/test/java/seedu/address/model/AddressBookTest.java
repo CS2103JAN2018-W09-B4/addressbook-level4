@@ -3,6 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
+import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.Arrays;
@@ -61,6 +63,16 @@ public class AddressBookTest {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
     }
+
+    @Test
+    public void getTodayReviewList() {
+        AddressBook newData = getTypicalAddressBook();
+        addressBook.resetData(newData);
+        List<Card> expectedList = addressBook.getCardList();
+        List<Card> actualList = addressBook.getTodayReviewList();
+        assertEquals(expectedList, actualList);
+    }
+
 
     /**
      * A stub ReadOnlyAddressBook whose tags and tags lists can violate interface constraints.
