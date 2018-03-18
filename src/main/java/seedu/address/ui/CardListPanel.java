@@ -13,7 +13,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.CardPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToCardRequestEvent;
 import seedu.address.model.card.Card;
 
@@ -46,7 +46,7 @@ public class CardListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in tag list panel changed to : '" + newValue + "'");
-                        raise(new CardPanelSelectionChangedEvent(newValue));
+                        raise(new CardListPanelSelectionChangedEvent(newValue));
                     }
                 });
     }

@@ -6,11 +6,11 @@ import seedu.address.ui.CardCard;
 /**
  * Represents a selection change in the Card List Panel
  */
-public class CardPanelSelectionChangedEvent extends BaseEvent {
+public class CardListPanelSelectionChangedEvent extends BaseEvent {
 
     private final CardCard newSelection;
 
-    public CardPanelSelectionChangedEvent(CardCard newSelection) {
+    public CardListPanelSelectionChangedEvent(CardCard newSelection) {
         this.newSelection = newSelection;
     }
 

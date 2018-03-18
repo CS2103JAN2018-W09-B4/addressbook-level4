@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.CardPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 
 /**
  * The Browser Panel of the App.
@@ -64,7 +64,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(CardPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(CardListPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
     }

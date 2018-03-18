@@ -14,7 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToTagRequestEvent;
-import seedu.address.commons.events.ui.TagPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -46,7 +46,7 @@ public class TagListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in tag list panel changed to : '" + newValue + "'");
-                        raise(new TagPanelSelectionChangedEvent(newValue));
+                        raise(new TagListPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
