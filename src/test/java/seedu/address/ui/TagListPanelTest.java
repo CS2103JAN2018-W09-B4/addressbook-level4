@@ -14,14 +14,14 @@ import guitests.guihandles.TagCardHandle;
 import guitests.guihandles.TagListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToTagRequestEvent;
 import seedu.address.model.tag.Tag;
 
 public class TagListPanelTest extends GuiUnitTest {
     private static final ObservableList<Tag> TYPICAL_TAGS =
             FXCollections.observableList(getTypicalTags());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_TAG);
+    private static final JumpToTagRequestEvent JUMP_TO_SECOND_EVENT = new JumpToTagRequestEvent(INDEX_SECOND_TAG);
 
     private TagListPanelHandle tagListPanelHandle;
 
