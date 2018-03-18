@@ -65,7 +65,8 @@ public class Card implements Node {
         }
 
         Card otherCard = (Card) other;
-        return otherCard.getFront().equals(this.getFront())
+        return otherCard.getId().toString().equals(this.getId().toString())
+                && otherCard.getFront().equals(this.getFront())
                 && otherCard.getBack().equals(this.getBack());
     }
 
