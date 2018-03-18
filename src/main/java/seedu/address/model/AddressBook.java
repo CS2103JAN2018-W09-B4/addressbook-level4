@@ -3,10 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.UniqueCardList;
 import seedu.address.model.card.exceptions.CardNotFoundException;
@@ -143,6 +146,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// card-tag-level operations
     public void associate(Card c, Tag t) {
         cardTag.associateCardTag(c, t);
+    }
+
+    //// get list of cards for review
+    public ObservableList<Card> getTodayReviewList() {
+        return new FilteredList<Card>(cards.asObservableList(),
+                (Card c) -> c.getNextReview().before(Calendar.getInstance()));
     }
 
     //// util methods
