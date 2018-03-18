@@ -33,10 +33,10 @@ public class XmlAdaptedCard {
     /**
      * Constructs an {@code XmlAdaptedTag} with the given tag details.
      */
-    public XmlAdaptedCard(String front, String back, String id) {
+    public XmlAdaptedCard(String id, String front, String back) {
+        this.id = id;
         this.front = front;
         this.back = back;
-        this.id = id;
     }
 
     /**
