@@ -60,7 +60,6 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertListMatching(getTagListPanel(), getModel().getFilteredTagList());
 
         // assert that the status bar too is updated correctly while the help window is open
