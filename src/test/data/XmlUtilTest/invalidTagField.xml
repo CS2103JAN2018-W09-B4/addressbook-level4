@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Tag with an invalid name field -->
 <tag>
+    <id>ad5abcb8-801f-42b5-85ec-4d7d72afe9b3</id>
     <name>Phys!cs</name>
     <description>physics physics</description>
 </tag>

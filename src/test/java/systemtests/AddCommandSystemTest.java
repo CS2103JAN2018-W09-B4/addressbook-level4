@@ -41,7 +41,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a tag without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a tag to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
         Tag toAdd = ENGLISH;
