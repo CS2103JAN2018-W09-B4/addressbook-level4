@@ -30,16 +30,13 @@ public class Card implements Node {
     private final String back;
 
     public Card(String front, String back) {
-        requireAllNonNull(front, back);
-        checkArgument(isValidCard(front), MESSAGE_CARD_CONSTRAINTS);
-        checkArgument(isValidCard(back), MESSAGE_CARD_CONSTRAINTS);
-        this.front = front;
-        this.back = back;
-        this.id = UUID.randomUUID();
+        this(UUID.randomUUID(), front, back);
     }
 
     public Card(UUID id, String front, String back) {
         requireAllNonNull(id, front, back);
+        checkArgument(isValidCard(front), MESSAGE_CARD_CONSTRAINTS);
+        checkArgument(isValidCard(back), MESSAGE_CARD_CONSTRAINTS);
         this.front = front;
         this.back = back;
         this.id = id;

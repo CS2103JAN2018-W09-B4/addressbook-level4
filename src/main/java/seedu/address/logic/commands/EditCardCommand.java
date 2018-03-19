@@ -90,7 +90,7 @@ public class EditCardCommand extends UndoableCommand {
         String updatedFront = editCardDescriptor.getFront().orElse(cardToEdit.getFront());
         String updatedBack = editCardDescriptor.getBack().orElse(cardToEdit.getBack());
 
-        return new Card(updatedFront, updatedBack);
+        return new Card(cardToEdit.getId(), updatedFront, updatedBack);
     }
 
     @Override

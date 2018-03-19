@@ -112,6 +112,11 @@ public class ParserUtil {
      */
     public static Optional<String> parseFront(Optional<String> front) throws IllegalValueException {
         requireNonNull(front);
+        if (front.isPresent()) {
+            if (!Card.isValidCard(front.get())) {
+                throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+            }
+        }
         return front.isPresent() ? front : Optional.empty();
     }
 
@@ -121,6 +126,11 @@ public class ParserUtil {
      */
     public static Optional<String> parseBack(Optional<String> back) throws IllegalValueException {
         requireNonNull(back);
+        if (back.isPresent()) {
+            if (!Card.isValidCard(back.get())) {
+                throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+            }
+        }
         return back.isPresent() ? back : Optional.empty();
     }
 
