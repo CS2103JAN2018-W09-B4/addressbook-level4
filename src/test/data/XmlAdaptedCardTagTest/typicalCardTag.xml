@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cardtag>
+    <cardEntry>
+        <cardId>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</cardId>
+        <tags>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</tags>
+    </cardEntry>
+    <cardEntry>
+        <cardId>50992d13-2f39-4c5c-b3e9-b088c8a04311</cardId>
+        <tags>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</tags>
+    </cardEntry>
+    <cardEntry>
+        <cardId>3648b549-d900-4f0e-8573-e3c9ab499054</cardId>
+        <tags>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</tags>
+    </cardEntry>
+    <cardEntry>
+        <cardId>8f4716c7-f82e-462f-bad1-e59f98b8624e</cardId>
+        <tags>38deca7c-b5cb-4b1a-8035-54e7f5908565</tags>
+    </cardEntry>
+    <tagEntry>
+        <tagId>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</tagId>
+        <cards>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</cards>
+        <cards>50992d13-2f39-4c5c-b3e9-b088c8a04311</cards>
+    </tagEntry>
+    <tagEntry>
+        <tagId>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</tagId>
+        <cards>3648b549-d900-4f0e-8573-e3c9ab499054</cards>
+    </tagEntry>
+    <tagEntry>
+        <tagId>38deca7c-b5cb-4b1a-8035-54e7f5908565</tagId>
+        <cards>8f4716c7-f82e-462f-bad1-e59f98b8624e</cards>
+    </tagEntry>
+</cardtag>

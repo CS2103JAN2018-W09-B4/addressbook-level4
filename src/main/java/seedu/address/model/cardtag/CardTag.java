@@ -2,11 +2,13 @@ package seedu.address.model.cardtag;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 
@@ -15,38 +17,67 @@ import seedu.address.model.tag.Tag;
  *
  */
 public class CardTag {
-    private HashMap<Card, Set<Tag>> cardMap;
-    private HashMap<Tag, Set<Card>> tagMap;
+    private HashMap<String, Set<String>> cardMap;
+    private HashMap<String, Set<String>> tagMap;
 
     public CardTag() {
         this.cardMap = new HashMap<>();
         this.tagMap = new HashMap<>();
     }
 
+    public HashMap<String, Set<String>> getCardMap() {
+        return cardMap;
+    }
+
+    public HashMap<String, Set<String>> getTagMap() {
+        return tagMap;
+    }
+
+    public void setCardMap(HashMap<String, Set<String>> cardMap) {
+        this.cardMap = cardMap;
+    }
+
+    public void setTagMap(HashMap<String, Set<String>> tagMap) {
+        this.tagMap = tagMap;
+    }
+
+    public boolean isConnected(String cardId, String tagId) {
+        Set<String> tags = cardMap.get(cardId);
+        Set<String> cards = tagMap.get(tagId);
+
+        return (tags != null && tags.contains(tagId))
+                || (cards != null && cards.contains(cardId)); // should always short-circuit here
+    }
+
     public boolean isConnected(Card card, Tag tag) {
-        Set<Tag> tags = cardMap.get(card);
-        Set<Card> cards = tagMap.get(tag);
-
-        return (tags != null && tags.contains(tag))
-                || (cards != null && cards.contains(card)); // should always short-circuit here
+        return isConnected(card.getId().toString(), tag.getId().toString());
     }
 
-    public Set<Card> getCards(Tag tag) {
-        Set<Card> cards = tagMap.get(tag);
+
+    public List<Card> getCards(String tagId, ObservableList<Card> cardList) {
+        Set<String> cards = tagMap.get(tagId);
         if (cards != null) {
-            return cards;
+            return cardList.filtered(card -> cards.contains(card.getId().toString()));
         } else {
-            return Collections.emptySet();
+            return Collections.emptyList();
         }
     }
 
-    public Set<Tag> getTags(Card card) {
-        Set<Tag> tags = cardMap.get(card);
+    public List<Card> getCards(Tag tag, ObservableList<Card> cardList) {
+        return getCards(tag.getId().toString(), cardList);
+    }
+
+    public List<Tag> getTags(String cardId, ObservableList<Tag> tagList) {
+        Set<String> tags = cardMap.get(cardId);
         if (tags != null) {
-            return tags;
+            return tagList.filtered(tag -> tags.contains(tag.getId().toString()));
         } else {
-            return Collections.emptySet();
+            return Collections.emptyList();
         }
+    }
+
+    public List<Tag> getTags(Card card, ObservableList<Tag> tagList) {
+        return getTags(card.getId().toString(), tagList);
     }
 
     /**
@@ -54,36 +85,44 @@ public class CardTag {
      *
      * Ensures that the card and tag are already in the graph.
      *
-     * @param card a valid Card
-     * @param tag a valid Tag
+     * @param cardId card id
+     * @param tagId tag Id
      */
-    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
-        if (isConnected(card, tag)) {
+    public void addEdge(String cardId, String tagId) throws DuplicateEdgeException {
+        if (isConnected(cardId, tagId)) {
             throw new DuplicateEdgeException();
         }
 
-        Set<Tag> tags = cardMap.get(card);
+        Set<String> tags = cardMap.get(cardId);
         if (tags == null) {
-            cardMap.put(card, Stream.of(tag).collect(Collectors.toSet()));
+            cardMap.put(cardId, Stream.of(tagId).collect(Collectors.toSet()));
         } else {
-            tags.add(tag);
+            tags.add(tagId);
         }
 
-        Set<Card> cards = tagMap.get(tag);
+        Set<String> cards = tagMap.get(tagId);
         if (cards == null) {
-            tagMap.put(tag, Stream.of(card).collect(Collectors.toSet()));
+            tagMap.put(tagId, Stream.of(cardId).collect(Collectors.toSet()));
         } else {
-            cards.add(card);
+            cards.add(cardId);
         }
     }
 
-    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
-        if (!isConnected(card, tag)) {
+    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+        addEdge(card.getId().toString(), tag.getId().toString());
+    }
+
+    public void removeEdge(String cardId, String tagId) throws EdgeNotFoundException {
+        if (!isConnected(cardId, tagId)) {
             throw new EdgeNotFoundException();
         }
 
-        cardMap.get(card).remove(tag);
-        tagMap.get(tag).remove(card);
+        cardMap.get(cardId).remove(tagId);
+        tagMap.get(tagId).remove(cardId);
+    }
+
+    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+        removeEdge(card.getId().toString(), tag.getId().toString());
     }
 
     @Override

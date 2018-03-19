@@ -56,26 +56,45 @@ public class CardTagTest {
 
     @Test
     public void getCards_withEdges() {
-        assertEquals(cardTag.getCards(PHYSICS_TAG), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
-                .collect(Collectors.toSet()));
-        assertEquals(cardTag.getCards(BIOLOGY_TAG), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
-                .collect(Collectors.toSet()));
+        assertEquals(cardTag.getCards(PHYSICS_TAG, addressBook.getCardList()), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
+                .collect(Collectors.toList()));
+        assertEquals(cardTag.getCards(BIOLOGY_TAG, addressBook.getCardList()), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
+                .collect(Collectors.toList()));
     }
 
     @Test
     public void getCards_withoutEdges() {
-        assertEquals(cardTag.getCards(MATHEMATICS_TAG), Stream.of().collect(Collectors.toSet()));
+        assertEquals(cardTag.getCards(MATHEMATICS_TAG, addressBook.getCardList()), Stream.of().collect(Collectors.toList()));
     }
 
     @Test
     public void getTags_withEdges() {
-        assertEquals(cardTag.getTags(MATHEMATICS_CARD), Stream.of(PHYSICS_TAG).collect(Collectors.toSet()));
-        assertEquals(cardTag.getTags(COMSCI_CARD), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
-                .collect(Collectors.toSet()));
+        assertEquals(cardTag.getTags(MATHEMATICS_CARD, addressBook.getTagList()), Stream.of(PHYSICS_TAG).collect(Collectors.toList()));
+        assertEquals(cardTag.getTags(COMSCI_CARD, addressBook.getTagList()), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
+                .collect(Collectors.toList()));
     }
 
     @Test
     public void getTags_withoutEdges() {
-        assertEquals(cardTag.getTags(GEOGRAPHY_CARD), Stream.of().collect(Collectors.toSet()));
+        assertEquals(cardTag.getTags(GEOGRAPHY_CARD, addressBook.getTagList()), Stream.of().collect(Collectors.toList()));
+    }
+
+    @Test
+    public void isConnected_works() {
+        assertEquals(cardTag.isConnected(MATHEMATICS_CARD, BIOLOGY_TAG), false);
+        assertEquals(cardTag.isConnected(COMSCI_CARD, BIOLOGY_TAG), true);
+    }
+
+    @Test
+    public void removeEdge_works() throws EdgeNotFoundException {
+        cardTag.removeEdge(COMSCI_CARD, BIOLOGY_TAG);
+        assertTrue(!cardTag.getTags(COMSCI_CARD, addressBook.getTagList()).contains(BIOLOGY_TAG));
+        assertTrue(!cardTag.getCards(BIOLOGY_TAG, addressBook.getCardList()).contains(COMSCI_CARD));
+    }
+
+    @Test
+    public void removeEdge_onNonExistingEdgeThrowsEdgeNotFoundException() throws EdgeNotFoundException {
+        thrown.expect(EdgeNotFoundException.class);
+        cardTag.removeEdge(MATHEMATICS_CARD, BIOLOGY_TAG);
     }
 }
