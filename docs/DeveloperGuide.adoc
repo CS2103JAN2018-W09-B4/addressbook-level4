@@ -806,6 +806,10 @@ Minor enhancement: Implementing the feature to switch the theme of the applicati
 can change it to suit their preference.
 
 === Wong Ding Feng
+Major enhancement: Implementing a scheduler to prompt users which card they should review daily so that they are able to prioritise what to
+go through first.
+
+Minor enhancement: Sorting of cards based on tags.
 
 === Shawn Chua
 Major enhancement: Implementing polymorphic cards to include MCQ-type and fill-in-the-blanks-type cards so that users
