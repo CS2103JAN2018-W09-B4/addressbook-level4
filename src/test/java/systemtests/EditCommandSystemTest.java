@@ -12,8 +12,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COM
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
-import static seedu.address.testutil.TypicalTags.COMSCI;
-import static seedu.address.testutil.TypicalTags.ENGLISH;
+import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
+import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
@@ -65,7 +65,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a tag with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
                 + DESCRIPTION_DESC_COMSCI;
-        assertCommandSuccess(command, index, COMSCI);
+        assertCommandSuccess(command, index, COMSCI_TAG);
 
         Tag tagToEdit = getModel().getFilteredTagList().get(index.getZeroBased());
         editedTag = new TagBuilder(tagToEdit).build();
@@ -101,7 +101,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + DESCRIPTION_DESC_ENGLISH;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new tag's name
-        assertCommandSuccess(command, index, ENGLISH, index);
+        assertCommandSuccess(command, index, ENGLISH_TAG, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -135,10 +135,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
 
         /* Case: edit a tag with new values same as another tag's values -> rejected */
-        executeCommand(TagUtil.getAddCommand(COMSCI));
-        assertTrue(getModel().getAddressBook().getTagList().contains(COMSCI));
+        executeCommand(TagUtil.getAddCommand(COMSCI_TAG));
+        assertTrue(getModel().getAddressBook().getTagList().contains(COMSCI_TAG));
         index = INDEX_FIRST_TAG;
-        assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(COMSCI));
+        assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(COMSCI_TAG));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
                 + DESCRIPTION_DESC_COMSCI;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TAG);

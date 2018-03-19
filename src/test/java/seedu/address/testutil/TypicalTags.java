@@ -56,11 +56,11 @@ public class TypicalTags {
             .withDescription("bulgarian bulgarian").build();
 
     // Manually added - Tag's details found in {@code CommandTestUtil}
-    public static final Tag ENGLISH = new TagBuilder()
+    public static final Tag ENGLISH_TAG = new TagBuilder()
             .withId("38deca7c-b5cb-4b1a-8035-54e7f5908565")
             .withName(VALID_NAME_ENGLISH)
             .withDescription(VALID_DESCRIPTION_ENGLISH).build();
-    public static final Tag COMSCI = new TagBuilder()
+    public static final Tag COMSCI_TAG = new TagBuilder()
             .withId("32dc0d97-5ef5-4182-b2e9-3807688f9ee5")
             .withName(VALID_NAME_COMSCI)
             .withDescription(VALID_DESCRIPTION_COMSCI)

@@ -5,15 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 import java.util.UUID;
 
-import seedu.address.model.cardtag.Node;
-
 /**
  * Represents a Flashcard.
  * Guarantees: Front and Back must not be null.
  *
  * TODO: Allow for different kinds of Front and Back
  */
-public class Card implements Node {
+public class Card {
 
     public static final String MESSAGE_CARD_CONSTRAINTS =
             "Card front and back can take any values, and it should not be blank";

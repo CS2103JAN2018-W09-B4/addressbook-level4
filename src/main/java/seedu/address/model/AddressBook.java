@@ -12,6 +12,7 @@ import seedu.address.model.card.UniqueCardList;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.cardtag.CardTag;
+import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -25,7 +26,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueTagList tags;
     private final UniqueCardList cards;
-    private final CardTag cardTag;
+    private CardTag cardTag;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -91,7 +92,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addTag(Tag p) throws DuplicateTagException {
         tags.add(p);
-        cardTag.addTag(p);
     }
 
     /**
@@ -127,7 +127,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addCard(Card c) throws DuplicateCardException {
         cards.add(c);
-        cardTag.addCard(c);
     }
 
     /**
@@ -137,12 +136,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void deleteCard(Card c) throws CardNotFoundException {
         cards.remove(c);
-        cardTag.deleteCard(c);
     }
 
     //// card-tag-level operations
-    public void associate(Card c, Tag t) {
-        cardTag.associateCardTag(c, t);
+    public void associate(Card c, Tag t) throws DuplicateEdgeException {
+        cardTag.addEdge(c, t);
     }
 
     //// util methods
@@ -173,6 +171,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Card> getCardList() {
         return cards.asObservableList();
+    }
+
+    @Override
+    public CardTag getCardTag() {
+        return cardTag;
+    }
+
+    public void setCardTag(CardTag cardTag) {
+        this.cardTag = cardTag;
     }
 
     @Override
