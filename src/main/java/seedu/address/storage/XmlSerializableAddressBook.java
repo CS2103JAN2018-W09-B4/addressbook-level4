@@ -23,8 +23,8 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedCard> cards;
 
-    @XmlElement(required = true, name = "cardtag")
-    private XmlAdaptedCardTag cardTag;
+    @XmlElement(name = "cardtag")
+    private XmlAdaptedCardTag cardTag = null;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -60,7 +60,9 @@ public class XmlSerializableAddressBook {
             addressBook.addCard(card.toModelType());
         }
 
-        addressBook.setCardTag(cardTag.toModelType());
+        if (cardTag != null) {
+            addressBook.setCardTag(cardTag.toModelType());
+        }
 
         return addressBook;
     }
