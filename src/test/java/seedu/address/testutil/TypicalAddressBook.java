@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import seedu.address.model.AddressBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 
@@ -37,8 +38,13 @@ public class TypicalAddressBook {
             }
         }
 
-        addressBook.associate(MATHEMATICS_CARD, MATHEMATICS_TAG);
-        addressBook.associate(CHEMISTRY_CARD, CHEMISTRY_TAG);
+        try {
+            addressBook.associate(MATHEMATICS_CARD, MATHEMATICS_TAG);
+            addressBook.associate(CHEMISTRY_CARD, CHEMISTRY_TAG);
+        } catch (DuplicateEdgeException e) {
+            throw new AssertionError("not possible");
+        }
+
         return addressBook;
     }
 }

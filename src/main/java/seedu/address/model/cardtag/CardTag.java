@@ -1,10 +1,11 @@
 package seedu.address.model.cardtag;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Set;
-
-import com.google.common.graph.GraphBuilder;
-import com.google.common.graph.MutableGraph;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
@@ -14,54 +15,37 @@ import seedu.address.model.tag.Tag;
  *
  */
 public class CardTag {
-    private MutableGraph<Node> graph;
+    private HashMap<Card, Set<Tag>> cardMap;
+    private HashMap<Tag, Set<Card>> tagMap;
 
     public CardTag() {
-        this.graph = GraphBuilder.undirected().build();
+        this.cardMap = new HashMap<>();
+        this.tagMap = new HashMap<>();
     }
 
-    public void reset() {
-        this.graph = GraphBuilder.undirected().build();
+    public boolean isConnected(Card card, Tag tag) {
+        Set<Tag> tags = cardMap.get(card);
+        Set<Card> cards = tagMap.get(tag);
+
+        return (tags != null && tags.contains(tag))
+                || (cards != null && cards.contains(card)); // should always short-circuit here
     }
 
-    public MutableGraph<Node> getGraph() {
-        return graph;
-    }
-
-    private void addNode(Node node) {
-        this.graph.addNode(node);
-    }
-
-    // Aliases to add tags
-    public void addCard(Card card) {
-        addNode(card);
-    }
-
-    /**
-     * Adds a list of cards to the graph.
-     * @param cards list of cards
-     */
-    public void addCards(List<Card> cards) {
-        for (Card card : cards) {
-            addNode(card);
+    public Set<Card> getCards(Tag tag) {
+        Set<Card> cards = tagMap.get(tag);
+        if (cards != null) {
+            return cards;
+        } else {
+            return Collections.emptySet();
         }
     }
 
-    /**
-     * Adds a single tag to the graph.
-     * @param tag Tag to add.
-     */
-    public void addTag(Tag tag) {
-        addNode(tag);
-    }
-
-    /**
-     * Adds a list of tags to the graph.
-     * @param tags list of tags
-     */
-    public void addTags(List<Tag> tags) {
-        for (Tag tag : tags) {
-            addNode(tag);
+    public Set<Tag> getTags(Card card) {
+        Set<Tag> tags = cardMap.get(card);
+        if (tags != null) {
+            return tags;
+        } else {
+            return Collections.emptySet();
         }
     }
 
@@ -73,39 +57,33 @@ public class CardTag {
      * @param card a valid Card
      * @param tag a valid Tag
      */
-    public void associateCardTag(Card card, Tag tag) {
-        assert(graph.nodes().contains(card));
-        assert(graph.nodes().contains(tag));
-        graph.putEdge(card, tag);
+    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+        if (isConnected(card, tag)) {
+            throw new DuplicateEdgeException();
+        }
+
+        Set<Tag> tags = cardMap.get(card);
+        if (tags == null) {
+            cardMap.put(card, Stream.of(tag).collect(Collectors.toSet()));
+        } else {
+            tags.add(tag);
+        }
+
+        Set<Card> cards = tagMap.get(tag);
+        if (cards == null) {
+            tagMap.put(tag, Stream.of(card).collect(Collectors.toSet()));
+        } else {
+            cards.add(card);
+        }
     }
 
-    public boolean contains(Node node) {
-        return graph.nodes().contains(node);
-    }
+    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+        if (!isConnected(card, tag)) {
+            throw new EdgeNotFoundException();
+        }
 
-    public int countEdges() {
-        return graph.edges().size();
-    }
-
-    public boolean hasConnection(Card card, Tag tag) {
-        return graph.hasEdgeConnecting(card, tag);
-    }
-
-    public Set<Node> getCards(Tag tag) {
-        return graph.successors(tag);
-    }
-
-    public Set<Node> getTags(Card card) {
-        return graph.successors(card);
-    }
-
-    // Delete operations
-    public void deleteCard(Card card) {
-        this.graph.removeNode(card);
-    }
-
-    public void deleteTag(Tag tag) {
-        this.graph.removeNode(tag);
+        cardMap.get(card).remove(tag);
+        tagMap.get(tag).remove(card);
     }
 
     @Override
@@ -118,8 +96,9 @@ public class CardTag {
             return false;
         }
 
-        return ((CardTag) other).getGraph().nodes().equals(this.getGraph().nodes())
-                && ((CardTag) other).getGraph().edges().equals(this.getGraph().edges());
-    }
+        CardTag otherCardTag = (CardTag) other;
 
+        return Objects.equals(otherCardTag.cardMap, cardMap)
+                && Objects.equals(otherCardTag.tagMap, tagMap);
+    }
 }
