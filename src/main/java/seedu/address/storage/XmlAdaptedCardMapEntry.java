@@ -8,15 +8,30 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class XmlAdaptedCardMap {
+/**
+ * XML Adapted Entry in the CardTag cardMap HashMap.
+ */
+public class XmlAdaptedCardMapEntry {
     @XmlElement(required = true)
     private String cardId;
 
     @XmlElement(required = true)
     private List<String> tags;
 
-    public XmlAdaptedCardMap() {
+    public XmlAdaptedCardMapEntry() {
         tags = new ArrayList<>();
+    }
+
+    /**
+     * Constructs an instance of XMmlAdaptedCardMapEntry from a Map Entry.
+     * @param entry Map Entry for cardMap
+     */
+    public XmlAdaptedCardMapEntry(Map.Entry<String, Set<String>> entry) {
+        this();
+        cardId = entry.getKey();
+        for (String tagId: entry.getValue()) {
+            tags.add(tagId);
+        }
     }
 
     public String getCardId() {
@@ -25,14 +40,6 @@ public class XmlAdaptedCardMap {
 
     public List<String> getTags() {
         return tags;
-    }
-
-    public XmlAdaptedCardMap(Map.Entry<String, Set<String>> entry) {
-        this();
-        cardId = entry.getKey();
-        for (String tagId: entry.getValue()) {
-            tags.add(tagId);
-        }
     }
 
     @Override
@@ -45,7 +52,7 @@ public class XmlAdaptedCardMap {
             return false;
         }
 
-        XmlAdaptedCardMap otherCardMap = (XmlAdaptedCardMap) other;
+        XmlAdaptedCardMapEntry otherCardMap = (XmlAdaptedCardMapEntry) other;
 
         return Objects.equals(otherCardMap.cardId, cardId)
                 && Objects.equals(otherCardMap.tags, tags);

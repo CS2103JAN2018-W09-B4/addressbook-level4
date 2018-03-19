@@ -8,15 +8,30 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class XmlAdaptedTagMap {
+/**
+ * Xml Adapted class for a Map Entry in CardTag's tagMap.
+ */
+public class XmlAdaptedTagMapEntry {
     @XmlElement(required = true)
     private String tagId;
 
     @XmlElement(required = true)
     private List<String> cards;
 
-    public XmlAdaptedTagMap() {
+    public XmlAdaptedTagMapEntry() {
         cards = new ArrayList<>();
+    }
+
+    /**
+     * Constructs an instance of XmlAdaptedTagMapEntry from a Map Entry in CardTag's tagMap
+     * @param entry Map Entry of tagMap.
+     */
+    public XmlAdaptedTagMapEntry(Map.Entry<String, Set<String>> entry) {
+        this();
+        tagId = entry.getKey();
+        for (String cardId : entry.getValue()) {
+            cards.add(cardId);
+        }
     }
 
     public String getTagId() {
@@ -25,14 +40,6 @@ public class XmlAdaptedTagMap {
 
     public List<String> getCards() {
         return cards;
-    }
-
-    public XmlAdaptedTagMap(Map.Entry<String, Set<String>> entry) {
-        this();
-        tagId = entry.getKey();
-        for (String cardId : entry.getValue()) {
-            cards.add(cardId);
-        }
     }
 
     @Override
@@ -45,7 +52,7 @@ public class XmlAdaptedTagMap {
             return false;
         }
 
-        XmlAdaptedTagMap otherCardMap = (XmlAdaptedTagMap) other;
+        XmlAdaptedTagMapEntry otherCardMap = (XmlAdaptedTagMapEntry) other;
 
         return Objects.equals(otherCardMap.tagId, tagId)
                 && Objects.equals(otherCardMap.cards, cards);

@@ -26,7 +26,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueTagList tags;
     private final UniqueCardList cards;
-    private final CardTag cardTag;
+    private CardTag cardTag;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -171,6 +171,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Card> getCardList() {
         return cards.asObservableList();
+    }
+
+    @Override
+    public CardTag getCardTag() {
+        return cardTag;
+    }
+
+    public void setCardTag(CardTag cardTag) {
+        this.cardTag = cardTag;
     }
 
     @Override

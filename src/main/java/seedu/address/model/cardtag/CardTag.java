@@ -13,8 +13,8 @@ import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 
 /**
+ * @author jethro
  * This class captures the relations between cards and tags.
- *
  */
 public class CardTag {
     private HashMap<String, Set<String>> cardMap;
@@ -41,6 +41,12 @@ public class CardTag {
         this.tagMap = tagMap;
     }
 
+    /**
+     * Checks if the Card and Tag given are connected by an edge.
+     * @param cardId UUID of card
+     * @param tagId UUID of tag
+     * @return true if cord and tag are connected, false otherwise
+     */
     public boolean isConnected(String cardId, String tagId) {
         Set<String> tags = cardMap.get(cardId);
         Set<String> cards = tagMap.get(tagId);
@@ -81,12 +87,10 @@ public class CardTag {
     }
 
     /**
-     * Creates an edge between a card and a tag.
-     *
-     * Ensures that the card and tag are already in the graph.
-     *
-     * @param cardId card id
-     * @param tagId tag Id
+     * Adds an edge between card and tag.
+     * @param cardId String id of Card
+     * @param tagId String id of Tag
+     * @throws DuplicateEdgeException when the edge between card and tag already exists
      */
     public void addEdge(String cardId, String tagId) throws DuplicateEdgeException {
         if (isConnected(cardId, tagId)) {
@@ -108,10 +112,22 @@ public class CardTag {
         }
     }
 
+    /**
+     * Adds an edge between card and tag.
+     * @param card Card
+     * @param tag Tag
+     * @throws DuplicateEdgeException when the edge between card and tag already exists
+     */
     public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
         addEdge(card.getId().toString(), tag.getId().toString());
     }
 
+    /**
+     * Removes the undirected edge between card and tag.
+     * @param cardId String id of Card
+     * @param tagId String id of Tag
+     * @throws EdgeNotFoundException if there is no edge to remove.
+     */
     public void removeEdge(String cardId, String tagId) throws EdgeNotFoundException {
         if (!isConnected(cardId, tagId)) {
             throw new EdgeNotFoundException();
@@ -121,6 +137,12 @@ public class CardTag {
         tagMap.get(tagId).remove(cardId);
     }
 
+    /**
+     * Removes the undirected edge between card and tag.
+     * @param card Card
+     * @param tag Tag
+     * @throws EdgeNotFoundException if there is no edge to remove.
+     */
     public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
         removeEdge(card.getId().toString(), tag.getId().toString());
     }

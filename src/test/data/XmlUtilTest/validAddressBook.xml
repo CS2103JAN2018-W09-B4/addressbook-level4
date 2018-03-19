@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same values as in
-{@code TypicalAddressBook#getTypicalAddressBook()}-->
 <addressbook>
     <tags>
         <id>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</id>
@@ -38,48 +36,71 @@
         <description>math math</description>
     </tags>
     <cards>
-        <id>3648b549-d900-4f0e-8573-e3c9ab499054</id>
         <front>What is 1 + 1?</front>
         <back>2</back>
+        <id>3648b549-d900-4f0e-8573-e3c9ab499054</id>
     </cards>
     <cards>
-        <id>f581860a-d5db-4925-aeab-1f1e441407f3</id>
         <front>Name two types of bonding between atoms</front>
         <back>Covalent and Ionic bonding</back>
+        <id>f581860a-d5db-4925-aeab-1f1e441407f3</id>
     </cards>
     <cards>
-        <id>3f92bd2c-affc-499c-a9a0-28b46fd61791</id>
         <front>What is Java?</front>
         <back>A programming language</back>
+        <id>3f92bd2c-affc-499c-a9a0-28b46fd61791</id>
     </cards>
     <cards>
-        <id>8c19a1f2-cfa2-4060-b9e3-67bd1ef101e0</id>
         <front>Which continent is Singapore in?</front>
         <back>Asia</back>
+        <id>8c19a1f2-cfa2-4060-b9e3-67bd1ef101e0</id>
     </cards>
     <cards>
-        <id>8c488abb-ab40-4a5b-9b1b-7ee78d453538</id>
         <front>When is Singapore's National Day?</front>
         <back>9th August 1965</back>
+        <id>8c488abb-ab40-4a5b-9b1b-7ee78d453538</id>
     </cards>
     <cards>
-        <id>6375641d-822e-42b1-b98e-49e40b31c328</id>
         <front>What does GDP stand for?</front>
         <back>Gross Domestic Product</back>
+        <id>6375641d-822e-42b1-b98e-49e40b31c328</id>
     </cards>
     <cards>
-        <id>3dd96485-a4e4-42fe-a2fb-9e9f01d7f08d</id>
         <front>Who wrote To Kill A Mockingbird?</front>
         <back>Harper Lee</back>
+        <id>3dd96485-a4e4-42fe-a2fb-9e9f01d7f08d</id>
     </cards>
     <cards>
-        <id>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</id>
         <front>Why do things fall?</front>
         <back>Gravity</back>
+        <id>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</id>
     </cards>
     <cards>
-        <id>8f4716c7-f82e-462f-bad1-e59f98b8624e</id>
+        <front>What is Newton's First Law?</front>
+        <back>An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.</back>
+        <id>50992d13-2f39-4c5c-b3e9-b088c8a04311</id>
+    </cards>
+    <cards>
         <front>What are action words?</front>
         <back>Verbs</back>
+        <id>8f4716c7-f82e-462f-bad1-e59f98b8624e</id>
     </cards>
+    <cardtag>
+        <cardEntry>
+            <cardId>3648b549-d900-4f0e-8573-e3c9ab499054</cardId>
+            <tags>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</tags>
+        </cardEntry>
+        <cardEntry>
+            <cardId>f581860a-d5db-4925-aeab-1f1e441407f3</cardId>
+            <tags>2c941c30-fde8-4572-ab41-9f29270a4245</tags>
+        </cardEntry>
+        <tagEntry>
+            <tagId>2c941c30-fde8-4572-ab41-9f29270a4245</tagId>
+            <cards>f581860a-d5db-4925-aeab-1f1e441407f3</cards>
+        </tagEntry>
+        <tagEntry>
+            <tagId>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</tagId>
+            <cards>3648b549-d900-4f0e-8573-e3c9ab499054</cards>
+        </tagEntry>
+    </cardtag>
 </addressbook>

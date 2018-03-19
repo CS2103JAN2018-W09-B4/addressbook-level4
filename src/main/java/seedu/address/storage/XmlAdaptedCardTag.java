@@ -7,10 +7,11 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.Sets;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.google.common.collect.Sets;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.cardtag.CardTag;
 
@@ -21,39 +22,53 @@ import seedu.address.model.cardtag.CardTag;
 public class XmlAdaptedCardTag {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "%s field is missing!";
 
-    @XmlElement(required = true, name = "cardEntry")
-    List<XmlAdaptedCardMap> cardEntries;
+    @XmlElement(required = true)
+    private List<XmlAdaptedCardMapEntry> cardEntry;
 
-    @XmlElement(required = true, name = "tagEntry")
-    List<XmlAdaptedTagMap> tagEntries;
+    @XmlElement(required = true)
+    private List<XmlAdaptedTagMapEntry> tagEntry;
 
     public XmlAdaptedCardTag() {
-        cardEntries = new ArrayList<>();
-        tagEntries = new ArrayList<>();
+        cardEntry = new ArrayList<>();
+        tagEntry = new ArrayList<>();
     }
 
     /**
      * Constructs a new XmlAdaptedCardTag from given edge details.
-     * @param cardEntries List of Card -> [Tag] entries
-     * @param tagEntries List of Tag -> [Card] entries
+     *
+     * @param cardEntry List of Card -> [Tag] entries
+     * @param tagEntry  List of Tag -> [Card] entries
      */
-    public XmlAdaptedCardTag(List<XmlAdaptedCardMap> cardEntries, List<XmlAdaptedTagMap> tagEntries) {
-        this.cardEntries = cardEntries;
-        this.tagEntries = tagEntries;
+    public XmlAdaptedCardTag(List<XmlAdaptedCardMapEntry> cardEntry, List<XmlAdaptedTagMapEntry> tagEntry) {
+        this.cardEntry = cardEntry;
+        this.tagEntry = tagEntry;
     }
 
     public XmlAdaptedCardTag(CardTag cardTag) {
         this();
-        cardEntries.addAll(cardTag.getCardMap().entrySet().stream()
-                .map(XmlAdaptedCardMap::new).collect(Collectors.toList()));
-        tagEntries.addAll(cardTag.getTagMap().entrySet().stream()
-                .map(XmlAdaptedTagMap::new).collect(Collectors.toList()));
+        cardEntry.addAll(cardTag.getCardMap().entrySet().stream()
+                .map(XmlAdaptedCardMapEntry::new).collect(Collectors.toList()));
+        tagEntry.addAll(cardTag.getTagMap().entrySet().stream()
+                .map(XmlAdaptedTagMapEntry::new).collect(Collectors.toList()));
     }
 
+    public List<XmlAdaptedCardMapEntry> getCardEntry() {
+        return cardEntry;
+    }
+
+    public List<XmlAdaptedTagMapEntry> getTagEntry() {
+        return tagEntry;
+    }
+
+    /**
+     * Converts this addressbook into the model's {@code CardTag} object.
+     * @return corresponding CardTag object
+     * @throws IllegalValueException if there are invalid values within the cardTag entries.
+     */
     public CardTag toModelType() throws IllegalValueException {
         CardTag cardTag = new CardTag();
         HashMap<String, Set<String>> cardMap = new HashMap<>();
-        for (XmlAdaptedCardMap entry : cardEntries) {
+        for (XmlAdaptedCardMapEntry entry : cardEntry) {
             String cardId = entry.getCardId();
             List<String> tags = entry.getTags();
             if (cardId == null) {
@@ -67,7 +82,7 @@ public class XmlAdaptedCardTag {
         }
 
         HashMap<String, Set<String>> tagMap = new HashMap<>();
-        for (XmlAdaptedTagMap entry : tagEntries) {
+        for (XmlAdaptedTagMapEntry entry : tagEntry) {
             String tagId = entry.getTagId();
             List<String> cards = entry.getCards();
             if (tagId == null) {
@@ -98,8 +113,7 @@ public class XmlAdaptedCardTag {
 
         XmlAdaptedCardTag otherEdge = (XmlAdaptedCardTag) other;
 
-        return Objects.equals(cardEntries, otherEdge.cardEntries)
-                && Objects.equals(tagEntries, otherEdge.tagEntries);
+        return Objects.equals(cardEntry, otherEdge.cardEntry)
+                && Objects.equals(tagEntry, otherEdge.tagEntry);
     }
-
 }

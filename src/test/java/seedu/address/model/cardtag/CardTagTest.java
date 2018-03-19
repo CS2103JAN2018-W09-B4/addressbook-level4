@@ -64,19 +64,22 @@ public class CardTagTest {
 
     @Test
     public void getCards_withoutEdges() {
-        assertEquals(cardTag.getCards(MATHEMATICS_TAG, addressBook.getCardList()), Stream.of().collect(Collectors.toList()));
+        assertEquals(cardTag.getCards(MATHEMATICS_TAG, addressBook.getCardList()),
+                Stream.of().collect(Collectors.toList()));
     }
 
     @Test
     public void getTags_withEdges() {
-        assertEquals(cardTag.getTags(MATHEMATICS_CARD, addressBook.getTagList()), Stream.of(PHYSICS_TAG).collect(Collectors.toList()));
+        assertEquals(cardTag.getTags(MATHEMATICS_CARD, addressBook.getTagList()),
+                Stream.of(PHYSICS_TAG).collect(Collectors.toList()));
         assertEquals(cardTag.getTags(COMSCI_CARD, addressBook.getTagList()), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
                 .collect(Collectors.toList()));
     }
 
     @Test
     public void getTags_withoutEdges() {
-        assertEquals(cardTag.getTags(GEOGRAPHY_CARD, addressBook.getTagList()), Stream.of().collect(Collectors.toList()));
+        assertEquals(cardTag.getTags(GEOGRAPHY_CARD, addressBook.getTagList()),
+                Stream.of().collect(Collectors.toList()));
     }
 
     @Test

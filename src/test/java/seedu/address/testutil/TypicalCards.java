@@ -53,9 +53,9 @@ public class TypicalCards {
     public static final Card PHYSICS_CARD_2 = new CardBuilder()
             .withId("50992d13-2f39-4c5c-b3e9-b088c8a04311")
             .withFront("What is Newton's First Law?")
-            .withBack(" An object at rest stays at rest and an object in motion stays in motion " +
-                    "with the same speed and in the same direction unless acted upon by " +
-                    "an unbalanced force.")
+            .withBack("An object at rest stays at rest and an object in motion stays in motion "
+                    + "with the same speed and in the same direction unless acted upon by "
+                    + "an unbalanced force.")
             .build();
     public static final Card ENGLISH_CARD = new CardBuilder()
             .withId("8f4716c7-f82e-462f-bad1-e59f98b8624e")
