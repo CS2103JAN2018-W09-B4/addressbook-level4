@@ -8,6 +8,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -89,10 +90,11 @@ public class EditCommand extends UndoableCommand {
     private static Tag createEditedTag(Tag tagToEdit, EditTagDescriptor editTagDescriptor) {
         assert tagToEdit != null;
 
+        UUID id = tagToEdit.getId();
         Name updatedName = editTagDescriptor.getName().orElse(tagToEdit.getName());
         Description updatedDescription = editTagDescriptor.getDescription().orElse(tagToEdit.getDescription());
 
-        return new Tag(updatedName, updatedDescription);
+        return new Tag(id, updatedName, updatedDescription);
     }
 
     @Override
