@@ -100,17 +100,17 @@ Format: `list`
 Shows a list of all cards in the card book. +
 Format: `listc`
 
-=== Editing a person : `edit`
+=== Editing a tag : `edit`
 
-Edits an existing person in the address book. +
+Edits an existing tag in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the tag at the specified `INDEX`. The index refers to the index number shown in the last tag listing. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the card will be removed i.e adding of tags is not cumulative.
+* You can remove all the card's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
@@ -119,6 +119,25 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+=== Editing a person : `editc`
+
+Edits an existing card in the book. +
+Format: `edit INDEX [f/FRONT] [b/BACK]`
+
+****
+* Edits the card at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `edit 1 f/What is the greatest flashcard application? b/Flashy` +
+Edits the front and back of the 1st card to be `What is the greatest flashcard application?` and `Flashy` respectively.
+* `edit 2 b/Lee Hsien Loong` +
+Edits the back of the 2nd card to be `Lee Hsien Loong`.
+
 
 === Locating persons by name: `find`
 
@@ -159,6 +178,24 @@ Deletes the 2nd person in the address book.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
+
+=== Deleting a person : `deletec`
+
+Deletes the specified card from the book. +
+Format: `deletec INDEX`
+
+****
+* Deletes the card at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+`deletec 2` +
+Deletes the 2nd card in the address book.
+`delete 1` +
+Deletes the 1st person in the results.
 
 === Selecting a person : `select`
 
