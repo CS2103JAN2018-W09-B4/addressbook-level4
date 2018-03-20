@@ -148,10 +148,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         cardTag.associateCardTag(c, t);
     }
 
+    //// predicate for card review
+    public Predicate<Card> isBefore () {
+        return c -> c.getSchedule().getNextReview()
+                .before(Calendar.getInstance());
+    }
+
     //// get list of cards for review
     public ObservableList<Card> getTodayReviewList() {
-        return new FilteredList<Card>(cards.asObservableList(),
-                (Card c) -> c.getNextReview().before(Calendar.getInstance()));
+        return new FilteredList<Card>(cards.asObservableList(), isBefore());
     }
 
     //// util methods

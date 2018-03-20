@@ -2,7 +2,6 @@ package seedu.address.model.card;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Calendar;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -28,18 +27,14 @@ public class Card implements Node {
     private final UUID id;
     private final String front;
     private final String back;
-    private final Calendar nextReview;
-    private final int lastInterval;
-    private final double easingFactor;
+    private final Schedule schedule;
 
     public Card(String front, String back) {
         requireAllNonNull(front, back);
         this.front = front;
         this.back = back;
         this.id = UUID.randomUUID();
-        this.nextReview = Calendar.getInstance();
-        this.lastInterval = 1;
-        this.easingFactor = 1;
+        this.schedule = new Schedule();
     }
 
     public Card(UUID id, String front, String back) {
@@ -47,9 +42,7 @@ public class Card implements Node {
         this.front = front;
         this.back = back;
         this.id = id;
-        this.nextReview = Calendar.getInstance();
-        this.lastInterval = 1;
-        this.easingFactor = 1;
+        this.schedule = new Schedule();
     }
 
     public UUID getId() {
@@ -64,8 +57,8 @@ public class Card implements Node {
         return back;
     }
 
-    public Calendar getNextReview() {
-        return nextReview;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
     /**
