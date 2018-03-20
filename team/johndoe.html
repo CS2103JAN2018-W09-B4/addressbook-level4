@@ -152,7 +152,12 @@
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undo-and-redo"><a class="link" href="#undo-and-redo">Undo and Redo</a></h3>
+<div class="paragraph">
+<p>Some commands support undoing and redoing. The commands are <code>add</code>, <code>addc</code>, <code>addm</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>, <code>delete</code>, <code>deletec</code>, and <code>clear</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h4>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -196,8 +201,8 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
+<div class="sect3">
+<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h4>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -228,6 +233,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </ul>
 </div>
 </div>
+</div>
 <div class="sect2">
 <h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
@@ -254,7 +260,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of the address book (e.g. <code>add</code>, <code>edit</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
+<p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of the application (e.g. <code>add</code>, <code>edit</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>UndoRedoStack</code> only deals with <code>UndoableCommands</code>. Commands that cannot be undone will inherit from <code>Command</code> instead. The following diagram shows the inheritance diagram for commands:</p>
@@ -265,7 +271,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="paragraph">
-<p>As you can see from the diagram, <code>UndoableCommand</code> adds an extra layer between the abstract <code>Command</code> class and concrete commands that can be undone, such as the <code>DeleteCommand</code>. Note that extra tasks need to be done when executing a command in an <em>undoable</em> way, such as saving the state of the address book before execution. <code>UndoableCommand</code> contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the <a href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">template pattern</a>.</p>
+<p>As you can see from the diagram, <code>UndoableCommand</code> adds an extra layer between the abstract <code>Command</code> class and concrete commands that can be undone, such as the <code>DeleteCommand</code>. Note that extra tasks need to be done when executing a command in an <em>undoable</em> way, such as saving the state of the application before execution. <code>UndoableCommand</code> contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the <a href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">template pattern</a>.</p>
 </div>
 <div class="paragraph">
 <p>Commands that are not undoable are implemented this way:</p>
@@ -306,7 +312,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <p>Suppose that the user has just launched the application. The <code>UndoRedoStack</code> will be empty at the beginning.</p>
 </div>
 <div class="paragraph">
-<p>The user executes a new <code>UndoableCommand</code>, <code>delete 5</code>, to delete the 5th person in the address book. The current state of the address book is saved before the <code>delete 5</code> command executes. The <code>delete 5</code> command will then be pushed onto the <code>undoStack</code> (the current state is saved together with the command).</p>
+<p>The user executes a new <code>UndoableCommand</code>, <code>delete 5</code>, to delete the 5th person in the application. The current state of the application is saved before the <code>delete 5</code> command executes. The <code>delete 5</code> command will then be pushed onto the <code>undoStack</code> (the current state is saved together with the command).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -337,7 +343,7 @@ If a command fails its execution, it will not be pushed to the <code>UndoRedoSta
 <p>The user now decides that adding the person was a mistake, and decides to undo that action using <code>undo</code>.</p>
 </div>
 <div class="paragraph">
-<p>We will pop the most recent command out of the <code>undoStack</code> and push it back to the <code>redoStack</code>. We will restore the address book to the state before the <code>add</code> command executed.</p>
+<p>We will pop the most recent command out of the <code>undoStack</code> and push it back to the <code>redoStack</code>. We will restore the application to the state before the <code>add</code> command executed.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -365,7 +371,7 @@ If the <code>undoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="paragraph">
-<p>The redo does the exact opposite (pops from <code>redoStack</code>, push to <code>undoStack</code>, and restores the address book to the state after the command is executed).</p>
+<p>The redo does the exact opposite (pops from <code>redoStack</code>, push to <code>undoStack</code>, and restores the application to the state after the command is executed).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -444,7 +450,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
+<p><strong>Alternative 1 (current choice):</strong> Saves the entire application state.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -477,7 +483,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Only include commands that modifies the address book (<code>add</code>, <code>clear</code>, <code>edit</code>).</p>
+<p><strong>Alternative 1 (current choice):</strong> Only include commands that modifies data (<code>add</code>, <code>addc</code>, <code>addm</code> <code>clear</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>).</p>
 <div class="ulist">
 <ul>
 <li>
@@ -497,7 +503,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <p>Pros: Might be more intuitive for the user.</p>
 </li>
 <li>
-<p>Cons: User have no way of skipping such commands if he or she just want to reset the state of the address * book and not the view.
+<p>Cons: User have no way of skipping such commands if he or she just want to reset the state of the application and not the view.
 <strong>Additional Info:</strong> See our discussion  <a href="https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672">here</a>.</p>
 </li>
 </ul>
@@ -561,7 +567,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-20 15:48:13 UTC
+Last updated 2018-03-20 16:16:27 UTC
 </div>
 </div>
 </body>
