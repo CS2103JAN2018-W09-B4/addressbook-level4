@@ -1,21 +1,22 @@
 package seedu.address.model.card;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Holds the Schedule information for a Card
  */
 public class Schedule {
 
-    private final Calendar nextReview;
+    private final LocalDateTime nextReview;
     private final int lastInterval = 1;
     private final double easingFactor = 1;
 
     public Schedule() {
-        this.nextReview = Calendar.getInstance();
+        this.nextReview = LocalDate.now().atStartOfDay();
     }
 
-    public Calendar getNextReview() {
+    public LocalDateTime getNextReview() {
         return nextReview;
     }
 

@@ -2,8 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -151,7 +151,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// predicate for card review
     public Predicate<Card> isBefore () {
         return c -> c.getSchedule().getNextReview()
-                .before(Calendar.getInstance());
+                .isBefore(LocalDateTime.now());
     }
 
     //// get list of cards for review
