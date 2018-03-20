@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -46,8 +47,9 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TAG_SUCCESS, editedTag);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateTag(model.getFilteredTagList().get(0), editedTag);
+        Tag firstTag = model.getFilteredTagList().get(INDEX_FIRST_TAG.getZeroBased());
 
+        expectedModel.updateTag(firstTag, editedTag);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -69,6 +71,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateTag(lastTag, editedTag);
 
+        assertEquals(lastTag.getId(), editedTag.getId());
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -96,8 +99,11 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TAG_SUCCESS, editedTag);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateTag(model.getFilteredTagList().get(0), editedTag);
+        Tag firstTag = model.getFilteredTagList().get(INDEX_FIRST_TAG.getZeroBased());
 
+        expectedModel.updateTag(firstTag, editedTag);
+
+        assertEquals(firstTag.getId(), editedTag.getId());
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
