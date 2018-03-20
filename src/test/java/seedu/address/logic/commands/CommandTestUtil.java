@@ -133,6 +133,10 @@ public class CommandTestUtil {
         }
     }
 
+    public static void assertEqualCardId(Card targetCard, Card editedCard) {
+        assertEquals(targetCard.getId(), editedCard.getId());
+    }
+
     /**
      * Updates {@code model}'s filtered list to show only the tag at the given {@code targetIndex} in the
      * {@code model}'s address book.

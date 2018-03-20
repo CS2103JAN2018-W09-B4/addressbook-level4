@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertEqualCardId;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
@@ -41,6 +42,7 @@ public class EditCardCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
         Card editedCard = new CardBuilder().build();
+        Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
 
@@ -48,7 +50,10 @@ public class EditCardCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateCard(model.getFilteredCardList().get(0), editedCard);
+        editedCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
 
+        // To check whether card ID has changed
+        assertEqualCardId(targetCard, editedCard);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -58,7 +63,7 @@ public class EditCardCommandTest {
         Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
 
         CardBuilder cardInList = new CardBuilder(lastCard);
-        Card editedCard = cardInList.withFront(VALID_NAME_COMSCI)
+        Card editedCard = cardInList.withFront(VALID_NAME_COMSCI).withId(lastCard.getId().toString())
                 .build();
 
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withFront(VALID_NAME_COMSCI)
@@ -70,11 +75,14 @@ public class EditCardCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateCard(lastCard, editedCard);
 
+        // To check whether card ID has changed
+        assertEqualCardId(lastCard, editedCard);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
+        Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, new EditCardCommand.EditCardDescriptor());
         Card editedCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
 
@@ -82,6 +90,8 @@ public class EditCardCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
+        // To check whether card ID has changed
+        assertEqualCardId(targetCard, editedCard);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -99,6 +109,8 @@ public class EditCardCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateCard(model.getFilteredCardList().get(0), editedCard);
 
+        // To check whether card ID has changed
+        assertEqualCardId(cardInFilteredList, editedCard);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -157,9 +169,13 @@ public class EditCardCommandTest {
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Card editedCard = new CardBuilder().build();
         Card cardToEdit = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
-        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard)
+                .withUuid(cardToEdit.getId()).build();
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Card newCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        // To check whether card ID has changed
+        assertEqualCardId(cardToEdit, newCard);
 
         // edit -> first card edited
         editCommand.execute();
@@ -204,8 +220,12 @@ public class EditCardCommandTest {
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Card editedCard = new CardBuilder().withFront("Jethro Kuan").build();
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
+        Card newCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        // To check whether card ID has changed
+        assertEqualCardId(targetCard, newCard);
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
         Card cardToEdit = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());

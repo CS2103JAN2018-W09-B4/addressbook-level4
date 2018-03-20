@@ -8,6 +8,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -119,6 +120,7 @@ public class EditCardCommand extends UndoableCommand {
     public static class EditCardDescriptor {
         private String front;
         private String back;
+        private UUID uuid;
 
         public EditCardDescriptor() {}
 
@@ -129,6 +131,7 @@ public class EditCardCommand extends UndoableCommand {
         public EditCardDescriptor(EditCardDescriptor toCopy) {
             setFront(toCopy.front);
             setBack(toCopy.back);
+            // setUuid(toCopy.uuid);
         }
 
         /**
@@ -152,6 +155,14 @@ public class EditCardCommand extends UndoableCommand {
 
         public Optional<String> getBack() {
             return Optional.ofNullable(back);
+        }
+
+        public void setUuid(UUID uuid) {
+            this.uuid = uuid;
+        }
+
+        public Optional<UUID> getUuid() {
+            return Optional.ofNullable(uuid);
         }
 
         @Override
