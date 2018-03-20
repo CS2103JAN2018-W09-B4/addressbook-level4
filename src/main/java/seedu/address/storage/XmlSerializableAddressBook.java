@@ -19,8 +19,12 @@ public class XmlSerializableAddressBook {
 
     @XmlElement
     private List<XmlAdaptedTag> tags;
+
     @XmlElement
     private List<XmlAdaptedCard> cards;
+
+    @XmlElement(name = "cardtag")
+    private XmlAdaptedCardTag cardTag = null;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -38,6 +42,7 @@ public class XmlSerializableAddressBook {
         this();
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
         cards.addAll(src.getCardList().stream().map(XmlAdaptedCard::new).collect(Collectors.toList()));
+        cardTag = new XmlAdaptedCardTag(src.getCardTag());
     }
 
     /**
@@ -54,6 +59,11 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedCard card : cards) {
             addressBook.addCard(card.toModelType());
         }
+
+        if (cardTag != null) {
+            addressBook.setCardTag(cardTag.toModelType());
+        }
+
         return addressBook;
     }
 

@@ -1,111 +1,150 @@
 package seedu.address.model.cardtag;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import com.google.common.graph.GraphBuilder;
-import com.google.common.graph.MutableGraph;
-
+import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 
 /**
+ * @author jethro
  * This class captures the relations between cards and tags.
- *
  */
 public class CardTag {
-    private MutableGraph<Node> graph;
+    private HashMap<String, Set<String>> cardMap;
+    private HashMap<String, Set<String>> tagMap;
 
     public CardTag() {
-        this.graph = GraphBuilder.undirected().build();
+        this.cardMap = new HashMap<>();
+        this.tagMap = new HashMap<>();
     }
 
-    public void reset() {
-        this.graph = GraphBuilder.undirected().build();
+    public HashMap<String, Set<String>> getCardMap() {
+        return cardMap;
     }
 
-    public MutableGraph<Node> getGraph() {
-        return graph;
+    public HashMap<String, Set<String>> getTagMap() {
+        return tagMap;
     }
 
-    private void addNode(Node node) {
-        this.graph.addNode(node);
+    public void setCardMap(HashMap<String, Set<String>> cardMap) {
+        this.cardMap = cardMap;
     }
 
-    // Aliases to add tags
-    public void addCard(Card card) {
-        addNode(card);
+    public void setTagMap(HashMap<String, Set<String>> tagMap) {
+        this.tagMap = tagMap;
     }
 
     /**
-     * Adds a list of cards to the graph.
-     * @param cards list of cards
+     * Checks if the Card and Tag given are connected by an edge.
+     * @param cardId UUID of card
+     * @param tagId UUID of tag
+     * @return true if cord and tag are connected, false otherwise
      */
-    public void addCards(List<Card> cards) {
-        for (Card card : cards) {
-            addNode(card);
+    public boolean isConnected(String cardId, String tagId) {
+        Set<String> tags = cardMap.get(cardId);
+        Set<String> cards = tagMap.get(tagId);
+
+        return (tags != null && tags.contains(tagId))
+                || (cards != null && cards.contains(cardId)); // should always short-circuit here
+    }
+
+    public boolean isConnected(Card card, Tag tag) {
+        return isConnected(card.getId().toString(), tag.getId().toString());
+    }
+
+
+    public List<Card> getCards(String tagId, ObservableList<Card> cardList) {
+        Set<String> cards = tagMap.get(tagId);
+        if (cards != null) {
+            return cardList.filtered(card -> cards.contains(card.getId().toString()));
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    public List<Card> getCards(Tag tag, ObservableList<Card> cardList) {
+        return getCards(tag.getId().toString(), cardList);
+    }
+
+    public List<Tag> getTags(String cardId, ObservableList<Tag> tagList) {
+        Set<String> tags = cardMap.get(cardId);
+        if (tags != null) {
+            return tagList.filtered(tag -> tags.contains(tag.getId().toString()));
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    public List<Tag> getTags(Card card, ObservableList<Tag> tagList) {
+        return getTags(card.getId().toString(), tagList);
+    }
+
+    /**
+     * Adds an edge between card and tag.
+     * @param cardId String id of Card
+     * @param tagId String id of Tag
+     * @throws DuplicateEdgeException when the edge between card and tag already exists
+     */
+    public void addEdge(String cardId, String tagId) throws DuplicateEdgeException {
+        if (isConnected(cardId, tagId)) {
+            throw new DuplicateEdgeException();
+        }
+
+        Set<String> tags = cardMap.get(cardId);
+        if (tags == null) {
+            cardMap.put(cardId, Stream.of(tagId).collect(Collectors.toSet()));
+        } else {
+            tags.add(tagId);
+        }
+
+        Set<String> cards = tagMap.get(tagId);
+        if (cards == null) {
+            tagMap.put(tagId, Stream.of(cardId).collect(Collectors.toSet()));
+        } else {
+            cards.add(cardId);
         }
     }
 
     /**
-     * Adds a single tag to the graph.
-     * @param tag Tag to add.
+     * Adds an edge between card and tag.
+     * @param card Card
+     * @param tag Tag
+     * @throws DuplicateEdgeException when the edge between card and tag already exists
      */
-    public void addTag(Tag tag) {
-        addNode(tag);
+    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+        addEdge(card.getId().toString(), tag.getId().toString());
     }
 
     /**
-     * Adds a list of tags to the graph.
-     * @param tags list of tags
+     * Removes the undirected edge between card and tag.
+     * @param cardId String id of Card
+     * @param tagId String id of Tag
+     * @throws EdgeNotFoundException if there is no edge to remove.
      */
-    public void addTags(List<Tag> tags) {
-        for (Tag tag : tags) {
-            addNode(tag);
+    public void removeEdge(String cardId, String tagId) throws EdgeNotFoundException {
+        if (!isConnected(cardId, tagId)) {
+            throw new EdgeNotFoundException();
         }
+
+        cardMap.get(cardId).remove(tagId);
+        tagMap.get(tagId).remove(cardId);
     }
 
     /**
-     * Creates an edge between a card and a tag.
-     *
-     * Ensures that the card and tag are already in the graph.
-     *
-     * @param card a valid Card
-     * @param tag a valid Tag
+     * Removes the undirected edge between card and tag.
+     * @param card Card
+     * @param tag Tag
+     * @throws EdgeNotFoundException if there is no edge to remove.
      */
-    public void associateCardTag(Card card, Tag tag) {
-        assert(graph.nodes().contains(card));
-        assert(graph.nodes().contains(tag));
-        graph.putEdge(card, tag);
-    }
-
-    public boolean contains(Node node) {
-        return graph.nodes().contains(node);
-    }
-
-    public int countEdges() {
-        return graph.edges().size();
-    }
-
-    public boolean hasConnection(Card card, Tag tag) {
-        return graph.hasEdgeConnecting(card, tag);
-    }
-
-    public Set<Node> getCards(Tag tag) {
-        return graph.successors(tag);
-    }
-
-    public Set<Node> getTags(Card card) {
-        return graph.successors(card);
-    }
-
-    // Delete operations
-    public void deleteCard(Card card) {
-        this.graph.removeNode(card);
-    }
-
-    public void deleteTag(Tag tag) {
-        this.graph.removeNode(tag);
+    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+        removeEdge(card.getId().toString(), tag.getId().toString());
     }
 
     @Override
@@ -118,8 +157,9 @@ public class CardTag {
             return false;
         }
 
-        return ((CardTag) other).getGraph().nodes().equals(this.getGraph().nodes())
-                && ((CardTag) other).getGraph().edges().equals(this.getGraph().edges());
-    }
+        CardTag otherCardTag = (CardTag) other;
 
+        return Objects.equals(otherCardTag.cardMap, cardMap)
+                && Objects.equals(otherCardTag.tagMap, tagMap);
+    }
 }

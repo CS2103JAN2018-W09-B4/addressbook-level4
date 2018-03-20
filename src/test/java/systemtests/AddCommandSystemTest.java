@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
 import static seedu.address.testutil.TypicalTags.BULGARIAN;
 import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
-import static seedu.address.testutil.TypicalTags.ENGLISH;
+import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 import static seedu.address.testutil.TypicalTags.RUSSIAN;
@@ -44,7 +44,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a tag to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Tag toAdd = ENGLISH;
+        Tag toAdd = ENGLISH_TAG;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_ENGLISH + "  " + DESCRIPTION_DESC_ENGLISH;
         assertCommandSuccess(command, toAdd);
 
