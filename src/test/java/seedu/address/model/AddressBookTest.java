@@ -62,6 +62,15 @@ public class AddressBookTest {
         addressBook.getTagList().remove(0);
     }
 
+    @Test
+    public void getTodayReviewList() {
+        AddressBook newData = getTypicalAddressBook();
+        addressBook.resetData(newData);
+        List<Card> expectedList = addressBook.getCardList();
+        List<Card> actualList = addressBook.getTodayReviewList();
+        assertEquals(expectedList, actualList);
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose tags and tags lists can violate interface constraints.
      */
