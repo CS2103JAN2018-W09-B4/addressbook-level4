@@ -13,11 +13,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W09-B4/main
 
-By: `Flashy`      Since: `Jun 2016`      Licence: `MIT`
+By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 
 == Introduction
 
-Flashy is for those who *prefer to use a desktop app for managing flashcards*. More importantly, Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Flashy can get your flashcard management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Flashy is a desktop app for managing flashcards. It is built with the language learner in mind, but should be helpful for any student. Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started.
 
 == Quick Start
 
@@ -33,152 +33,255 @@ This app will not work with earlier versions of Java 8.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Here are some example commands you can try:
 
-.  Refer to <<Features>> for details of each command.
+* *`list`* : lists all tags and cards
+* **`addc`**`f/Front b/Back t/tag1 t/tag2` : adds a flashcard with front as `Front` and back as `Back`, tagged with `tag1` and `tag2`.
+* **`deletec`**`3` : deletes the 3rd flashcard in the visible list
+* *`exit` or `quit`* : exits the application
+
+Typing *`help`* and pressing kbd:[Enter] will open the help window. Refer to <<Features>> for details of each command.
+
+[[Terminology]]
+== Terminology
+In Flashy, flashcards are organised with tags. Tags are used to filter down the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.
+
+Cards can have multiple tags.
+
+(SHOW LABELLED UI PANEL)
 
 [[Features]]
 == Features
 
-====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are parameters to be supplied by the user.
+
+[NOTE.example]
+====
+In `addc f/FRONT`, `FRONT` is a parameter which can be used as `addc f/ What's the best flash card application? b/Flashy`.
 ====
 
-=== Viewing help : `help`
+* Items in square brackets are optional.
 
-Format: `help`
+[NOTE.example]
+====
+`f/FRONT b/BACK [t/TAG]` can be used as `f/Am I awesome? b/Yes! t/selfhelp` or as `f/Am I awesome? /Yes!`.
+====
 
-=== Changing the theme : `theme`
+* Items with `…` after them can be used multiple times including zero times.
 
-Format: `theme t/THEME`
+[NOTE.example]
+====
+`[t/TAG]` can be used as `{nbsp}` (i.e. 0 times), `t/biology`, `t/biology t/midterms2018`.
+====
+
+* Parameters can be specified be in any order.
+
+[NOTE.example]
+====
+If the command specifies `f/FRONT, b/BACK`, `b/BACK f/FRONT` is also acceptable.
+====
+
+To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
+
+=== Managing Cards
+=== Adding a normal flashcard: `addc`
+
+Adds a normal flashcard to Flashy. +
+Format: `addc f/FRONT b/BACK t/TAG`
 
 Examples:
 
-* `theme t/light`
-* `theme t/dark`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+* `addc f/What is the greatest flashcard application? b/Flashy t/Trivia` +
+Adds a normal flashcard with the front and back of the first card being `What is the greatest flashcard application?` and `Flashy` respectively, as well as tagging it as `Trivia`.
 
 [TIP]
-A person can have any number of tags (including 0)
+A flashcard can have any number of tags (including 0).
+
+==== Adding a MCQ-type flashcard: `addm`
+
+Adds a MCQ-type flashcard to Flashy. +
+Format: `addm f/QUESTION o/OPTION o/OPTION ... b/CORRECT_OPTION t/TAG`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addm f/When is National Day in Singapore? o/9th August o/10th August o/9th September o/10th September b/1 t/Trivia` +
+Adds a MCQ-type flashcard with the front having the question `When is National Day in Singapore?` along with the options `9th August`, `10th August`, `9th September`, `10th September`, and the back having the option answer `1`.
 
-=== Adding a flashcard: `addc`
+[CAUTION]
+Do ensure that the parameter for `b/` falls between 1 the number of options inclusive.
 
-Adds a flash card +
-Format: `addc f/FRONT b/BACK...`
+==== Editing a normal flashcard : `editc`
 
-Examples:
-
-* `addc f/What is the best flashcard application? b/Flashy!`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Listing all cards : `listc`
-Shows a list of all cards in the card book. +
-Format: `listc`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing flashcard currently stored in Flashy. +
+Format: `editc INDEX [f/FRONT] [b/BACK]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+* Edits the normal flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* This only applies to parameters which you have supplied. If, for example, no parameters for `f/` are supplied, the front of the card would not be edited.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editc 1 f/What is the greatest flashcard application? b/Flashy` +
+Edits the front and back of the 1st flashcard to be `What is the greatest flashcard application?` and `Flashy` respectively.
+* `editc 2 b/Lee Hsien Loong` +
+Edits the back of the 2nd flashcard to be `Lee Hsien Loong`.
 
-=== Locating persons by name: `find`
+[CAUTION]
+Do ensure that the flashcard at the specified index is a normal card, or else an error would occur.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Editing a MCQ-type flashcard : `editm`
+
+Edits an existing MCQ-type flashcard currently stored in Flashy. +
+Format: `editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION] ... [b/BACK]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Edits the MCQ-type flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
+* Existing values will be updated to the input values.
+* This only applies to parameters which you have supplied. If, for example, no parameters for `f/` are supplied, the front of the card would not be edited.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `editm 1 f/When is National Day in Singapore? o/2/9th July o/3/10th July` +
+Edits the front of the 1st flashcard to be `How many legs does an insect have?` as well as edits option number 2 and 3 to be `9th July` and `10th July`  respectively.
+* `editc 2 b/Lee Hsien Loong` +
+Edits the back of the 2nd flashcard to be `Lee Hsien Loong`.
 
-=== Deleting a person : `delete`
+[CAUTION ]
+Do ensure that the flashcard at the specified index is a MCQ-type card, or else an error would occur.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Deleting a flashcard : `deletec`
+
+Deletes the specified flashcard. +
+Format: `deletec INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the card at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`deletec 2` +
+Deletes the 2nd flashcard in the list.
 
-=== Selecting a person : `select`
+==== Showing a flashcard : `show`
 
-Selects the person identified by the index number used in the last person listing. +
-Format: `select INDEX`
+Reveals the answer of the flashcard identified by the index number used in the list. +
+Format: `show INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `show 2` +
+Shows the 2nd flashcard in the list.
+* `show 1` +
+Shows the 1st flashcard in the list.
+
+==== Answering flashcards: `answer`
+Answer to give feedback to the scheduling algorithm to schedule the cards for future review.
+
+Format: `answer CONFIDENCE`
+
+****
+* The confidence can only be 0, 1, 2.
+* `show` cammand must be used first before `answer` can be used.
+****
+
+There are 3 `CONFIDENCE` levels
+
+* `answer 0` +
+Again. I don't know the answer to this card. Card will then be requeued into the same session again.
+* `answer 1` +
+Pass. I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
+* `answer 2` +
+Easy. Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.
+
+[TIP]
+====
+This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it. These 3 options might take some time to get used to!
+====
+
+Examples:
+* `answer 1` +
+Card will be resheduled into near future.
+
+=== Managing Tags
+==== Selecting a tag : `select`
+
+Selects the tag identified by the index number. This will show only flashcards with the tag selected. +
+Format: `select INDEX`
+
+****
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `select 2` +
+Selects the 2nd tag in the list.
+* `select 1` +
+Selects the 1st tag in the list.
+
+==== Filtering tags: `find`
+
+Filters the tag list to contain those that match the search terms. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+[TIP]
+====
+The search is case-insensitive, and finds exact partial matches to the tag name. For example, `bio` would match `Biology`.
+====
+
+Examples:
+
+* `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, and `Biology Midterms`, and not `bio`, or `chemistry`.
+
+==== Editing a tag : `edit`
+
+Updates an existing tag to the specified values. +
+Format: `edit INDEX t/TAG c/COLOR`
+
+****
+* Edits the tag at the specified `INDEX`. The index refers to the index number shown in the current tag listing. The index *must be a positive integer* 1, 2, 3, ...
+* Color must be a string of length 6 specifying a link:https://htmlcolorcodes.com/[hex color code]. For example, the color white is represented as `FFFFFF`.
+* The existing name of the tag will be replaced with the value that was entered.
+****
+
+Examples:
+
+* `edit 1 t/French` +
+Changes the name of the first tag in the list to `French`.
+* `edit 2 t/German c/FF5733` +
+Changes the name of the second tag in the list to `German` and the color of the tag to a shade of orange.
+
+==== Deleting a Tag: `delete`
+
+Deletes an existing tag. This will remove the tag from all cards that have the tag.
+
+Examples:
+
+* `delete 1` deletes the first visible tag.
+* `delete 2` deletes the second visible tag.
+
+=== Clearing all data : `clear`
+
+Instructs Flashy to clear all data. +
+Format: `clear`
+
+[TIP]
+This command will instruct Flashy to delete all tags and flashcards. Use this command with caution.
 
 === Listing entered commands : `history`
 
@@ -191,7 +294,11 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undo and Redo
+Some commands support undoing and redoing. The commands are `add`, `addc`, `addm`, `edit`, `editc`, `editm`, `delete`, `deletec`, and `clear`.
+
+
+==== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -217,7 +324,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -240,15 +347,25 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
 === Exiting the program : `exit` or `quit`
 
 Exits the program. +
 Format: `exit` or `quit`
+
+=== Managing User Preferences
+
+==== Changing the theme : `theme`
+You can change the theme of Flashy's user interface. +
+Format: `theme t/THEME`
+
+[TIP]
+Flashy remembers your most recently used theme and will load it the next time you come back
+
+Examples:
+
+* `theme t/light`
+* `theme t/dark`
+
 
 === Saving the data
 
@@ -264,28 +381,80 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Flashy folder.
 
 == Command Summary
+=== Cards
+|===
+|Function | Command | Example
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Add Flashcard* : `addc f/FRONT b/BACK` +
-e.g. `addc f/What is the best flashcard application? b/Flashy!`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *Theme* :  `theme t/THEME` +
-e.g. `theme t/light`
-* *List* : `list`
-* *List Flashcards* : `listc`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+|Show Help Screen
+|`help`
+|`help`
+
+|Add Normal Flashcard
+|`addc f/FRONT b/BACK [t/TAG]`
+|`addc f/What is the best flashcard application? b/Flashy! t/flashy`
+
+|Add MCQ-Type Flashcard
+|`addm f/FRONT o/OPTION o/OPTION ... b/BACK`
+|`addm f/How many legs does an insect have? o/4 o/5 o/6 o/7 b/3`
+
+|Edit Normal Flashcard
+|`editc [f/FRONT] [b/BACK]`
+|`editc f/When is National Day in Singapore?`
+
+|Edit MCQ-Type Flashcard
+|`editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION] ... [b/BACK]`
+|`editm 1 f/When is National Day in Singapore? o/1/10th July o/3/9th August b/3`
+
+|Reveal Answer to Flashcard
+|`show INDEX`
+|`show 1`
+
+|Answer Flashcard
+|`answer CONFIDENCE`
+|`answer 0`
+|===
+
+=== Tags
+
+|===
+|Function | Command | Example
+|Select Tag
+|`select INDEX`
+|`select 1`
+
+|Filter Tags
+|`find KEYWORD [MORE_KEYWORDS]`
+|`find Biology Chemistry`
+
+|Edit Tag
+|`edit INDEX [t/TAG] [c/COLOR]`
+|`edit 1 t/German c/FFFFFF`
+
+|Delete Tag
+|`delete INDEX`
+|`delete 3`
+|===
+
+=== Others
+|===
+|Function | Command | Example
+
+|Undo a Command
+|`undo`
+|`undo`
+
+|Redo a Command
+|`redo`
+|`redo`
+
+|Clear Contents
+|`clear`
+|`clear`
+
+|Change Theme
+|`theme t/THEME`
+|`theme t/light`
+|===
