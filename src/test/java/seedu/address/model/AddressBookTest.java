@@ -3,8 +3,6 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
-import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
-import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.Arrays;
