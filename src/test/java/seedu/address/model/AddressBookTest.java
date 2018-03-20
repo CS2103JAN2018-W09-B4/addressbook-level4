@@ -71,7 +71,6 @@ public class AddressBookTest {
         assertEquals(expectedList, actualList);
     }
 
-
     /**
      * A stub ReadOnlyAddressBook whose tags and tags lists can violate interface constraints.
      */
