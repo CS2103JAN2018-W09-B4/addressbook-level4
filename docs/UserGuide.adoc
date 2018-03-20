@@ -118,6 +118,7 @@ Do ensure that the parameter for `b/` falls between 1 the number of options incl
 Edits an existing flashcard currently stored in Flashy. +
 Format: `editc INDEX [f/FRONT] [b/BACK]`
 
+
 ****
 * Edits the normal flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
@@ -143,6 +144,7 @@ Format: `editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION]
 * Edits the MCQ-type flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * This only applies to parameters which you have supplied. If, for example, no parameters for `f/` are supplied, the front of the card would not be edited.
+
 ****
 
 Examples:

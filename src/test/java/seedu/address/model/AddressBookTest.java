@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
+import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
 
 public class AddressBookTest {
@@ -77,6 +78,7 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Card> cards = FXCollections.observableArrayList();
+        private final CardTag cardTag = new CardTag();
 
         AddressBookStub(Collection<Tag> tags, Collection<Card> cards) {
             this.tags.setAll(tags);
@@ -91,6 +93,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Card> getCardList() {
             return cards;
+        }
+
+        @Override
+        public CardTag getCardTag() {
+            return cardTag;
         }
     }
 

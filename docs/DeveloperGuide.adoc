@@ -788,6 +788,37 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: helps user memorise facts better.
 
 [appendix]
+== Feature Contribution
+
+=== Jethro Kuan
+Major enhancement: Implementing a graph structure to link Cards and Tags so that users are able to tag different cards
+in order to search them efficiently.
+
+Minor enhancement: Implementing a list card command so that users would be able to list the cards available
+for reference
+
+=== Foo Yong Jie
+Major enhancement: Improving the UI / UX of the application, including implementing separate panels for tags, cards,
+and the display of cards.
+This allows users to use the application efficiently.
+
+Minor enhancement: Implementing the feature to switch the theme of the application between light and dark so users
+can change it to suit their preference.
+
+=== Wong Ding Feng
+Major enhancement: Implementing a scheduler to prompt users which card they should review daily so that they are able to prioritise what to
+go through first.
+
+Minor enhancement: Sorting of cards based on tags.
+
+=== Shawn Chua
+Major enhancement: Implementing polymorphic cards to include MCQ-type and fill-in-the-blanks-type cards so that users
+are able to memorise information in different ways.
+
+Minor enhancement: Implementing editing of existing cards so that users are able to make changes should they
+make a mistake.
+
+[appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`

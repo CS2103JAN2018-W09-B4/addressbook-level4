@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
+import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,4 +22,5 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Card> getCardList();
 
+    CardTag getCardTag();
 }
