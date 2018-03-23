@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredTags = new FilteredList<>(this.addressBook.getTagList());
-        filteredCards = this.addressBook.getCardList();
+        filteredCards.setAll(this.addressBook.getCardList());
     }
 
     public ModelManager() {
@@ -149,12 +149,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void showAllCards() {
-        filteredCards = this.addressBook.getCardList();
+        filteredCards.setAll(addressBook.getCardList());
     }
 
     @Override
     public void filterCardsByTag(Tag tag) {
-        this.filteredCards.setAll(addressBook
+        filteredCards.setAll(addressBook
                 .getCardTag()
                 .getCards(tag, addressBook.getCardList()));
     }
