@@ -149,6 +149,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void filterCardsByTag(Tag tag) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void showAllCards() {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void addCard(Card card) throws DuplicateCardException {
             fail("This method should not be called.");
         }

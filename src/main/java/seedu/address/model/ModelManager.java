@@ -31,7 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Tag> filteredTags;
-    private ObservableList<Card> filteredCards;
+    private final ObservableList<Card> filteredCards;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredTags = new FilteredList<>(this.addressBook.getTagList());
-        filteredCards.setAll(this.addressBook.getCardList());
+        filteredCards = this.addressBook.getCardList();
     }
 
     public ModelManager() {
@@ -150,6 +150,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void showAllCards() {
         filteredCards.setAll(addressBook.getCardList());
+    }
+
+    @Override
+    public void updateFilteredCardList(Predicate<Card> predicate) {
+        requireAllNonNull(predicate);
+        filteredCards.filtered(predicate);
     }
 
     @Override
