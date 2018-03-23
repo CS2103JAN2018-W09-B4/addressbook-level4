@@ -13,7 +13,7 @@ public class ListCardCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        model.showAllCards();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

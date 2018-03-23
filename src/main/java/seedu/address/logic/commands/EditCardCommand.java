@@ -65,7 +65,7 @@ public class EditCardCommand extends UndoableCommand {
         } catch (CardNotFoundException pnfe) {
             throw new AssertionError("The target card cannot be missing");
         }
-        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        model.showAllCards();
         return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
     }
 

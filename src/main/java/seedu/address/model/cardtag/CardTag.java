@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
@@ -65,7 +66,7 @@ public class CardTag {
         if (cards != null) {
             return cardList.filtered(card -> cards.contains(card.getId().toString()));
         } else {
-            return Collections.emptyList();
+            return FXCollections.observableArrayList();
         }
     }
 
