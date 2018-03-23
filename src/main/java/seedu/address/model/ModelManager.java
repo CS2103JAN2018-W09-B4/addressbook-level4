@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -153,7 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void filterCardsByTag(Tag tag) {
-        this.filteredCards.setAll( addressBook
+        this.filteredCards.setAll(addressBook
                 .getCardTag()
                 .getCards(tag, addressBook.getCardList()));
     }

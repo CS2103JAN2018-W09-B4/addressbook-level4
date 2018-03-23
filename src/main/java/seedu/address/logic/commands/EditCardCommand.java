@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
 import java.util.List;
 import java.util.Objects;
