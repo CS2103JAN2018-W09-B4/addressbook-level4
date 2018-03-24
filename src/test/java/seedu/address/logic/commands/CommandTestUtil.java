@@ -165,9 +165,7 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredCardList().size());
     }
 
-
     /**
-     *
      * Deletes the first tag in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstTag(Model model) {
