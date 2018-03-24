@@ -3,6 +3,7 @@ package seedu.address.commons.events.ui;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.ui.TagCard;
 
+//@@author yong-jie
 /**
  * Represents a selection change in the Tag List Panel
  */

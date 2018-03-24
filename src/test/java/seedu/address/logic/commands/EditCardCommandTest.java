@@ -11,7 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertEqualCardId;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
-import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
@@ -28,6 +27,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
+import seedu.address.model.tag.Description;
+import seedu.address.model.tag.Name;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
@@ -97,8 +99,6 @@ public class EditCardCommandTest {
 
     @Test
     public void execute_filteredList_success() throws Exception {
-        showCardAtIndex(model, INDEX_FIRST_CARD);
-
         Card cardInFilteredList = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         Card editedCard = new CardBuilder(cardInFilteredList).withFront(VALID_NAME_COMSCI).build();
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD,
@@ -125,8 +125,6 @@ public class EditCardCommandTest {
 
     @Test
     public void execute_duplicateCardFilteredList_failure() {
-        showCardAtIndex(model, INDEX_FIRST_CARD);
-
         // edit card in filtered list into a duplicate in address book
         Card cardInList = model.getAddressBook().getCardList().get(INDEX_SECOND_CARD.getZeroBased());
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD,
@@ -151,7 +149,7 @@ public class EditCardCommandTest {
      */
     @Test
     public void execute_invalidCardIndexFilteredList_failure() {
-        showCardAtIndex(model, INDEX_FIRST_CARD);
+        model.filterCardsByTag(new Tag(new Name("Name"), new Description("Address")));
         Index outOfBoundIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCardList().size());
@@ -227,7 +225,6 @@ public class EditCardCommandTest {
         // To check whether card ID has changed
         assertEqualCardId(targetCard, newCard);
 
-        showCardAtIndex(model, INDEX_SECOND_CARD);
         Card cardToEdit = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         // edit -> edits second card in unfiltered card list / first card in filtered card list
         editCommand.execute();

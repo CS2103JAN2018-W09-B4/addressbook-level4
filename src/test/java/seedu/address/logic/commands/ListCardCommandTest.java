@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
@@ -36,7 +35,7 @@ public class ListCardCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showCardAtIndex(model, INDEX_FIRST_CARD);
+        model.showAllCards();
         assertCommandSuccess(listCommand, model, ListCardCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

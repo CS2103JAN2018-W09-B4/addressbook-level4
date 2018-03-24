@@ -152,20 +152,6 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the card at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showCardAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCardList().size());
-
-        Card card = model.getFilteredCardList().get(targetIndex.getZeroBased());
-        final UUID uuid = card.getId();
-        model.updateFilteredCardList(new UuidPredicate(uuid));
-
-        assertEquals(1, model.getFilteredCardList().size());
-    }
-
-    /**
      * Deletes the first tag in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstTag(Model model) {
