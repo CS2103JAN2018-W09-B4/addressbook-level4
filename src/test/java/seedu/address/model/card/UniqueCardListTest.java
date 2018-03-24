@@ -5,14 +5,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class UniqueCardListTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+    public void asObservableList_modifyList_noError() {
         UniqueCardList uniqueCardList = new UniqueCardList();
-        thrown.expect(UnsupportedOperationException.class);
-        uniqueCardList.asObservableList().remove(0);
+        uniqueCardList.asObservableList().add(new Card("hi", "bye"));
     }
-
 }
