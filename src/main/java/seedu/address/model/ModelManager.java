@@ -44,7 +44,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredTags = new FilteredList<>(this.addressBook.getTagList());
-        filteredCards = this.addressBook.getCardList();
+
+        // To prevent direct referencing, which would cause setAll() to affect addressBook's list
+        filteredCards = FXCollections.observableArrayList();
+        filteredCards.setAll(this.addressBook.getCardList());
     }
 
     public ModelManager() {
@@ -147,15 +150,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author yong-jie
     @Override
     public void showAllCards() {
-        filteredCards.setAll(addressBook.getCardList());
-    }
-
-    @Override
-    public void updateFilteredCardList(Predicate<Card> predicate) {
-        requireAllNonNull(predicate);
-        filteredCards.filtered(predicate);
+        filteredCards.setAll(this.addressBook.getCardList());
     }
 
     @Override
@@ -165,11 +163,13 @@ public class ModelManager extends ComponentManager implements Model {
                 .getCards(tag, addressBook.getCardList()));
     }
 
+    //@@author
     @Override
     public ObservableList<Card> getFilteredCardList() {
         return FXCollections.unmodifiableObservableList(filteredCards);
     }
 
+    //@@author yong-jie
     @Subscribe
     private void handleTagListPanelSelectionEvent(TagListPanelSelectionChangedEvent event) {
         filterCardsByTag(event.getNewSelection().tag);

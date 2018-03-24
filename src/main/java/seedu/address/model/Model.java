@@ -50,12 +50,6 @@ public interface Model {
     void updateFilteredTagList(Predicate<Tag> predicate);
 
     /**
-     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredCardList(Predicate<Card> predicate);
-
-    /**
      * Resets the filtered card list to contain all cards.
      */
     void showAllCards();
