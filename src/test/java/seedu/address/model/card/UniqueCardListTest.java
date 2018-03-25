@@ -1,8 +1,6 @@
 package seedu.address.model.card;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class UniqueCardListTest {
     @Test
