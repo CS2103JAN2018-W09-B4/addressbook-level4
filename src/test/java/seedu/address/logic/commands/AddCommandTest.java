@@ -142,12 +142,7 @@ public class AddCommandTest {
         public void updateFilteredTagList(Predicate<Tag> predicate) {
             fail("This method should not be called.");
         }
-
-        //@Override
-        public void updateFilteredCardList(Predicate<Card> predicate) {
-            fail("This method should not be called.");
-        }
-
+        
         @Override
         public void filterCardsByTag(Tag tag) {
             fail("This method should not be called.");
