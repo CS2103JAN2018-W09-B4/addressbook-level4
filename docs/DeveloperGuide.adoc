@@ -358,7 +358,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
-===== Aspect: Support for multiple themes
+=== Aspect: Support for multiple themes
+==== Current Implementation
+The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. Below is the sequence diagram for the relevant functionality:
+
+image::ChangeThemeSequenceDiagram.png[width="800"]
+
+==== Aspect: The decision to support multiple themes
 * **Alternative 1**: Do not support multiple themes
 ** Pros: Consistent user experience with a single theme.
 ** Cons: No ability to customize the look and feel of the application.
