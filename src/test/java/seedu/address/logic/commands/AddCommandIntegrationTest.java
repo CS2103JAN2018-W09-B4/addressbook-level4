@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
@@ -39,9 +38,11 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicateTag_throwsCommandException() {
+    public void execute_duplicateTag_successWithMessage() {
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         Tag tagInList = model.getAddressBook().getTagList().get(0);
-        assertCommandFailure(prepareCommand(tagInList, model), model, AddCommand.MESSAGE_DUPLICATE_TAG);
+        assertCommandSuccess(prepareCommand(tagInList, model), model,
+                String.format(AddCommand.MESSAGE_TAG_EXISTS, tagInList.getName()), expectedModel);
     }
 
     /**
