@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,10 +17,8 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_DESCRIPTION + "DESCRIPTION\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Mathematics "
-            + PREFIX_DESCRIPTION + "linear algebra and statistics";
+            + PREFIX_NAME + "Mathematics";
 
     public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
     public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists in the address book";

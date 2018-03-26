@@ -21,7 +21,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
-import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 
@@ -69,7 +68,7 @@ public class DeleteCardCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        model.filterCardsByTag(new Tag(new Name("Hi"), new Description("Bye")));
+        model.filterCardsByTag(new Tag(new Name("Hi")));
 
         Index outOfBoundIndex = INDEX_SECOND_CARD;
 

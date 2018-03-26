@@ -1,13 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_COMSCI;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -20,7 +17,6 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTagDescriptor;
-import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.testutil.EditTagDescriptorBuilder;
 
@@ -61,22 +57,15 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
-                Description.MESSAGE_DESCRIPTION_CONSTRAINTS); // invalid address
-
-        // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_DESCRIPTION_ENGLISH,
-                Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_TAG;
         String userInput = targetIndex.getOneBased()
-                + DESCRIPTION_DESC_ENGLISH + NAME_DESC_ENGLISH;
+                + NAME_DESC_ENGLISH;
 
         EditCommand.EditTagDescriptor descriptor = new EditTagDescriptorBuilder().withName(VALID_NAME_ENGLISH)
-                .withDescription(VALID_DESCRIPTION_ENGLISH)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -86,10 +75,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_TAG;
-        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_COMSCI;
+        String userInput = targetIndex.getOneBased() + NAME_DESC_COMSCI;
 
         EditCommand.EditTagDescriptor descriptor = new EditTagDescriptorBuilder()
-                .withDescription(VALID_DESCRIPTION_COMSCI)
+                .withName(VALID_NAME_COMSCI)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -104,21 +93,15 @@ public class EditCommandParserTest {
         EditTagDescriptor descriptor = new EditTagDescriptorBuilder().withName(VALID_NAME_ENGLISH).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-
-        // address
-        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_ENGLISH;
-        descriptor = new EditTagDescriptorBuilder().withDescription(VALID_DESCRIPTION_ENGLISH).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_TAG;
-        String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_ENGLISH + DESCRIPTION_DESC_COMSCI;
+        String userInput = targetIndex.getOneBased() + NAME_DESC_COMSCI + NAME_DESC_ENGLISH;
 
         EditCommand.EditTagDescriptor descriptor = new EditTagDescriptorBuilder()
-                .withDescription(VALID_DESCRIPTION_COMSCI)
+                .withName(VALID_NAME_ENGLISH)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

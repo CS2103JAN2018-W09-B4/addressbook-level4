@@ -6,7 +6,6 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 
@@ -23,9 +22,6 @@ public class XmlAdaptedTag {
     @XmlElement(required = true)
     private String name;
 
-    @XmlElement(required = true)
-    private String description;
-
     /**
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
@@ -35,10 +31,9 @@ public class XmlAdaptedTag {
     /**
      * Constructs an {@code XmlAdaptedTag} with the given tag details.
      */
-    public XmlAdaptedTag(String id, String name, String description) {
+    public XmlAdaptedTag(String id, String name) {
         this.id = id;
         this.name = name;
-        this.description = description;
     }
 
     /**
@@ -49,7 +44,6 @@ public class XmlAdaptedTag {
     public XmlAdaptedTag(Tag source) {
         id = source.getId().toString();
         name = source.getName().fullName;
-        description = source.getDescription().value;
     }
 
     /**
@@ -70,16 +64,7 @@ public class XmlAdaptedTag {
         }
         final Name name = new Name(this.name);
 
-        if (this.description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
-        }
-        if (!Description.isValidDescription(this.description)) {
-            throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
-        }
-        final Description description = new Description(this.description);
-
-        return new Tag(UUID.fromString(id), name, description);
+        return new Tag(UUID.fromString(id), name);
     }
 
     @Override
@@ -94,7 +79,6 @@ public class XmlAdaptedTag {
 
         XmlAdaptedTag otherTag = (XmlAdaptedTag) other;
         return Objects.equals(id, otherTag.id)
-                && Objects.equals(name, otherTag.name)
-                && Objects.equals(description, otherTag.description);
+                && Objects.equals(name, otherTag.name);
     }
 }

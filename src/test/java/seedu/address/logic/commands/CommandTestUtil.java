@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -32,23 +31,19 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_ENGLISH = "English";
     public static final String VALID_NAME_COMSCI = "Computer Science";
-    public static final String VALID_DESCRIPTION_ENGLISH = "english english";
-    public static final String VALID_DESCRIPTION_COMSCI = "computer science";
+    public static final String VALID_NAME_SOCIOLOGY = "Sociology";
 
     public static final String NAME_DESC_ENGLISH = " " + PREFIX_NAME + VALID_NAME_ENGLISH;
     public static final String NAME_DESC_COMSCI = " " + PREFIX_NAME + VALID_NAME_COMSCI;
-    public static final String DESCRIPTION_DESC_ENGLISH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_ENGLISH;
-    public static final String DESCRIPTION_DESC_COMSCI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_COMSCI;
+    public static final String NAME_DESC_SOCIOLOGY = " " + PREFIX_NAME + VALID_NAME_SOCIOLOGY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
-    public static final String INVALID_DESCRIPTION_DESC = " "
-            + PREFIX_DESCRIPTION; // empty string not allowed for description
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditTagDescriptor DESC_AMY;
-    public static final EditCommand.EditTagDescriptor DESC_BOB;
+    public static final EditCommand.EditTagDescriptor DESC_ENGLISH;
+    public static final EditCommand.EditTagDescriptor DESC_COMSCI;
 
     public static final EditCardCommand.EditCardDescriptor CS2103T_CARD;
     public static final EditCardCommand.EditCardDescriptor CS2101_CARD;
@@ -76,11 +71,9 @@ public class CommandTestUtil {
     public static final String INVALID_THEME = "solarized";
 
     static {
-        DESC_AMY = new EditTagDescriptorBuilder().withName(VALID_NAME_ENGLISH)
-                .withDescription(VALID_DESCRIPTION_ENGLISH)
+        DESC_ENGLISH = new EditTagDescriptorBuilder().withName(VALID_NAME_ENGLISH)
                 .build();
-        DESC_BOB = new EditTagDescriptorBuilder().withName(VALID_NAME_COMSCI)
-                .withDescription(VALID_DESCRIPTION_COMSCI)
+        DESC_COMSCI = new EditTagDescriptorBuilder().withName(VALID_NAME_COMSCI)
                 .build();
     }
 

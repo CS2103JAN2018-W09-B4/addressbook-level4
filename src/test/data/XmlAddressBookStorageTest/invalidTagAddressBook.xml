@@ -3,6 +3,5 @@
     <!-- Tag with invalid name field -->
     <tags>
         <name>Ha!ns Mu@ster</name>
-        <description isPrivate="false">physics physics</description>
     </tags>
 </addressbook>

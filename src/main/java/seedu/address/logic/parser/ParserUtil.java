@@ -11,7 +11,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.card.Card;
-import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 
 /**
@@ -65,30 +64,6 @@ public class ParserUtil {
     public static Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
         requireNonNull(name);
         return name.isPresent() ? Optional.of(parseName(name.get())) : Optional.empty();
-    }
-
-    /**
-     * Parses a {@code String address} into an {@code Description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws IllegalValueException if the given {@code address} is invalid.
-     */
-    public static Description parseDescription(String address) throws IllegalValueException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Description.isValidDescription(trimmedAddress)) {
-            throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
-        }
-        return new Description(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code Optional<String> address} into an {@code Optional<Description>} if {@code address} is present.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
-     */
-    public static Optional<Description> parseDescription(Optional<String> address) throws IllegalValueException {
-        requireNonNull(address);
-        return address.isPresent() ? Optional.of(parseDescription(address.get())) : Optional.empty();
     }
 
     /**

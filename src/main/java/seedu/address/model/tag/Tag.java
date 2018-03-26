@@ -13,23 +13,20 @@ public class Tag {
 
     private final UUID id;
     private final Name name;
-    private final Description description;
 
     /**
      * Every field must be present and not null.
      */
-    public Tag(Name name, Description description) {
-        requireAllNonNull(name, description);
+    public Tag(Name name) {
+        requireAllNonNull(name);
         this.name = name;
-        this.description = description;
         this.id = UUID.randomUUID();
     }
 
-    public Tag(UUID id, Name name, Description description) {
-        requireAllNonNull(id, name, description);
+    public Tag(UUID id, Name name) {
+        requireAllNonNull(id, name);
         this.id = id;
         this.name = name;
-        this.description = description;
     }
 
     public UUID getId() {
@@ -38,10 +35,6 @@ public class Tag {
 
     public Name getName() {
         return name;
-    }
-
-    public Description getDescription() {
-        return description;
     }
 
     @Override
@@ -56,28 +49,20 @@ public class Tag {
 
         Tag otherTag = (Tag) other;
 
-        // TODO: account for ID equality. Some test cases check for object equality.
-        //        return otherTag.getId().equals(this.getId())
-        //                && otherTag.getName().equals(this.getName())
-        //                && otherTag.getDescription().equals(this.getDescription());
-
-        return otherTag.getName().equals(this.getName())
-                && otherTag.getDescription().equals(this.getDescription());
+        return otherTag.getName().equals(this.getName());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Name: ")
-                .append(getName())
-                .append(" Description: ")
-                .append(getDescription());
+                .append(getName());
         return builder.toString();
     }
 }

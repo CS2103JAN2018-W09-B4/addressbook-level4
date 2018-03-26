@@ -1,16 +1,10 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_COMSCI;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
 import static seedu.address.testutil.TypicalTags.BULGARIAN;
 import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
 import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
@@ -26,7 +20,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -45,7 +38,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         Tag toAdd = ENGLISH_TAG;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_ENGLISH + "  " + DESCRIPTION_DESC_ENGLISH;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_ENGLISH;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -61,15 +54,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a tag with all fields same as another tag in the address book except name -> added */
         toAdd = new TagBuilder().withName(VALID_NAME_COMSCI)
-                .withDescription(VALID_DESCRIPTION_ENGLISH).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_COMSCI + DESCRIPTION_DESC_ENGLISH;
-        assertCommandSuccess(command, toAdd);
-
-
-        /* Case: add a tag with all fields same as another tag in the address book except address -> added */
-        toAdd = new TagBuilder().withName(VALID_NAME_ENGLISH)
-                .withDescription(VALID_DESCRIPTION_COMSCI).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_ENGLISH + DESCRIPTION_DESC_COMSCI;
+                .build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_COMSCI;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
@@ -98,11 +84,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TAG);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_ENGLISH;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_ENGLISH;
+        command = AddCommand.COMMAND_WORD;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -110,12 +92,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + DESCRIPTION_DESC_ENGLISH;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
-
-        /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_ENGLISH + INVALID_DESCRIPTION_DESC;
-        assertCommandFailure(command, Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
     }
 
     /**

@@ -27,7 +27,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
-import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
@@ -149,7 +148,7 @@ public class EditCardCommandTest {
      */
     @Test
     public void execute_invalidCardIndexFilteredList_failure() {
-        model.filterCardsByTag(new Tag(new Name("Name"), new Description("Address")));
+        model.filterCardsByTag(new Tag(new Name("Name")));
         Index outOfBoundIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCardList().size());

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -228,10 +228,10 @@ public class EditCommandTest {
 
     @Test
     public void equals() throws Exception {
-        final EditCommand standardCommand = prepareCommand(INDEX_FIRST_TAG, DESC_AMY);
+        final EditCommand standardCommand = prepareCommand(INDEX_FIRST_TAG, DESC_ENGLISH);
 
         // same values -> returns true
-        EditCommand.EditTagDescriptor copyDescriptor = new EditCommand.EditTagDescriptor(DESC_AMY);
+        EditTagDescriptor copyDescriptor = new EditTagDescriptor(DESC_ENGLISH);
         EditCommand commandWithSameValues = prepareCommand(INDEX_FIRST_TAG, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -249,10 +249,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_TAG, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_TAG, DESC_ENGLISH)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_TAG, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_TAG, DESC_COMSCI)));
     }
 
     /**

@@ -20,7 +20,6 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(TagCardHandle expectedCard, TagCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getName(), actualCard.getName());
     }
 
@@ -29,7 +28,6 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysTag(Tag expectedTag, TagCardHandle actualCard) {
         assertEquals(expectedTag.getName().fullName, actualCard.getName());
-        assertEquals(expectedTag.getDescription().value, actualCard.getAddress());
     }
 
     /**

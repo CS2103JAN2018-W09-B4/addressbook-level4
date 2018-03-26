@@ -3,11 +3,9 @@
     <!-- Valid Tag -->
     <tags>
         <name>Physics</name>
-        <description isPrivate="false">physics physics</description>
     </tags>
     <!-- Tag with invalid name field -->
     <tags>
         <name>Phys!cs</name>
-        <description isPrivate="false">physics physics</description>
     </tags>
 </addressbook>

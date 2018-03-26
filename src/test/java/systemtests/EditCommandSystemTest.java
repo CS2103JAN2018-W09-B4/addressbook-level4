@@ -2,14 +2,12 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_COMSCI;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_ENGLISH;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_SOCIOLOGY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SOCIOLOGY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
@@ -24,7 +22,6 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Description;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -44,10 +41,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_TAG;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_COMSCI + "  "
-                + DESCRIPTION_DESC_COMSCI;
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_COMSCI;
         Tag editedTag = new TagBuilder().withName(VALID_NAME_COMSCI)
-                .withDescription(VALID_DESCRIPTION_COMSCI).build();
+                .build();
         assertCommandSuccess(command, index, editedTag);
 
         /* Case: undo editing the last tag in the list -> last tag restored */
@@ -63,8 +59,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a tag with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
-                + DESCRIPTION_DESC_COMSCI;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI;
         assertCommandSuccess(command, index, COMSCI_TAG);
 
         Tag tagToEdit = getModel().getFilteredTagList().get(index.getZeroBased());
@@ -76,9 +71,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         index = INDEX_FIRST_TAG;
         assertTrue(index.getZeroBased() < getModel().getFilteredTagList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_COMSCI;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_SOCIOLOGY;
         tagToEdit = getModel().getFilteredTagList().get(index.getZeroBased());
-        editedTag = new TagBuilder(tagToEdit).withName(VALID_NAME_COMSCI).build();
+        editedTag = new TagBuilder(tagToEdit).withName(VALID_NAME_SOCIOLOGY).build();
         assertCommandSuccess(command, index, editedTag);
 
         /* Case: filtered tag list, edit index within bounds of address book but out of bounds of tag list
@@ -97,8 +92,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showAllTags();
         index = INDEX_FIRST_TAG;
         selectTag(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ENGLISH
-                + DESCRIPTION_DESC_ENGLISH;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ENGLISH;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new tag's name
         assertCommandSuccess(command, index, ENGLISH_TAG, index);
@@ -130,22 +124,16 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TAG.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TAG.getOneBased() + INVALID_DESCRIPTION_DESC,
-                Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
-
         /* Case: edit a tag with new values same as another tag's values -> rejected */
         executeCommand(TagUtil.getAddCommand(COMSCI_TAG));
         assertTrue(getModel().getAddressBook().getTagList().contains(COMSCI_TAG));
         index = INDEX_FIRST_TAG;
         assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(COMSCI_TAG));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
-                + DESCRIPTION_DESC_COMSCI;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TAG);
 
         /* Case: edit a tag with new values same as another tag's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI
-                + DESCRIPTION_DESC_COMSCI;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TAG);
     }
 

@@ -3,37 +3,30 @@
     <tags>
         <id>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</id>
         <name>Physics</name>
-        <description>physics physics</description>
     </tags>
     <tags>
         <id>f7a33f28-8246-41ba-9347-0455124625c0</id>
         <name>Biology Midterms</name>
-        <description>biology midterms</description>
     </tags>
     <tags>
         <id>2c941c30-fde8-4572-ab41-9f29270a4245</id>
         <name>Chemistry</name>
-        <description>chemistry chemistry</description>
     </tags>
     <tags>
         <id>b7a91de5-32c9-476e-a72f-4c9fa963d4b4</id>
         <name>Economics Midterms</name>
-        <description>economics economics</description>
     </tags>
     <tags>
         <id>49af579d-3990-43e1-b11f-ed7ea0630434</id>
         <name>History</name>
-        <description>history history</description>
     </tags>
     <tags>
         <id>437f5cba-8023-47d3-8269-7d23b7a7338b</id>
         <name>Malay</name>
-        <description>malay malay</description>
     </tags>
     <tags>
         <id>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</id>
         <name>Mathematics</name>
-        <description>math math</description>
     </tags>
     <cards>
         <front>What is 1 + 1?</front>

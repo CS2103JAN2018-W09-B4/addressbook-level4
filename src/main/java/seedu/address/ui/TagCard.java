@@ -30,15 +30,11 @@ public class TagCard extends UiPart<Region> {
     @FXML
     private Label id;
 
-    @FXML
-    private Label description;
-
     public TagCard(Tag tag, int displayedIndex) {
         super(FXML);
         this.tag = tag;
         id.setText(displayedIndex + ". ");
         name.setText(tag.getName().fullName);
-        description.setText(tag.getDescription().value);
     }
 
     @Override
