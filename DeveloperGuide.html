@@ -48,6 +48,9 @@
 <li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
 <li><a href="#logging">3.3. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
+<li><a href="#mcq-flashcards">3.5. MCQ flashcards</a></li>
+<li><a href="#storage">3.6. Storage</a></li>
+<li><a href="#design-considerations-2">3.7. Design Considerations</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -959,6 +962,60 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mcq-flashcards"><a class="link" href="#mcq-flashcards">3.5. MCQ flashcards</a></h3>
+<div class="paragraph">
+<p>Allowing different types of cards is essential the Flashy. This enables the user to add either a normal card or a MCQ-type card so that he can learn more efficiently, and use whichever that suits his fancy.
+A new class McqCard was created to implement this enhancement, and it will inherit the Card class.
+It has the additional attribute for the options for the MCQ.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Card_model.png" alt="Card model" width="300">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Card_inheritance.png" alt="Card inheritance" width="300">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="storage"><a class="link" href="#storage">3.6. Storage</a></h3>
+<div class="paragraph">
+<p>TODO
+image::Card_storage.png[width="300"]</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.7. Design Considerations</a></h3>
+<div class="sect3">
+<h4 id="command-for-adding-mcq-type-cards"><a class="link" href="#command-for-adding-mcq-type-cards">3.7.1. Command for adding MCQ type cards</a></h4>
+<div class="paragraph">
+<p>There would be an add command for MCQ type cards.</p>
+</div>
+<div class="paragraph">
+<p>Alternative 1 (current choice): Use <code>addc</code> for the adding of MCQ type cards.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Less commands for users and reduces repeated codes due to similarities between adding of normal and MCQ type cards.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alternative 2: Implement a different <code>addm</code> command for adding of MCQ type cards.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cons: More commands for users and there would be repeated codes due to similarities between adding of normal and MCQ type cards.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1899,7 +1956,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-26 14:24:18 UTC
+Last updated 2018-03-26 16:49:04 UTC
 </div>
 </div>
 </body>
