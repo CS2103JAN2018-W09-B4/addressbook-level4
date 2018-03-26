@@ -393,7 +393,99 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g App name,
+logging level) through the configuration file (default:
+`config.json`).
+
+
+=== Card-Tag Association
+==== Current Implementation
+
+The modeling of relations between flashcards and tags is crucial to
+Flashy, because this is the primary mode of content organization in
+the application. Henceforth, we will use the term "edge" to refer to a
+relation between a flashcard and a tag. The software requires that:
+
+1. A card can be associated with many tags. For example, a card with a
+Physics question may be added to the "Physics" tag, and the "Midterm
+2018" tag.
+
+2. A tag can be associated with many cards. For example, The "Physics"
+tag may contain many Physics flashcards on different topics.
+
+image::Card_Tag_relation.png[width="300"]
+
+Edges are stored in an instance of `CardTag`. `CardTag` is an
+association class, containing two `HashMap`s.
+
+image::CardTag_Association_Class.png[width="300"]
+
+==== Exposed APIs
+
+Interaction with the `CardTag` instance is performed through the
+`Model`. The model exposes two methods:
+
+1. `addEdge(Card card, Tag tag)`: adds an edge between `card` and
+`tag`.
+
+2. `removeEdge(Card card, Tag tag)`: removes the edge between `card` and
+`tag`.
+
+==== Adding an Edge
+
+Edges are added during editing of an existing card (with new tags) and
+adding of a new card. Below is the sequence diagram for adding an
+edge.
+
+TODO
+
+==== Design Considerations
+===== Aspect: Storage of Edges
+
+The edges should be persisted in storage. Hence, the `CardTag`
+association class must be serializable to `xml`. This limits the
+design choices for `CardTag`.
+
+* Alternative 1 (current choice): Add UUIDs to Cards and Tags, and
+model edges as UUID pairs.
+
+  - Pros: This allows the `CardTag` instance to be easily serialized to and
+  from `xml`. Reduces coupling between the `Card` and `Tag` class.
+
+  - Cons: Requires the addition of a UUID field to the `Card` and
+    `Tag` class. Developer needs to be careful with implementation,
+    because UUID strings for `Card` and `Tag` are indistinguishable.
+
+* Alternative 2: Store the edge information in `Card` and `Tag`.
+
+  - Pros: No need for additional UUID field.
+
+  - Cons: Strong coupling between the `Card` and `Tag` class.
+    Serializing to and from `xml` is less straightforward.
+
+===== Aspect: Choice of Data Structure
+
+The application requires the following two operations to be fast:
+
+1. Getting all `Card` instances from a specific `Tag` (operation 1)
+2. Getting all `Tag` instances from a specific `Card` (operation 2)
+
+Adjacency lists provide much better performance -- O(1) on both
+operations, as compared to an adjacency matrix. In addition, a typical
+`CardTag` graph is sparse, and adjacency lists are much more memory
+efficient.
+
+* Alternative 1 (current choice): Storing edges in 2 `HashMap`s:
+  `cardMap` and `tagMap`.
+
+  - Pros: `O(1)` for both operations.
+  - Cons: Double the memory requirements:
+
+* Alternative 2: Storing edges in 1 `HashMap`:
+  `cardMap` or `tagMap`.
+
+  - Pros: Uses minimal amount of memory.
+  - Cons: O(1) operation for only one operation.
 
 === Schedule feature
 
