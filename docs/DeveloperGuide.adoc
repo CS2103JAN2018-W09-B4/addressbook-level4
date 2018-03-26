@@ -395,6 +395,58 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Schedule feature
+
+image::ScheduleLogic.png[width="800"]
+
+Schedule is implemented as an object in a Card.
+
+Schedule contains a `java.time.LocalDateTime` which can be used to filter and order the cards.
+
+The `feedback()` function is the main part making the whole Scheduler system work.
+`feedback()` will take in a boolean, true denoting success, false denoting failure to recall.
+This will allow Schedule to gauge a user's familiarity with a card and schedule review times appropriately.
+
+This class has some math and many variables, here is a short reference for their meaning if they are not self evident.
+
+* `learningPhase` the number of days we denote as a learning phase.
+* `lastInterval` the last interval given to schedule a review.
+* `easingFactor` how easy is it for the user to remember a fact,
+the larger this number the easier it is.
+* `historicalEasingFactor` the cumulative form of `easingFactor`
+
+Initially when the user first creates a card, we give then a grace period with `learningPhase`. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
+Any feedback within this period will not update the `easingFactor`.
+
+`feedback()` will log down the number of `success` and `failures` so far.
+
+A predicate filter is used in conjunction with Schedule class to retrieve a list of cards due for review.
+
+=== MCQ flashcards
+Allowing different types of cards is essential the Flashy. This enables the user to add either a normal card or a MCQ-type card so that he can learn more efficiently, and use whichever that suits his fancy.
+A new class McqCard was created to implement this enhancement, and it will inherit the Card class.
+It has the additional attribute for the options for the MCQ.
+
+image::Card_model.png[width="300"]
+image::Card_inheritance.png[width="300"]
+
+=== Storage
+
+TODO
+image::Card_storage.png[width="300"]
+
+=== Design Considerations
+==== Command for adding MCQ type cards
+There would be an add command for MCQ type cards.
+
+Alternative 1 (current choice): Use `addc` for the adding of MCQ type cards.
+
+- Pros: Less commands for users and reduces repeated codes due to similarities between adding of normal and MCQ type cards.
+
+Alternative 2: Implement a different `addm` command for adding of MCQ type cards.
+
+- Cons: More commands for users and there would be repeated codes due to similarities between adding of normal and MCQ type cards.
+
 == Documentation
 
 We use asciidoc for writing documentation.

@@ -12,20 +12,66 @@ public class ScheduleTest {
         s.feedback(true);
         s.feedback(false);
         s.feedback(true);
-        assertEquals(s.getSuccessRate(), 2.0 / 3.0, 1);
+        assertEquals(2.0 / 3.0, s.getSuccessRate(), 1);
+    }
+
+    @Test
+    public void feedback_learningPhaseTest() {
+        Schedule s = new Schedule();
+        int learningPhase = s.getLearningPhase();
+        for (int i = 0; i < learningPhase - 1; i++) {
+            s.feedback(true);
+            assertEquals(1, s.getLastInterval());
+        }
     }
 
     @Test
     public void feedback_getEasingFactor() {
         Schedule s = new Schedule();
-        assertEquals(s.getEasingFactor(), 1.0, 0.000001);
+        int learningPhase = s.getLearningPhase();
+        for (int i = 0; i < learningPhase - 1; i++) {
+            s.feedback(true);
+            assertEquals(1, s.getLastInterval());
+        }
         s.feedback(true);
-        assertEquals(s.getEasingFactor(), 1.0, 0.000001);
+        assertEquals(1.1, s.getEasingFactor(), 0.00000001);
+        s.feedback(true);
+        s.feedback(true);
+        s.feedback(true);
+        s.feedback(true);
+        assertEquals(1.3569619443199672, s.getEasingFactor(), 0.00000001);
         s.feedback(false);
-        assertEquals(s.getEasingFactor(), 1.0, 0.000001);
-        s.feedback(true);
-        assertEquals(s.getEasingFactor(), 1.0, 0.000001);
-        s.feedback(true);
-        assertEquals(s.getEasingFactor(), 0.5649254682876186, 0.000001);
+        s.feedback(false);
+        s.feedback(false);
+        s.feedback(false);
+        assertEquals(0.28007138289996014, s.getEasingFactor(), 0.00000001);
     }
+
+    @Test
+    public void feedback_algoPositive() {
+        Schedule s = new Schedule();
+        int learningPhase = s.getLearningPhase();
+        for (int i = 0; i < learningPhase - 1; i++) {
+            s.feedback(true);
+            assertEquals(1, s.getLastInterval());
+        }
+        s.feedback(true);
+        s.feedback(true);
+        s.feedback(true);
+        s.feedback(true);
+        assertEquals(1.1597147845723643, s.getEasingFactor(), 0.00000001);
+    }
+
+    @Test
+    public void feedback_algoNegative() {
+        Schedule s = new Schedule();
+        int learningPhase = s.getLearningPhase();
+        for (int i = 0; i < learningPhase - 1; i++) {
+            s.feedback(true);
+            assertEquals(1, s.getLastInterval());
+        }
+        s.feedback(false);
+        assertEquals(0.3048048297281299, s.getEasingFactor(), 0.00000001);
+    }
+
 }
