@@ -45,7 +45,7 @@ public class CardListPanel extends UiPart<Region> {
         cardListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in tag list panel changed to : '" + newValue + "'");
+                        logger.fine("Selection in card list panel changed to : '" + newValue + "'");
                         raise(new CardListPanelSelectionChangedEvent(newValue));
                     }
                 });
