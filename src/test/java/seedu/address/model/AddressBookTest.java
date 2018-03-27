@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
@@ -67,9 +69,17 @@ public class AddressBookTest {
     public void getTodayReviewList() {
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
-        List<Card> expectedList = addressBook.getCardList();
-        List<Card> actualList = addressBook.getTodayReviewList();
-        assertEquals(expectedList, actualList);
+        List<Card> originalList = addressBook.getCardList();
+        List<Card> reviewList = addressBook.getTodayReviewList();
+        assertEquals(originalList, reviewList);
+
+        // predicate filter should not include tomorrow's card
+        Card removedCard = newData.getCardList().get(0);
+        removedCard.getSchedule().setRelativeNextReview(1);
+        List<Card> notEqualsList = addressBook.getTodayReviewList();
+        assertNotEquals(originalList, notEqualsList);
+
+        assertFalse(notEqualsList.contains(removedCard));
     }
 
     /**
