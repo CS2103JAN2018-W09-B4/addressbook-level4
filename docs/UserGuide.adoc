@@ -171,6 +171,10 @@ Examples:
 `deletec 2` +
 Deletes the 2nd flashcard in the list.
 
+=== Using flashcard
+After adding and managing your flashcards, its time to get your A+!
+This section will teach you how to let Flashy's intelligent scheduling algorithm prompt you the best time to study!
+
 ==== Showing a flashcard : `show`
 
 Reveals the answer of the flashcard identified by the index number used in the list. +
@@ -188,33 +192,47 @@ Shows the 2nd flashcard in the list.
 * `show 1` +
 Shows the 1st flashcard in the list.
 
-==== Answering flashcards: `answer`
+==== Answering flashcards: `Schedule`
 Answer to give feedback to the scheduling algorithm to schedule the cards for future review.
 
-Format: `answer CONFIDENCE`
+Format: `schedule CONFIDENCE`
 
 ****
 * The confidence can only be 0, 1, 2.
-* `show` cammand must be used first before `answer` can be used.
+* `show` cammand must be used first before `schedule` can be used.
 ****
 
 There are 3 `CONFIDENCE` levels
 
 * `answer 0` +
-Again. I don't know the answer to this card. Card will then be requeued into the same session again.
+Go again. I don't know the answer to this card. Card will then be requeued into the same session again.
 * `answer 1` +
 Pass. I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
 * `answer 2` +
-Easy. Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.
+Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.
 
 [TIP]
 ====
-This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it. These 3 options might take some time to get used to!
+This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it.
+
+This design is based off the well known forgetting curve, you can read more about it here https://en.wikipedia.org/wiki/Forgetting_curve
 ====
 
 Examples:
-* `answer 1` +
+
+* `schedule 1` +
 Card will be resheduled into near future.
+
+==== Show flashcards for review: `Today`
+Lists and show flashcards due for review today.
+
+Format: `Today`
+
+Example:
+
+* `Today`
+
+Lists and show flashcards due for review today.
 
 === Managing Tags
 ==== Selecting a tag : `select`
@@ -412,9 +430,9 @@ _{explain how the user can enable/disable data encryption}_
 |`show INDEX`
 |`show 1`
 
-|Answer Flashcard
-|`answer CONFIDENCE`
-|`answer 0`
+|Schedule Flashcard
+|`schedule CONFIDENCE`
+|`schedule 0`
 |===
 
 === Tags
