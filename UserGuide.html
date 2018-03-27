@@ -31,14 +31,15 @@
 <ul class="sectlevel2">
 <li><a href="#managing-cards">4.1. Managing Cards</a></li>
 <li><a href="#adding-a-normal-flashcard-code-addc-code">4.2. Adding a normal flashcard: <code>addc</code></a></li>
-<li><a href="#managing-tags">4.3. Managing Tags</a></li>
-<li><a href="#clearing-all-data-code-clear-code">4.4. Clearing all data : <code>clear</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undo-and-redo">4.6. Undo and Redo</a></li>
-<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">4.7. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
-<li><a href="#managing-user-preferences">4.8. Managing User Preferences</a></li>
-<li><a href="#saving-the-data">4.9. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.10. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#using-flashcard">4.3. Using flashcard</a></li>
+<li><a href="#managing-tags">4.4. Managing Tags</a></li>
+<li><a href="#clearing-all-data-code-clear-code">4.5. Clearing all data : <code>clear</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.6. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undo-and-redo">4.7. Undo and Redo</a></li>
+<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">4.8. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
+<li><a href="#managing-user-preferences">4.9. Managing User Preferences</a></li>
+<li><a href="#saving-the-data">4.10. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.11. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -424,8 +425,15 @@ Format: <code>deletec INDEX</code></p>
 Deletes the 2nd flashcard in the list.</p>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="using-flashcard"><a class="link" href="#using-flashcard">4.3. Using flashcard</a></h3>
+<div class="paragraph">
+<p>After adding and managing your flashcards, its time to get your A+!
+This section will teach you how to let Flashy&#8217;s intelligent scheduling algorithm prompt you the best time to study!</p>
+</div>
 <div class="sect3">
-<h4 id="showing-a-flashcard-code-show-code"><a class="link" href="#showing-a-flashcard-code-show-code">4.2.5. Showing a flashcard : <code>show</code></a></h4>
+<h4 id="showing-a-flashcard-code-show-code"><a class="link" href="#showing-a-flashcard-code-show-code">4.3.1. Showing a flashcard : <code>show</code></a></h4>
 <div class="paragraph">
 <p>Reveals the answer of the flashcard identified by the index number used in the list.<br>
 Format: <code>show INDEX</code></p>
@@ -461,12 +469,12 @@ Shows the 1st flashcard in the list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="answering-flashcards-code-answer-code"><a class="link" href="#answering-flashcards-code-answer-code">4.2.6. Answering flashcards: <code>answer</code></a></h4>
+<h4 id="answering-flashcards-code-schedule-code"><a class="link" href="#answering-flashcards-code-schedule-code">4.3.2. Answering flashcards: <code>Schedule</code></a></h4>
 <div class="paragraph">
 <p>Answer to give feedback to the scheduling algorithm to schedule the cards for future review.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>answer CONFIDENCE</code></p>
+<p>Format: <code>schedule CONFIDENCE</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -476,7 +484,7 @@ Shows the 1st flashcard in the list.</p>
 <p>The confidence can only be 0, 1, 2.</p>
 </li>
 <li>
-<p><code>show</code> cammand must be used first before <code>answer</code> can be used.</p>
+<p><code>show</code> cammand must be used first before <code>schedule</code> can be used.</p>
 </li>
 </ul>
 </div>
@@ -489,7 +497,7 @@ Shows the 1st flashcard in the list.</p>
 <ul>
 <li>
 <p><code>answer 0</code><br>
-Again. I don&#8217;t know the answer to this card. Card will then be requeued into the same session again.</p>
+Go again. I don&#8217;t know the answer to this card. Card will then be requeued into the same session again.</p>
 </li>
 <li>
 <p><code>answer 1</code><br>
@@ -497,7 +505,7 @@ Pass. I kind of know the answer, but need more practice. Card will then be sched
 </li>
 <li>
 <p><code>answer 2</code><br>
-Easy. Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.</p>
+Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.</p>
 </li>
 </ul>
 </div>
@@ -509,23 +517,54 @@ Easy. Easy A+. Card will then be scheduled further into the future. Other cards 
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it. These 3 options might take some time to get used to!</p>
+<p>This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it.</p>
+</div>
+<div class="paragraph">
+<p>This design is based off the well known forgetting curve, you can read more about it here <a href="https://en.wikipedia.org/wiki/Forgetting_curve" class="bare">https://en.wikipedia.org/wiki/Forgetting_curve</a></p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Examples:
-* <code>answer 1</code><br>
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>schedule 1</code><br>
 Card will be resheduled into near future.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="show-flashcards-for-review-code-today-code"><a class="link" href="#show-flashcards-for-review-code-today-code">4.3.3. Show flashcards for review: <code>Today</code></a></h4>
+<div class="paragraph">
+<p>Lists and show flashcards due for review today.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>Today</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Today</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Lists and show flashcards due for review today.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing-tags"><a class="link" href="#managing-tags">4.3. Managing Tags</a></h3>
+<h3 id="managing-tags"><a class="link" href="#managing-tags">4.4. Managing Tags</a></h3>
 <div class="sect3">
-<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">4.3.1. Selecting a tag : <code>select</code></a></h4>
+<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">4.4.1. Selecting a tag : <code>select</code></a></h4>
 <div class="paragraph">
 <p>Selects the tag identified by the index number. This will show only flashcards with the tag selected.<br>
 Format: <code>select INDEX</code></p>
@@ -561,7 +600,7 @@ Selects the 1st tag in the list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">4.3.2. Filtering tags: <code>find</code></a></h4>
+<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">4.4.2. Filtering tags: <code>find</code></a></h4>
 <div class="paragraph">
 <p>Filters the tag list to contain those that match the search terms.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -592,7 +631,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">4.3.3. Editing a tag : <code>edit</code></a></h4>
+<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">4.4.3. Editing a tag : <code>edit</code></a></h4>
 <div class="paragraph">
 <p>Updates an existing tag to the specified values.<br>
 Format: <code>edit INDEX t/TAG c/COLOR</code></p>
@@ -631,7 +670,7 @@ Changes the name of the second tag in the list to <code>German</code> and the co
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">4.3.4. Deleting a Tag: <code>delete</code></a></h4>
+<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">4.4.4. Deleting a Tag: <code>delete</code></a></h4>
 <div class="paragraph">
 <p>Deletes an existing tag. This will remove the tag from all cards that have the tag.</p>
 </div>
@@ -651,7 +690,7 @@ Changes the name of the second tag in the list to <code>German</code> and the co
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.4. Clearing all data : <code>clear</code></a></h3>
+<h3 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.5. Clearing all data : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Instructs Flashy to clear all data.<br>
 Format: <code>clear</code></p>
@@ -670,7 +709,7 @@ This command will instruct Flashy to delete all tags and flashcards. Use this co
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.6. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -691,12 +730,12 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.6. Undo and Redo</a></h3>
+<h3 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.7. Undo and Redo</a></h3>
 <div class="paragraph">
 <p>Some commands support undoing and redoing. The commands are <code>add</code>, <code>addc</code>, <code>addm</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>, <code>delete</code>, <code>deletec</code>, and <code>clear</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.6.1. Undoing previous command : <code>undo</code></a></h4>
+<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.7.1. Undoing previous command : <code>undo</code></a></h4>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -741,7 +780,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect3">
-<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.6.2. Redoing the previously undone command : <code>redo</code></a></h4>
+<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.7.2. Redoing the previously undone command : <code>redo</code></a></h4>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -774,16 +813,16 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.7. Exiting the program : <code>exit</code> or <code>quit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.8. Exiting the program : <code>exit</code> or <code>quit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code> or <code>quit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">4.8. Managing User Preferences</a></h3>
+<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">4.9. Managing User Preferences</a></h3>
 <div class="sect3">
-<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">4.8.1. Changing the theme : <code>theme</code></a></h4>
+<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">4.9.1. Changing the theme : <code>theme</code></a></h4>
 <div class="paragraph">
 <p>You can change the theme of Flashy&#8217;s user interface.<br>
 Format: <code>theme t/THEME</code></p>
@@ -816,14 +855,14 @@ Flashy remembers your most recently used theme and will load it the next time yo
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.9. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.10. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.10. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.11. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -889,9 +928,9 @@ There is no need to save manually.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>show 1</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Answer Flashcard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answer CONFIDENCE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answer 0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schedule Flashcard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>schedule CONFIDENCE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>schedule 0</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -977,7 +1016,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-27 01:19:11 UTC
+Last updated 2018-03-27 04:27:57 UTC
 </div>
 </div>
 </body>

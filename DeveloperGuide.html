@@ -989,13 +989,16 @@ This will allow Schedule to gauge a user&#8217;s familiarity with a card and sch
 <div class="ulist">
 <ul>
 <li>
-<p><code>learningPhase</code> the number of days we denote as a learning phase.</p>
+<p><code>lowerBoundRememberRate</code> default = 0.85. The percent of information we want users to retain.</p>
 </li>
 <li>
-<p><code>lastInterval</code> the last interval given to schedule a review.</p>
+<p><code>learningPhase</code> default = 3. The number of days we denote as a learning phase.</p>
 </li>
 <li>
-<p><code>easingFactor</code> how easy is it for the user to remember a fact,
+<p><code>lastInterval</code> default = 1. The last interval given to schedule a review.</p>
+</li>
+<li>
+<p><code>easingFactor</code> default = 1.3. How easy is it for the user to remember a fact,
 the larger this number the easier it is.</p>
 </li>
 <li>
@@ -1005,10 +1008,17 @@ the larger this number the easier it is.</p>
 </div>
 <div class="paragraph">
 <p>Initially when the user first creates a card, we give then a grace period with <code>learningPhase</code>. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
-Any feedback within this period will not update the <code>easingFactor</code>.</p>
+Any feedback within this period will not update the <code>easingFactor</code>, feedback will only update after the learning phase.</p>
 </div>
 <div class="paragraph">
-<p><code>feedback()</code> will log down the number of <code>success</code> and <code>failures</code> so far.</p>
+<p>\(newEasingFactor = historicalEasingFactor * \frac{\log{(lowerBoundRememberRate)}}{\log{(successRate)}}\)</p>
+</div>
+<div class="paragraph">
+<p>The <code>newEasingFactor</code> is dependent on \(\log{(successRate)}\).
+Suppose we want the user to retain 85% of the information learnt.
+We set the <code>lowerBoundRememberRate</code> to 0.85.
+If <code>successRate</code> &lt; <code>lowerBoundRememberRate</code> newEasingFactor will reduce and card will be scheduled more frequently.
+If the interval is too long, users might forget cards. Thus lowering the <code>easingFactor</code> and <code>intervals</code> will reduce.</p>
 </div>
 <div class="paragraph">
 <p>A predicate filter is used in conjunction with Schedule class to retrieve a list of cards due for review.</p>
@@ -2006,7 +2016,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-27 01:19:11 UTC
+Last updated 2018-03-27 04:27:57 UTC
 </div>
 </div>
 </body>
