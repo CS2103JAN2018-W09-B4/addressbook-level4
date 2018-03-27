@@ -22,11 +22,13 @@ public class Card {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String CARD_VALIDATION_REGEX = "[^\\s].*";
+    public static final String TYPE = "Normal";
 
-    private final UUID id;
-    private final String front;
-    private final String back;
-    private final Schedule schedule;
+    protected final UUID id;
+    protected final String front;
+    protected final String back;
+    protected final Schedule schedule;
+    protected String type;
 
     public Card(String front, String back) {
         this(UUID.randomUUID(), front, back);
@@ -40,6 +42,7 @@ public class Card {
         this.back = back;
         this.id = id;
         this.schedule = new Schedule();
+        this.type = TYPE;
     }
 
     public UUID getId() {
@@ -56,6 +59,14 @@ public class Card {
 
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**

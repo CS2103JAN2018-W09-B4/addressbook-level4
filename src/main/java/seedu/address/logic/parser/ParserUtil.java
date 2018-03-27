@@ -1,16 +1,19 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.ui.UiManager.VALID_THEMES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Name;
 
 /**
@@ -67,7 +70,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String card} into an {@code Card}.
+     * Parses a {@code String card} into an {@code String}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws IllegalValueException if the given {@code card} is invalid.
@@ -79,6 +82,36 @@ public class ParserUtil {
             throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
         }
         return trimmedCard;
+    }
+
+    /**
+     * Parses a {@code String card} into an {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code String} is invalid.
+     */
+    public static String parseMcqOption(String option) throws IllegalValueException {
+        requireNonNull(option);
+        String trimmedCard = option.trim();
+        if (!Card.isValidCard(trimmedCard)) {
+            throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_CONSTRAINTS);
+        }
+        return trimmedCard;
+    }
+
+    /**
+     * Parses a {@code String front, back, Set<String> options} into an {@code McqCard}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given parameters are invalid.
+     */
+    public static McqCard parseMcqCard(String front, String back, Set<String> options) throws IllegalValueException {
+        requireNonNull(front, back);
+        requireAllNonNull(options);
+        if (!McqCard.isValidMcqCard(back, options)) {
+            throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_ANSWER_CONSTRAINTS);
+        }
+        return new McqCard(front, back, options);
     }
 
     /**

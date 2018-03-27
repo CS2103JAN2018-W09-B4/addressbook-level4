@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.McqCard;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -23,6 +25,9 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedCard> cards;
 
+    @XmlElement
+    private List<XmlAdaptedMcqCard> mcqCards;
+
     @XmlElement(name = "cardtag")
     private XmlAdaptedCardTag cardTag = null;
 
@@ -33,6 +38,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         tags = new ArrayList<>();
         cards = new ArrayList<>();
+        mcqCards = new ArrayList<>();
     }
 
     /**
@@ -41,7 +47,14 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
-        cards.addAll(src.getCardList().stream().map(XmlAdaptedCard::new).collect(Collectors.toList()));
+        for (Card card: src.getCardList()) {
+            if (card.getType().equals(Card.TYPE)) {
+                cards.add(new XmlAdaptedCard(card.getId().toString(), card.getFront(), card.getBack()));
+            } else {
+                mcqCards.add(new XmlAdaptedMcqCard(card.getId().toString(), card.getFront(),
+                        card.getBack(), ((McqCard) card).getOptions()));
+            }
+        }
         cardTag = new XmlAdaptedCardTag(src.getCardTag());
     }
 
