@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
@@ -18,7 +17,6 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  * Supports a minimal set of list operations.
  *
  * @see Tag#equals(Object)
- * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTagList implements Iterable<Tag> {
 
@@ -35,14 +33,17 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Adds a tag to the list.
      *
-     * @throws DuplicateTagException if the tag to add is a duplicate of an existing tag in the list.
+     * @return TagResult which contains the tag, and whether the tag is a new tag.
      */
-    public void add(Tag toAdd) throws DuplicateTagException {
+    public AddTagResult add(Tag toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateTagException();
+            Tag existingTag = internalList.get(internalList.indexOf(toAdd));
+            return new AddTagResult(true, existingTag);
+        } else {
+            internalList.add(toAdd);
+            return new AddTagResult(false, toAdd);
         }
-        internalList.add(toAdd);
     }
 
     /**

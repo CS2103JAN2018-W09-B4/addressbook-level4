@@ -3,7 +3,10 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
-import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
+import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
+import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
+import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.Arrays;
@@ -28,7 +31,17 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withTag(PHYSICS_TAG).withTag(BIOLOGY_TAG).build();
+        AddressBook addressBook = new AddressBookBuilder()
+                .withTag(PHYSICS_TAG)
+                .withTag(MATHEMATICS_TAG)
+                .withCard(PHYSICS_CARD)
+                .withCard(PHYSICS_CARD_2)
+                .withCard(MATHEMATICS_CARD)
+                .withEdge(PHYSICS_CARD, PHYSICS_TAG)
+                .withEdge(PHYSICS_CARD_2, PHYSICS_TAG)
+                .withEdge(MATHEMATICS_CARD, MATHEMATICS_TAG)
+                .build();
+
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -53,6 +66,9 @@ public class ModelManagerTest {
         String[] keywords = PHYSICS_TAG.getName().fullName.split("\\s+");
         modelManager.updateFilteredTagList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);

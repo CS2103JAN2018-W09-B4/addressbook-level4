@@ -22,7 +22,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.testutil.TagBuilder;
 import seedu.address.testutil.TagUtil;
 
@@ -81,7 +80,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a duplicate tag -> rejected */
         command = TagUtil.getAddCommand(RUSSIAN);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TAG);
+        assertCommandDuplicateTag(RUSSIAN);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD;
@@ -121,11 +120,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Tag toAdd) {
         Model expectedModel = getModel();
-        try {
-            expectedModel.addTag(toAdd);
-        } catch (DuplicateTagException dpe) {
-            throw new IllegalArgumentException("toAdd already exists in the model.");
-        }
+        expectedModel.addTag(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -164,5 +159,17 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
+    }
+
+    /**
+     * Verifies that adding a tag that already exists is a successful command, and the correct message is shown.
+     */
+    private void assertCommandDuplicateTag(Tag toAdd) {
+        Model expectedModel = getModel();
+        expectedModel.addTag(toAdd);
+        String command = TagUtil.getAddCommand(toAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_TAG_EXISTS, toAdd.getName());
+
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
 }
