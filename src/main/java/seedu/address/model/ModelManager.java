@@ -18,6 +18,8 @@ import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -170,6 +172,18 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Card> getFilteredCardList() {
         return FXCollections.unmodifiableObservableList(filteredCards);
     }
+
+    //@@author jethrokuan
+    @Override
+    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+        this.getAddressBook().getCardTag().addEdge(card, tag);
+    }
+
+    @Override
+    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+        this.getAddressBook().getCardTag().removeEdge(card, tag);
+    }
+    //@@author
 
     //@@author yong-jie
     @Subscribe

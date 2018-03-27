@@ -6,6 +6,8 @@ import static seedu.address.ui.UiManager.VALID_THEMES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Name;
+import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -156,4 +159,22 @@ public class ParserUtil {
         }
         return validThemes.indexOf(theme.get());
     }
+
+    //@@author jethrokuan
+    /**
+     * Parses a {@code String tag} into a {@code Tag}
+     * Leading and trailing whitespaces will be trimmed
+     */
+    public static Set<Tag> parseTags(List<String> tagNames) throws IllegalValueException {
+        Set<Tag> tags = new HashSet<>();
+        for (String tagName : tagNames) {
+            if (!Name.isValidName(tagName)) {
+                throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+            }
+            tags.add(new Tag(new Name(tagName)));
+        }
+
+        return tags;
+    }
+    //@@author
 }
