@@ -16,6 +16,7 @@ import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -89,12 +90,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// tag-level operations
 
     /**
-     * Adds a tag to the address book.
+     * Adds a tag to the card bank. Will not create a new Tag if it already exists. Returns the tag.
      *
      * @throws DuplicateTagException if an equivalent tag already exists.
      */
-    public void addTag(Tag p) throws DuplicateTagException {
-        tags.add(p);
+    public AddTagResult addTag(Tag p) {
+        return tags.add(p);
     }
 
     /**

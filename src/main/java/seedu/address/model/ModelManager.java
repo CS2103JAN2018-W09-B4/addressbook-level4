@@ -18,6 +18,7 @@ import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -77,10 +78,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTag(Tag tag) throws DuplicateTagException {
-        addressBook.addTag(tag);
+    public synchronized AddTagResult addTag(Tag tag) {
+        AddTagResult tagResult = addressBook.addTag(tag);
         updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
         indicateAddressBookChanged();
+        return tagResult;
     }
 
     @Override

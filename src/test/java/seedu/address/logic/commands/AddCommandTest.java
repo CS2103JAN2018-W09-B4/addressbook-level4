@@ -17,13 +17,13 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -49,17 +49,6 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTag), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validTag), modelStub.tagsAdded);
-    }
-
-    @Test
-    public void execute_duplicateTag_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicateTagException();
-        Tag validTag = new TagBuilder().build();
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TAG);
-
-        getAddCommandForTag(validTag, modelStub).execute();
     }
 
     @Test
@@ -100,8 +89,9 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addTag(Tag tag) throws DuplicateTagException {
+        public AddTagResult addTag(Tag tag) {
             fail("This method should not be called.");
+            return new AddTagResult(false, tag);
         }
 
         @Override
@@ -170,30 +160,16 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always throw a DuplicateTagException when trying to add a tag.
-     */
-    private class ModelStubThrowingDuplicateTagException extends ModelStub {
-        @Override
-        public void addTag(Tag tag) throws DuplicateTagException {
-            throw new DuplicateTagException();
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
-    /**
      * A Model stub that always accept the tag being added.
      */
     private class ModelStubAcceptingTagAdded extends ModelStub {
         final ArrayList<Tag> tagsAdded = new ArrayList<>();
 
         @Override
-        public void addTag(Tag tag) throws DuplicateTagException {
+        public AddTagResult addTag(Tag tag) {
             requireNonNull(tag);
             tagsAdded.add(tag);
+            return new AddTagResult(false, tag);
         }
 
         @Override
