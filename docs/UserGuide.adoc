@@ -25,7 +25,7 @@ What are flashcards? Traditionally physical flashcards are actual cards that peo
 The front will have a question prompt and the back will have an answer.
 ====
 // comment: Other ways to explain flashcard?
-Physical cards are bulky and hard to search for. They are also very difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards. Flashy helps you organize your flashcards using its *tagging* system. By associating flashcards to different tags, Flashy is able to retrieve all flashcards of a given tag in a flash.
+Physical cards are bulky and hard to search for. They are also very difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards. Flashy helps you organise your flashcards using its *tagging* system. By associating flashcards to different tags, Flashy is able to retrieve all flashcards of a given tag in a flash.
 
 Studies have shown that *spaced repetition* is far more effective than regular studying.
 And thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.
