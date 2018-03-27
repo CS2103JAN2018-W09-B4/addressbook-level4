@@ -30,7 +30,7 @@
 <li><a href="#Features">4. Features</a>
 <ul class="sectlevel2">
 <li><a href="#managing-cards">4.1. Managing Cards</a></li>
-<li><a href="#adding-a-normal-flashcard-code-addc-code">4.2. Adding a normal flashcard: <code>addc</code></a></li>
+<li><a href="#adding-a-flashcard-code-addc-code">4.2. Adding a flashcard: <code>addc</code></a></li>
 <li><a href="#using-flashcard">4.3. Using flashcard</a></li>
 <li><a href="#managing-tags">4.4. Managing Tags</a></li>
 <li><a href="#clearing-all-data-code-clear-code">4.5. Clearing all data : <code>clear</code></a></li>
@@ -234,10 +234,11 @@ This app will not work with earlier versions of Java 8.
 
 </div>
 <div class="sect2">
-<h3 id="adding-a-normal-flashcard-code-addc-code"><a class="link" href="#adding-a-normal-flashcard-code-addc-code">4.2. Adding a normal flashcard: <code>addc</code></a></h3>
+<h3 id="adding-a-flashcard-code-addc-code"><a class="link" href="#adding-a-flashcard-code-addc-code">4.2. Adding a flashcard: <code>addc</code></a></h3>
 <div class="paragraph">
-<p>Adds a normal flashcard to Flashy.<br>
-Format: <code>addc f/FRONT b/BACK t/TAG</code></p>
+<p>Adds a flashcard to Flashy. The presence of <code>o/OPTION</code> parameters will determine whether it is a normal or MCQ-type flashcard.<br>
+Format: <code>addc f/FRONT b/BACK t/TAG</code> or<br>
+<code>addc f/FRONT o/OPTION o/OPTION .. b/BACK t/TAG</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -247,6 +248,10 @@ Format: <code>addc f/FRONT b/BACK t/TAG</code></p>
 <li>
 <p><code>addc f/What is the greatest flashcard application? b/Flashy t/Trivia</code><br>
 Adds a normal flashcard with the front and back of the first card being <code>What is the greatest flashcard application?</code> and <code>Flashy</code> respectively, as well as tagging it as <code>Trivia</code>.</p>
+</li>
+<li>
+<p><code>addc f/Which continent is Singapore in? o/Asia o/Africa o/Australia o/South America b/1</code><br>
+Adds a MCQ-type flashcard with the front being <code>Which continent is Singapore in?</code>, options includes <code>Asia</code>, <code>Africa</code>, <code>Australia</code> and <code>South America</code> and back being <code>1</code>.</p>
 </li>
 </ul>
 </div>
@@ -262,23 +267,6 @@ A flashcard can have any number of tags (including 0).
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="adding-a-mcq-type-flashcard-code-addm-code"><a class="link" href="#adding-a-mcq-type-flashcard-code-addm-code">4.2.1. Adding a MCQ-type flashcard: <code>addm</code></a></h4>
-<div class="paragraph">
-<p>Adds a MCQ-type flashcard to Flashy.<br>
-Format: <code>addm f/QUESTION o/OPTION o/OPTION &#8230;&#8203; b/CORRECT_OPTION t/TAG</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>addm f/When is National Day in Singapore? o/9th August o/10th August o/9th September o/10th September b/1 t/Trivia</code><br>
-Adds a MCQ-type flashcard with the front having the question <code>When is National Day in Singapore?</code> along with the options <code>9th August</code>, <code>10th August</code>, <code>9th September</code>, <code>10th September</code>, and the back having the option answer <code>1</code>.</p>
-</li>
-</ul>
-</div>
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -286,14 +274,13 @@ Adds a MCQ-type flashcard with the front having the question <code>When is Natio
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Do ensure that the parameter for <code>b/</code> falls between 1 the number of options inclusive.
+Ensure that the parameter for <code>b/</code> falls between 1 the number of options inclusive.
 </td>
 </tr>
 </table>
 </div>
-</div>
 <div class="sect3">
-<h4 id="editing-a-normal-flashcard-code-editc-code"><a class="link" href="#editing-a-normal-flashcard-code-editc-code">4.2.2. Editing a normal flashcard : <code>editc</code></a></h4>
+<h4 id="editing-a-normal-flashcard-code-editc-code"><a class="link" href="#editing-a-normal-flashcard-code-editc-code">4.2.1. Editing a normal flashcard : <code>editc</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing flashcard currently stored in Flashy.<br>
 Format: <code>editc INDEX [f/FRONT] [b/BACK]</code></p>
@@ -344,7 +331,7 @@ Do ensure that the flashcard at the specified index is a normal card, or else an
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-mcq-type-flashcard-code-editm-code"><a class="link" href="#editing-a-mcq-type-flashcard-code-editm-code">4.2.3. Editing a MCQ-type flashcard : <code>editm</code></a></h4>
+<h4 id="editing-a-mcq-type-flashcard-code-editm-code"><a class="link" href="#editing-a-mcq-type-flashcard-code-editm-code">4.2.2. Editing a MCQ-type flashcard : <code>editm</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing MCQ-type flashcard currently stored in Flashy.<br>
 Format: <code>editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION] &#8230;&#8203; [b/BACK]</code></p>
@@ -395,7 +382,7 @@ Do ensure that the flashcard at the specified index is a MCQ-type card, or else 
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">4.2.4. Deleting a flashcard : <code>deletec</code></a></h4>
+<h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">4.2.3. Deleting a flashcard : <code>deletec</code></a></h4>
 <div class="paragraph">
 <p>Deletes the specified flashcard.<br>
 Format: <code>deletec INDEX</code></p>
@@ -903,14 +890,11 @@ There is no need to save manually.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add Normal Flashcard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/FRONT b/BACK [t/TAG]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/What is the best flashcard application? b/Flashy! t/flashy</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add MCQ-Type Flashcard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addm f/FRONT o/OPTION o/OPTION &#8230;&#8203; b/BACK</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addm f/How many legs does an insect have? o/4 o/5 o/6 o/7 b/3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add Flashcard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/FRONT [o/OPTION] &#8230;&#8203;  b/BACK [t/TAG]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/What is the best flashcard application? b/Flashy! t/flashy</code><br>
+<br>
+<code>addm f/How many legs does an insect have? o/4 o/5 o/6 o/7 b/3</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Edit Normal Flashcard</p></td>
@@ -1016,7 +1000,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-27 04:38:14 UTC
+Last updated 2018-03-27 11:39:17 UTC
 </div>
 </div>
 </body>
