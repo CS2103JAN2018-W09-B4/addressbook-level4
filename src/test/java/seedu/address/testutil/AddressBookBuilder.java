@@ -1,8 +1,10 @@
 package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.exceptions.DuplicateTagException;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -25,10 +27,30 @@ public class AddressBookBuilder {
      * Adds a new {@code Tag} to the {@code AddressBook} that we are building.
      */
     public AddressBookBuilder withTag(Tag tag) {
+        addressBook.addTag(tag);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Card} to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withCard(Card card) {
         try {
-            addressBook.addTag(tag);
-        } catch (DuplicateTagException dpe) {
-            throw new IllegalArgumentException("tag is expected to be unique.");
+            addressBook.addCard(card);
+        } catch (DuplicateCardException e) {
+            throw new IllegalArgumentException("card is expected to be unique.");
+        }
+        return this;
+    }
+
+    /**
+     * Adds a new {@code CardTag} edge to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withEdge(Card card, Tag tag) {
+        try {
+            addressBook.associate(card, tag);
+        } catch (DuplicateEdgeException e) {
+            throw new IllegalArgumentException("edge already exists");
         }
         return this;
     }

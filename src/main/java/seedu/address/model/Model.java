@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -28,7 +29,7 @@ public interface Model {
     void deleteTag(Tag target) throws TagNotFoundException;
 
     /** Adds the given tag */
-    void addTag(Tag tag) throws DuplicateTagException;
+    AddTagResult addTag(Tag tag);
 
     /**
      * Replaces the given tag {@code target} with {@code editedTag}.

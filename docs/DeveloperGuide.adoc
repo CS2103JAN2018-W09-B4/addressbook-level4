@@ -358,7 +358,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
-===== Aspect: Support for multiple themes
+=== Support for multiple themes
+==== Current Implementation
+The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. Below is the sequence diagram for the relevant functionality:
+
+image::ChangeThemeSequenceDiagram.png[width="800"]
+
+==== Aspect: The decision to support multiple themes
 * **Alternative 1**: Do not support multiple themes
 ** Pros: Consistent user experience with a single theme.
 ** Cons: No ability to customize the look and feel of the application.
@@ -393,7 +399,158 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g App name,
+logging level) through the configuration file (default:
+`config.json`).
+
+
+=== Card-Tag Association
+==== Current Implementation
+
+The modeling of relations between flashcards and tags is crucial to
+Flashy, because this is the primary mode of content organization in
+the application. Henceforth, we will use the term "edge" to refer to a
+relation between a flashcard and a tag. The software requires that:
+
+1. A card can be associated with many tags. For example, a card with a
+Physics question may be added to the "Physics" tag, and the "Midterm
+2018" tag.
+
+2. A tag can be associated with many cards. For example, The "Physics"
+tag may contain many Physics flashcards on different topics.
+
+image::Card_Tag_relation.png[width="300"]
+
+Edges are stored in an instance of `CardTag`. `CardTag` is an
+association class, containing two `HashMap`s.
+
+image::CardTag_Association_Class.png[width="300"]
+
+==== Exposed APIs
+
+Interaction with the `CardTag` instance is performed through the
+`Model`. The model exposes two methods:
+
+1. `addEdge(Card card, Tag tag)`: adds an edge between `card` and
+`tag`.
+
+2. `removeEdge(Card card, Tag tag)`: removes the edge between `card` and
+`tag`.
+
+==== Adding an Edge
+
+Edges are added during editing of an existing card (with new tags) and
+adding of a new card. Below is the sequence diagram for adding an
+edge.
+
+TODO
+
+==== Design Considerations
+===== Aspect: Storage of Edges
+
+The edges should be persisted in storage. Hence, the `CardTag`
+association class must be serializable to `xml`. This limits the
+design choices for `CardTag`.
+
+* Alternative 1 (current choice): Add UUIDs to Cards and Tags, and
+model edges as UUID pairs.
+
+  - Pros: This allows the `CardTag` instance to be easily serialized to and
+  from `xml`. Reduces coupling between the `Card` and `Tag` class.
+
+  - Cons: Requires the addition of a UUID field to the `Card` and
+    `Tag` class. Developer needs to be careful with implementation,
+    because UUID strings for `Card` and `Tag` are indistinguishable.
+
+* Alternative 2: Store the edge information in `Card` and `Tag`.
+
+  - Pros: No need for additional UUID field.
+
+  - Cons: Strong coupling between the `Card` and `Tag` class.
+    Serializing to and from `xml` is less straightforward.
+
+===== Aspect: Choice of Data Structure
+
+The application requires the following two operations to be fast:
+
+1. Getting all `Card` instances from a specific `Tag` (operation 1)
+2. Getting all `Tag` instances from a specific `Card` (operation 2)
+
+Adjacency lists provide much better performance -- O(1) on both
+operations, as compared to an adjacency matrix. In addition, a typical
+`CardTag` graph is sparse, and adjacency lists are much more memory
+efficient.
+
+* Alternative 1 (current choice): Storing edges in 2 `HashMap`s:
+  `cardMap` and `tagMap`.
+
+  - Pros: `O(1)` for both operations.
+  - Cons: Double the memory requirements:
+
+* Alternative 2: Storing edges in 1 `HashMap`:
+  `cardMap` or `tagMap`.
+
+  - Pros: Uses minimal amount of memory.
+  - Cons: O(1) operation for only one operation.
+
+=== Schedule feature
+
+image::ScheduleLogic.png[width="800"]
+
+Schedule is implemented as an object in a Card.
+
+Schedule contains a `java.time.LocalDateTime` which can be used to filter and order the cards.
+
+The `feedback()` function is the main part making the whole Scheduler system work.
+`feedback()` will take in a boolean, true denoting success, false denoting failure to recall.
+This will allow Schedule to gauge a user's familiarity with a card and schedule review times appropriately.
+
+This class has some math and many variables, here is a short reference for their meaning if they are not self evident.
+
+* `lowerBoundRememberRate` default = 0.85. The percent of information we want users to retain.
+* `learningPhase` default = 3. The number of days we denote as a learning phase.
+* `lastInterval` default = 1. The last interval given to schedule a review.
+* `easingFactor` default = 1.3. How easy is it for the user to remember a fact,
+the larger this number the easier it is.
+* `historicalEasingFactor` the cumulative form of `easingFactor`
+
+Initially when the user first creates a card, we give then a grace period with `learningPhase`. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
+Any feedback within this period will not update the `easingFactor`, feedback will only update after the learning phase.
+
+latexmath:[newEasingFactor = historicalEasingFactor * \frac{\log{(lowerBoundRememberRate)}}{\log{(successRate)}}]
+
+The `newEasingFactor` is dependent on latexmath:[\log{(successRate)}].
+Suppose we want the user to retain 85% of the information learnt.
+We set the `lowerBoundRememberRate` to 0.85.
+If `successRate` < `lowerBoundRememberRate` newEasingFactor will reduce and card will be scheduled more frequently.
+If the interval is too long, users might forget cards. Thus lowering the `easingFactor` and `intervals` will reduce.
+
+A predicate filter is used in conjunction with Schedule class to retrieve a list of cards due for review.
+
+=== MCQ flashcards
+Allowing different types of cards is essential the Flashy. This enables the user to add either a normal card or a MCQ-type card so that he can learn more efficiently, and use whichever that suits his fancy.
+A new class McqCard was created to implement this enhancement, and it will inherit the Card class.
+It has the additional attribute for the options for the MCQ.
+
+image::Card_model.png[width="300"]
+image::Card_inheritance.png[width="300"]
+
+=== Storage
+
+TODO
+image::Card_storage.png[width="300"]
+
+=== Design Considerations
+==== Command for adding MCQ type cards
+There would be an add command for MCQ type cards.
+
+Alternative 1 (current choice): Use `addc` for the adding of MCQ type cards.
+
+- Pros: Less commands for users and reduces repeated codes due to similarities between adding of normal and MCQ type cards.
+
+Alternative 2: Implement a different `addm` command for adding of MCQ type cards.
+
+- Cons: More commands for users and there would be repeated codes due to similarities between adding of normal and MCQ type cards.
 
 == Documentation
 

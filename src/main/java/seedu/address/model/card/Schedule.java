@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
  * Holds the Schedule information for a Card
  */
 public class Schedule {
-    private final int learningPhase = 4;
     private final double lowerBoundRememberRate = 0.85;
 
     private LocalDateTime nextReview;
+    private int learningPhase = 3;
     private int lastInterval = 1;
-    private double easingFactor = 1;
+    private double easingFactor = 1.3;
+    private double historicalEasingFactor = 1.3;
     private int success = 0;
     private int failure = 0;
 
@@ -39,6 +40,14 @@ public class Schedule {
         return successRate;
     }
 
+    public double getHistoricalEasingFactor() {
+        return historicalEasingFactor;
+    }
+
+    public int getLearningPhase() {
+        return learningPhase;
+    }
+
     /**
      * Feedback algorithm takes in whether the answer is correct.
      */
@@ -49,15 +58,30 @@ public class Schedule {
             failure++;
         }
 
-        double successRate = success / (double) (success + failure);
+        int total = success + failure;
+        double successRate = (double) success / (double) (total + 1);
 
-        if (success + failure >= learningPhase) {
-            easingFactor = easingFactor
+        if (total >= learningPhase) {
+            double newEasingFactor = historicalEasingFactor
                     * log(lowerBoundRememberRate)
                     / log(successRate);
-        }
 
-        lastInterval = (int) (easingFactor * lastInterval);
+            if (isSuccess) {
+                easingFactor = Math.max(newEasingFactor, 1.1);
+            } else {
+                easingFactor = Math.min(newEasingFactor, 1.1);
+            }
+
+            double count = total - learningPhase + 1;
+            double pastFactor = (count - 1.0) / count;
+            double nextFactor = 1.0 / count;
+
+            historicalEasingFactor =
+                    historicalEasingFactor * pastFactor
+                            + easingFactor * nextFactor;
+
+            lastInterval = (int) Math.ceil(easingFactor * lastInterval);
+        }
         nextReview = nextReview.plusDays((long) lastInterval);
     }
 
