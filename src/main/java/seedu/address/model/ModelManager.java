@@ -171,6 +171,13 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredCards);
     }
 
+    //@@author pukipuki
+    @Override
+    public void showDueCards() {
+        filteredCards.setAll(this.addressBook.getTodayReviewList());
+    }
+    //@@author
+
     //@@author yong-jie
     @Subscribe
     private void handleTagListPanelSelectionEvent(TagListPanelSelectionChangedEvent event) {

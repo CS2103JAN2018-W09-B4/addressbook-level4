@@ -144,6 +144,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void showDueCards() {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void addCard(Card card) throws DuplicateCardException {
             fail("This method should not be called.");
         }
