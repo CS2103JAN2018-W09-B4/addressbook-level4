@@ -16,8 +16,30 @@ endif::[]
 By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 
 == Introduction
+// comment: add a logo for flashy?
+Flashy, lightning fast flashcard management.
+// comment: better one liners?
+[TIP]
+====
+What are flashcards? Traditionally physical flashcards are actual cards that people use to help memorise things.
+The front will have a question prompt and the back will have an answer.
+====
+// comment: Other ways to explain flashcard?
+Physical cards are bulky and hard to search for. That is why we built Flashy.
+Flashy supports *tagging*, helping you find specific flashcards in a haystack.
 
-Flashy is a desktop app for managing flashcards. It is built with the language learner in mind, but should be helpful for any student. Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started.
+Studies have shown that *spaced repetition* is far more effective than regular studying.
+And thus Flashy was built with an intelligent scheduler to help space out your study sessions to make your study sessions more effective.
+// comment: do we want to add Italisization for Flashy?
+// comment: how do we reference special words like spaced repetition?
+
+Although Flashy was built for the language learner,
+it is able to handle thousands of cars, this should be helpful for any student as well.
+
+Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started.
+// comment: add a preface to everything, need to orientate user
 
 == Quick Start
 
