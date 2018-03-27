@@ -12,9 +12,9 @@ public class CardBuilder {
     public static final String DEFAULT_FRONT = "When is national day in Singapore?";
     public static final String DEFAULT_BACK = "9th August";
 
-    private UUID id;
-    private String front;
-    private String back;
+    protected UUID id;
+    protected String front;
+    protected String back;
 
     public CardBuilder() {
         id = UUID.randomUUID();

@@ -12,7 +12,7 @@ import java.util.List;
 import seedu.address.model.card.Card;
 
 /**
- * A utility class containing a list of {@code Tag} objects to be used in tests.
+ * A utility class containing a list of {@code Card} objects to be used in tests.
  */
 public class TypicalCards {
 

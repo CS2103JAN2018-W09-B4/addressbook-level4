@@ -10,5 +10,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_THEME = new Prefix("t/");
     public static final Prefix PREFIX_FRONT = new Prefix("f/");
     public static final Prefix PREFIX_BACK = new Prefix("b/");
+    public static final Prefix PREFIX_OPTION = new Prefix("o/");
 
 }

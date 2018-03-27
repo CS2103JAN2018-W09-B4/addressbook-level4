@@ -9,29 +9,28 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Card;
 
 /**
- * JAXB-friendly version of the Tag.
+ * JAXB-friendly version of the Card.
  */
 public class XmlAdaptedCard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
 
     @XmlElement(required = true)
-    private String front;
+    protected String front;
     @XmlElement(required = true)
-    private String back;
-
+    protected String back;
     @XmlElement(required = true)
-    private String id;
+    protected String id;
 
     /**
-     * Constructs an XmlAdaptedTag.
+     * Constructs an XmlAdaptedCard.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedCard() {}
 
 
     /**
-     * Constructs an {@code XmlAdaptedTag} with the given tag details.
+     * Constructs an {@code XmlAdaptedCard} with the given tag details.
      */
     public XmlAdaptedCard(String id, String front, String back) {
         this.id = id;
@@ -40,7 +39,7 @@ public class XmlAdaptedCard {
     }
 
     /**
-     * Converts a given Tag into this class for JAXB use.
+     * Converts a given Card into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedTag
      */

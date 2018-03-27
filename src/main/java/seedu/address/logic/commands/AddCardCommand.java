@@ -26,7 +26,7 @@ public class AddCardCommand extends UndoableCommand {
     private final Card toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Tag}
+     * Creates an AddCommand to add the specified {@code Card}
      */
     public AddCardCommand(Card card) {
         requireNonNull(card);
