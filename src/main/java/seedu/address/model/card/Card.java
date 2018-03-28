@@ -73,6 +73,7 @@ public class Card {
      * Returns true if a given front and back string is valid.
      */
     public static boolean isValidCard(String test) {
+        requireAllNonNull(test);
         return test.matches(CARD_VALIDATION_REGEX);
     }
 
