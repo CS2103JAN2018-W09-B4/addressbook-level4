@@ -46,7 +46,6 @@ import seedu.address.testutil.McqCardBuilder;
 
 public class AddCardCommandParserTest {
     private AddCardCommandParser parser = new AddCardCommandParser();
-    private Set<Tag> emptyTagSet = new HashSet<>(Arrays.asList(new Tag[]{}));
 
     //@@author shawnclq
     @Test
@@ -59,11 +58,11 @@ public class AddCardCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD + BACK_DESC_CARD,
-                new AddCardCommand(expectedCard, emptyTagSet));
+                new AddCardCommand(expectedCard));
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_MCQ_CARD + BACK_DESC_MCQ_CARD
                 + OPTION_1_DESC_MCQ_CARD + OPTION_2_DESC_MCQ_CARD + OPTION_3_DESC_MCQ_CARD,
-                new AddCardCommand(expectedMcqCard, emptyTagSet));
+                new AddCardCommand(expectedMcqCard));
     }
     //@@author
 
