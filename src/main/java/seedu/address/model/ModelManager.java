@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,7 +13,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -20,6 +21,7 @@ import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
@@ -192,6 +194,30 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
         this.getAddressBook().getCardTag().removeEdge(card, tag);
+    }
+
+    @Override
+    public List<Tag> getTags(Card card) {
+        return this.getAddressBook()
+                .getCardTag()
+                .getTags(card, this.getAddressBook().getTagList());
+    }
+
+    @Override
+    public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
+        CardTag cardTag = this.getAddressBook().getCardTag();
+        List<Tag> oldTags = cardTag.getTags(card, this.getAddressBook().getTagList());
+
+        // Remove old tags first
+        for (Tag tag : oldTags) {
+            cardTag.removeEdge(card, tag);
+        }
+
+        for (Tag tag : tags) {
+            Tag newOrExistingTag = addTag(tag).getTag();
+            cardTag.addEdge(card, newOrExistingTag);
+        }
+
     }
     //@@author
 

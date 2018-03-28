@@ -1,10 +1,12 @@
 package seedu.address.testutil;
 
+import java.util.Set;
 import java.util.UUID;
 
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
 import seedu.address.model.card.Card;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditCardDescriptor objects.
@@ -50,7 +52,15 @@ public class EditCardDescriptorBuilder {
      * Sets the {@code UUID} of the {@code EditCardDescriptor} that we are building.
      */
     public EditCardDescriptorBuilder withUuid(UUID uuid) {
-        descriptor.setUuid(uuid);
+        descriptor.setId(uuid);
+        return this;
+    }
+
+    /**
+     * Sets the {@code tags} of the {@code EditCardDescriptor} that we are building.
+     */
+    public EditCardDescriptorBuilder withTags(Set<Tag> tags) {
+        descriptor.setTags(tags);
         return this;
     }
 

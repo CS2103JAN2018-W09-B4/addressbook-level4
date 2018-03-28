@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -92,4 +94,10 @@ public interface Model {
 
     /** Adds an edge between a card and a tag*/
     void removeEdge(Card card, Tag tag) throws EdgeNotFoundException;
+
+    /** Gets list of tags for a given card */
+    List<Tag> getTags(Card card);
+
+    /** Updates the tags for a card to the new set */
+    void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException;
 }

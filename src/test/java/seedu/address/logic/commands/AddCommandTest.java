@@ -8,6 +8,8 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -137,6 +139,17 @@ public class AddCommandTest {
 
         @Override
         public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public List<Tag> getTags(Card card) {
+            fail("This method should not be called");
+            return null;
+        }
+
+        @Override
+        public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
             fail("This method should not be called");
         }
 

@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +39,7 @@ public class CommandTestUtil {
     public static final String NAME_DESC_SOCIOLOGY = " " + PREFIX_NAME + VALID_NAME_SOCIOLOGY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "English&";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

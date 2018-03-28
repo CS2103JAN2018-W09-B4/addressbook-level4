@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -24,7 +25,7 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
     public EditCardCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK);
+                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_TAG);
 
         Index index;
 
@@ -36,9 +37,12 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
 
         EditCardCommand.EditCardDescriptor editCardDescriptor = new EditCardDescriptor();
         try {
-            ParserUtil.parseFront(argMultimap.getValue(PREFIX_FRONT)).ifPresent(editCardDescriptor::setFront);
+            ParserUtil.parseFront(argMultimap.getValue(PREFIX_FRONT))
+                    .ifPresent(editCardDescriptor::setFront);
             ParserUtil.parseBack(argMultimap.getValue(PREFIX_BACK))
                     .ifPresent(editCardDescriptor::setBack);
+            ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG))
+                    .ifPresent(editCardDescriptor::setTags);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
