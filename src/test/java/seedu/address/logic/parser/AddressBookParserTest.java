@@ -8,7 +8,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +57,7 @@ public class AddressBookParserTest {
     public void parseCommand_addCard() throws Exception {
         Card card = new CardBuilder().build();
         AddCardCommand command = (AddCardCommand) parser.parseCommand(CardUtil.getAddCardCommand(card));
-        assertEquals(new AddCardCommand(card, new HashSet<>()), command);
+        assertEquals(new AddCardCommand(card), command);
 
     }
 

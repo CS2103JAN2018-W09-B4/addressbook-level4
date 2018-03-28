@@ -165,16 +165,20 @@ public class ParserUtil {
      * Parses a {@code String tag} into a {@code Tag}
      * Leading and trailing whitespaces will be trimmed
      */
-    public static Set<Tag> parseTags(List<String> tagNames) throws IllegalValueException {
+    public static Optional<Set<Tag>> parseTags(List<String> tagNames) throws IllegalValueException {
+        if (tagNames.isEmpty()) {
+            return Optional.empty();
+        }
+
         Set<Tag> tags = new HashSet<>();
         for (String tagName : tagNames) {
             if (!Name.isValidName(tagName)) {
                 throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
             }
-            tags.add(new Tag(new Name(tagName)));
+            tags.add(new Tag(new Name(tagName.trim())));
         }
 
-        return tags;
+        return Optional.of(tags);
     }
     //@@author
 }

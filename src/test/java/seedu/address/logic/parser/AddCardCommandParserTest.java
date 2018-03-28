@@ -17,6 +17,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
@@ -46,12 +47,12 @@ public class AddCardCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1,
-                new AddCardCommand(expectedCard, new HashSet<>()));
+                new AddCardCommand(expectedCard));
 
         // with tags
         String tagString = " " + PREFIX_TAG + VALID_NAME_ENGLISH + " " + PREFIX_TAG + VALID_NAME_COMSCI;
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1 + tagString,
-                new AddCardCommand(expectedCard, expectedTags));
+                new AddCardCommand(expectedCard, Optional.of(expectedTags)));
     }
     //@@author
 
