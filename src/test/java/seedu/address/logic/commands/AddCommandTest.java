@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -106,6 +107,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public Card getSelectedCard() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
         public void deleteTag(Tag target) throws TagNotFoundException {
             fail("This method should not be called.");
         }
@@ -155,6 +162,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteCard(Card target) throws CardNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
             fail("This method should not be called.");
         }
 

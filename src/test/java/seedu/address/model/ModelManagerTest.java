@@ -1,11 +1,8 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
-import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
-import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
-import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
+import static seedu.address.testutil.TypicalCards.*;
 import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
@@ -14,7 +11,6 @@ import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.model.tag.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -27,6 +23,12 @@ public class ModelManagerTest {
         ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredTagList().remove(0);
+    }
+
+    @Test
+    public void getSelectedCard_null() {
+        ModelManager modelManager = new ModelManager();
+        assertNull(modelManager.getSelectedCard());
     }
 
     @Test

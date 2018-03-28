@@ -20,6 +20,7 @@ import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -67,6 +68,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public Card getSelectedCard() {
+        return selectedCard;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -144,6 +150,19 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.deleteCard(card);
         showAllCards();
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
+        if (selectedCard == null) {
+            throw new NoCardSelectedException();
+        } else if (confidenceLevel == 0) {
+            // repeat in ui
+        } else if (confidenceLevel == 1) {
+            selectedCard.getSchedule().feedback(false);
+        } else if (confidenceLevel == 2){
+            selectedCard.getSchedule().feedback(true);
+        }
     }
 
     @Override
