@@ -27,6 +27,10 @@ public class Schedule {
         return nextReview;
     }
 
+    public void setRelativeNextReview(int days) {
+        this.nextReview = LocalDate.now().atStartOfDay().plusDays(days);
+    }
+
     public int getLastInterval() {
         return lastInterval;
     }

@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,7 @@ import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.McqCard;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -27,7 +29,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
      */
     public AddCardCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_OPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_OPTION, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FRONT, PREFIX_BACK)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -38,6 +40,8 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
             String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
             String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
             Set<String> options = new HashSet<>(argMultimap.getAllValues(PREFIX_OPTION));
+            Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
             Card card;
 
             if (options.isEmpty()) {
@@ -51,7 +55,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
                 card.setType(McqCard.TYPE);
             }
 
-            return new AddCardCommand(card);
+            return new AddCardCommand(card, tags);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CARD_1;
 import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_MCQ_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD_1;
 import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_MCQ_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_BACK_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
@@ -21,22 +23,33 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_FRONT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_OPTION_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_OPTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_OPTION_3;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ENGLISH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.McqCard;
+import seedu.address.model.tag.Name;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.McqCardBuilder;
 
 public class AddCardCommandParserTest {
     private AddCardCommandParser parser = new AddCardCommandParser();
+    private Set<Tag> emptyTagSet = new HashSet<>(Arrays.asList(new Tag[]{}));
 
+    //@@author shawnclq
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parse_allFieldsPresentCard_success() {
         Card expectedCard = new CardBuilder().withFront(VALID_FRONT_CARD_1).withBack(VALID_BACK_CARD_1).build();
         McqCard expectedMcqCard = (McqCard) new McqCardBuilder().resetOptions()
                 .addOption(VALID_MCQ_OPTION_1).addOption(VALID_MCQ_OPTION_2).addOption(VALID_MCQ_OPTION_3)
@@ -45,17 +58,42 @@ public class AddCardCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD + BACK_DESC_CARD,
-                new AddCardCommand(expectedCard));
+                new AddCardCommand(expectedCard, emptyTagSet));
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_MCQ_CARD + BACK_DESC_MCQ_CARD
                 + OPTION_1_DESC_MCQ_CARD + OPTION_2_DESC_MCQ_CARD + OPTION_3_DESC_MCQ_CARD,
-                new AddCardCommand(expectedMcqCard));
+                new AddCardCommand(expectedMcqCard, emptyTagSet));
     }
+    //@@author
 
+    //@@author jethrokuan
+    @Test
+    public void parse_allFieldsPresent_success() {
+        Card expectedCard = new CardBuilder()
+                .withFront(VALID_FRONT_CARD_1)
+                .withBack(VALID_BACK_CARD_1)
+                .build();
+
+        Set<Tag> expectedTags = new HashSet<>(Arrays.asList(
+                new Tag(new Name(VALID_NAME_ENGLISH)),
+                new Tag(new Name(VALID_NAME_COMSCI)
+        )));
+
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1,
+                new AddCardCommand(expectedCard, new HashSet<>()));
+
+        // with tags
+        String tagString = " " + PREFIX_TAG + VALID_NAME_ENGLISH + " " + PREFIX_TAG + VALID_NAME_COMSCI;
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1 + tagString,
+                new AddCardCommand(expectedCard, expectedTags));
+    }
+    //@@author
+
+    //@@author jethrokuan
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE);
-
         // missing name prefix
         assertParseFailure(parser, VALID_FRONT_CARD_1,
                 expectedMessage);
@@ -64,10 +102,20 @@ public class AddCardCommandParserTest {
         // all prefixes missing
         assertParseFailure(parser, VALID_MCQ_BACK,
                 expectedMessage);
-    }
 
+        // missing front prefix
+        assertParseFailure(parser, FRONT_DESC_CARD_1,
+                expectedMessage);
+
+        // missing back prefix
+        assertParseFailure(parser, BACK_DESC_CARD_1,
+                expectedMessage);
+    }
+    //@@author
+
+    //@@author shawnclq
     @Test
-    public void parse_invalidValue_failure() {
+    public void parse_invalidValueCard_failure() {
         // invalid front
         assertParseFailure(parser, INVALID_FRONT_CARD + BACK_DESC_CARD,
                 Card.MESSAGE_CARD_CONSTRAINTS);
@@ -100,4 +148,20 @@ public class AddCardCommandParserTest {
         assertParseFailure(parser, FRONT_DESC_MCQ_CARD + OPTION_1_DESC_MCQ_CARD + OPTION_2_DESC_MCQ_CARD
                 + OPTION_3_DESC_MCQ_CARD + INVALID_MCQ_CARD_BACK, McqCard.MESSAGE_MCQ_CARD_ANSWER_CONSTRAINTS);
     }
+    //@@author
+
+    //@@author jethrokuan
+    @Test
+    public void parse_invalidValue_failure() {
+        // invalid front
+        assertParseFailure(parser, INVALID_FRONT_CARD + BACK_DESC_CARD_1, Card.MESSAGE_CARD_CONSTRAINTS);
+
+        // invalid back
+        assertParseFailure(parser, FRONT_DESC_CARD_1 + INVALID_BACK_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
+
+        // non-empty preamble
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
+    }
+    //@@author
 }

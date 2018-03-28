@@ -76,6 +76,11 @@ public class CommandTestUtil {
     public static final String INVALID_MCQ_CARD_BACK = " " + PREFIX_BACK + "Hello World"; // empty string not allowed
     public static final String INVALID_MCQ_CARD_OPTION = " " + PREFIX_OPTION; // empty string not allowed
 
+    public static final String FRONT_DESC_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
+    public static final String FRONT_DESC_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;
+    public static final String BACK_DESC_CARD_1 = " " + PREFIX_BACK + VALID_BACK_CARD_1;
+    public static final String BACK_DESC_CARD_2 = " " + PREFIX_BACK + VALID_BACK_CARD_2;
+
     public static final String VALID_THEME_1 = "light";
     public static final String VALID_THEME_2 = "dark";
     public static final Integer CORRESPONDING_THEME_INDEX_1 = 0;

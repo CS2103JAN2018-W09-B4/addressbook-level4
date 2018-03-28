@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -56,6 +58,11 @@ public interface Model {
     void showAllCards();
 
     /**
+     * Sets the filtered card list to contain cards that are due for review today.
+     */
+    void showDueCards();
+
+    /**
      * Sets the card list to contain only those with given tag.
      * @param tag
      */
@@ -79,4 +86,10 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
+
+    /** Adds an edge between a card and a tag*/
+    void addEdge(Card card, Tag tag) throws DuplicateEdgeException;
+
+    /** Adds an edge between a card and a tag*/
+    void removeEdge(Card card, Tag tag) throws EdgeNotFoundException;
 }
