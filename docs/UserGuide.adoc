@@ -25,16 +25,15 @@ What are flashcards? Traditionally physical flashcards are actual cards that peo
 The front will have a question prompt and the back will have an answer.
 ====
 // comment: Other ways to explain flashcard?
-Physical cards are bulky and hard to search for. That is why we built Flashy.
-Flashy supports *tagging*, helping you find specific flashcards in a haystack.
+Physical cards are bulky and hard to search for. They are also very difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards. Flashy helps you organise your flashcards using its *tagging* system. By associating flashcards to different tags, Flashy is able to retrieve all flashcards of a given tag in a flash.
 
 Studies have shown that *spaced repetition* is far more effective than regular studying.
-And thus Flashy was built with an intelligent scheduler to help space out your study sessions to make your study sessions more effective.
+And thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.
 // comment: do we want to add Italisization for Flashy?
 // comment: how do we reference special words like spaced repetition?
 
-Although Flashy was built for the language learner,
-it is able to handle thousands of cars, this should be helpful for any student as well.
+Although Flashy is best suited for language learners,
+it is able to handle thousands of cards. Therefore, Flahsy should prove useful for any student hoping to improve their flashcard organisation.
 
 Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.

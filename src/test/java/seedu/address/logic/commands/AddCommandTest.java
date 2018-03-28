@@ -23,6 +23,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -129,6 +131,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+            fail("This method should not be called");
+        }
+
+        @Override
         public void updateFilteredTagList(Predicate<Tag> predicate) {
             fail("This method should not be called.");
         }
@@ -140,6 +152,11 @@ public class AddCommandTest {
 
         @Override
         public void showAllCards() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void showDueCards() {
             fail("This method should not be called.");
         }
 

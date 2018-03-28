@@ -11,13 +11,17 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -33,6 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private final FilteredList<Tag> filteredTags;
     private final ObservableList<Card> filteredCards;
+    private Card selectedCard;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -171,9 +176,35 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredCards);
     }
 
+    //@@author pukipuki
+    @Override
+    public void showDueCards() {
+        filteredCards.setAll(this.addressBook.getTodayReviewList());
+    }
+    //@@author
+
+    //@@author jethrokuan
+    @Override
+    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+        this.getAddressBook().getCardTag().addEdge(card, tag);
+    }
+
+    @Override
+    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+        this.getAddressBook().getCardTag().removeEdge(card, tag);
+    }
+    //@@author
+
     //@@author yong-jie
     @Subscribe
     private void handleTagListPanelSelectionEvent(TagListPanelSelectionChangedEvent event) {
         filterCardsByTag(event.getNewSelection().tag);
     }
+
+    //@@author pukipuki
+    @Subscribe
+    private void handleCardListPanelSelectionEvent(CardListPanelSelectionChangedEvent event) {
+        this.selectedCard = event.getNewSelection().card;
+    }
+    //@@author
 }

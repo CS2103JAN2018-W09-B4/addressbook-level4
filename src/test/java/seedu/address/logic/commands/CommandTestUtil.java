@@ -53,14 +53,14 @@ public class CommandTestUtil {
     public static final String VALID_FRONT_CARD_2 = "What is the main point of the class?";
     public static final String VALID_BACK_CARD_2 = "To learn to be audience-centred";
 
-    public static final String EDIT_FRONT_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
-    public static final String EDIT_FRONT_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;
-    public static final String EDIT_BACK_CARD_1 = " " + PREFIX_BACK + VALID_BACK_CARD_1;
-    public static final String EDIT_BACK_CARD_2 = " " + PREFIX_BACK + VALID_BACK_CARD_2;
+    public static final String FRONT_DESC_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
+    public static final String FRONT_DESC_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;
+    public static final String BACK_DESC_CARD_1 = " " + PREFIX_BACK + VALID_BACK_CARD_1;
+    public static final String BACK_DESC_CARD_2 = " " + PREFIX_BACK + VALID_BACK_CARD_2;
 
-    public static final String INVALID_FRONT_CARD_2 = " "
+    public static final String INVALID_FRONT_CARD = " "
             + PREFIX_FRONT;; // empty string not allowed
-    public static final String INVALID_BACK_CARD_2 = " "
+    public static final String INVALID_BACK_CARD = " "
             + PREFIX_BACK;; // empty string not allowed
 
     public static final String VALID_THEME_1 = "light";
