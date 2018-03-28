@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -26,6 +27,7 @@ public class AddCardCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the address book. "
             + "Parameters: "
             + PREFIX_FRONT + "FRONT "
+            + "[" + PREFIX_OPTION + "OPTION ] ... "
             + PREFIX_BACK + "BACK "
             + "[" + PREFIX_TAG + "TAG]";
 

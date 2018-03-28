@@ -95,11 +95,11 @@ public class ParserUtil {
      */
     public static String parseMcqOption(String option) throws IllegalValueException {
         requireNonNull(option);
-        String trimmedCard = option.trim();
-        if (!Card.isValidCard(trimmedCard)) {
+        String trimmedOption = option.trim();
+        if (!Card.isValidCard(trimmedOption)) {
             throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_CONSTRAINTS);
         }
-        return trimmedCard;
+        return trimmedOption;
     }
 
     /**
@@ -109,7 +109,8 @@ public class ParserUtil {
      * @throws IllegalValueException if the given parameters are invalid.
      */
     public static McqCard parseMcqCard(String front, String back, Set<String> options) throws IllegalValueException {
-        requireNonNull(front, back);
+        requireNonNull(front);
+        requireNonNull(back);
         requireAllNonNull(options);
         if (!McqCard.isValidMcqCard(back, options)) {
             throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_ANSWER_CONSTRAINTS);
@@ -128,7 +129,7 @@ public class ParserUtil {
                 throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
             }
         }
-        return front.isPresent() ? front : Optional.empty();
+        return front.isPresent() ? Optional.of(parseCard(front.get())) : Optional.empty();
     }
 
     /**
@@ -142,7 +143,7 @@ public class ParserUtil {
                 throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
             }
         }
-        return back.isPresent() ? back : Optional.empty();
+        return back.isPresent() ? Optional.of(parseCard(back.get())) : Optional.empty();
     }
 
     /**
