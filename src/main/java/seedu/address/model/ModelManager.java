@@ -40,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Tag> filteredTags;
     private final ObservableList<Card> filteredCards;
     private Card selectedCard;
+    private Tag selectedTag;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -56,6 +57,8 @@ public class ModelManager extends ComponentManager implements Model {
         // To prevent direct referencing, which would cause setAll() to affect addressBook's list
         filteredCards = FXCollections.observableArrayList();
         filteredCards.setAll(this.addressBook.getCardList());
+
+        selectedTag = null;
     }
 
     public ModelManager() {
@@ -139,14 +142,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addCard(Card card) throws DuplicateCardException {
         addressBook.addCard(card);
-        showAllCards();
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void deleteCard(Card card) throws CardNotFoundException {
         addressBook.deleteCard(card);
-        showAllCards();
+        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
@@ -163,6 +165,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void showAllCards() {
         filteredCards.setAll(this.addressBook.getCardList());
+    }
+
+    /**
+     * Synchronises the card list with that of the card bank.
+     */
+    private void updateFilteredCardList() {
+        if (selectedTag == null) {
+            showAllCards();
+            return;
+        }
+        filterCardsByTag(selectedTag);
     }
 
     @Override
@@ -189,11 +202,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
         this.getAddressBook().getCardTag().addEdge(card, tag);
+        updateFilteredCardList();
     }
 
     @Override
     public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
         this.getAddressBook().getCardTag().removeEdge(card, tag);
+        updateFilteredCardList();
     }
 
     @Override
@@ -224,7 +239,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author yong-jie
     @Subscribe
     private void handleTagListPanelSelectionEvent(TagListPanelSelectionChangedEvent event) {
-        filterCardsByTag(event.getNewSelection().tag);
+        selectedTag = event.getNewSelection().tag;
+        filterCardsByTag(selectedTag);
     }
 
     //@@author pukipuki
