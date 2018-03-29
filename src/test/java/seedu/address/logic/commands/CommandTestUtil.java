@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -63,7 +63,8 @@ public class CommandTestUtil {
     public static final String VALID_MCQ_OPTION_2 = "11th August";
     public static final String VALID_MCQ_OPTION_3 = "9th August";
     public static final Set<String> VALID_MCQ_OPTION_SET =
-            new HashSet<>(Arrays.asList(new String[]{VALID_MCQ_OPTION_1, VALID_MCQ_OPTION_2, VALID_MCQ_OPTION_3}));
+            new LinkedHashSet<>(Arrays.asList(
+                    new String[]{VALID_MCQ_OPTION_1, VALID_MCQ_OPTION_2, VALID_MCQ_OPTION_3}));
 
     public static final String FRONT_DESC_CARD = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
     public static final String BACK_DESC_CARD = " " + PREFIX_BACK + VALID_BACK_CARD_1;

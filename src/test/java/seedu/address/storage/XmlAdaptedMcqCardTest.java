@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalMcqCards.MATHEMATICS_CARD;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,13 +18,13 @@ public class XmlAdaptedMcqCardTest {
     private static final String INVALID_FRONT = "";
     private static final String INVALID_BACK = "";
     private static final String INVALID_ID = "";
-    private static final Set<String> INVALID_OPTIONS = new HashSet<>();
+    private static final Set<String> INVALID_OPTIONS = new LinkedHashSet<>();
 
     private static final String VALID_FRONT = "what is 1+1?";
     private static final String VALID_BACK = "2";
     private static final String VALID_ID = UUID.randomUUID().toString();
     private static String[] optionsArray = new String[]{"1", "2", "3", "4", "5"};
-    private static final Set<String> VALID_OPTIONS = new HashSet<>(Arrays.asList(optionsArray));
+    private static final Set<String> VALID_OPTIONS = new LinkedHashSet<>(Arrays.asList(optionsArray));
 
     @Test
     public void toModelType_validMcqCardDetails_returnsMcqCard() throws Exception {

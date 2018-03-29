@@ -6,7 +6,7 @@ import static seedu.address.ui.UiManager.VALID_THEMES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -171,7 +171,7 @@ public class ParserUtil {
             return Optional.empty();
         }
 
-        Set<Tag> tags = new HashSet<>();
+        Set<Tag> tags = new LinkedHashSet<>();
         for (String tagName : tagNames) {
             if (!Name.isValidName(tagName)) {
                 throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);

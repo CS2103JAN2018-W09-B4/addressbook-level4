@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -39,7 +39,7 @@ public class CollectionUtil {
      * Returns true if every element in a collection are unique by {@link Object#equals(Object)}.
      */
     public static boolean elementsAreUnique(Collection<?> items) {
-        final Set<Object> testSet = new HashSet<>();
+        final Set<Object> testSet = new LinkedHashSet<>();
         for (Object item : items) {
             final boolean itemAlreadyExists = !testSet.add(item); // see Set documentation
             if (itemAlreadyExists) {

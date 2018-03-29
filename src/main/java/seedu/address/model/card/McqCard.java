@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 
 import java.util.Set;
@@ -51,7 +51,7 @@ public class McqCard extends Card {
      */
     public Set<String> getOptions() {
         assert CollectionUtil.elementsAreUnique(optionsList);
-        return new HashSet<>(optionsList);
+        return new LinkedHashSet<>(optionsList);
     }
 
     /**

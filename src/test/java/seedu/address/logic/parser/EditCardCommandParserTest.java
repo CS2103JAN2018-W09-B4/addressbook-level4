@@ -18,7 +18,7 @@ import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
 import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class EditCardCommandParserTest {
                 .build();
 
         EditCardCommand.EditCardDescriptor expectedWithTags = new EditCardDescriptorBuilder(expected)
-                .withTags(new HashSet<>(Arrays.asList(ENGLISH_TAG, COMSCI_TAG)))
+                .withTags(new LinkedHashSet<>(Arrays.asList(ENGLISH_TAG, COMSCI_TAG)))
                 .build();
 
         // without tags

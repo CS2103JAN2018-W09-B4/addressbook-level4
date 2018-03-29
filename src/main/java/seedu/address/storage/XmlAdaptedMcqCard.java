@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -79,7 +79,7 @@ public class XmlAdaptedMcqCard extends XmlAdaptedCard {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, McqCard.class.getSimpleName()));
         }
 
-        Set<String> optionsSet = new HashSet<>(option);
+        Set<String> optionsSet = new LinkedHashSet<>(option);
         for (String option: optionsSet) {
             if (!McqCard.isValidCard(option)) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

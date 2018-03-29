@@ -78,7 +78,7 @@ public class XmlAdaptedCardTag {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tags"));
             }
 
-            cardMap.put(cardId, Sets.newHashSet(tags));
+            cardMap.put(cardId, Sets.newLinkedHashSet(tags));
         }
 
         HashMap<String, Set<String>> tagMap = new HashMap<>();
@@ -92,7 +92,7 @@ public class XmlAdaptedCardTag {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "cards"));
             }
 
-            tagMap.put(tagId, Sets.newHashSet(cards));
+            tagMap.put(tagId, Sets.newLinkedHashSet(cards));
         }
 
         cardTag.setCardMap(cardMap);

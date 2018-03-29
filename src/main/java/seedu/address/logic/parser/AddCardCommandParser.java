@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -40,7 +40,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
         try {
             String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
             String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
-            Set<String> options = new HashSet<>(argMultimap.getAllValues(PREFIX_OPTION));
+            Set<String> options = new LinkedHashSet<>(argMultimap.getAllValues(PREFIX_OPTION));
             Optional<Set<Tag>> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
             Card card;

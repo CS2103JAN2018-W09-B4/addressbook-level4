@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_FRONT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_OPTION_SET;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,7 +41,7 @@ public class McqCardTest {
     @Test
     public void constructor_invalidParam_throwsIllegalArgumentException() {
         String invalidParam = " ";
-        Set<String> invalidOptionSet = new HashSet<>(Arrays.asList(new String[] {"", "Hello", "World"}));
+        Set<String> invalidOptionSet = new LinkedHashSet<>(Arrays.asList(new String[] {"", "Hello", "World"}));
         Assert.assertThrows(IllegalArgumentException.class, () -> new McqCard(UUID.randomUUID(),
                 invalidParam, VALID_MCQ_BACK, VALID_MCQ_OPTION_SET));
         Assert.assertThrows(IllegalArgumentException.class, () -> new McqCard(UUID.randomUUID(),

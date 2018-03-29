@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,7 +30,7 @@ public class ParserUtilTest {
     private static final String VALID_MCQ_BACK = "2";
     private static final String VALID_MCQ_FRONT = "Which continent is Singapore in?";
     private static final String VALID_NAME = "Math";
-    private static final Set<String> VALID_MCQ_OPTIONS = new HashSet<>(
+    private static final Set<String> VALID_MCQ_OPTIONS = new LinkedHashSet<>(
             Arrays.asList(new String[]{"Australia", "Asia", "Africa"}));
     private static final String VALID_OPTION = "Asia";
     private static final String VALID_THEME = "light";
