@@ -17,18 +17,19 @@ import seedu.address.logic.commands.SelectCardCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
+//@@author yong-jie
 public class SelectCardCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
-        /* Case: select the first card in the tag list, command with leading spaces and trailing spaces
+        /* Case: select the first card in the card list, command with leading spaces and trailing spaces
          * -> selected
          */
         String command = "   " + SelectCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_CARD);
 
-        /* Case: select the last card in the tag list -> selected */
+        /* Case: select the last card in the card list -> selected */
         Index cardCount = Index.fromOneBased(getTypicalCards().size());
         command = SelectCardCommand.COMMAND_WORD + " " + cardCount.getOneBased();
         assertCommandSuccess(command, cardCount);
@@ -43,7 +44,7 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: select the middle card in the tag list -> selected */
+        /* Case: select the middle card in the card list -> selected */
         Index middleIndex = Index.fromOneBased(cardCount.getOneBased() / 2);
         command = SelectCardCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
@@ -53,13 +54,13 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered tag list, select index within bounds of address book and tag list -> selected */
+        /* Case: filtered card list, select index within bounds of address book and card list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredCardList().size());
         command = SelectCardCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
-        /* Case: filtered tag list, select index within bounds of address book but out of bounds of tag list
+        /* Case: filtered card list, select index within bounds of address book but out of bounds of card list
          * -> rejected
          */
 
@@ -80,9 +81,8 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCardCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredTagList().size() + 1;
-        //assertCommandFailure(SelectCardCommand.COMMAND_WORD
-        // + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        invalidIndex = getModel().getFilteredCardList().size() + 1;
+        assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCardCommand.COMMAND_WORD + " abc",
@@ -96,9 +96,8 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
-        deleteAllTags();
-        //assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(),
-        //        MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        selectTag(Index.fromOneBased(1));
+        assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(), MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
 
     /**
@@ -106,14 +105,13 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing select command with the
-     * {@code expectedSelectedCardIndex} of the selected tag.<br>
-     * 4. {@code Model}, {@code Storage} and {@code TagListPanel} remain unchanged.<br>
+     * {@code expectedSelectedCardIndex} of the selected card.<br>
+     * 4. {@code Model}, {@code Storage} and {@code CardListPanel} remain unchanged.<br>
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
@@ -134,7 +132,7 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
      * 1. Command box displays {@code command}.<br>
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Model}, {@code Storage} and {@code TagListPanel} remain unchanged.<br>
+     * 4. {@code Model}, {@code Storage} and {@code CardListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
