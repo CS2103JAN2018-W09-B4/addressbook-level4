@@ -9,6 +9,7 @@ import seedu.address.commons.events.ui.JumpToCardRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 
+//@@author yong-jie
 /**
  * Selects a card identified using it's last displayed index from the card bank.
  */
