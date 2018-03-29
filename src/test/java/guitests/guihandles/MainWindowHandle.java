@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class MainWindowHandle extends StageHandle {
 
     private final TagListPanelHandle tagListPanel;
+    private final CardListPanelHandle cardListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
@@ -18,6 +19,7 @@ public class MainWindowHandle extends StageHandle {
         super(stage);
 
         tagListPanel = new TagListPanelHandle(getChildNode(TagListPanelHandle.TAG_LIST_VIEW_ID));
+        cardListPanel = new CardListPanelHandle(getChildNode(CardListPanelHandle.CARD_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
@@ -27,6 +29,10 @@ public class MainWindowHandle extends StageHandle {
 
     public TagListPanelHandle getTagListPanel() {
         return tagListPanel;
+    }
+
+    public CardListPanelHandle getCardListPanel() {
+        return cardListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
