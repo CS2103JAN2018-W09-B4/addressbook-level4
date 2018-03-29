@@ -1,8 +1,18 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToCardRequestEvent;
@@ -15,12 +25,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.testutil.EventsCollectorRule;
-
-import static org.junit.Assert.*;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
 
 public class SelectCardCommandTest {
     @Rule

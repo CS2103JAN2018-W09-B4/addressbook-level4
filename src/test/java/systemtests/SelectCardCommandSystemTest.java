@@ -1,6 +1,16 @@
 package systemtests;
 
+import static org.junit.Assert.assertTrue;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.SelectCardCommand.MESSAGE_SELECT_CARD_SUCCESS;
+import static seedu.address.testutil.TypicalCards.getTypicalCards;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
+
 import org.junit.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCardCommand;
@@ -8,15 +18,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
-
-import static org.junit.Assert.assertTrue;
-//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCardCommand.MESSAGE_SELECT_CARD_SUCCESS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
-import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
-import static seedu.address.testutil.TypicalCards.getTypicalCards;
 
 public class SelectCardCommandSystemTest extends AddressBookSystemTest {
     @Test
@@ -61,7 +62,8 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
         //showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         getModel().filterCardsByTag(new Tag(new Name(KEYWORD_MATCHING_MIDTERMS)));
         int invalidIndex = getModel().getAddressBook().getCardList().size();
-        //assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        //assertCommandFailure(SelectCardCommand.COMMAND_WORD
+        // + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: filtered tag list, select index within bounds of address book and tag list -> selected */
         Index validIndex = Index.fromOneBased(1);
@@ -81,7 +83,8 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredTagList().size() + 1;
-        //assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        //assertCommandFailure(SelectCardCommand.COMMAND_WORD
+        // + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCardCommand.COMMAND_WORD + " abc",
