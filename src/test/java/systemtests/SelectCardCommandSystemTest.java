@@ -97,7 +97,8 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: select from empty address book -> rejected */
         selectTag(Index.fromOneBased(1));
-        assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(), MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(),
+                MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
 
     /**
