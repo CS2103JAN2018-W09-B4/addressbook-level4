@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.SelectCardCommand;
 
+//@@author yong-jie
 /**
  * Tests the parsing functionality of {@code SelectCardCommandParser}
  */

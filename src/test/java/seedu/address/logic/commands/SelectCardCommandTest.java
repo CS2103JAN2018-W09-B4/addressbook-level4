@@ -26,6 +26,7 @@ import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
+//@@author yong-jie
 public class SelectCardCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
