@@ -1,6 +1,7 @@
 package seedu.address.model.card;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
@@ -36,6 +37,9 @@ public class McqCard extends Card {
     public McqCard(UUID id, String front, String back, Set<String> options) {
         super(id, front, back);
         requireAllNonNull(options);
+        for (String option: options) {
+            checkArgument(super.isValidCard(option), super.MESSAGE_CARD_CONSTRAINTS);
+        }
         optionsList.addAll(options);
 
         assert CollectionUtil.elementsAreUnique(optionsList);
@@ -80,6 +84,7 @@ public class McqCard extends Card {
      * Returns true if a given front and back string is valid.
      */
     public static boolean isValidMcqCard(String back, Set<String> options) {
+        requireAllNonNull(back, options);
         int backInt;
         try {
             backInt = Integer.valueOf(back);

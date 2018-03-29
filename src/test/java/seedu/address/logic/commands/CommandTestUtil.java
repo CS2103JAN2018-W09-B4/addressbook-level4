@@ -6,10 +6,14 @@ import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -38,6 +42,7 @@ public class CommandTestUtil {
     public static final String NAME_DESC_SOCIOLOGY = " " + PREFIX_NAME + VALID_NAME_SOCIOLOGY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "English&";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -52,16 +57,31 @@ public class CommandTestUtil {
     public static final String VALID_BACK_CARD_1 = "A programming paradigm";
     public static final String VALID_FRONT_CARD_2 = "What is the main point of the class?";
     public static final String VALID_BACK_CARD_2 = "To learn to be audience-centred";
+    public static final String VALID_MCQ_FRONT = "When is National Day in Singapore?";
+    public static final String VALID_MCQ_BACK = "3";
+    public static final String VALID_MCQ_OPTION_1 = "10th August";
+    public static final String VALID_MCQ_OPTION_2 = "11th August";
+    public static final String VALID_MCQ_OPTION_3 = "9th August";
+    public static final Set<String> VALID_MCQ_OPTION_SET =
+            new HashSet<>(Arrays.asList(new String[]{VALID_MCQ_OPTION_1, VALID_MCQ_OPTION_2, VALID_MCQ_OPTION_3}));
 
-    public static final String EDIT_FRONT_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
-    public static final String EDIT_FRONT_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;
-    public static final String EDIT_BACK_CARD_1 = " " + PREFIX_BACK + VALID_BACK_CARD_1;
-    public static final String EDIT_BACK_CARD_2 = " " + PREFIX_BACK + VALID_BACK_CARD_2;
+    public static final String FRONT_DESC_CARD = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
+    public static final String BACK_DESC_CARD = " " + PREFIX_BACK + VALID_BACK_CARD_1;
+    public static final String FRONT_DESC_MCQ_CARD = " " + PREFIX_FRONT + VALID_MCQ_FRONT;
+    public static final String BACK_DESC_MCQ_CARD = " " + PREFIX_BACK + VALID_MCQ_BACK;
+    public static final String OPTION_1_DESC_MCQ_CARD = " " + PREFIX_OPTION + VALID_MCQ_OPTION_1;
+    public static final String OPTION_2_DESC_MCQ_CARD = " " + PREFIX_OPTION + VALID_MCQ_OPTION_2;
+    public static final String OPTION_3_DESC_MCQ_CARD = " " + PREFIX_OPTION + VALID_MCQ_OPTION_3;
 
-    public static final String INVALID_FRONT_CARD_2 = " "
-            + PREFIX_FRONT;; // empty string not allowed
-    public static final String INVALID_BACK_CARD_2 = " "
-            + PREFIX_BACK;; // empty string not allowed
+    public static final String INVALID_FRONT_CARD = " " + PREFIX_FRONT; // empty string not allowed
+    public static final String INVALID_BACK_CARD = " " + PREFIX_BACK; // empty string not allowed
+    public static final String INVALID_MCQ_CARD_BACK = " " + PREFIX_BACK + "Hello World"; // empty string not allowed
+    public static final String INVALID_MCQ_CARD_OPTION = " " + PREFIX_OPTION; // empty string not allowed
+
+    public static final String FRONT_DESC_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
+    public static final String FRONT_DESC_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;
+    public static final String BACK_DESC_CARD_1 = " " + PREFIX_BACK + VALID_BACK_CARD_1;
+    public static final String BACK_DESC_CARD_2 = " " + PREFIX_BACK + VALID_BACK_CARD_2;
 
     public static final String VALID_THEME_1 = "light";
     public static final String VALID_THEME_2 = "dark";

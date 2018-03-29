@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
@@ -16,6 +17,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing card in the address book.
@@ -43,6 +47,9 @@ public class EditCardCommand extends UndoableCommand {
     private Card cardToEdit;
     private Card editedCard;
 
+    private List<Tag> tagsToEdit;
+    private Optional<Set<Tag>> editedTags;
+
     /**
      * @param index of the card in the filtered card list to edit
      * @param editCardDescriptor details to edit the card with
@@ -64,6 +71,17 @@ public class EditCardCommand extends UndoableCommand {
         } catch (CardNotFoundException pnfe) {
             throw new AssertionError("The target card cannot be missing");
         }
+
+        if (editedTags.isPresent()) {
+            try {
+                model.updateTagsForCard(editedCard, editedTags.get());
+            } catch (DuplicateEdgeException dpe) {
+                throw new IllegalStateException("Should not be able to reach here.");
+            } catch (EdgeNotFoundException enfe) {
+                throw new IllegalStateException("Should not be able to reach here.");
+            }
+        }
+
         model.showAllCards();
         return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
     }
@@ -77,7 +95,9 @@ public class EditCardCommand extends UndoableCommand {
         }
 
         cardToEdit = lastShownList.get(index.getZeroBased());
+        tagsToEdit = model.getTags(cardToEdit);
         editedCard = createEditedCard(cardToEdit, editCardDescriptor);
+        editedTags = editCardDescriptor.getTags();
     }
 
     /**
@@ -119,7 +139,8 @@ public class EditCardCommand extends UndoableCommand {
     public static class EditCardDescriptor {
         private String front;
         private String back;
-        private UUID uuid;
+        private UUID id;
+        private Set<Tag> tags;
 
         public EditCardDescriptor() {}
 
@@ -130,14 +151,14 @@ public class EditCardCommand extends UndoableCommand {
         public EditCardDescriptor(EditCardDescriptor toCopy) {
             setFront(toCopy.front);
             setBack(toCopy.back);
-            // setUuid(toCopy.uuid);
+            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.front, this.back);
+            return CollectionUtil.isAnyNonNull(this.front, this.back, this.tags);
         }
 
         public void setFront(String front) {
@@ -156,12 +177,12 @@ public class EditCardCommand extends UndoableCommand {
             return Optional.ofNullable(back);
         }
 
-        public void setUuid(UUID uuid) {
-            this.uuid = uuid;
+        public Optional<Set<Tag>> getTags() {
+            return Optional.ofNullable(tags);
         }
 
-        public Optional<UUID> getUuid() {
-            return Optional.ofNullable(uuid);
+        public void setTags(Set<Tag> tags) {
+            this.tags = tags;
         }
 
         @Override
@@ -180,7 +201,13 @@ public class EditCardCommand extends UndoableCommand {
             EditCardDescriptor e = (EditCardDescriptor) other;
 
             return getFront().equals(e.getFront())
-                    && getBack().equals(e.getBack());
+                    && getBack().equals(e.getBack())
+                    && getTags().equals(e.getTags());
+        }
+
+
+        public void setId(UUID uuid) {
+            this.id = uuid;
         }
     }
 }
