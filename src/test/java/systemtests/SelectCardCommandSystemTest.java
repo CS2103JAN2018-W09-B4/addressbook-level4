@@ -2,12 +2,12 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCardCommand.MESSAGE_SELECT_CARD_SUCCESS;
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
-import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
 
@@ -16,8 +16,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCardCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Name;
-import seedu.address.model.tag.Tag;
 
 public class SelectCardCommandSystemTest extends AddressBookSystemTest {
     @Test
@@ -55,21 +53,21 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
+        /* Case: filtered tag list, select index within bounds of address book and tag list -> selected */
+        Index validIndex = Index.fromOneBased(1);
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredCardList().size());
+        command = SelectCardCommand.COMMAND_WORD + " " + validIndex.getOneBased();
+        assertCommandSuccess(command, validIndex);
+
         /* Case: filtered tag list, select index within bounds of address book but out of bounds of tag list
          * -> rejected
          */
 
-        //showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
-        getModel().filterCardsByTag(new Tag(new Name(KEYWORD_MATCHING_MIDTERMS)));
+        selectTag(Index.fromZeroBased(0));
         int invalidIndex = getModel().getAddressBook().getCardList().size();
-        //assertCommandFailure(SelectCardCommand.COMMAND_WORD
-        // + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        System.out.println(getModel().getFilteredCardList());
+        assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
-        /* Case: filtered tag list, select index within bounds of address book and tag list -> selected */
-        Index validIndex = Index.fromOneBased(1);
-        assertTrue(validIndex.getZeroBased() < getModel().getFilteredTagList().size());
-        command = SelectCardCommand.COMMAND_WORD + " " + validIndex.getOneBased();
-        assertCommandSuccess(command, validIndex);
 
         /* ----------------------------------- Perform invalid select operations ------------------------------------ */
 
