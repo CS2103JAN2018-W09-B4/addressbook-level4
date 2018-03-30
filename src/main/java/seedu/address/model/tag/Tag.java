@@ -11,6 +11,8 @@ import java.util.UUID;
  */
 public class Tag {
 
+    public static final String MESSAGE_TAG_NOT_FOUND = "Tag not found: '%s'";
+
     private final UUID id;
     private final Name name;
 

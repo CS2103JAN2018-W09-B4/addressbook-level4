@@ -12,10 +12,12 @@ import static seedu.address.logic.commands.CommandTestUtil.assertEqualCardId;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.model.cardtag.CardTag.MESSAGE_CARD_NO_TAG;
+import static seedu.address.model.tag.Tag.MESSAGE_TAG_NOT_FOUND;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
+import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 
 import java.util.Arrays;
@@ -147,6 +149,20 @@ public class EditCardCommandTest {
         expectedModel.addEdge(lastCard, newTag);
 
         assertCommandSuccess(editCardCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_removeCardNoTag_failure() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToRemove(new HashSet<>(Arrays.asList(ENGLISH_TAG)))
+                .build();
+
+        String expectedMessage = String.format(MESSAGE_TAG_NOT_FOUND, ENGLISH_TAG.getName());
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        assertCommandFailure(editCommand, model, expectedMessage);
     }
 
     @Test

@@ -15,13 +15,15 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 
+//@@author jethrokuan
 /**
- * @author jethro
+ *
  * This class captures the relations between cards and tags.
  */
 public class CardTag {
     public static final String MESSAGE_CARD_HAS_TAG = "Card already has tag '%s'";
     public static final String MESSAGE_CARD_NO_TAG = "Card has no tag '%s'";
+
     private HashMap<String, Set<String>> cardMap;
     private HashMap<String, Set<String>> tagMap;
 
@@ -127,8 +129,7 @@ public class CardTag {
         String tagId = tag.getId().toString();
 
         if (isConnected(cardId, tagId)) {
-            throw new DuplicateEdgeException(
-                    String.format(MESSAGE_CARD_HAS_TAG, tag.getName()));
+            throw new DuplicateEdgeException(tag);
         }
 
         Set<String> tags = cardMap.get(cardId);
@@ -157,7 +158,7 @@ public class CardTag {
         String tagId = tag.getId().toString();
 
         if (!isConnected(cardId, tagId)) {
-            throw new EdgeNotFoundException(String.format(MESSAGE_CARD_NO_TAG, tag.getName()));
+            throw new EdgeNotFoundException(tag);
         }
 
         Set<String> tags = cardMap.get(cardId);
@@ -189,3 +190,4 @@ public class CardTag {
                 && Objects.equals(otherCardTag.tagMap, tagMap);
     }
 }
+//@@authorg
