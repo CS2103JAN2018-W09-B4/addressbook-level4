@@ -5,12 +5,12 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
-import static seedu.address.testutil.TypicalTags.BULGARIAN;
+import static seedu.address.testutil.TypicalTags.BULGARIAN_TAG;
 import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
 import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
-import static seedu.address.testutil.TypicalTags.RUSSIAN;
+import static seedu.address.testutil.TypicalTags.RUSSIAN_TAG;
 
 import org.junit.Test;
 
@@ -58,17 +58,17 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
-        deleteAllTags();
+        clearCardBank();
         assertCommandSuccess(PHYSICS_TAG);
 
         /* Case: add a tag, missing tags -> added */
-        assertCommandSuccess(RUSSIAN);
+        assertCommandSuccess(RUSSIAN_TAG);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the tag list before adding -> added */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
-        assertCommandSuccess(BULGARIAN);
+        assertCommandSuccess(BULGARIAN_TAG);
 
         /* ------------------------ Perform add operation while a tag card is selected --------------------------- */
 
@@ -79,8 +79,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate tag -> rejected */
-        command = TagUtil.getAddCommand(RUSSIAN);
-        assertCommandDuplicateTag(RUSSIAN);
+        command = TagUtil.getAddCommand(RUSSIAN_TAG);
+        assertCommandDuplicateTag(RUSSIAN_TAG);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD;

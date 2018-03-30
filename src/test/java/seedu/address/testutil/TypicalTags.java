@@ -44,10 +44,10 @@ public class TypicalTags {
             .build();
 
     // Manually added
-    public static final Tag RUSSIAN = new TagBuilder()
+    public static final Tag RUSSIAN_TAG = new TagBuilder()
             .withName("Russian Midterms")
             .build();
-    public static final Tag BULGARIAN = new TagBuilder()
+    public static final Tag BULGARIAN_TAG = new TagBuilder()
             .withName("Bulgarian")
             .build();
 
