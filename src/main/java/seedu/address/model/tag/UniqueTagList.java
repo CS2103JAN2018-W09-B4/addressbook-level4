@@ -58,7 +58,7 @@ public class UniqueTagList implements Iterable<Tag> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new TagNotFoundException();
+            throw new TagNotFoundException(target);
         }
 
         if (!target.equals(editedTag) && internalList.contains(editedTag)) {
@@ -77,7 +77,7 @@ public class UniqueTagList implements Iterable<Tag> {
         requireNonNull(toRemove);
         final boolean tagFoundAndDeleted = internalList.remove(toRemove);
         if (!tagFoundAndDeleted) {
-            throw new TagNotFoundException();
+            throw new TagNotFoundException(toRemove);
         }
         return tagFoundAndDeleted;
     }

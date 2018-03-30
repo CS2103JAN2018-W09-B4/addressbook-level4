@@ -11,9 +11,15 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertEqualCardId;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
+import static seedu.address.model.cardtag.CardTag.MESSAGE_CARD_NO_TAG;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
+import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -41,7 +47,7 @@ public class EditCardCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
+    public void execute_frontBackSpecifiedUnfilteredList_success() throws Exception {
         Card editedCard = new CardBuilder().build();
         Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
@@ -80,6 +86,83 @@ public class EditCardCommandTest {
         assertEqualCardId(lastCard, editedCard);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+
+    //@@author jethrokuan
+    @Test
+    public void execute_someTagsAdded_success() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Tag mathTag = expectedModel.addTag(MATHEMATICS_TAG).getTag();
+        Tag comsciTag = expectedModel.addTag(COMSCI_TAG).getTag();
+
+        expectedModel.addEdge(lastCard, mathTag);
+        expectedModel.addEdge(lastCard, comsciTag);
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToAdd(new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)))
+                .build();
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_someTagsRemoved_success() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
+        Tag tag = model.getTags(lastCard).get(0);
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToRemove(new HashSet<>(Arrays.asList(tag)))
+                .build();
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.removeEdge(lastCard, tag);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editCardNewTagCreated_success() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
+
+        Tag newTag = new Tag(new Name("Machine Learning"));
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToAdd(new HashSet<>(Arrays.asList(newTag)))
+                .build();
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
+        EditCardCommand editCardCommand = prepareCommand(indexLastCard, descriptor);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.addTag(newTag);
+        expectedModel.addEdge(lastCard, newTag);
+
+        assertCommandSuccess(editCardCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_removeCardNoEdge_failure() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToRemove(new HashSet<>(Arrays.asList(MATHEMATICS_TAG)))
+                .build();
+
+        String expectedMessage = String.format(MESSAGE_CARD_NO_TAG, MATHEMATICS_TAG.getName());
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        assertCommandFailure(editCommand, model, expectedMessage);
+    }
+    //@@author
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {

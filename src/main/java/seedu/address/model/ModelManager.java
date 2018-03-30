@@ -218,21 +218,28 @@ public class ModelManager extends ComponentManager implements Model {
                 .getTags(card, this.getAddressBook().getTagList());
     }
 
+    // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
     @Override
-    public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
+    public void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException {
         CardTag cardTag = this.getAddressBook().getCardTag();
-        List<Tag> oldTags = cardTag.getTags(card, this.getAddressBook().getTagList());
-
-        // Remove old tags first
-        for (Tag tag : oldTags) {
-            cardTag.removeEdge(card, tag);
+        for (Tag tag: tags) {
+            int index = this.addressBook.getTagList().indexOf(tag);
+            if (index == -1) {
+                throw new TagNotFoundException(tag);
+            }
+            Tag existingTag = this.addressBook.getTagList().get(index);
+            cardTag.removeEdge(card, existingTag);
         }
+    }
 
-        for (Tag tag : tags) {
+    // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
+    @Override
+    public void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException {
+        CardTag cardTag = this.getAddressBook().getCardTag();
+        for (Tag tag: tags) {
             Tag newOrExistingTag = addTag(tag).getTag();
             cardTag.addEdge(card, newOrExistingTag);
         }
-
     }
     //@@author
 

@@ -73,27 +73,35 @@
         <back>An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.</back>
         <id>50992d13-2f39-4c5c-b3e9-b088c8a04311</id>
     </cards>
-    <cards>
-        <front>What are action words?</front>
-        <back>Verbs</back>
-        <id>8f4716c7-f82e-462f-bad1-e59f98b8624e</id>
-    </cards>
     <cardtag>
+        <cardEntry>
+            <cardId>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</cardId>
+            <tags>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</tags>
+        </cardEntry>
+        <cardEntry>
+            <cardId>50992d13-2f39-4c5c-b3e9-b088c8a04311</cardId>
+            <tags>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</tags>
+        </cardEntry>
         <cardEntry>
             <cardId>3648b549-d900-4f0e-8573-e3c9ab499054</cardId>
             <tags>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</tags>
         </cardEntry>
         <cardEntry>
-            <cardId>f581860a-d5db-4925-aeab-1f1e441407f3</cardId>
-            <tags>2c941c30-fde8-4572-ab41-9f29270a4245</tags>
+            <cardId>8c488abb-ab40-4a5b-9b1b-7ee78d453538</cardId>
+            <tags>49af579d-3990-43e1-b11f-ed7ea0630434</tags>
         </cardEntry>
         <tagEntry>
-            <tagId>2c941c30-fde8-4572-ab41-9f29270a4245</tagId>
-            <cards>f581860a-d5db-4925-aeab-1f1e441407f3</cards>
+            <tagId>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</tagId>
+            <cards>50992d13-2f39-4c5c-b3e9-b088c8a04311</cards>
+            <cards>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</cards>
         </tagEntry>
         <tagEntry>
             <tagId>e08641c4-fc6e-4426-bf3f-72fc63d67fe6</tagId>
             <cards>3648b549-d900-4f0e-8573-e3c9ab499054</cards>
+        </tagEntry>
+        <tagEntry>
+            <tagId>49af579d-3990-43e1-b11f-ed7ea0630434</tagId>
+            <cards>8c488abb-ab40-4a5b-9b1b-7ee78d453538</cards>
         </tagEntry>
     </cardtag>
 </addressbook>

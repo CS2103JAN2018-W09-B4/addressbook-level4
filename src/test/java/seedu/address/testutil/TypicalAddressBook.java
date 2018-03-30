@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalCards.ENGLISH_CARD;
+import static seedu.address.testutil.TypicalCards.HISTORY_CARD;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
-import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
+import static seedu.address.testutil.TypicalTags.HISTORY_TAG;
 import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
@@ -19,6 +19,7 @@ import seedu.address.model.tag.Tag;
  * Class that creates a typical address book.
  */
 public class TypicalAddressBook {
+
     /**
      * Returns an {@code AddressBook} with all stub data.
      */
@@ -37,10 +38,10 @@ public class TypicalAddressBook {
         }
 
         try {
-            addressBook.associate(PHYSICS_CARD, PHYSICS_TAG);
-            addressBook.associate(PHYSICS_CARD_2, PHYSICS_TAG);
-            addressBook.associate(MATHEMATICS_CARD, MATHEMATICS_TAG);
-            addressBook.associate(ENGLISH_CARD, ENGLISH_TAG);
+            addressBook.addEdge(PHYSICS_CARD, PHYSICS_TAG);
+            addressBook.addEdge(PHYSICS_CARD_2, PHYSICS_TAG);
+            addressBook.addEdge(MATHEMATICS_CARD, MATHEMATICS_TAG);
+            addressBook.addEdge(HISTORY_CARD, HISTORY_TAG);
         } catch (DuplicateEdgeException e) {
             throw new AssertionError("not possible");
         }

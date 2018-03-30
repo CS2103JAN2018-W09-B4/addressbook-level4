@@ -4,18 +4,22 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CARD_1;
 import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD_1;
 import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD_2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADD_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMOVE_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_2;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
 import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
 import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -42,19 +46,41 @@ public class EditCardCommandParserTest {
                 .withBack(VALID_BACK_CARD_1)
                 .build();
 
+        EditCardCommand.EditCardDescriptor expectedWithAddedTags = new EditCardDescriptorBuilder(expected)
+                .withTagsToAdd(new HashSet<>(Arrays.asList(ENGLISH_TAG, COMSCI_TAG)))
+                .build();
+
+        EditCardCommand.EditCardDescriptor expectedWithRemovedTags = new EditCardDescriptorBuilder(expected)
+                .withTagsToRemove(new HashSet<>(Arrays.asList(BIOLOGY_TAG, MATHEMATICS_TAG)))
+                .build();
+
         EditCardCommand.EditCardDescriptor expectedWithTags = new EditCardDescriptorBuilder(expected)
-                .withTags(new HashSet<>(Arrays.asList(ENGLISH_TAG, COMSCI_TAG)))
+                .withTagsToAdd(new HashSet<>(Arrays.asList(ENGLISH_TAG, COMSCI_TAG)))
+                .withTagsToRemove(new HashSet<>(Arrays.asList(BIOLOGY_TAG, MATHEMATICS_TAG)))
                 .build();
 
         // without tags
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1,
                 new EditCardCommand(INDEX_FIRST_CARD, expected));
 
-        // with tags
-        Object tags;
+        // with add tags
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1
-                + " " + PREFIX_TAG + ENGLISH_TAG.getName()
-                        + " " +  PREFIX_TAG + COMSCI_TAG.getName(),
+                        + " " + PREFIX_ADD_TAG + ENGLISH_TAG.getName()
+                        + " " +  PREFIX_ADD_TAG + COMSCI_TAG.getName(),
+                new EditCardCommand(INDEX_FIRST_CARD, expectedWithAddedTags));
+
+        // with remove tags
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1
+                        + " " + PREFIX_REMOVE_TAG + BIOLOGY_TAG.getName()
+                        + " " +  PREFIX_REMOVE_TAG + MATHEMATICS_TAG.getName(),
+                new EditCardCommand(INDEX_FIRST_CARD, expectedWithRemovedTags));
+
+        // with both add and remove tags
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1
+                        + " " + PREFIX_ADD_TAG + ENGLISH_TAG.getName()
+                        + " " +  PREFIX_ADD_TAG + COMSCI_TAG.getName()
+                        + " " + PREFIX_REMOVE_TAG + BIOLOGY_TAG.getName()
+                        + " " +  PREFIX_REMOVE_TAG + MATHEMATICS_TAG.getName(),
                 new EditCardCommand(INDEX_FIRST_CARD, expectedWithTags));
 
     }
@@ -67,8 +93,11 @@ public class EditCardCommandParserTest {
         // invalid back
         assertParseFailure(parser, "1" + INVALID_FRONT_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
 
-        // invalid Tag name
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
+        // invalid addTag
+        assertParseFailure(parser, "1" + INVALID_ADD_TAG_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
+
+        // invalid removeTag
+        assertParseFailure(parser, "1" + INVALID_REMOVE_TAG_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test

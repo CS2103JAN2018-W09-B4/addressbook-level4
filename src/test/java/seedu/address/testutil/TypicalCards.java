@@ -72,6 +72,6 @@ public class TypicalCards {
 
     public static List<Card> getTypicalCards() {
         return new ArrayList<>(Arrays.asList(MATHEMATICS_CARD, CHEMISTRY_CARD, COMSCI_CARD, GEOGRAPHY_CARD,
-                HISTORY_CARD, ECONOMICS_CARD, LITERATURE_CARD, PHYSICS_CARD, PHYSICS_CARD_2, ENGLISH_CARD));
+                HISTORY_CARD, ECONOMICS_CARD, LITERATURE_CARD, PHYSICS_CARD, PHYSICS_CARD_2));
     }
 }
