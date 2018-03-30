@@ -49,14 +49,16 @@ public class AddCardCommandParserTest {
     //@@author shawnclq
     @Test
     public void parse_allFieldsPresentCard_success() {
-        Card expectedCard = new CardBuilder().withFront(VALID_FRONT_CS2103T_CARD).withBack(VALID_BACK_CS2103T_CARD).build();
+        Card expectedCard = new CardBuilder().withFront(VALID_FRONT_CS2103T_CARD)
+                .withBack(VALID_BACK_CS2103T_CARD).build();
         McqCard expectedMcqCard = (McqCard) new McqCardBuilder().resetOptions()
                 .addOption(VALID_MCQ_OPTION_1).addOption(VALID_MCQ_OPTION_2).addOption(VALID_MCQ_OPTION_3)
                 .withFront(VALID_MCQ_FRONT)
                 .withBack(VALID_MCQ_BACK).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CS2103T_CARD + CommandTestUtil.BACK_DESC_CS2103T_CARD,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CS2103T_CARD
+                        + CommandTestUtil.BACK_DESC_CS2103T_CARD,
                 new AddCardCommand(expectedCard));
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_MCQ_CARD + BACK_DESC_MCQ_CARD
@@ -84,7 +86,8 @@ public class AddCardCommandParserTest {
 
         // with tags
         String tagString = " " + PREFIX_TAG + VALID_NAME_ENGLISH + " " + PREFIX_TAG + VALID_NAME_COMSCI;
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD + tagString,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD
+                        + tagString,
                 new AddCardCommand(expectedCard, Optional.of(expectedTags)));
     }
     //@@author
@@ -124,7 +127,8 @@ public class AddCardCommandParserTest {
                 Card.MESSAGE_CARD_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_FRONT_CS2103T_CARD + CommandTestUtil.BACK_DESC_CS2103T_CARD,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_FRONT_CS2103T_CARD
+                        + CommandTestUtil.BACK_DESC_CS2103T_CARD,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
 
         // non-empty preamble

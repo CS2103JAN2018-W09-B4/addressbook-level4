@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2101_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2103T_CARD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
