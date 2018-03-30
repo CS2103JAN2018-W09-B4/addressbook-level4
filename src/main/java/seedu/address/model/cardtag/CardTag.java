@@ -190,4 +190,4 @@ public class CardTag {
                 && Objects.equals(otherCardTag.tagMap, tagMap);
     }
 }
-//@@authorg
+//@@author
