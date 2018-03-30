@@ -13,6 +13,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
 import org.junit.Test;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -128,6 +130,9 @@ public class DeleteCardCommandTest {
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         DeleteCardCommand deleteCardCommand = prepareCommand(INDEX_FIRST_CARD);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        Tag tag = model.getFilteredTagList().get(0);
+        model.filterCardsByTag(tag);
 
         Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         // delete -> deletes second card in unfiltered card list / first card in filtered card list

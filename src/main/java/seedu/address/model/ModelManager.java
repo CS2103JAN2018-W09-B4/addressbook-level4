@@ -171,7 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Synchronises the card list with that of the card bank.
      */
-    private void updateFilteredCardList() {
+    public void updateFilteredCardList() {
         if (selectedTag == null) {
             showAllCards();
             return;

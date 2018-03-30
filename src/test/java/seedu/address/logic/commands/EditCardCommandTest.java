@@ -323,6 +323,9 @@ public class EditCardCommandTest {
         // To check whether card ID has changed
         assertEqualCardId(targetCard, newCard);
 
+        Tag tag = model.getFilteredTagList().get(0);
+        model.filterCardsByTag(tag);
+
         Card cardToEdit = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         // edit -> edits second card in unfiltered card list / first card in filtered card list
         editCommand.execute();
