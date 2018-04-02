@@ -48,11 +48,11 @@ public class XmlSerializableAddressBook {
         this();
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
         for (Card card: src.getCardList()) {
-            if (card.getType().equals(Card.TYPE)) {
-                cards.add(new XmlAdaptedCard(card.getId().toString(), card.getFront(), card.getBack()));
-            } else {
+            if (card.getType().equals(McqCard.TYPE)) {
                 mcqCards.add(new XmlAdaptedMcqCard(card.getId().toString(), card.getFront(),
                         card.getBack(), ((McqCard) card).getOptions()));
+            } else {
+                cards.add(new XmlAdaptedCard(card.getId().toString(), card.getFront(), card.getBack()));
             }
         }
         cardTag = new XmlAdaptedCardTag(src.getCardTag());

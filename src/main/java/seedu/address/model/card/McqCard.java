@@ -4,10 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
-
-import java.util.Set;
 import java.util.UUID;
 
 import javafx.collections.FXCollections;
@@ -15,6 +13,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.util.CollectionUtil;
 
+//@@author shawnclq
 /**
  * Represents a MCQ Flashcard.
  * Guarantees: Front, Back, Options must not be null.
@@ -30,12 +29,13 @@ public class McqCard extends Card {
 
     public final ObservableList<String> optionsList = FXCollections.observableArrayList();
 
-    public McqCard(String front, String back, Set<String> options) {
+    public McqCard(String front, String back, List<String> options) {
         this(UUID.randomUUID(), front, back, options);
     }
 
-    public McqCard(UUID id, String front, String back, Set<String> options) {
+    public McqCard(UUID id, String front, String back, List<String> options) {
         super(id, front, back);
+        super.setType(TYPE);
         requireAllNonNull(options);
         for (String option: options) {
             checkArgument(super.isValidCard(option), super.MESSAGE_CARD_CONSTRAINTS);
@@ -49,15 +49,15 @@ public class McqCard extends Card {
      * Returns all options in this list as a Set.
      * This set is mutable and change-insulated against options list.
      */
-    public Set<String> getOptions() {
+    public List<String> getOptions() {
         assert CollectionUtil.elementsAreUnique(optionsList);
-        return new LinkedHashSet<>(optionsList);
+        return optionsList;
     }
 
     /**
      * Replaces the options in the list with those in the argument options list.
      */
-    public void setOptions(Set<String> options) {
+    public void setOptions(List<String> options) {
         requireAllNonNull(options);
         optionsList.addAll(options);
 
@@ -83,7 +83,7 @@ public class McqCard extends Card {
     /**
      * Returns true if a given front and back string is valid.
      */
-    public static boolean isValidMcqCard(String back, Set<String> options) {
+    public static boolean isValidMcqCard(String back, List<String> options) {
         requireAllNonNull(back, options);
         int backInt;
         try {
@@ -130,3 +130,4 @@ public class McqCard extends Card {
     }
 
 }
+//@@author

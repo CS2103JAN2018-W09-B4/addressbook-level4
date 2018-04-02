@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -38,24 +38,28 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
         }
 
         try {
-            String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
-            String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
-            Set<String> options = new LinkedHashSet<>(argMultimap.getAllValues(PREFIX_OPTION));
+            List<String> frontParams = argMultimap.getAllValues(PREFIX_FRONT);
+            List<String> backParams = argMultimap.getAllValues(PREFIX_BACK);
+            List<String> options = argMultimap.getAllValues(PREFIX_OPTION);
             Optional<Set<Tag>> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
             Card card;
 
-            if (options.isEmpty()) {
-                card = new Card(front, back);
-            } else {
-                for (String option: options) {
-                    ParserUtil.parseMcqOption(option);
+            if (frontParams.size() == 1 && backParams.size() == 1) {
+                String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
+                String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
+                if (options.isEmpty()) {
+                    card = new Card(front, back);
+                } else {
+                    for (String option: options) {
+                        ParserUtil.parseMcqOption(option);
+                    }
+                    card = ParserUtil.parseMcqCard(front, back, options);
+                    card.setType(McqCard.TYPE);
                 }
-
-                card = ParserUtil.parseMcqCard(front, back, options);
-                card.setType(McqCard.TYPE);
+            } else {
+                card = ParserUtil.parseFillBlanksCard(frontParams, backParams);
             }
-
             return new AddCardCommand(card, tags);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);

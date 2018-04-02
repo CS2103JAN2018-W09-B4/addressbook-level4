@@ -6,7 +6,7 @@ import static seedu.address.ui.UiManager.VALID_THEMES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FillBlanksCard;
 import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
@@ -108,7 +109,7 @@ public class ParserUtil {
      *
      * @throws IllegalValueException if the given parameters are invalid.
      */
-    public static McqCard parseMcqCard(String front, String back, Set<String> options) throws IllegalValueException {
+    public static McqCard parseMcqCard(String front, String back, List<String> options) throws IllegalValueException {
         requireNonNull(front);
         requireNonNull(back);
         requireAllNonNull(options);
@@ -116,6 +117,21 @@ public class ParserUtil {
             throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_ANSWER_CONSTRAINTS);
         }
         return new McqCard(front, back, options);
+    }
+
+    /**
+     * Parses a {@code String card} into an {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code String} is invalid.
+     */
+    public static FillBlanksCard parseFillBlanksCard(List<String> front, List<String> back)
+            throws IllegalValueException {
+        requireAllNonNull(front, back);
+        if (!FillBlanksCard.isValidFillBlanksCard(front, back)) {
+            throw new IllegalValueException(FillBlanksCard.MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
+        }
+        return new FillBlanksCard(front, back);
     }
 
     /**
@@ -171,7 +187,7 @@ public class ParserUtil {
             return Optional.empty();
         }
 
-        Set<Tag> tags = new LinkedHashSet<>();
+        Set<Tag> tags = new HashSet<>();
         for (String tagName : tagNames) {
             if (!Name.isValidName(tagName)) {
                 throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);

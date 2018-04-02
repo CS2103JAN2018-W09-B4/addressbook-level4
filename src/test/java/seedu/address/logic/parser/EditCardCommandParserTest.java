@@ -22,7 +22,7 @@ import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -55,8 +55,8 @@ public class EditCardCommandParserTest {
                 .build();
 
         EditCardCommand.EditCardDescriptor expectedWithTags = new EditCardDescriptorBuilder(expected)
-                .withTagsToAdd(new LinkedHashSet<>(Arrays.asList(ENGLISH_TAG, COMSCI_TAG)))
-                .withTagsToRemove(new LinkedHashSet<>(Arrays.asList(BIOLOGY_TAG, MATHEMATICS_TAG)))
+                .withTagsToAdd(new HashSet<>(Arrays.asList(ENGLISH_TAG, COMSCI_TAG)))
+                .withTagsToRemove(new HashSet<>(Arrays.asList(BIOLOGY_TAG, MATHEMATICS_TAG)))
                 .build();
 
         // without tags

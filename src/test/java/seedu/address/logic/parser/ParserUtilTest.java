@@ -6,15 +6,15 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.card.FillBlanksCard;
 import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Name;
 import seedu.address.testutil.Assert;
@@ -30,8 +30,19 @@ public class ParserUtilTest {
     private static final String VALID_MCQ_BACK = "2";
     private static final String VALID_MCQ_FRONT = "Which continent is Singapore in?";
     private static final String VALID_NAME = "Math";
-    private static final Set<String> VALID_MCQ_OPTIONS = new LinkedHashSet<>(
-            Arrays.asList(new String[]{"Australia", "Asia", "Africa"}));
+    private static final List<String> VALID_MCQ_OPTIONS =
+            Arrays.asList(new String[]{"Australia", "Asia", "Africa"});
+    private static final List<String> VALID_FILLBLANKS_FRONT =
+            Arrays.asList(new String[]{"A", "is a four sided polygon with equal sides meeting at right angles."});
+    private static final List<String> INVALID_FILLBLANKS_FRONT =
+            Arrays.asList(new String[]{"A", " ", " "});
+    private static final List<String> VALID_FILLBLANKS_BACK =
+            Arrays.asList(new String[]{"square"});
+    private static final List<String> INVALID_FILLBLANKS_BACK =
+            Arrays.asList(new String[]{"square", "", ""});
+    private static final List<String> INVALID_FILLBLANKS_BACK_ARGUMENTS =
+            Arrays.asList(new String[]{"square", "too", "many", "arguments"});
+
     private static final String VALID_OPTION = "Asia";
     private static final String VALID_THEME = "light";
     private static final String WHITESPACE = " \t\r\n";
@@ -142,7 +153,7 @@ public class ParserUtilTest {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseMcqCard(VALID_MCQ_FRONT,
                 (String) null, VALID_MCQ_OPTIONS));
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseMcqCard(VALID_MCQ_FRONT,
-                VALID_MCQ_BACK, (Set<String>) null));
+                VALID_MCQ_BACK, (List<String>) null));
     }
 
     @Test
@@ -159,13 +170,37 @@ public class ParserUtilTest {
         assertEquals(expectedMcqCard, ParserUtil.parseMcqCard(VALID_MCQ_FRONT, VALID_MCQ_BACK, VALID_MCQ_OPTIONS));
     }
 
+
+    @Test
+    public void parseFillBlanksCard_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard((List<String>) null,
+                VALID_FILLBLANKS_BACK));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard(VALID_FILLBLANKS_FRONT,
+                (List<String>) null));
+    }
+
+    @Test
+    public void parseFillBlanksCard_invalidValue_throwsIllegalValueException() {
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseFillBlanksCard(VALID_FILLBLANKS_FRONT,
+                INVALID_FILLBLANKS_BACK));
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseFillBlanksCard(INVALID_FILLBLANKS_FRONT,
+                VALID_FILLBLANKS_BACK));
+    }
+
+    @Test
+    public void parseFillBlanksCard_validValue_returnsMcqCard() throws Exception {
+        FillBlanksCard expectedFillBlanksCard = new FillBlanksCard(VALID_FILLBLANKS_FRONT, VALID_FILLBLANKS_BACK);
+        assertEquals(expectedFillBlanksCard, ParserUtil.parseFillBlanksCard(VALID_FILLBLANKS_FRONT,
+                VALID_FILLBLANKS_BACK));
+    }
+
     @Test
     public void parseFront_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFront((Optional<String>) null));
     }
 
     @Test
-    public void parseFront_invalidValue_throwsIllegalValueException() {
+    public void parseFront_invalidValue_throwsIllegalValueException () {
         Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseFront(Optional.of(WHITESPACE)));
     }
 

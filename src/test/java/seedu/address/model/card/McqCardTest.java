@@ -8,14 +8,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_FRONT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_OPTION_SET;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+//@@author shawnclq
 public class McqCardTest {
 
     @Test
@@ -41,7 +41,7 @@ public class McqCardTest {
     @Test
     public void constructor_invalidParam_throwsIllegalArgumentException() {
         String invalidParam = " ";
-        Set<String> invalidOptionSet = new LinkedHashSet<>(Arrays.asList(new String[] {"", "Hello", "World"}));
+        List<String> invalidOptionSet = Arrays.asList(new String[] {"", "Hello", "World"});
         Assert.assertThrows(IllegalArgumentException.class, () -> new McqCard(UUID.randomUUID(),
                 invalidParam, VALID_MCQ_BACK, VALID_MCQ_OPTION_SET));
         Assert.assertThrows(IllegalArgumentException.class, () -> new McqCard(UUID.randomUUID(),
@@ -71,3 +71,4 @@ public class McqCardTest {
         assertTrue(McqCard.isValidMcqCard("3", VALID_MCQ_OPTION_SET));
     }
 }
+//@@author

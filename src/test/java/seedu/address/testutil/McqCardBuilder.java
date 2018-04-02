@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.model.card.McqCard;
 
@@ -13,10 +13,9 @@ public class McqCardBuilder extends CardBuilder {
 
     public static final String[] DEFAULT_OPTIONS_ARRAY = new String[]{"9th August", "10th August", "9th September"};
     public static final String DEFAULT_BACK = "1";
-    public static final LinkedHashSet<String> DEFAULT_OPTIONS =
-            new LinkedHashSet<String>(Arrays.asList(DEFAULT_OPTIONS_ARRAY));
+    public static final List<String> DEFAULT_OPTIONS = Arrays.asList(DEFAULT_OPTIONS_ARRAY);
 
-    private Set<String> options;
+    private List<String> options;
 
     public McqCardBuilder() {
         super();
@@ -44,7 +43,7 @@ public class McqCardBuilder extends CardBuilder {
      * Resets the {@code options} of the {@code McqCard} that we are building.
      */
     public McqCardBuilder resetOptions() {
-        this.options = new LinkedHashSet<>();
+        this.options = new ArrayList<>();
         return this;
     }
 

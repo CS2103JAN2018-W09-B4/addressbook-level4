@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -7,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FillBlanksCard;
 
 /**
  * JAXB-friendly version of the Card.
@@ -70,6 +73,11 @@ public class XmlAdaptedCard {
         }
         if (!Card.isValidCard(this.back)) {
             throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+        }
+        if (FillBlanksCard.containsBlanks(this.front)) {
+            List<String> frontArray = Arrays.asList(this.front.split(FillBlanksCard.BLANK));
+            List<String> backArray = Arrays.asList(this.back.split(", "));
+            return new FillBlanksCard(UUID.fromString(id), frontArray, backArray);
         }
         return new Card(UUID.fromString(id), front, back);
     }

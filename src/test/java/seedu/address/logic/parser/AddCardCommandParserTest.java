@@ -30,7 +30,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -74,7 +74,7 @@ public class AddCardCommandParserTest {
                 .withBack(VALID_BACK_CARD_1)
                 .build();
 
-        Set<Tag> expectedTags = new LinkedHashSet<>(Arrays.asList(
+        Set<Tag> expectedTags = new HashSet<>(Arrays.asList(
                 new Tag(new Name(VALID_NAME_ENGLISH)),
                 new Tag(new Name(VALID_NAME_COMSCI)
         )));

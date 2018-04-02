@@ -10,6 +10,7 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.Assert;
 
+//@@author shawnclq
 public class XmlAdaptedCardTest {
 
     private static final String INVALID_FRONT = "";
@@ -62,3 +63,4 @@ public class XmlAdaptedCardTest {
         Assert.assertThrows(IllegalValueException.class, card::toModelType);
     }
 }
+
