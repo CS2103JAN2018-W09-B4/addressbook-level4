@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
+import guitests.guihandles.CardListPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -33,6 +34,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalAddressBook;
 import seedu.address.ui.CommandBox;
+
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
@@ -96,6 +98,10 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getTagListPanel();
     }
 
+    public CardListPanelHandle getCardListPanel() {
+        return mainWindowHandle.getCardListPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
@@ -117,6 +123,7 @@ public abstract class AddressBookSystemTest {
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
+
 
         mainWindowHandle.getCommandBox().run(command);
     }

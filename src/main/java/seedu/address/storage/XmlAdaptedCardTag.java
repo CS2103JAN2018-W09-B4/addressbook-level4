@@ -15,6 +15,7 @@ import com.google.common.collect.Sets;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.cardtag.CardTag;
 
+//@@author jethrokuan
 /**
  * JAXB-friendly version of an edge in CardTag
  */
@@ -117,3 +118,4 @@ public class XmlAdaptedCardTag {
                 && Objects.equals(tagEntry, otherEdge.tagEntry);
     }
 }
+//@@author

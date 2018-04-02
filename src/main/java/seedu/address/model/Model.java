@@ -98,6 +98,9 @@ public interface Model {
     /** Gets list of tags for a given card */
     List<Tag> getTags(Card card);
 
-    /** Updates the tags for a card to the new set */
-    void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException;
+    /** Removes the tags for a card */
+    void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException;
+
+    /** Adds the tags for a card */
+    void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException;
 }

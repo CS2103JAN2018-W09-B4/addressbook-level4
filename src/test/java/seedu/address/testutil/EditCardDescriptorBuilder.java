@@ -57,10 +57,18 @@ public class EditCardDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code tags} of the {@code EditCardDescriptor} that we are building.
+     * Sets the {@code tagsToAdd} of the {@code EditCardDescriptor} that we are building.
      */
-    public EditCardDescriptorBuilder withTags(Set<Tag> tags) {
-        descriptor.setTags(tags);
+    public EditCardDescriptorBuilder withTagsToAdd(Set<Tag> tags) {
+        descriptor.setTagsToAdd(tags);
+        return this;
+    }
+
+    /**
+     * Sets the {@code tagsToRemove} of the {@code EditCardDescriptor} t hat we are building.
+     */
+    public EditCardDescriptorBuilder withTagsToRemove(Set<Tag> tags) {
+        descriptor.setTagsToRemove(tags);
         return this;
     }
 

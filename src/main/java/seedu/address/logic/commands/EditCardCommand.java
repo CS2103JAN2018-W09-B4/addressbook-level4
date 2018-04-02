@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +22,7 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Edits the details of an existing card in the address book.
@@ -33,9 +36,12 @@ public class EditCardCommand extends UndoableCommand {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_FRONT + "FRONT] "
-            + "[" + PREFIX_BACK + "BACK]\n"
+            + "[" + PREFIX_BACK + "BACK] "
+            + "[" + PREFIX_ADD_TAG + "TAG] "
+            + "[" + PREFIX_REMOVE_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_FRONT + " What is 1 + 1? " + PREFIX_BACK + " 2";
+            + PREFIX_FRONT + " What is 1 + 1? " + PREFIX_BACK + " 2 "
+            + PREFIX_ADD_TAG + "Biology " + PREFIX_REMOVE_TAG + "Mathematics";
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -47,8 +53,8 @@ public class EditCardCommand extends UndoableCommand {
     private Card cardToEdit;
     private Card editedCard;
 
-    private List<Tag> tagsToEdit;
-    private Optional<Set<Tag>> editedTags;
+    private Optional<Set<Tag>> editedTagsToAdd;
+    private Optional<Set<Tag>> editedTagsToRemove;
 
     /**
      * @param index of the card in the filtered card list to edit
@@ -64,6 +70,18 @@ public class EditCardCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
+        // We first check if there are tags to remove, so we can return a CommandException early
+        // if the tag is not associated with the card
+        if (editedTagsToRemove.isPresent()) {
+            try {
+                model.removeTags(cardToEdit, editedTagsToRemove.get());
+            } catch (EdgeNotFoundException e) {
+                throw new CommandException(e.getMessage());
+            } catch (TagNotFoundException e) {
+                throw new CommandException(e.getMessage());
+            }
+        }
+
         try {
             model.updateCard(cardToEdit, editedCard);
         } catch (DuplicateCardException dpe) {
@@ -72,13 +90,11 @@ public class EditCardCommand extends UndoableCommand {
             throw new AssertionError("The target card cannot be missing");
         }
 
-        if (editedTags.isPresent()) {
+        if (editedTagsToAdd.isPresent()) {
             try {
-                model.updateTagsForCard(editedCard, editedTags.get());
+                model.addTags(editedCard, editedTagsToAdd.get());
             } catch (DuplicateEdgeException dpe) {
-                throw new IllegalStateException("Should not be able to reach here.");
-            } catch (EdgeNotFoundException enfe) {
-                throw new IllegalStateException("Should not be able to reach here.");
+                throw new CommandException(dpe.getMessage());
             }
         }
 
@@ -95,9 +111,9 @@ public class EditCardCommand extends UndoableCommand {
         }
 
         cardToEdit = lastShownList.get(index.getZeroBased());
-        tagsToEdit = model.getTags(cardToEdit);
         editedCard = createEditedCard(cardToEdit, editCardDescriptor);
-        editedTags = editCardDescriptor.getTags();
+        editedTagsToAdd = editCardDescriptor.getTagsToAdd();
+        editedTagsToRemove = editCardDescriptor.getTagsToRemove();
     }
 
     /**
@@ -140,7 +156,8 @@ public class EditCardCommand extends UndoableCommand {
         private String front;
         private String back;
         private UUID id;
-        private Set<Tag> tags;
+        private Set<Tag> tagsToAdd;
+        private Set<Tag> tagsToRemove;
 
         public EditCardDescriptor() {}
 
@@ -151,14 +168,15 @@ public class EditCardCommand extends UndoableCommand {
         public EditCardDescriptor(EditCardDescriptor toCopy) {
             setFront(toCopy.front);
             setBack(toCopy.back);
-            setTags(toCopy.tags);
+            setTagsToAdd(toCopy.tagsToAdd);
+            setTagsToRemove(toCopy.tagsToRemove);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.front, this.back, this.tags);
+            return CollectionUtil.isAnyNonNull(this.front, this.back, this.tagsToAdd, this.tagsToRemove);
         }
 
         public void setFront(String front) {
@@ -177,12 +195,20 @@ public class EditCardCommand extends UndoableCommand {
             return Optional.ofNullable(back);
         }
 
-        public Optional<Set<Tag>> getTags() {
-            return Optional.ofNullable(tags);
+        public Optional<Set<Tag>> getTagsToAdd() {
+            return Optional.ofNullable(tagsToAdd);
         }
 
-        public void setTags(Set<Tag> tags) {
-            this.tags = tags;
+        public void setTagsToAdd(Set<Tag> tagsToAdd) {
+            this.tagsToAdd = tagsToAdd;
+        }
+
+        public Optional<Set<Tag>> getTagsToRemove() {
+            return Optional.ofNullable(tagsToRemove);
+        }
+
+        public void setTagsToRemove(Set<Tag> tagsToRemove) {
+            this.tagsToRemove = tagsToRemove;
         }
 
         @Override
@@ -202,12 +228,13 @@ public class EditCardCommand extends UndoableCommand {
 
             return getFront().equals(e.getFront())
                     && getBack().equals(e.getBack())
-                    && getTags().equals(e.getTags());
+                    && getTagsToAdd().equals(e.getTagsToAdd());
         }
 
 
         public void setId(UUID uuid) {
             this.id = uuid;
         }
+
     }
 }

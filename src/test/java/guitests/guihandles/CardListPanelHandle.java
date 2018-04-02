@@ -34,6 +34,13 @@ public class CardListPanelHandle extends  NodeHandle<ListView<CardCard>> {
     }
 
     /**
+     * Returns the index of the selected card.
+     */
+    public int getSelectedCardIndex() {
+        return getRootNode().getSelectionModel().getSelectedIndex();
+    }
+
+    /**
      * Returns the size of the list.
      * @return size of the list
      */

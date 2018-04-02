@@ -40,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Tag> filteredTags;
     private final ObservableList<Card> filteredCards;
     private Card selectedCard;
+    private Tag selectedTag;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -56,6 +57,8 @@ public class ModelManager extends ComponentManager implements Model {
         // To prevent direct referencing, which would cause setAll() to affect addressBook's list
         filteredCards = FXCollections.observableArrayList();
         filteredCards.setAll(this.addressBook.getCardList());
+
+        selectedTag = null;
     }
 
     public ModelManager() {
@@ -65,6 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
+        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
@@ -139,14 +143,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addCard(Card card) throws DuplicateCardException {
         addressBook.addCard(card);
-        showAllCards();
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void deleteCard(Card card) throws CardNotFoundException {
         addressBook.deleteCard(card);
-        showAllCards();
+        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
@@ -163,6 +166,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void showAllCards() {
         filteredCards.setAll(this.addressBook.getCardList());
+    }
+
+    /**
+     * Synchronises the card list with that of the card bank.
+     */
+    private void updateFilteredCardList() {
+        if (selectedTag == null) {
+            showAllCards();
+            return;
+        }
+        filterCardsByTag(selectedTag);
     }
 
     @Override
@@ -189,11 +203,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
         this.getAddressBook().getCardTag().addEdge(card, tag);
+        updateFilteredCardList();
     }
 
     @Override
     public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
         this.getAddressBook().getCardTag().removeEdge(card, tag);
+        updateFilteredCardList();
     }
 
     @Override
@@ -203,28 +219,36 @@ public class ModelManager extends ComponentManager implements Model {
                 .getTags(card, this.getAddressBook().getTagList());
     }
 
+    // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
     @Override
-    public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
+    public void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException {
         CardTag cardTag = this.getAddressBook().getCardTag();
-        List<Tag> oldTags = cardTag.getTags(card, this.getAddressBook().getTagList());
-
-        // Remove old tags first
-        for (Tag tag : oldTags) {
-            cardTag.removeEdge(card, tag);
+        for (Tag tag: tags) {
+            int index = this.addressBook.getTagList().indexOf(tag);
+            if (index == -1) {
+                throw new TagNotFoundException(tag);
+            }
+            Tag existingTag = this.addressBook.getTagList().get(index);
+            cardTag.removeEdge(card, existingTag);
         }
+    }
 
-        for (Tag tag : tags) {
+    // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
+    @Override
+    public void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException {
+        CardTag cardTag = this.getAddressBook().getCardTag();
+        for (Tag tag: tags) {
             Tag newOrExistingTag = addTag(tag).getTag();
             cardTag.addEdge(card, newOrExistingTag);
         }
-
     }
     //@@author
 
     //@@author yong-jie
     @Subscribe
     private void handleTagListPanelSelectionEvent(TagListPanelSelectionChangedEvent event) {
-        filterCardsByTag(event.getNewSelection().tag);
+        selectedTag = event.getNewSelection().tag;
+        filterCardsByTag(selectedTag);
     }
 
     //@@author pukipuki

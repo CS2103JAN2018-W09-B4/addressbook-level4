@@ -2,7 +2,9 @@ package seedu.address.model.cardtag;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,17 +15,46 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 
+//@@author jethrokuan
 /**
- * @author jethro
+ *
  * This class captures the relations between cards and tags.
  */
 public class CardTag {
+    public static final String MESSAGE_CARD_HAS_TAG = "Card already has tag '%s'";
+    public static final String MESSAGE_CARD_NO_TAG = "Card has no tag '%s'";
+
     private HashMap<String, Set<String>> cardMap;
     private HashMap<String, Set<String>> tagMap;
 
     public CardTag() {
         this.cardMap = new HashMap<>();
         this.tagMap = new HashMap<>();
+    }
+
+    public CardTag(CardTag cardTag) {
+        this.cardMap = new HashMap<>();
+        this.tagMap = new HashMap<>();
+
+        for (Map.Entry<String, Set<String>> entry: cardTag.cardMap.entrySet()) {
+            String key = entry.getKey();
+            Set<String> values = entry.getValue();
+
+            this.cardMap.put(key, new HashSet<>());
+            for (String id: values) {
+                this.cardMap.get(key).add(id);
+            }
+        }
+
+        for (Map.Entry<String, Set<String>> entry: cardTag.tagMap.entrySet()) {
+            String key = entry.getKey();
+            Set<String> values = entry.getValue();
+
+            this.tagMap.put(key, new HashSet<>());
+            for (String id: values) {
+                this.tagMap.get(key).add(id);
+            }
+        }
     }
 
     public HashMap<String, Set<String>> getCardMap() {
@@ -89,13 +120,16 @@ public class CardTag {
 
     /**
      * Adds an edge between card and tag.
-     * @param cardId String id of Card
-     * @param tagId String id of Tag
+     * @param card Card
+     * @param tag Tag
      * @throws DuplicateEdgeException when the edge between card and tag already exists
      */
-    public void addEdge(String cardId, String tagId) throws DuplicateEdgeException {
+    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+        String cardId = card.getId().toString();
+        String tagId = tag.getId().toString();
+
         if (isConnected(cardId, tagId)) {
-            throw new DuplicateEdgeException();
+            throw new DuplicateEdgeException(tag);
         }
 
         Set<String> tags = cardMap.get(cardId);
@@ -114,38 +148,30 @@ public class CardTag {
     }
 
     /**
-     * Adds an edge between card and tag.
-     * @param card Card
-     * @param tag Tag
-     * @throws DuplicateEdgeException when the edge between card and tag already exists
-     */
-    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
-        addEdge(card.getId().toString(), tag.getId().toString());
-    }
-
-    /**
-     * Removes the undirected edge between card and tag.
-     * @param cardId String id of Card
-     * @param tagId String id of Tag
-     * @throws EdgeNotFoundException if there is no edge to remove.
-     */
-    public void removeEdge(String cardId, String tagId) throws EdgeNotFoundException {
-        if (!isConnected(cardId, tagId)) {
-            throw new EdgeNotFoundException();
-        }
-
-        cardMap.get(cardId).remove(tagId);
-        tagMap.get(tagId).remove(cardId);
-    }
-
-    /**
      * Removes the undirected edge between card and tag.
      * @param card Card
      * @param tag Tag
      * @throws EdgeNotFoundException if there is no edge to remove.
      */
     public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
-        removeEdge(card.getId().toString(), tag.getId().toString());
+        String cardId = card.getId().toString();
+        String tagId = tag.getId().toString();
+
+        if (!isConnected(cardId, tagId)) {
+            throw new EdgeNotFoundException(tag);
+        }
+
+        Set<String> tags = cardMap.get(cardId);
+        Set<String> cards = tagMap.get(tagId);
+        tags.remove(tagId);
+        cards.remove(cardId);
+
+        if (tags.isEmpty()) {
+            cardMap.remove(cardId);
+        }
+        if (cards.isEmpty()) {
+            cardMap.remove(cardId);
+        }
     }
 
     @Override
@@ -164,3 +190,4 @@ public class CardTag {
                 && Objects.equals(otherCardTag.tagMap, tagMap);
     }
 }
+//@@author

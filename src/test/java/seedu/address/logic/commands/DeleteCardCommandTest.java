@@ -129,6 +129,9 @@ public class DeleteCardCommandTest {
         DeleteCardCommand deleteCardCommand = prepareCommand(INDEX_FIRST_CARD);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
+        Tag tag = model.getFilteredTagList().get(0);
+        model.filterCardsByTag(tag);
+
         Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         // delete -> deletes second card in unfiltered card list / first card in filtered card list
         deleteCardCommand.execute();

@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -43,6 +45,9 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "English&";
+
+    public static final String INVALID_ADD_TAG_DESC = " " + PREFIX_ADD_TAG + "English&";
+    public static final String INVALID_REMOVE_TAG_DESC = " " + PREFIX_REMOVE_TAG + "English&";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

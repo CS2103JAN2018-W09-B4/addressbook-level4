@@ -14,6 +14,7 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.cardtag.CardTag;
 import seedu.address.testutil.TypicalCardTag;
 
+//@@author jethrokuan
 public class XmlAdaptedCardTagTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlAdaptedCardTagTest/");
     private static final File TYPICAL_FILE = new File(TEST_DATA_FOLDER + "typicalCardTag.xml");
@@ -66,3 +67,4 @@ public class XmlAdaptedCardTagTest {
         dataFromFile.toModelType();
     }
 }
+//@@author

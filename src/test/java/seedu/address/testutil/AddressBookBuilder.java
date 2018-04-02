@@ -48,7 +48,7 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withEdge(Card card, Tag tag) {
         try {
-            addressBook.associate(card, tag);
+            addressBook.addEdge(card, tag);
         } catch (DuplicateEdgeException e) {
             throw new IllegalArgumentException("edge already exists");
         }
