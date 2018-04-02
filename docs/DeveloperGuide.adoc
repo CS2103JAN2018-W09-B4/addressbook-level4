@@ -405,12 +405,16 @@ logging level) through the configuration file (default:
 
 
 === Card-Tag Association
-==== Current Implementation
+This section describes the implementation details on how we model the
+association between flashcards and tags.
 
 The modeling of relations between flashcards and tags is crucial to
 Flashy, because this is the primary mode of content organization in
 the application. Henceforth, we will use the term "edge" to refer to a
-relation between a flashcard and a tag. The software requires that:
+relation between a flashcard and a tag.
+
+==== Design Requirements
+The software requires that:
 
 1. A card can be associated with many tags. For example, a card with a
 Physics question may be added to the "Physics" tag, and the "Midterm
@@ -419,6 +423,7 @@ Physics question may be added to the "Physics" tag, and the "Midterm
 2. A tag can be associated with many cards. For example, The "Physics"
 tag may contain many Physics flashcards on different topics.
 
+==== Current Implementation
 image::Card_Tag_relation.png[width="300"]
 
 Edges are stored in an instance of `CardTag`. `CardTag` is an
@@ -427,15 +432,29 @@ association class, containing two `HashMap`s.
 image::CardTag_Association_Class.png[width="300"]
 
 ==== Exposed APIs
-
 Interaction with the `CardTag` instance is performed through the
-`Model`. The model exposes two methods:
+`Model`. The model exposes 3 main methods for creating and removing
+new edges:
 
-1. `addEdge(Card card, Tag tag)`: adds an edge between `card` and
-`tag`.
+....
+public interface Model {
+    // ...
 
-2. `removeEdge(Card card, Tag tag)`: removes the edge between `card` and
-`tag`.
+    /** Gets list of tags for a given card */
+    List<Tag> getTags(Card card);
+
+    /** Removes the tags for a card */
+    void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException;
+
+    /** Adds the tags for a card */
+    void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException;
+}
+....
+
+These three APIs are sufficient for Flashy's design requirements as of
+version 1.4. While the choice of APIs require some logic to be placed
+in the commands (such as `AddCardCommand` and `EditCardCommand`), they
+are reusable and their implementations can be easily changed.
 
 ==== Adding an Edge
 
