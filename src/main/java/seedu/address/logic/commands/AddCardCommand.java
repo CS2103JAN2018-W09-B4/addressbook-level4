@@ -6,10 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
@@ -64,21 +62,12 @@ public class AddCardCommand extends UndoableCommand {
         }
 
         if (tagsToAdd.isPresent()) {
-            Collection<Tag> tags = tagsToAdd.get()
-                    .stream()
-                    .map(model::addTag)
-                    .map(r -> r.getTag())
-                    .collect(Collectors.toList());
-
-            // We add an edge for new tags
-            tags.stream()
-                    .forEach(tag -> {
-                        try {
-                            model.addEdge(cardToAdd, tag);
-                        } catch (DuplicateEdgeException e) {
-                            throw new IllegalStateException("Should not be able to reach here.");
-                        }
-                    });
+            Set<Tag> tags = tagsToAdd.get();
+            try {
+                model.addTags(cardToAdd, tags);
+            } catch (DuplicateEdgeException e) {
+                throw new IllegalStateException("Should not be able to reach here.");
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, cardToAdd));
