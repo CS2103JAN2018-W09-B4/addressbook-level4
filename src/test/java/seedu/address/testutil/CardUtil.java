@@ -26,7 +26,7 @@ public class CardUtil {
      * @param card
      * @return command string for card details
      */
-    private static String getCardDetails(Card card) {
+    public static String getCardDetails(Card card) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(PREFIX_FRONT + card.getFront() + " ");
         stringBuilder.append(PREFIX_BACK + card.getBack());

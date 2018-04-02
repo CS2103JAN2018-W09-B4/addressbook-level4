@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2103T_CARD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,11 +58,11 @@ public class TypicalMcqCards {
 
     // Manually added - McqCard's details found in {@code CommandTestUtil}
     public static final McqCard CS2103T_CARD = (McqCard) new McqCardBuilder()
-            .withFront(VALID_FRONT_CARD_1)
-            .withBack(VALID_BACK_CARD_1).build();
+            .withFront(VALID_FRONT_CS2103T_CARD)
+            .withBack(VALID_BACK_CS2103T_CARD).build();
     public static final McqCard CS2101_CARD = (McqCard) new McqCardBuilder()
-            .withFront(VALID_FRONT_CARD_2)
-            .withBack(VALID_BACK_CARD_2).build();
+            .withFront(VALID_FRONT_CS2101_CARD)
+            .withBack(VALID_BACK_CS2101_CARD).build();
 
     private TypicalMcqCards() {} // prevents instantiation
 

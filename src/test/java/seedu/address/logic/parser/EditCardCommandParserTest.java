@@ -1,16 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD_2;
+import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADD_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMOVE_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2103T_CARD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -42,8 +42,8 @@ public class EditCardCommandParserTest {
     @Test
     public void parser_allFieldsPresent_success() {
         EditCardCommand.EditCardDescriptor expected = new EditCardDescriptorBuilder()
-                .withFront(VALID_FRONT_CARD_1)
-                .withBack(VALID_BACK_CARD_1)
+                .withFront(VALID_FRONT_CS2103T_CARD)
+                .withBack(VALID_BACK_CS2103T_CARD)
                 .build();
 
         EditCardCommand.EditCardDescriptor expectedWithAddedTags = new EditCardDescriptorBuilder(expected)
@@ -60,23 +60,27 @@ public class EditCardCommandParserTest {
                 .build();
 
         // without tags
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CS2103T_CARD
+                        + BACK_DESC_CS2103T_CARD,
                 new EditCardCommand(INDEX_FIRST_CARD, expected));
 
         // with add tags
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CS2103T_CARD
+                        + BACK_DESC_CS2103T_CARD
                         + " " + PREFIX_ADD_TAG + ENGLISH_TAG.getName()
                         + " " +  PREFIX_ADD_TAG + COMSCI_TAG.getName(),
                 new EditCardCommand(INDEX_FIRST_CARD, expectedWithAddedTags));
 
         // with remove tags
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CS2103T_CARD
+                        + BACK_DESC_CS2103T_CARD
                         + " " + PREFIX_REMOVE_TAG + BIOLOGY_TAG.getName()
                         + " " +  PREFIX_REMOVE_TAG + MATHEMATICS_TAG.getName(),
                 new EditCardCommand(INDEX_FIRST_CARD, expectedWithRemovedTags));
 
         // with both add and remove tags
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "1" + FRONT_DESC_CS2103T_CARD
+                        + BACK_DESC_CS2103T_CARD
                         + " " + PREFIX_ADD_TAG + ENGLISH_TAG.getName()
                         + " " +  PREFIX_ADD_TAG + COMSCI_TAG.getName()
                         + " " + PREFIX_REMOVE_TAG + BIOLOGY_TAG.getName()
@@ -103,10 +107,10 @@ public class EditCardCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + FRONT_DESC_CARD_1, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + FRONT_DESC_CS2103T_CARD, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + FRONT_DESC_CARD_1, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + FRONT_DESC_CS2103T_CARD, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -123,9 +127,9 @@ public class EditCardCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_CARD;
-        String userInput = targetIndex.getOneBased() + FRONT_DESC_CARD_1;
+        String userInput = targetIndex.getOneBased() + FRONT_DESC_CS2103T_CARD;
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withFront(VALID_FRONT_CARD_1).build();
+                .withFront(VALID_FRONT_CS2103T_CARD).build();
         EditCardCommand expectedCommand = new EditCardCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -133,10 +137,10 @@ public class EditCardCommandParserTest {
     @Test
     public void parser_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_CARD;
-        String userInput = targetIndex.getOneBased() + FRONT_DESC_CARD_1 + FRONT_DESC_CARD_2;
+        String userInput = targetIndex.getOneBased() + FRONT_DESC_CS2103T_CARD + FRONT_DESC_CS2101_CARD;
 
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withFront(VALID_FRONT_CARD_2)
+                .withFront(VALID_FRONT_CS2101_CARD)
                 .build();
 
         EditCardCommand expectedCommand = new EditCardCommand(targetIndex, descriptor);
