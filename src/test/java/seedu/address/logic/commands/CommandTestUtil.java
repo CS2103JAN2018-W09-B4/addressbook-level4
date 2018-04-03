@@ -36,10 +36,12 @@ public class CommandTestUtil {
     public static final String VALID_NAME_ENGLISH = "English";
     public static final String VALID_NAME_COMSCI = "Computer Science";
     public static final String VALID_NAME_SOCIOLOGY = "Sociology";
+    public static final String VALID_NAME_BIOLOGY = "Biology Midterms";
 
     public static final String NAME_DESC_ENGLISH = " " + PREFIX_NAME + VALID_NAME_ENGLISH;
     public static final String NAME_DESC_COMSCI = " " + PREFIX_NAME + VALID_NAME_COMSCI;
     public static final String NAME_DESC_SOCIOLOGY = " " + PREFIX_NAME + VALID_NAME_SOCIOLOGY;
+    public static final String NAME_DESC_BIOLOGY = " " + PREFIX_NAME + VALID_NAME_BIOLOGY;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "English&";
@@ -56,10 +58,10 @@ public class CommandTestUtil {
     public static final EditCardCommand.EditCardDescriptor CS2103T_CARD;
     public static final EditCardCommand.EditCardDescriptor CS2101_CARD;
 
-    public static final String VALID_FRONT_CARD_1 = "What is OOP?";
-    public static final String VALID_BACK_CARD_1 = "A programming paradigm";
-    public static final String VALID_FRONT_CARD_2 = "What is the main point of the class?";
-    public static final String VALID_BACK_CARD_2 = "To learn to be audience-centred";
+    public static final String VALID_FRONT_CS2103T_CARD = "What is OOP?";
+    public static final String VALID_BACK_CS2103T_CARD = "A programming paradigm";
+    public static final String VALID_FRONT_CS2101_CARD = "What is the main point of the class?";
+    public static final String VALID_BACK_CS2101_CARD = "To learn to be audience-centred";
     public static final String VALID_MCQ_FRONT = "When is National Day in Singapore?";
     public static final String VALID_MCQ_BACK = "3";
     public static final String VALID_MCQ_OPTION_1 = "10th August";
@@ -71,8 +73,6 @@ public class CommandTestUtil {
     public static final String VALID_FILLBLANKS_FRONT = "A __ is a four sided polygon with equal sides meeting"
             + "at right angles.";
 
-    public static final String FRONT_DESC_CARD = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
-    public static final String BACK_DESC_CARD = " " + PREFIX_BACK + VALID_BACK_CARD_1;
     public static final String FRONT_DESC_MCQ_CARD = " " + PREFIX_FRONT + VALID_MCQ_FRONT;
     public static final String BACK_DESC_MCQ_CARD = " " + PREFIX_BACK + VALID_MCQ_BACK;
     public static final String OPTION_1_DESC_MCQ_CARD = " " + PREFIX_OPTION + VALID_MCQ_OPTION_1;
@@ -88,10 +88,10 @@ public class CommandTestUtil {
     public static final String INVALID_FILLBLANKS_CARD_BACK = " " + PREFIX_BACK + VALID_FILLBLANKS_BACK
             + ", Extra answer"; // empty string not allowed
 
-    public static final String FRONT_DESC_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
-    public static final String FRONT_DESC_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;
-    public static final String BACK_DESC_CARD_1 = " " + PREFIX_BACK + VALID_BACK_CARD_1;
-    public static final String BACK_DESC_CARD_2 = " " + PREFIX_BACK + VALID_BACK_CARD_2;
+    public static final String FRONT_DESC_CS2103T_CARD = " " + PREFIX_FRONT + VALID_FRONT_CS2103T_CARD;
+    public static final String FRONT_DESC_CS2101_CARD = " " + PREFIX_FRONT + VALID_FRONT_CS2101_CARD;
+    public static final String BACK_DESC_CS2103T_CARD = " " + PREFIX_BACK + VALID_BACK_CS2103T_CARD;
+    public static final String BACK_DESC_CS2101_CARD = " " + PREFIX_BACK + VALID_BACK_CS2101_CARD;
 
     public static final String VALID_THEME_1 = "light";
     public static final String VALID_THEME_2 = "dark";
@@ -108,11 +108,11 @@ public class CommandTestUtil {
     }
 
     static {
-        CS2103T_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CARD_1)
-                .withBack(VALID_BACK_CARD_1)
+        CS2103T_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CS2103T_CARD)
+                .withBack(VALID_BACK_CS2103T_CARD)
                 .build();
-        CS2101_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CARD_2)
-                .withBack(VALID_BACK_CARD_2)
+        CS2101_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CS2101_CARD)
+                .withBack(VALID_BACK_CS2101_CARD)
                 .build();
     }
 

@@ -99,7 +99,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
 
         /* Case: find tag in empty address book -> 0 tagsfound */
-        deleteAllTags();
+        clearCardBank();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MIDTERMS;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, ECONOMICS_TAG);

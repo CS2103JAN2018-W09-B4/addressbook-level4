@@ -1,11 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CARD_1;
+import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_MCQ_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CARD_1;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_MCQ_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_BACK_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
@@ -16,8 +14,8 @@ import static seedu.address.logic.commands.CommandTestUtil.OPTION_2_DESC_MCQ_CAR
 import static seedu.address.logic.commands.CommandTestUtil.OPTION_3_DESC_MCQ_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_BACK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_FRONT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MCQ_OPTION_1;
@@ -37,6 +35,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCardCommand;
+import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Name;
@@ -50,14 +49,16 @@ public class AddCardCommandParserTest {
     //@@author shawnclq
     @Test
     public void parse_allFieldsPresentCard_success() {
-        Card expectedCard = new CardBuilder().withFront(VALID_FRONT_CARD_1).withBack(VALID_BACK_CARD_1).build();
+        Card expectedCard = new CardBuilder().withFront(VALID_FRONT_CS2103T_CARD)
+                .withBack(VALID_BACK_CS2103T_CARD).build();
         McqCard expectedMcqCard = (McqCard) new McqCardBuilder().resetOptions()
                 .addOption(VALID_MCQ_OPTION_1).addOption(VALID_MCQ_OPTION_2).addOption(VALID_MCQ_OPTION_3)
                 .withFront(VALID_MCQ_FRONT)
                 .withBack(VALID_MCQ_BACK).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD + BACK_DESC_CARD,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CS2103T_CARD
+                        + CommandTestUtil.BACK_DESC_CS2103T_CARD,
                 new AddCardCommand(expectedCard));
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_MCQ_CARD + BACK_DESC_MCQ_CARD
@@ -70,8 +71,8 @@ public class AddCardCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Card expectedCard = new CardBuilder()
-                .withFront(VALID_FRONT_CARD_1)
-                .withBack(VALID_BACK_CARD_1)
+                .withFront(VALID_FRONT_CS2103T_CARD)
+                .withBack(VALID_BACK_CS2103T_CARD)
                 .build();
 
         Set<Tag> expectedTags = new HashSet<>(Arrays.asList(
@@ -80,12 +81,13 @@ public class AddCardCommandParserTest {
         )));
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD,
                 new AddCardCommand(expectedCard));
 
         // with tags
         String tagString = " " + PREFIX_TAG + VALID_NAME_ENGLISH + " " + PREFIX_TAG + VALID_NAME_COMSCI;
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1 + tagString,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD
+                        + tagString,
                 new AddCardCommand(expectedCard, Optional.of(expectedTags)));
     }
     //@@author
@@ -95,7 +97,7 @@ public class AddCardCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE);
         // missing name prefix
-        assertParseFailure(parser, VALID_FRONT_CARD_1,
+        assertParseFailure(parser, VALID_FRONT_CS2103T_CARD,
                 expectedMessage);
 
 
@@ -104,11 +106,11 @@ public class AddCardCommandParserTest {
                 expectedMessage);
 
         // missing front prefix
-        assertParseFailure(parser, FRONT_DESC_CARD_1,
+        assertParseFailure(parser, FRONT_DESC_CS2103T_CARD,
                 expectedMessage);
 
         // missing back prefix
-        assertParseFailure(parser, BACK_DESC_CARD_1,
+        assertParseFailure(parser, BACK_DESC_CS2103T_CARD,
                 expectedMessage);
     }
     //@@author
@@ -117,27 +119,28 @@ public class AddCardCommandParserTest {
     @Test
     public void parse_invalidValueCard_failure() {
         // invalid front
-        assertParseFailure(parser, INVALID_FRONT_CARD + BACK_DESC_CARD,
+        assertParseFailure(parser, INVALID_FRONT_CARD + CommandTestUtil.BACK_DESC_CS2103T_CARD,
                 Card.MESSAGE_CARD_CONSTRAINTS);
 
         // invalid back
-        assertParseFailure(parser, FRONT_DESC_CARD + INVALID_BACK_CARD,
+        assertParseFailure(parser, FRONT_DESC_CS2103T_CARD + INVALID_BACK_CARD,
                 Card.MESSAGE_CARD_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_FRONT_CARD_1 + BACK_DESC_CARD,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_FRONT_CS2103T_CARD
+                        + CommandTestUtil.BACK_DESC_CS2103T_CARD,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + FRONT_DESC_CARD + VALID_BACK_CARD_1,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + FRONT_DESC_CS2103T_CARD + VALID_BACK_CS2103T_CARD,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
 
         // invalid front for mcq cards
         assertParseFailure(parser, INVALID_FRONT_CARD + OPTION_1_DESC_MCQ_CARD + OPTION_2_DESC_MCQ_CARD
-                + OPTION_3_DESC_MCQ_CARD + BACK_DESC_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
+                + OPTION_3_DESC_MCQ_CARD + CommandTestUtil.BACK_DESC_CS2103T_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
 
         // invalid back for mcq cards
-        assertParseFailure(parser, FRONT_DESC_CARD + OPTION_1_DESC_MCQ_CARD + OPTION_2_DESC_MCQ_CARD
+        assertParseFailure(parser, FRONT_DESC_CS2103T_CARD + OPTION_1_DESC_MCQ_CARD + OPTION_2_DESC_MCQ_CARD
                 + OPTION_3_DESC_MCQ_CARD + INVALID_BACK_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
 
         // invalid options for mcq cards
@@ -154,13 +157,13 @@ public class AddCardCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid front
-        assertParseFailure(parser, INVALID_FRONT_CARD + BACK_DESC_CARD_1, Card.MESSAGE_CARD_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_FRONT_CARD + BACK_DESC_CS2103T_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
 
         // invalid back
-        assertParseFailure(parser, FRONT_DESC_CARD_1 + INVALID_BACK_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
+        assertParseFailure(parser, FRONT_DESC_CS2103T_CARD + INVALID_BACK_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + FRONT_DESC_CARD_1 + BACK_DESC_CARD_1,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
     }
     //@@author

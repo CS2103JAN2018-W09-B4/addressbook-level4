@@ -153,11 +153,12 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all tags in the address book.
+     * Deletes everything in the card bank.
      */
-    protected void deleteAllTags() {
+    protected void clearCardBank() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getTagList().size());
+        assertEquals(0, getModel().getAddressBook().getCardList().size());
     }
 
     /**

@@ -92,7 +92,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
-        deleteAllTags();
+        clearCardBank();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_TAG.getOneBased(),
                 MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
     }
