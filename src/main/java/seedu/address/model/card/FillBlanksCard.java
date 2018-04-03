@@ -1,8 +1,8 @@
 package seedu.address.model.card;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
 import java.util.UUID;
 
 //@@author shawnclq
@@ -18,22 +18,23 @@ public class FillBlanksCard extends Card {
     public static final String MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS =
             "Fill Blanks Card back should have the same number of answers as there are blanks";
     public static final String TYPE = "FillBlanks";
-    public static final String BLANK = " ______ ";
+    public static final String BLANK = "__";
 
-    public FillBlanksCard(List<String> front, List<String> back) {
+    public FillBlanksCard(String front, String back) {
         this(UUID.randomUUID(), front, back);
     }
 
-    public FillBlanksCard(UUID id, List<String> front, List<String> back) {
+    public FillBlanksCard(UUID id, String front, String back) {
         super(id, front, back);
+        checkArgument(isValidFillBlanksCard(front, back), MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
     }
 
     /**
      * Returns true if a given front and back string is valid.
      */
-    public static boolean isValidFillBlanksCard(List<String> front, List<String> back) {
+    public static boolean isValidFillBlanksCard(String front, String back) {
         requireAllNonNull(front, back);
-        return (front.size() - 1) == back.size();
+        return (front.split(BLANK, -1).length) == back.split(",").length + 1;
     }
 
     /**

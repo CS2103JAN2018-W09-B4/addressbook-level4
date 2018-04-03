@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -75,9 +73,10 @@ public class XmlAdaptedCard {
             throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
         }
         if (FillBlanksCard.containsBlanks(this.front)) {
-            List<String> frontArray = Arrays.asList(this.front.split(FillBlanksCard.BLANK));
-            List<String> backArray = Arrays.asList(this.back.split(", "));
-            return new FillBlanksCard(UUID.fromString(id), frontArray, backArray);
+            if (!FillBlanksCard.isValidFillBlanksCard(this.front, this.back)) {
+                throw new IllegalValueException(FillBlanksCard.MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
+            }
+            return new FillBlanksCard(UUID.fromString(id), this.front, this.back);
         }
         return new Card(UUID.fromString(id), front, back);
     }

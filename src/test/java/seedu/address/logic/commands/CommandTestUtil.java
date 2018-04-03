@@ -68,13 +68,8 @@ public class CommandTestUtil {
     public static final List<String> VALID_MCQ_OPTION_SET = Arrays.asList(
                     new String[]{VALID_MCQ_OPTION_1, VALID_MCQ_OPTION_2, VALID_MCQ_OPTION_3});
     public static final String VALID_FILLBLANKS_BACK = "square";
-    public static final String VALID_FILLBLANKS_FRONT_1 = "A";
-    public static final String VALID_FILLBLANKS_FRONT_2 = "is a four sided polygon with "
-            + "equal sides meeting at right angles";
-    public static final List<String> VALID_FILLBLANK_FRONT_SET = Arrays.asList(
-            new String[]{VALID_FILLBLANKS_FRONT_1, VALID_FILLBLANKS_FRONT_2});
-    public static final List<String> VALID_FILLBLANK_BACK_SET = Arrays.asList(
-            new String[]{VALID_FILLBLANKS_BACK});
+    public static final String VALID_FILLBLANKS_FRONT = "A __ is a four sided polygon with equal sides meeting"
+            + "at right angles.";
 
     public static final String FRONT_DESC_CARD = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
     public static final String BACK_DESC_CARD = " " + PREFIX_BACK + VALID_BACK_CARD_1;
@@ -84,15 +79,14 @@ public class CommandTestUtil {
     public static final String OPTION_2_DESC_MCQ_CARD = " " + PREFIX_OPTION + VALID_MCQ_OPTION_2;
     public static final String OPTION_3_DESC_MCQ_CARD = " " + PREFIX_OPTION + VALID_MCQ_OPTION_3;
     public static final String BACK_DESC_FILLBLANKS_CARD = " " + PREFIX_BACK + VALID_FILLBLANKS_BACK;
-    public static final String FRONT_1_DESC_FILLBLANKS_CARD = " " + PREFIX_FRONT + VALID_FILLBLANKS_FRONT_1;
-    public static final String FRONT_2_DESC_FILLBLANKS_CARD = " " + PREFIX_FRONT + VALID_FILLBLANKS_FRONT_2;
+    public static final String FRONT_DESC_FILLBLANKS_CARD = " " + PREFIX_FRONT + VALID_FILLBLANKS_FRONT;
 
     public static final String INVALID_FRONT_CARD = " " + PREFIX_FRONT; // empty string not allowed
     public static final String INVALID_BACK_CARD = " " + PREFIX_BACK; // empty string not allowed
     public static final String INVALID_MCQ_CARD_BACK = " " + PREFIX_BACK + "Hello World"; // empty string not allowed
     public static final String INVALID_MCQ_CARD_OPTION = " " + PREFIX_OPTION; // empty string not allowed
     public static final String INVALID_FILLBLANKS_CARD_BACK = " " + PREFIX_BACK + VALID_FILLBLANKS_BACK
-            + " " + PREFIX_BACK + "Extra answer"; // empty string not allowed
+            + ", Extra answer"; // empty string not allowed
 
     public static final String FRONT_DESC_CARD_1 = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
     public static final String FRONT_DESC_CARD_2 = " " + PREFIX_FRONT + VALID_FRONT_CARD_2;

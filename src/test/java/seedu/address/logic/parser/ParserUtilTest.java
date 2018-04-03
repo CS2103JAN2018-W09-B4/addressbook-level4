@@ -32,16 +32,11 @@ public class ParserUtilTest {
     private static final String VALID_NAME = "Math";
     private static final List<String> VALID_MCQ_OPTIONS =
             Arrays.asList(new String[]{"Australia", "Asia", "Africa"});
-    private static final List<String> VALID_FILLBLANKS_FRONT =
-            Arrays.asList(new String[]{"A", "is a four sided polygon with equal sides meeting at right angles."});
-    private static final List<String> INVALID_FILLBLANKS_FRONT =
-            Arrays.asList(new String[]{"A", " ", " "});
-    private static final List<String> VALID_FILLBLANKS_BACK =
-            Arrays.asList(new String[]{"square"});
-    private static final List<String> INVALID_FILLBLANKS_BACK =
-            Arrays.asList(new String[]{"square", "", ""});
-    private static final List<String> INVALID_FILLBLANKS_BACK_ARGUMENTS =
-            Arrays.asList(new String[]{"square", "too", "many", "arguments"});
+    private static final String VALID_FILLBLANKS_FRONT =
+            "A __ is a four sided polygon with equal sides meeting at right angles.";
+    private static final String INVALID_FILLBLANKS_ARGUMENT = " ";
+    private static final String VALID_FILLBLANKS_BACK = "square";
+    private static final String INVALID_FILLBLANKS_BACK_ARGUMENTS = "square, too, many, arguments";
 
     private static final String VALID_OPTION = "Asia";
     private static final String VALID_THEME = "light";
@@ -173,18 +168,16 @@ public class ParserUtilTest {
 
     @Test
     public void parseFillBlanksCard_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard((List<String>) null,
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard((String) null,
                 VALID_FILLBLANKS_BACK));
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard(VALID_FILLBLANKS_FRONT,
-                (List<String>) null));
+                (String) null));
     }
 
     @Test
     public void parseFillBlanksCard_invalidValue_throwsIllegalValueException() {
         Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseFillBlanksCard(VALID_FILLBLANKS_FRONT,
-                INVALID_FILLBLANKS_BACK));
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseFillBlanksCard(INVALID_FILLBLANKS_FRONT,
-                VALID_FILLBLANKS_BACK));
+                INVALID_FILLBLANKS_BACK_ARGUMENTS));
     }
 
     @Test

@@ -125,8 +125,7 @@ public class ParserUtil {
      *
      * @throws IllegalValueException if the given {@code String} is invalid.
      */
-    public static FillBlanksCard parseFillBlanksCard(List<String> front, List<String> back)
-            throws IllegalValueException {
+    public static FillBlanksCard parseFillBlanksCard(String front, String back) throws IllegalValueException {
         requireAllNonNull(front, back);
         if (!FillBlanksCard.isValidFillBlanksCard(front, back)) {
             throw new IllegalValueException(FillBlanksCard.MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);

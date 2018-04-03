@@ -3,7 +3,6 @@ package seedu.address.model.card;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -46,39 +45,6 @@ public class Card {
         this.id = id;
         this.schedule = new Schedule();
         this.type = TYPE;
-    }
-
-    public Card(UUID id, List<String> front, List<String> back) {
-        requireAllNonNull(id, front, back);
-        StringBuilder frontBuilder = new StringBuilder();
-        StringBuilder backBuilder = new StringBuilder();
-        String frontPart;
-        String backPart;
-        for (int i = 0; i < front.size(); i++) {
-            frontPart = front.get(i);
-            checkArgument(isValidCard(front.get(i)), MESSAGE_CARD_CONSTRAINTS);
-            if (i == 0) {
-                frontBuilder.append(frontPart);
-            } else {
-                frontBuilder.append(FillBlanksCard.BLANK).append(frontPart);
-            }
-        }
-        for (int i = 0; i < back.size(); i++) {
-            backPart = back.get(i);
-            checkArgument(isValidCard(back.get(i)), MESSAGE_CARD_CONSTRAINTS);
-            if (i == 0) {
-                backBuilder.append(backPart);
-            } else {
-                backBuilder.append(", ").append(backPart);
-            }
-        }
-        checkArgument(FillBlanksCard.isValidFillBlanksCard(front, back),
-                FillBlanksCard.MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
-        this.id = id;
-        this.front = frontBuilder.toString();
-        this.back = backBuilder.toString();
-        this.schedule = new Schedule();
-        this.type = FillBlanksCard.TYPE;
     }
 
     public UUID getId() {
