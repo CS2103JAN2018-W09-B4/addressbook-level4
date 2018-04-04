@@ -24,8 +24,8 @@ public class CardTag {
     public static final String MESSAGE_CARD_HAS_TAG = "Card already has tag '%s'";
     public static final String MESSAGE_CARD_NO_TAG = "Card has no tag '%s'";
 
-    private HashMap<String, Set<String>> cardMap;
-    private HashMap<String, Set<String>> tagMap;
+    private HashMap<String, Set<String>> cardMap; // cardMap["cardId"] = Set<tagId>
+    private HashMap<String, Set<String>> tagMap; // tagMap["tagId"] = Set<cardId>
 
     public CardTag() {
         this.cardMap = new HashMap<>();
@@ -163,14 +163,18 @@ public class CardTag {
 
         Set<String> tags = cardMap.get(cardId);
         Set<String> cards = tagMap.get(tagId);
-        tags.remove(tagId);
-        cards.remove(cardId);
-
-        if (tags.isEmpty()) {
-            cardMap.remove(cardId);
+        if (tags != null) {
+            tags.remove(tagId);
+            if (tags.isEmpty()) {
+                cardMap.remove(cardId);
+            }
         }
-        if (cards.isEmpty()) {
-            cardMap.remove(cardId);
+
+        if (cards != null) {
+            cards.remove(cardId);
+            if (cards.isEmpty()) {
+                tagMap.remove(tagId);
+            }
         }
     }
 
