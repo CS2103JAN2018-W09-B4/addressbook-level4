@@ -201,18 +201,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jethrokuan
     @Override
-    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
-        this.getAddressBook().getCardTag().addEdge(card, tag);
-        updateFilteredCardList();
-    }
-
-    @Override
-    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
-        this.getAddressBook().getCardTag().removeEdge(card, tag);
-        updateFilteredCardList();
-    }
-
-    @Override
     public List<Tag> getTags(Card card) {
         return this.getAddressBook()
                 .getCardTag()

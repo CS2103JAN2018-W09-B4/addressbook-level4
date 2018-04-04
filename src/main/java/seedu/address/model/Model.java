@@ -89,12 +89,6 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
 
-    /** Adds an edge between a card and a tag*/
-    void addEdge(Card card, Tag tag) throws DuplicateEdgeException;
-
-    /** Adds an edge between a card and a tag*/
-    void removeEdge(Card card, Tag tag) throws EdgeNotFoundException;
-
     /** Gets list of tags for a given card */
     List<Tag> getTags(Card card);
 

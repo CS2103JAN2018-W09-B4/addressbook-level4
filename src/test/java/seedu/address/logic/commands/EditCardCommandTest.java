@@ -96,11 +96,8 @@ public class EditCardCommandTest {
         Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        Tag mathTag = expectedModel.addTag(MATHEMATICS_TAG).getTag();
-        Tag comsciTag = expectedModel.addTag(COMSCI_TAG).getTag();
 
-        expectedModel.addEdge(lastCard, mathTag);
-        expectedModel.addEdge(lastCard, comsciTag);
+        expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)));
 
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
                 .withTagsToAdd(new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)))
@@ -126,7 +123,7 @@ public class EditCardCommandTest {
         EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.removeEdge(lastCard, tag);
+        expectedModel.removeTags(lastCard, new HashSet<>(Arrays.asList(tag)));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -145,8 +142,7 @@ public class EditCardCommandTest {
         EditCardCommand editCardCommand = prepareCommand(indexLastCard, descriptor);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.addTag(newTag);
-        expectedModel.addEdge(lastCard, newTag);
+        expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(newTag)));
 
         assertCommandSuccess(editCardCommand, model, expectedMessage, expectedModel);
     }
