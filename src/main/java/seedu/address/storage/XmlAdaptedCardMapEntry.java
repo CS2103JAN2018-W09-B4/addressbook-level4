@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * XML Adapted Entry in the CardTag cardMap HashMap.
  */
+//@@author jethrokuan
 public class XmlAdaptedCardMapEntry {
     @XmlElement(required = true)
     private String cardId;
@@ -58,3 +59,4 @@ public class XmlAdaptedCardMapEntry {
                 && Objects.equals(otherCardMap.tags, tags);
     }
 }
+//@@author

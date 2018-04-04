@@ -84,6 +84,16 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTag(Tag target) throws TagNotFoundException {
+        CardTag cardTag = this.addressBook.getCardTag();
+        List<Card> cards = cardTag.getCards(target, this.addressBook.getCardList());
+        for (Card card: cards) {
+            try {
+                cardTag.removeEdge(card, target);
+            } catch (EdgeNotFoundException e) {
+                throw new IllegalStateException("Not possible to reach here.");
+            }
+        }
+
         addressBook.removeTag(target);
         indicateAddressBookChanged();
     }
@@ -148,6 +158,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteCard(Card card) throws CardNotFoundException {
+        CardTag cardTag = this.getAddressBook().getCardTag();
+        List<Tag> tags = cardTag.getTags(card, this.getAddressBook().getTagList());
+        for (Tag tag : tags) {
+            try {
+                cardTag.removeEdge(card, tag);
+            } catch (EdgeNotFoundException e) {
+                throw new IllegalStateException("Not possible to reach here.");
+            }
+        }
         addressBook.deleteCard(card);
         indicateAddressBookChanged();
     }
