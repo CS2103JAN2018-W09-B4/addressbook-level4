@@ -98,7 +98,6 @@ public class EditCardCommand extends UndoableCommand {
             }
         }
 
-        model.showAllCards();
         return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
     }
 

@@ -68,7 +68,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
-        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
@@ -80,6 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
+        updateFilteredCardList();
     }
 
     @Override
@@ -149,7 +149,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteCard(Card card) throws CardNotFoundException {
         addressBook.deleteCard(card);
-        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
@@ -219,6 +218,7 @@ public class ModelManager extends ComponentManager implements Model {
             Tag existingTag = this.addressBook.getTagList().get(index);
             cardTag.removeEdge(card, existingTag);
         }
+        indicateAddressBookChanged(); // Force UI update.
     }
 
     // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
@@ -229,6 +229,7 @@ public class ModelManager extends ComponentManager implements Model {
             Tag newOrExistingTag = addTag(tag).getTag();
             cardTag.addEdge(card, newOrExistingTag);
         }
+        indicateAddressBookChanged(); // Force UI update.
     }
     //@@author
 
