@@ -5,9 +5,11 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
@@ -28,6 +30,9 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns the AddressBook */
+    Card getSelectedCard();
 
     /** Deletes the given tag. */
     void deleteTag(Tag target) throws TagNotFoundException;
@@ -75,6 +80,9 @@ public interface Model {
 
     /** Delete the given card */
     void deleteCard(Card card) throws CardNotFoundException;
+
+    /** Answer the selected card */
+    void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException;
 
     /**
      * Replaces the given card {@code target} with {@code editedCard}.

@@ -13,6 +13,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -21,6 +22,7 @@ import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.cardtag.EdgeNotFoundException;
@@ -75,6 +77,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public Card getSelectedCard() {
+        return selectedCard;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -152,6 +159,19 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredCardList();
         indicateAddressBookChanged();
     }
+
+
+    //@@author pukipuki
+    @Override
+    public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
+        if (selectedCard == null) {
+            throw new NoCardSelectedException();
+        } else {
+            selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
+        }
+        showDueCards();
+    }
+    //@@author
 
     @Override
     public void updateCard(Card target, Card editedCard)

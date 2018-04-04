@@ -17,6 +17,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FillBlanksCard;
 import seedu.address.model.card.McqCard;
+import seedu.address.model.card.Schedule;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 
@@ -175,6 +176,18 @@ public class ParserUtil {
         }
         return validThemes.indexOf(theme.get());
     }
+
+    //@@author pukipuki
+    public static int parseConfidenceLevel(String confidenceLevelString) throws IllegalValueException {
+        requireNonNull(confidenceLevelString);
+        String trimmedConfidenceLevelString = confidenceLevelString.trim();
+        if (!Schedule.isValidConfidenceLevel(trimmedConfidenceLevelString)) {
+            throw new IllegalValueException(Schedule.MESSAGE_ANSWER_CONSTRAINTS);
+        }
+        return Integer.parseInt(confidenceLevelString);
+    }
+    //@@author
+
 
     //@@author jethrokuan
     /**

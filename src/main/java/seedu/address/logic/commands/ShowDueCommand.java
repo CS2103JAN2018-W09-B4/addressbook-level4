@@ -8,7 +8,6 @@ public class ShowDueCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all cards due today";
 
-
     @Override
     public CommandResult execute() {
         model.showDueCards();

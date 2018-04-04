@@ -1,6 +1,8 @@
 package seedu.address.model.card;
 
 import static java.lang.Math.log;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,7 +10,11 @@ import java.time.LocalDateTime;
 /**
  * Holds the Schedule information for a Card
  */
-public class Schedule {
+public class Schedule implements Comparable<Schedule>{
+
+    public static final String MESSAGE_ANSWER_CONSTRAINTS =
+        "Confidence Levels should only be 0, 1 or 2";
+
     private final double lowerBoundRememberRate = 0.85;
 
     private LocalDateTime nextReview;
@@ -50,6 +56,54 @@ public class Schedule {
 
     public int getLearningPhase() {
         return learningPhase;
+    }
+
+    public void setRelativeNextReviewToNow() {
+        this.nextReview = LocalDateTime.now();
+    }
+
+    public static boolean isValidConfidenceLevel(int confidenceLevel) {
+        if (confidenceLevel >= 0 && confidenceLevel <= 2) {
+           return true;
+        } else {
+           return false;
+        }
+    }
+
+    public static boolean isValidConfidenceLevel(String confidenceLevelString) {
+        int confidenceLevel = Integer.parseInt(confidenceLevelString);
+        if (confidenceLevel >= 0 && confidenceLevel <= 2) {
+           return true;
+        } else {
+           return false;
+        }
+    }
+
+    /**
+     * Feedback router to switch between what to do given a certain
+     * confidenceLevel input
+     */
+    public boolean feedbackHandlerRouter(int confidenceLevel) {
+        checkArgument(isValidConfidenceLevel(confidenceLevel), MESSAGE_ANSWER_CONSTRAINTS);
+
+        boolean tooEasy = false;
+        switch (confidenceLevel) {
+        case (0):
+            // to push card to back of filtered queue
+            setRelativeNextReviewToNow();
+            break;
+        case (1):
+            feedback(false);
+            setRelativeNextReviewToNow();
+            break;
+        case (2):
+            feedback(true);
+            tooEasy = true;
+            break;
+        default :
+            break;
+        }
+        return tooEasy;
     }
 
     /**
@@ -100,5 +154,10 @@ public class Schedule {
                 && this.easingFactor == (((Schedule) other).easingFactor)
                 && this.success == (((Schedule) other).success)
                 && this.failure == (((Schedule) other).failure));
+    }
+
+    @Override
+    public int compareTo(Schedule otherSchedule) {
+        return this.nextReview.compareTo(otherSchedule.getNextReview());
     }
 }
