@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -12,17 +13,19 @@ import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 public class CardBack extends UiPart<Region>{
     private static final String FXML = "CardBack.fxml";
 
+    @FXML
     private Label cardBack;
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public CardBack() {
         super(FXML);
+        registerAsAnEventHandler(this);
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(CardListPanelSelectionChangedEvent event) {
+    private void handleCardListPanelSelectionChangedEvent(CardListPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        //(event.getNewSelection());
+        cardBack.setText(event.getNewSelection().card.getBack());
     }
 }
