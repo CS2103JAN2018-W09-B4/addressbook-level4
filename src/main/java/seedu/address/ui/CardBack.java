@@ -10,7 +10,11 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 
-public class CardBack extends UiPart<Region>{
+//@@author yong-jie
+/**
+ * A UI component that displays information about a {@code Card}.
+ */
+public class CardBack extends UiPart<Region> {
     private static final String FXML = "CardBack.fxml";
 
     @FXML

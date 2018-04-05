@@ -42,7 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
 
-    @FXML StackPane cardBackPlaceholder;
+    @FXML
+    private StackPane cardBackPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
