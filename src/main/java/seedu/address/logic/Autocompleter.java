@@ -39,6 +39,11 @@ public class Autocompleter {
                 .get(0);
     }
 
+    /**
+     * Checks if the input text given is a valid candidate
+     * for autocompletion.
+     * @param input The input text
+     */
     public static Boolean isValidAutocomplete(String input) {
         return getCommandWords()
                 .stream()
@@ -48,13 +53,18 @@ public class Autocompleter {
     }
 
     private static List<String> getAutocompleteTexts() {
-        return getCommandFields("MESSAGE_USAGE");
+        return getCommandFields("AUTOCOMPLETE_TEXT");
     }
 
     private static List<String> getCommandWords() {
         return getCommandFields("COMMAND_WORD");
     }
 
+    /**
+     * Fetches the field of a class programatically using strings,
+     * removing the need for hardcode.
+     * @param field A string indicating the field to access
+     */
     private static List<String> getCommandFields(String field) {
         return getCommandClasses().stream().map(command -> {
             try {
