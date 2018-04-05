@@ -24,6 +24,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ShowDueCommand;
 import seedu.address.logic.commands.UndoCommand;
 
+//@@author yong-jie
 /**
  * Abstracts the logic of collating the commands, COMMAND_WORDs and AUTOCOMPLETE_TEXTs, and
  * determining the eligibility of command box text replacement.
@@ -69,8 +70,8 @@ public class Autocompleter {
     private static List<Class<? extends Command>> getCommandClasses() {
         List<Class<? extends Command>> commands = new ArrayList<>();
 
-        // Must be added in decreasing specificity so that addc is not
-        // overridden by add, for example.
+        // Must be added in increasing specificity so that add is not
+        // overridden by addc, for example.
         commands.add(AddCommand.class);
         commands.add(AddCardCommand.class);
         commands.add(ChangeThemeCommand.class);
