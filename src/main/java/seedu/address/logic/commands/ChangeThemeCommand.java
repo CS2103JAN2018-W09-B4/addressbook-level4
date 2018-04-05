@@ -12,12 +12,17 @@ public class ChangeThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
 
+    public static final String PARAMS = PREFIX_THEME + "THEME";
+
     public static final String MESSAGE_SUCCESS = "Theme changed successfully";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the colour scheme of the application."
             + "Parameters: "
-            + PREFIX_THEME + "THEME "
+            + PARAMS
+            +  " "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_THEME + "light ";
+
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PARAMS;
 
     private final String[] themeStrings = {"view/LightTheme.css", "view/DarkTheme.css"};
     private final String newTheme;

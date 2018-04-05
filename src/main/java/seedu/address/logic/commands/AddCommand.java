@@ -14,13 +14,13 @@ public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String PARAMS = PREFIX_NAME + "NAME "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Mathematics";
+    public static final String PARAMS = PREFIX_NAME + "NAME";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the address book. "
             + "Parameters: "
-            + PARAMS;
+            + PARAMS
+            + " Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Mathematics";;
 
     public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PARAMS;
 
