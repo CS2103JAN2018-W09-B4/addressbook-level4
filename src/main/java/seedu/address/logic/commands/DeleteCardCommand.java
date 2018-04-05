@@ -18,10 +18,14 @@ public class DeleteCardCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "deletec";
 
+    public static final String PARAMS = "INDEX";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the card identified by the index number used in the last card listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: " + PARAMS
+            + " Example: " + COMMAND_WORD + " 1";
+
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PARAMS;
 
     public static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted Card: %1$s";
 

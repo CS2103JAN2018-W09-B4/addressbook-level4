@@ -8,6 +8,8 @@ public class ShowDueCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all cards due today";
 
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
+
 
     @Override
     public CommandResult execute() {

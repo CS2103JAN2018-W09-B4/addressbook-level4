@@ -31,17 +31,21 @@ public class EditCardCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "editc";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the card identified "
-            + "by the index number used in the last card listing. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String PARAMS = "INDEX "
             + "[" + PREFIX_FRONT + "FRONT] "
             + "[" + PREFIX_BACK + "BACK] "
             + "[" + PREFIX_ADD_TAG + "TAG] "
-            + "[" + PREFIX_REMOVE_TAG + "TAG]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[" + PREFIX_REMOVE_TAG + "TAG]";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the card identified "
+            + "by the index number used in the last card listing. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: " + PARAMS
+            + " Example: " + COMMAND_WORD + " 1 "
             + PREFIX_FRONT + " What is 1 + 1? " + PREFIX_BACK + " 2 "
             + PREFIX_ADD_TAG + "Biology " + PREFIX_REMOVE_TAG + "Mathematics";
+
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PARAMS;
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

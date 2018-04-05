@@ -25,13 +25,17 @@ public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
+    public static final String PARAMS = "INDEX "
+            + "[" + PREFIX_NAME + "NAME]";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the tag identified "
             + "by the index number used in the last tag listing. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Parameters: " + PARAMS
+            + " Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Midterms Sad";
+
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PARAMS;
 
     public static final String MESSAGE_EDIT_TAG_SUCCESS = "Edited Tag: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

@@ -8,6 +8,7 @@ public class ListCardCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all cards";
 
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
 
     @Override
     public CommandResult execute() {
