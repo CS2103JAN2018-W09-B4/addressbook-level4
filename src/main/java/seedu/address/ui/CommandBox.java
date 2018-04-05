@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.logic.Autocompleter;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -55,6 +56,10 @@ public class CommandBox extends UiPart<Region> {
             keyEvent.consume();
             navigateToNextInput();
             break;
+        case TAB:
+            keyEvent.consume();
+            autocomplete();
+            break;
         default:
             // let JavaFx handle the keypress
         }
@@ -85,6 +90,20 @@ public class CommandBox extends UiPart<Region> {
 
         replaceText(historySnapshot.next());
     }
+
+    //@@author yong-jie
+    /**
+     * Checks {@code CommandBox}'s text field to see if it is populated with a valid
+     * command word. Then replaces text with autocompleter's text to guide the user
+     * on the relevant parameters.
+     */
+    private void autocomplete() {
+        if (!Autocompleter.isValidAutocomplete(commandTextField.getText())) {
+            return;
+        }
+        replaceText(Autocompleter.getAutocompleteText(commandTextField.getText()));
+    }
+    //@@author
 
     /**
      * Sets {@code CommandBox}'s text field with {@code text} and
