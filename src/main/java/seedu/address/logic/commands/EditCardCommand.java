@@ -130,7 +130,7 @@ public class EditCardCommand extends UndoableCommand {
         editedTagsToAdd = editCardDescriptor.getTagsToAdd();
         editedTagsToRemove = editCardDescriptor.getTagsToRemove();
     }
-    
+
     /**
      * Creates and returns a {@code Card} with the details of {@code cardToEdit}
      * edited with {@code editCardDescriptor}.
