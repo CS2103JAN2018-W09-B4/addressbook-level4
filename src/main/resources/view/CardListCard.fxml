@@ -27,7 +27,6 @@
                 </Label>
             </HBox>
             <Label fx:id="front" styleClass="cell_small_label" text="\$front" />
-            <Label fx:id="back" styleClass="cell_small_label" text="\$back" />
         </VBox>
     </GridPane>
 </HBox>

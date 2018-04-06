@@ -26,15 +26,11 @@ public class CardCard extends UiPart<Region> {
     @FXML
     private Label front;
 
-    @FXML
-    private Label back;
-
     public CardCard(Card card, int displayedIndex) {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
         front.setText(card.getFront());
-        back.setText(card.getBack());
     }
 
     @Override

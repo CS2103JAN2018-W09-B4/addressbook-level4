@@ -36,13 +36,14 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private CardBack cardBack;
     private TagListPanel tagListPanel;
     private CardListPanel cardListPanel;
     private Config config;
     private UserPrefs prefs;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane cardBackPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -122,8 +123,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        cardBack = new CardBack();
+        cardBackPlaceholder.getChildren().add(cardBack.getRoot());
 
         tagListPanel = new TagListPanel(logic.getFilteredTagList());
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
