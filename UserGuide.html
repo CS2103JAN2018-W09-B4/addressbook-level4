@@ -29,16 +29,49 @@
 <li><a href="#Terminology">3. Terminology</a></li>
 <li><a href="#Features">4. Features</a>
 <ul class="sectlevel2">
-<li><a href="#managing-cards">4.1. Managing Cards</a></li>
-<li><a href="#using-flashcard">4.2. Using flashcard</a></li>
-<li><a href="#managing-tags">4.3. Managing Tags</a></li>
-<li><a href="#clearing-all-data-code-clear-code">4.4. Clearing all data : <code>clear</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undo-and-redo">4.6. Undo and Redo</a></li>
-<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">4.7. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
-<li><a href="#managing-user-preferences">4.8. Managing User Preferences</a></li>
-<li><a href="#saving-the-data">4.9. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.10. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#managing-cards">4.1. Managing Cards</a>
+<ul class="sectlevel3">
+<li><a href="#adding-a-flashcard-code-addc-code">4.1.1. Adding a flashcard: <code>addc</code></a></li>
+<li><a href="#editing-a-flashcard-code-editc-code">4.1.2. Editing a flashcard : <code>editc</code></a></li>
+<li><a href="#deleting-a-flashcard-code-deletec-code">4.1.3. Deleting a flashcard : <code>deletec</code></a></li>
+</ul>
+</li>
+<li><a href="#managing-tags">4.2. Managing Tags</a>
+<ul class="sectlevel3">
+<li><a href="#selecting-a-tag-code-select-code">4.2.1. Selecting a tag : <code>select</code></a></li>
+<li><a href="#filtering-tags-code-find-code">4.2.2. Filtering tags: <code>find</code></a></li>
+<li><a href="#editing-a-tag-code-edit-code">4.2.3. Editing a tag : <code>edit</code></a></li>
+<li><a href="#deleting-a-tag-code-delete-code">4.2.4. Deleting a Tag: <code>delete</code></a></li>
+</ul>
+</li>
+<li><a href="#using-flashcard">4.3. Using flashcard</a>
+<ul class="sectlevel3">
+<li><a href="#showing-a-flashcard-code-showdue-code">4.3.1. Showing a flashcard : <code>showDue</code></a></li>
+<li><a href="#answering-flashcards-code-answer-code">4.3.2. Answering flashcards: <code>Answer</code></a></li>
+<li><a href="#show-flashcards-for-review-code-schedule-code">4.3.3. Show flashcards for review: <code>Schedule</code></a></li>
+</ul>
+</li>
+<li><a href="#misc">4.4. Misc</a>
+<ul class="sectlevel3">
+<li><a href="#autocompleting">4.4.1. Autocompleting</a></li>
+<li><a href="#clearing-all-data-code-clear-code">4.4.2. Clearing all data : <code>clear</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.4.3. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undo-and-redo">4.4.4. Undo and Redo</a>
+<ul class="sectlevel4">
+<li><a href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></li>
+</ul>
+</li>
+<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">4.4.5. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
+</ul>
+</li>
+<li><a href="#managing-user-preferences">4.5. Managing User Preferences</a>
+<ul class="sectlevel3">
+<li><a href="#changing-the-theme-code-theme-code">4.5.1. Changing the theme : <code>theme</code></a></li>
+</ul>
+</li>
+<li><a href="#saving-the-data">4.6. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.7. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -422,13 +455,141 @@ Deletes the 2nd flashcard in the list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-flashcard"><a class="link" href="#using-flashcard">4.2. Using flashcard</a></h3>
+<h3 id="managing-tags"><a class="link" href="#managing-tags">4.2. Managing Tags</a></h3>
+<div class="sect3">
+<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">4.2.1. Selecting a tag : <code>select</code></a></h4>
+<div class="paragraph">
+<p>Selects the tag identified by the index number. This will show only flashcards with the tag selected.<br>
+Format: <code>select INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>select 2</code><br>
+Selects the 2nd tag in the list.</p>
+</li>
+<li>
+<p><code>select 1</code><br>
+Selects the 1st tag in the list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">4.2.2. Filtering tags: <code>find</code></a></h4>
+<div class="paragraph">
+<p>Filters the tag list to contain those that match the search terms.<br>
+Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The search is case-insensitive, and finds exact partial matches to the tag name. For example, <code>bio</code> would match <code>Biology</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find biology</code> will show only tags matching the word <code>biology</code>. This will match <code>Biology</code>, <code>biology</code>, and <code>Biology Midterms</code>, and not <code>bio</code>, or <code>chemistry</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">4.2.3. Editing a tag : <code>edit</code></a></h4>
+<div class="paragraph">
+<p>Updates an existing tag to the specified values.<br>
+Format: <code>edit INDEX t/TAG c/COLOR</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the tag at the specified <code>INDEX</code>. The index refers to the index number shown in the current tag listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>Color must be a string of length 6 specifying a <a href="https://htmlcolorcodes.com/">hex color code</a>. For example, the color white is represented as <code>FFFFFF</code>.</p>
+</li>
+<li>
+<p>The existing name of the tag will be replaced with the value that was entered.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit 1 t/French</code><br>
+Changes the name of the first tag in the list to <code>French</code>.</p>
+</li>
+<li>
+<p><code>edit 2 t/German c/FF5733</code><br>
+Changes the name of the second tag in the list to <code>German</code> and the color of the tag to a shade of orange.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">4.2.4. Deleting a Tag: <code>delete</code></a></h4>
+<div class="paragraph">
+<p>Deletes an existing tag. This will remove the tag from all cards that have the tag.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code> deletes the first visible tag.</p>
+</li>
+<li>
+<p><code>delete 2</code> deletes the second visible tag.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-flashcard"><a class="link" href="#using-flashcard">4.3. Using flashcard</a></h3>
 <div class="paragraph">
 <p>After adding and managing your flashcards, its time to get your A+!
 This section will teach you how to let Flashy&#8217;s intelligent scheduling algorithm prompt you the best time to study!</p>
 </div>
 <div class="sect3">
-<h4 id="showing-a-flashcard-code-show-code"><a class="link" href="#showing-a-flashcard-code-show-code">4.2.1. Showing a flashcard : <code>show</code></a></h4>
+<h4 id="showing-a-flashcard-code-showdue-code"><a class="link" href="#showing-a-flashcard-code-showdue-code">4.3.1. Showing a flashcard : <code>showDue</code></a></h4>
 <div class="paragraph">
 <p>Reveals the answer of the flashcard identified by the index number used in the list.<br>
 Format: <code>show INDEX</code></p>
@@ -464,7 +625,7 @@ Shows the 1st flashcard in the list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="answering-flashcards-code-schedule-code"><a class="link" href="#answering-flashcards-code-schedule-code">4.2.2. Answering flashcards: <code>Schedule</code></a></h4>
+<h4 id="answering-flashcards-code-answer-code"><a class="link" href="#answering-flashcards-code-answer-code">4.3.2. Answering flashcards: <code>Answer</code></a></h4>
 <div class="paragraph">
 <p>Answer to give feedback to the scheduling algorithm to schedule the cards for future review.</p>
 </div>
@@ -534,7 +695,7 @@ Card will be resheduled into near future.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="show-flashcards-for-review-code-today-code"><a class="link" href="#show-flashcards-for-review-code-today-code">4.2.3. Show flashcards for review: <code>Today</code></a></h4>
+<h4 id="show-flashcards-for-review-code-schedule-code"><a class="link" href="#show-flashcards-for-review-code-schedule-code">4.3.3. Show flashcards for review: <code>Schedule</code></a></h4>
 <div class="paragraph">
 <p>Lists and show flashcards due for review today.</p>
 </div>
@@ -557,135 +718,13 @@ Card will be resheduled into near future.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing-tags"><a class="link" href="#managing-tags">4.3. Managing Tags</a></h3>
+<h3 id="misc"><a class="link" href="#misc">4.4. Misc</a></h3>
 <div class="sect3">
-<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">4.3.1. Selecting a tag : <code>select</code></a></h4>
-<div class="paragraph">
-<p>Selects the tag identified by the index number. This will show only flashcards with the tag selected.<br>
-Format: <code>select INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The index refers to the index number shown in the most recent listing.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>select 2</code><br>
-Selects the 2nd tag in the list.</p>
-</li>
-<li>
-<p><code>select 1</code><br>
-Selects the 1st tag in the list.</p>
-</li>
-</ul>
-</div>
+<h4 id="autocompleting"><a class="link" href="#autocompleting">4.4.1. Autocompleting</a></h4>
+
 </div>
 <div class="sect3">
-<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">4.3.2. Filtering tags: <code>find</code></a></h4>
-<div class="paragraph">
-<p>Filters the tag list to contain those that match the search terms.<br>
-Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The search is case-insensitive, and finds exact partial matches to the tag name. For example, <code>bio</code> would match <code>Biology</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>find biology</code> will show only tags matching the word <code>biology</code>. This will match <code>Biology</code>, <code>biology</code>, and <code>Biology Midterms</code>, and not <code>bio</code>, or <code>chemistry</code>.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">4.3.3. Editing a tag : <code>edit</code></a></h4>
-<div class="paragraph">
-<p>Updates an existing tag to the specified values.<br>
-Format: <code>edit INDEX t/TAG c/COLOR</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Edits the tag at the specified <code>INDEX</code>. The index refers to the index number shown in the current tag listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>Color must be a string of length 6 specifying a <a href="https://htmlcolorcodes.com/">hex color code</a>. For example, the color white is represented as <code>FFFFFF</code>.</p>
-</li>
-<li>
-<p>The existing name of the tag will be replaced with the value that was entered.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>edit 1 t/French</code><br>
-Changes the name of the first tag in the list to <code>French</code>.</p>
-</li>
-<li>
-<p><code>edit 2 t/German c/FF5733</code><br>
-Changes the name of the second tag in the list to <code>German</code> and the color of the tag to a shade of orange.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">4.3.4. Deleting a Tag: <code>delete</code></a></h4>
-<div class="paragraph">
-<p>Deletes an existing tag. This will remove the tag from all cards that have the tag.</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code> deletes the first visible tag.</p>
-</li>
-<li>
-<p><code>delete 2</code> deletes the second visible tag.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.4. Clearing all data : <code>clear</code></a></h3>
+<h4 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.4.2. Clearing all data : <code>clear</code></a></h4>
 <div class="paragraph">
 <p>Instructs Flashy to clear all data.<br>
 Format: <code>clear</code></p>
@@ -703,8 +742,8 @@ This command will instruct Flashy to delete all tags and flashcards. Use this co
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></h3>
+<div class="sect3">
+<h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.4.3. Listing entered commands : <code>history</code></a></h4>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -724,13 +763,13 @@ Format: <code>history</code></p>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.6. Undo and Redo</a></h3>
+<div class="sect3">
+<h4 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.4.4. Undo and Redo</a></h4>
 <div class="paragraph">
 <p>Some commands support undoing and redoing. The commands are <code>add</code>, <code>addc</code>, <code>addm</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>, <code>delete</code>, <code>deletec</code>, and <code>clear</code>.</p>
 </div>
-<div class="sect3">
-<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.6.1. Undoing previous command : <code>undo</code></a></h4>
+<div class="sect4">
+<h5 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h5>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -774,8 +813,8 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.6.2. Redoing the previously undone command : <code>redo</code></a></h4>
+<div class="sect4">
+<h5 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h5>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -807,17 +846,18 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.7. Exiting the program : <code>exit</code> or <code>quit</code></a></h3>
+<div class="sect3">
+<h4 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.4.5. Exiting the program : <code>exit</code> or <code>quit</code></a></h4>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code> or <code>quit</code></p>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">4.8. Managing User Preferences</a></h3>
+<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">4.5. Managing User Preferences</a></h3>
 <div class="sect3">
-<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">4.8.1. Changing the theme : <code>theme</code></a></h4>
+<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">4.5.1. Changing the theme : <code>theme</code></a></h4>
 <div class="paragraph">
 <p>You can change the theme of Flashy&#8217;s user interface.<br>
 Format: <code>theme t/THEME</code></p>
@@ -850,14 +890,14 @@ Flashy remembers your most recently used theme and will load it the next time yo
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.9. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.6. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.10. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.7. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -1010,7 +1050,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-06 05:50:43 UTC
+Last updated 2018-04-06 05:58:09 UTC
 </div>
 </div>
 </body>
