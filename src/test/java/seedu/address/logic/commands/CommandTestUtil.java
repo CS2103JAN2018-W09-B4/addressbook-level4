@@ -40,11 +40,13 @@ public class CommandTestUtil {
     public static final String VALID_NAME_COMSCI = "Computer Science";
     public static final String VALID_NAME_SOCIOLOGY = "Sociology";
     public static final String VALID_NAME_BIOLOGY = "Biology Midterms";
+    public static final String VALID_NAME_MATHEMATICS = "Mathematics";
 
     public static final String NAME_DESC_ENGLISH = " " + PREFIX_NAME + VALID_NAME_ENGLISH;
     public static final String NAME_DESC_COMSCI = " " + PREFIX_NAME + VALID_NAME_COMSCI;
     public static final String NAME_DESC_SOCIOLOGY = " " + PREFIX_NAME + VALID_NAME_SOCIOLOGY;
     public static final String NAME_DESC_BIOLOGY = " " + PREFIX_NAME + VALID_NAME_BIOLOGY;
+    public static final String NAME_DESC_MATHEMATICS = " " + PREFIX_NAME + VALID_NAME_MATHEMATICS;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "English&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "English&";

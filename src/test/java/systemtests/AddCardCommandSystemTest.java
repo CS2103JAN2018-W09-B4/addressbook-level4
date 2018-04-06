@@ -7,16 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CAR
 import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2103T_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_BACK_CARD;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BIOLOGY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
+import static seedu.address.testutil.TypicalCards.CS2101_CARD;
 import static seedu.address.testutil.TypicalCards.CS2103T_CARD;
-import static seedu.address.testutil.TypicalCards.ECONOMICS_CARD;
 import static seedu.address.testutil.TypicalCards.ENGLISH_CARD;
-import static seedu.address.testutil.TypicalCards.HISTORY_CARD;
-import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
-import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
-import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
-import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
@@ -24,10 +17,8 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCardCommand;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
@@ -64,25 +55,6 @@ public class AddCardCommandSystemTest extends AddressBookSystemTest {
         command = AddCardCommand.COMMAND_WORD + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD;
         assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: add to empty address book -> added */
-        model.resetData(new AddressBook());
-        clearCardBank();
-
-        model = getModel();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BIOLOGY;
-        model.addTag(BIOLOGY_TAG);
-        expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, BIOLOGY_TAG);
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        command = AddCommand.COMMAND_WORD + NAME_DESC_ENGLISH;
-        model.addTag(ENGLISH_TAG);
-        expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, ENGLISH_TAG);
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        assertCommandSuccess(PHYSICS_CARD);
-        assertCommandSuccess(PHYSICS_CARD_2);
-        assertCommandSuccess(HISTORY_CARD);
-
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the card list before adding -> added */
@@ -93,7 +65,7 @@ public class AddCardCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: selects first card in the card list, add a card-> added, card selection remains unchanged */
         selectTag(Index.fromOneBased(1));
-        assertCommandSuccess(ECONOMICS_CARD);
+        assertCommandSuccess(CS2101_CARD);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MATHEMATICS;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_SOCIOLOGY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SOCIOLOGY;
@@ -13,6 +14,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
 import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 
 import org.junit.Test;
 
@@ -27,7 +29,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.TagBuilder;
-import seedu.address.testutil.TagUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
@@ -125,15 +126,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: edit a tag with new values same as another tag's values -> rejected */
-        executeCommand(TagUtil.getAddCommand(COMSCI_TAG));
-        assertTrue(getModel().getAddressBook().getTagList().contains(COMSCI_TAG));
+        assertTrue(getModel().getAddressBook().getTagList().contains(MATHEMATICS_TAG));
         index = INDEX_FIRST_TAG;
-        assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(COMSCI_TAG));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TAG);
-
-        /* Case: edit a tag with new values same as another tag's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_COMSCI;
+        assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(MATHEMATICS_TAG));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MATHEMATICS;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TAG);
     }
 
