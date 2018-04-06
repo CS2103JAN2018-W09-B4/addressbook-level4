@@ -20,13 +20,13 @@ import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddCardCommand object
  */
 public class AddCardCommandParser implements Parser<AddCardCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddCardCommand
+     * and returns an AddCardCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCardCommand parse(String args) throws ParseException {

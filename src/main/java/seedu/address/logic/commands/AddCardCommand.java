@@ -16,7 +16,7 @@ import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds a tag to the address book.
+ * Adds a card to the card bank.
  */
 public class AddCardCommand extends UndoableCommand {
 
@@ -40,14 +40,14 @@ public class AddCardCommand extends UndoableCommand {
     private final Optional<Set<Tag>> tagsToAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Card}
+     * Creates an AddCardCommand to add the specified {@code Card}
      */
     public AddCardCommand(Card card) {
         this(card, Optional.empty());
     }
 
     /**
-     * Creates an AddCommand to add the specified {@code Card}
+     * Creates an AddCardCommand to add the specified {@code Card}
      */
     public AddCardCommand(Card card, Optional<Set<Tag>> tags) {
         requireNonNull(card);

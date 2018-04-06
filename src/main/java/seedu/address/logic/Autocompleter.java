@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.AddCardCommand;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -81,7 +80,6 @@ public class Autocompleter {
 
         // Must be added in increasing specificity so that add is not
         // overridden by addc, for example.
-        commands.add(AddCommand.class);
         commands.add(AddCardCommand.class);
         commands.add(ChangeThemeCommand.class);
         commands.add(ClearCommand.class);
