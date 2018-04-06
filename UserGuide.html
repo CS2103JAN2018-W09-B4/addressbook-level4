@@ -30,16 +30,15 @@
 <li><a href="#Features">4. Features</a>
 <ul class="sectlevel2">
 <li><a href="#managing-cards">4.1. Managing Cards</a></li>
-<li><a href="#adding-a-flashcard-code-addc-code">4.2. Adding a flashcard: <code>addc</code></a></li>
-<li><a href="#using-flashcard">4.3. Using flashcard</a></li>
-<li><a href="#managing-tags">4.4. Managing Tags</a></li>
-<li><a href="#clearing-all-data-code-clear-code">4.5. Clearing all data : <code>clear</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.6. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undo-and-redo">4.7. Undo and Redo</a></li>
-<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">4.8. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
-<li><a href="#managing-user-preferences">4.9. Managing User Preferences</a></li>
-<li><a href="#saving-the-data">4.10. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.11. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#using-flashcard">4.2. Using flashcard</a></li>
+<li><a href="#managing-tags">4.3. Managing Tags</a></li>
+<li><a href="#clearing-all-data-code-clear-code">4.4. Clearing all data : <code>clear</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undo-and-redo">4.6. Undo and Redo</a></li>
+<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">4.7. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
+<li><a href="#managing-user-preferences">4.8. Managing User Preferences</a></li>
+<li><a href="#saving-the-data">4.9. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.10. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -157,6 +156,12 @@ This app will not work with earlier versions of Java 8.
 <h2 id="Terminology"><a class="link" href="#Terminology">3. Terminology</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>In Flashy, there are three different kinds of flashcards: normal, MCQ and fill-in-the-blanks.<br>
+Normal flashcards are simple question and answer cards with the question being at the front and answer at the back.<br>
+Fill-in-the-blanks flashcards are similar to normal flashcards, just that the question has blanks to prompt the users, and the back of the card has answers to the blanks.<br>
+MCQ flashcards allows you to provide different options as the answer, similar to an MCQ question, and the back will have the number for which option is the correct one.</p>
+</div>
+<div class="paragraph">
 <p>In Flashy, flashcards are organised with tags. Tags are used to filter down the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.</p>
 </div>
 <div class="paragraph">
@@ -262,10 +267,8 @@ This app will not work with earlier versions of Java 8.
 </div>
 <div class="sect2">
 <h3 id="managing-cards"><a class="link" href="#managing-cards">4.1. Managing Cards</a></h3>
-
-</div>
-<div class="sect2">
-<h3 id="adding-a-flashcard-code-addc-code"><a class="link" href="#adding-a-flashcard-code-addc-code">4.2. Adding a flashcard: <code>addc</code></a></h3>
+<div class="sect3">
+<h4 id="adding-a-flashcard-code-addc-code"><a class="link" href="#adding-a-flashcard-code-addc-code">4.1.1. Adding a flashcard: <code>addc</code></a></h4>
 <div class="paragraph">
 <p>Adds a flashcard to Flashy. The presence of <code>o/OPTION</code> parameters will determine whether it is a normal or MCQ-type flashcard.<br>
 Format: <code>addc f/FRONT b/BACK t/TAG</code> or<br>
@@ -279,6 +282,11 @@ Format: <code>addc f/FRONT b/BACK t/TAG</code> or<br>
 <li>
 <p><code>addc f/What is the greatest flashcard application? b/Flashy t/Trivia</code><br>
 Adds a normal flashcard with the front and back of the first card being <code>What is the greatest flashcard application?</code> and <code>Flashy</code> respectively, as well as tagging it as <code>Trivia</code>.</p>
+</li>
+<li>
+<p><code>addc f/A square is a polygon with _ side meeting at _ angles. b/equal, right</code><br>
+Adds a fill-blanks card with the front and back of the card being <code>A square is a polygon with _ side meeting at _ angles.</code> and <code>equal, right</code> respectively.<br>
+Note that a blank is denoted by a single underscore <code>_</code>.<br></p>
 </li>
 <li>
 <p><code>addc f/Which continent is Singapore in? o/Asia o/Africa o/Australia o/South America b/1</code><br>
@@ -310,24 +318,40 @@ Ensure that the parameter for <code>b/</code> falls between 1 the number of opti
 </tr>
 </table>
 </div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Ensure that if there are blanks, the parameter for <code>b/</code> should have the same number of answers (separated by <code>,</code>) as there are blanks.
+</td>
+</tr>
+</table>
+</div>
+</div>
 <div class="sect3">
-<h4 id="editing-a-normal-flashcard-code-editc-code"><a class="link" href="#editing-a-normal-flashcard-code-editc-code">4.2.1. Editing a normal flashcard : <code>editc</code></a></h4>
+<h4 id="editing-a-flashcard-code-editc-code"><a class="link" href="#editing-a-flashcard-code-editc-code">4.1.2. Editing a flashcard : <code>editc</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing flashcard currently stored in Flashy.<br>
-Format: <code>editc INDEX [f/FRONT] [b/BACK]</code></p>
+Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the normal flashcard at the specified <code>INDEX</code>. The index refers to the index number shown in the last card listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the flashcard at the specified <code>INDEX</code>. The index refers to the index number shown in the last card listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>Existing values will be updated to the input values.</p>
 </li>
 <li>
 <p>This only applies to parameters which you have supplied. If, for example, no parameters for <code>f/</code> are supplied, the front of the card would not be edited.</p>
+</li>
+<li>
+<p>A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (i.e. you cannot edit a normal flashcard to a MCQ flashcard).</p>
 </li>
 </ul>
 </div>
@@ -346,56 +370,9 @@ Edits the front and back of the 1st flashcard to be <code>What is the greatest f
 <p><code>editc 2 b/Lee Hsien Loong</code><br>
 Edits the back of the 2nd flashcard to be <code>Lee Hsien Loong</code>.</p>
 </li>
-</ul>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Do ensure that the flashcard at the specified index is a normal card, or else an error would occur.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="editing-a-mcq-type-flashcard-code-editm-code"><a class="link" href="#editing-a-mcq-type-flashcard-code-editm-code">4.2.2. Editing a MCQ-type flashcard : <code>editm</code></a></h4>
-<div class="paragraph">
-<p>Edits an existing MCQ-type flashcard currently stored in Flashy.<br>
-Format: <code>editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION] &#8230;&#8203; [b/BACK]</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
 <li>
-<p>Edits the MCQ-type flashcard at the specified <code>INDEX</code>. The index refers to the index number shown in the last card listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>Existing values will be updated to the input values.</p>
-</li>
-<li>
-<p>This only applies to parameters which you have supplied. If, for example, no parameters for <code>f/</code> are supplied, the front of the card would not be edited.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>editm 1 f/When is National Day in Singapore? o/2/9th July o/3/10th July</code><br>
-Edits the front of the 1st flashcard to be <code>How many legs does an insect have?</code> as well as edits option number 2 and 3 to be <code>9th July</code> and <code>10th July</code>  respectively.</p>
-</li>
-<li>
-<p><code>editc 2 b/Lee Hsien Loong</code><br>
-Edits the back of the 2nd flashcard to be <code>Lee Hsien Loong</code>.</p>
+<p><code>editc 1 o/Asia o/Australia o/Africa</code><br>
+Edits the options of the 1st flashcard to be <code>Asia</code>, <code>Australia</code> and <code>Africa</code>. (Only if that flashcard is a MCQ flashcard).</p>
 </li>
 </ul>
 </div>
@@ -406,14 +383,14 @@ Edits the back of the 2nd flashcard to be <code>Lee Hsien Loong</code>.</p>
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Do ensure that the flashcard at the specified index is a MCQ-type card, or else an error would occur.
+Ensure that the constraints on flashcard is not violated when editing. For constraints, refer to the <strong>Caution</strong> warning under Section 4.1.1: Adding a flashcard.
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">4.2.3. Deleting a flashcard : <code>deletec</code></a></h4>
+<h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">4.1.3. Deleting a flashcard : <code>deletec</code></a></h4>
 <div class="paragraph">
 <p>Deletes the specified flashcard.<br>
 Format: <code>deletec INDEX</code></p>
@@ -445,13 +422,13 @@ Deletes the 2nd flashcard in the list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-flashcard"><a class="link" href="#using-flashcard">4.3. Using flashcard</a></h3>
+<h3 id="using-flashcard"><a class="link" href="#using-flashcard">4.2. Using flashcard</a></h3>
 <div class="paragraph">
 <p>After adding and managing your flashcards, its time to get your A+!
 This section will teach you how to let Flashy&#8217;s intelligent scheduling algorithm prompt you the best time to study!</p>
 </div>
 <div class="sect3">
-<h4 id="showing-a-flashcard-code-show-code"><a class="link" href="#showing-a-flashcard-code-show-code">4.3.1. Showing a flashcard : <code>show</code></a></h4>
+<h4 id="showing-a-flashcard-code-show-code"><a class="link" href="#showing-a-flashcard-code-show-code">4.2.1. Showing a flashcard : <code>show</code></a></h4>
 <div class="paragraph">
 <p>Reveals the answer of the flashcard identified by the index number used in the list.<br>
 Format: <code>show INDEX</code></p>
@@ -487,7 +464,7 @@ Shows the 1st flashcard in the list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="answering-flashcards-code-schedule-code"><a class="link" href="#answering-flashcards-code-schedule-code">4.3.2. Answering flashcards: <code>Schedule</code></a></h4>
+<h4 id="answering-flashcards-code-schedule-code"><a class="link" href="#answering-flashcards-code-schedule-code">4.2.2. Answering flashcards: <code>Schedule</code></a></h4>
 <div class="paragraph">
 <p>Answer to give feedback to the scheduling algorithm to schedule the cards for future review.</p>
 </div>
@@ -557,7 +534,7 @@ Card will be resheduled into near future.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="show-flashcards-for-review-code-today-code"><a class="link" href="#show-flashcards-for-review-code-today-code">4.3.3. Show flashcards for review: <code>Today</code></a></h4>
+<h4 id="show-flashcards-for-review-code-today-code"><a class="link" href="#show-flashcards-for-review-code-today-code">4.2.3. Show flashcards for review: <code>Today</code></a></h4>
 <div class="paragraph">
 <p>Lists and show flashcards due for review today.</p>
 </div>
@@ -580,9 +557,9 @@ Card will be resheduled into near future.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing-tags"><a class="link" href="#managing-tags">4.4. Managing Tags</a></h3>
+<h3 id="managing-tags"><a class="link" href="#managing-tags">4.3. Managing Tags</a></h3>
 <div class="sect3">
-<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">4.4.1. Selecting a tag : <code>select</code></a></h4>
+<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">4.3.1. Selecting a tag : <code>select</code></a></h4>
 <div class="paragraph">
 <p>Selects the tag identified by the index number. This will show only flashcards with the tag selected.<br>
 Format: <code>select INDEX</code></p>
@@ -618,7 +595,7 @@ Selects the 1st tag in the list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">4.4.2. Filtering tags: <code>find</code></a></h4>
+<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">4.3.2. Filtering tags: <code>find</code></a></h4>
 <div class="paragraph">
 <p>Filters the tag list to contain those that match the search terms.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -649,7 +626,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">4.4.3. Editing a tag : <code>edit</code></a></h4>
+<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">4.3.3. Editing a tag : <code>edit</code></a></h4>
 <div class="paragraph">
 <p>Updates an existing tag to the specified values.<br>
 Format: <code>edit INDEX t/TAG c/COLOR</code></p>
@@ -688,7 +665,7 @@ Changes the name of the second tag in the list to <code>German</code> and the co
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">4.4.4. Deleting a Tag: <code>delete</code></a></h4>
+<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">4.3.4. Deleting a Tag: <code>delete</code></a></h4>
 <div class="paragraph">
 <p>Deletes an existing tag. This will remove the tag from all cards that have the tag.</p>
 </div>
@@ -708,7 +685,7 @@ Changes the name of the second tag in the list to <code>German</code> and the co
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.5. Clearing all data : <code>clear</code></a></h3>
+<h3 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.4. Clearing all data : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Instructs Flashy to clear all data.<br>
 Format: <code>clear</code></p>
@@ -727,7 +704,7 @@ This command will instruct Flashy to delete all tags and flashcards. Use this co
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.6. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.5. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -748,12 +725,12 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.7. Undo and Redo</a></h3>
+<h3 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.6. Undo and Redo</a></h3>
 <div class="paragraph">
 <p>Some commands support undoing and redoing. The commands are <code>add</code>, <code>addc</code>, <code>addm</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>, <code>delete</code>, <code>deletec</code>, and <code>clear</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.7.1. Undoing previous command : <code>undo</code></a></h4>
+<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.6.1. Undoing previous command : <code>undo</code></a></h4>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -798,7 +775,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect3">
-<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.7.2. Redoing the previously undone command : <code>redo</code></a></h4>
+<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.6.2. Redoing the previously undone command : <code>redo</code></a></h4>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -831,16 +808,16 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.8. Exiting the program : <code>exit</code> or <code>quit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.7. Exiting the program : <code>exit</code> or <code>quit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code> or <code>quit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">4.9. Managing User Preferences</a></h3>
+<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">4.8. Managing User Preferences</a></h3>
 <div class="sect3">
-<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">4.9.1. Changing the theme : <code>theme</code></a></h4>
+<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">4.8.1. Changing the theme : <code>theme</code></a></h4>
 <div class="paragraph">
 <p>You can change the theme of Flashy&#8217;s user interface.<br>
 Format: <code>theme t/THEME</code></p>
@@ -873,14 +850,14 @@ Flashy remembers your most recently used theme and will load it the next time yo
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.10. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.9. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.11. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.10. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -925,7 +902,9 @@ There is no need to save manually.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/FRONT [o/OPTION] &#8230;&#8203;  b/BACK [t/TAG]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/What is the best flashcard application? b/Flashy! t/flashy</code><br>
 <br>
-<code>addm f/How many legs does an insect have? o/4 o/5 o/6 o/7 b/3</code></p></td>
+<code>addc f/How many legs does an insect have? o/4 o/5 o/6 o/7 b/3</code><br>
+<br>
+<code>addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Edit Normal Flashcard</p></td>
@@ -1031,7 +1010,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-06 04:02:46 UTC
+Last updated 2018-04-06 04:36:32 UTC
 </div>
 </div>
 </body>
