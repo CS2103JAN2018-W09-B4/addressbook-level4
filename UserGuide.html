@@ -99,7 +99,7 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>What are flashcards? Traditionally physical flashcards are actual cards that people use to help memorise things.
+<p>What are flashcards? Traditionally, physical flashcards are actual cards that people use to help memorise things.
 The front will have a question prompt and the back will have an answer.</p>
 </div>
 </td>
@@ -368,7 +368,7 @@ Ensure that if there are blanks, the parameter for <code>b/</code> should have t
 <h4 id="editing-a-flashcard-code-editc-code"><a class="link" href="#editing-a-flashcard-code-editc-code">4.1.2. Editing a flashcard : <code>editc</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing flashcard currently stored in Flashy.<br>
-Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK]</code></p>
+Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -384,7 +384,10 @@ Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK]</code></p>
 <p>This only applies to parameters which you have supplied. If, for example, no parameters for <code>f/</code> are supplied, the front of the card would not be edited.</p>
 </li>
 <li>
-<p>A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (i.e. you cannot edit a normal flashcard to a MCQ flashcard).</p>
+<p>A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (e.g. you cannot edit a normal flashcard to a MCQ flashcard).</p>
+</li>
+<li>
+<p>When removing a tag from a flashcard, ensure that the tag exists and the flashcard is associated with that tag.</p>
 </li>
 </ul>
 </div>
@@ -396,12 +399,12 @@ Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>editc 1 f/What is the greatest flashcard application? b/Flashy</code><br>
-Edits the front and back of the 1st flashcard to be <code>What is the greatest flashcard application?</code> and <code>Flashy</code> respectively.</p>
+<p><code>editc 1 f/What is the greatest flashcard application? b/Flashy +t/Trivia</code><br>
+Edits the front and back of the 1st flashcard to be <code>What is the greatest flashcard application?</code> and <code>Flashy</code> respectively, and also add a Trivia tag to it.</p>
 </li>
 <li>
-<p><code>editc 2 b/Lee Hsien Loong</code><br>
-Edits the back of the 2nd flashcard to be <code>Lee Hsien Loong</code>.</p>
+<p><code>editc 2 b/Lee Hsien Loong -t/Trivia</code><br>
+Edits the back of the 2nd flashcard to be <code>Lee Hsien Loong</code>, and remove its tag Trivia.</p>
 </li>
 <li>
 <p><code>editc 1 o/Asia o/Australia o/Africa</code><br>
@@ -1050,7 +1053,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-06 05:58:09 UTC
+Last updated 2018-04-06 06:40:50 UTC
 </div>
 </div>
 </body>
