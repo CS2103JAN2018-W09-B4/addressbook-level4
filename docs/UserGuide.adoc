@@ -66,6 +66,11 @@ Typing *`help`* and pressing kbd:[Enter] will open the help window. Refer to <<F
 
 [[Terminology]]
 == Terminology
+In Flashy, there are three different kinds of flashcards: normal, MCQ and fill-in-the-blanks. +
+Normal flashcards are simple question and answer cards with the question being at the front and answer at the back. +
+Fill-in-the-blanks flashcards are similar to normal flashcards, just that the question has blanks to prompt the users, and the back of the card has answers to the blanks. +
+MCQ flashcards allows you to provide different options as the answer, similar to an MCQ question, and the back will have the number for which option is the correct one.
+
 In Flashy, flashcards are organised with tags. Tags are used to filter down the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.
 
 Cards can have multiple tags.
@@ -108,7 +113,7 @@ If the command specifies `f/FRONT, b/BACK`, `b/BACK f/FRONT` is also acceptable.
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
 
 === Managing Cards
-=== Adding a flashcard: `addc`
+==== Adding a flashcard: `addc`
 
 Adds a flashcard to Flashy. The presence of `o/OPTION` parameters will determine whether it is a normal or MCQ-type flashcard. +
 Format: `addc f/FRONT b/BACK t/TAG` or +
@@ -118,6 +123,9 @@ Examples:
 
 * `addc f/What is the greatest flashcard application? b/Flashy t/Trivia` +
 Adds a normal flashcard with the front and back of the first card being `What is the greatest flashcard application?` and `Flashy` respectively, as well as tagging it as `Trivia`.
+* `addc f/A square is a polygon with _ side meeting at _ angles. b/equal, right` +
+Adds a fill-blanks card with the front and back of the card being `A square is a polygon with _ side meeting at _ angles.` and `equal, right` respectively. +
+Note that a blank is denoted by a single underscore `_`. +
 * `addc f/Which continent is Singapore in? o/Asia o/Africa o/Australia o/South America b/1` +
 Adds a MCQ-type flashcard with the front being `Which continent is Singapore in?`, options includes `Asia`, `Africa`, `Australia` and `South America` and back being `1`.
 
@@ -125,16 +133,19 @@ Adds a MCQ-type flashcard with the front being `Which continent is Singapore in?
 A flashcard can have any number of tags (including 0).
 [CAUTION]
 Ensure that the parameter for `b/` falls between 1 the number of options inclusive.
+[CAUTION]
+Ensure that if there are blanks, the parameter for `b/` should have the same number of answers (separated by `,`) as there are blanks.
 
-==== Editing a normal flashcard : `editc`
+==== Editing a flashcard : `editc`
 
 Edits an existing flashcard currently stored in Flashy. +
-Format: `editc INDEX [f/FRONT] [b/BACK]`
+Format: `editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK]`
 
 ****
-* Edits the normal flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * This only applies to parameters which you have supplied. If, for example, no parameters for `f/` are supplied, the front of the card would not be edited.
+* A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (i.e. you cannot edit a normal flashcard to a MCQ flashcard).
 ****
 
 Examples:
@@ -143,30 +154,11 @@ Examples:
 Edits the front and back of the 1st flashcard to be `What is the greatest flashcard application?` and `Flashy` respectively.
 * `editc 2 b/Lee Hsien Loong` +
 Edits the back of the 2nd flashcard to be `Lee Hsien Loong`.
+* `editc 1 o/Asia o/Australia o/Africa` +
+Edits the options of the 1st flashcard to be `Asia`, `Australia` and `Africa`. (Only if that flashcard is a MCQ flashcard).
 
 [CAUTION]
-Do ensure that the flashcard at the specified index is a normal card, or else an error would occur.
-
-==== Editing a MCQ-type flashcard : `editm`
-
-Edits an existing MCQ-type flashcard currently stored in Flashy. +
-Format: `editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION] ... [b/BACK]`
-
-****
-* Edits the MCQ-type flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
-* Existing values will be updated to the input values.
-* This only applies to parameters which you have supplied. If, for example, no parameters for `f/` are supplied, the front of the card would not be edited.
-****
-
-Examples:
-
-* `editm 1 f/When is National Day in Singapore? o/2/9th July o/3/10th July` +
-Edits the front of the 1st flashcard to be `How many legs does an insect have?` as well as edits option number 2 and 3 to be `9th July` and `10th July`  respectively.
-* `editc 2 b/Lee Hsien Loong` +
-Edits the back of the 2nd flashcard to be `Lee Hsien Loong`.
-
-[CAUTION ]
-Do ensure that the flashcard at the specified index is a MCQ-type card, or else an error would occur.
+Ensure that the constraints on flashcard is not violated when editing. For constraints, refer to the *Caution* warning under Section 4.1.1: Adding a flashcard.
 
 ==== Deleting a flashcard : `deletec`
 
@@ -427,7 +419,9 @@ _{explain how the user can enable/disable data encryption}_
 |`addc f/FRONT [o/OPTION] ...  b/BACK [t/TAG]`
 |`addc f/What is the best flashcard application? b/Flashy! t/flashy` +
  +
-`addm f/How many legs does an insect have? o/4 o/5 o/6 o/7 b/3`
+`addc f/How many legs does an insect have? o/4 o/5 o/6 o/7 b/3` +
+ +
+`addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right`
 
 |Edit Normal Flashcard
 |`editc [f/FRONT] [b/BACK]`

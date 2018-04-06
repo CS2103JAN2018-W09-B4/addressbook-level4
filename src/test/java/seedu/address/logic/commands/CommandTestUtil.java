@@ -73,7 +73,7 @@ public class CommandTestUtil {
     public static final List<String> VALID_MCQ_OPTION_SET = Arrays.asList(
                     new String[]{VALID_MCQ_OPTION_1, VALID_MCQ_OPTION_2, VALID_MCQ_OPTION_3});
     public static final String VALID_FILLBLANKS_BACK = "square";
-    public static final String VALID_FILLBLANKS_FRONT = "A __ is a four sided polygon with equal sides meeting"
+    public static final String VALID_FILLBLANKS_FRONT = "A _ is a four sided polygon with equal sides meeting"
             + "at right angles.";
 
     public static final String FRONT_DESC_MCQ_CARD = " " + PREFIX_FRONT + VALID_MCQ_FRONT;

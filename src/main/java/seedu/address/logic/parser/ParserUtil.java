@@ -79,6 +79,7 @@ public class ParserUtil {
         return name.isPresent() ? Optional.of(parseName(name.get())) : Optional.empty();
     }
 
+    //@@author shawnclq
     /**
      * Parses a {@code String card} into an {@code String}.
      * Leading and trailing whitespaces will be trimmed.
@@ -166,6 +167,26 @@ public class ParserUtil {
         }
         return back.isPresent() ? Optional.of(parseCard(back.get())) : Optional.empty();
     }
+
+    /**
+     * Parses a {@code List<String>} into a {@code Optional<List<String>>}
+     */
+    public static Optional<List<String>> parseOptions(List<String> optionValues) throws IllegalValueException {
+        if (optionValues.isEmpty()) {
+            return Optional.empty();
+        }
+
+        List<String> options = new ArrayList<String>();
+        for (String option : optionValues) {
+            if (!Card.isValidCard(option)) {
+                throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_CONSTRAINTS);
+            }
+            options.add(option.trim());
+        }
+
+        return Optional.of(options);
+    }
+    //@@author
 
     /**
      * Parses a {@code String theme} into an {@code Integer}.

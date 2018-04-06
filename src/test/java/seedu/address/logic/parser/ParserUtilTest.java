@@ -31,9 +31,9 @@ public class ParserUtilTest {
     private static final String VALID_MCQ_FRONT = "Which continent is Singapore in?";
     private static final String VALID_NAME = "Math";
     private static final List<String> VALID_MCQ_OPTIONS =
-            Arrays.asList(new String[]{"Australia", "Asia", "Africa"});
+            Arrays.asList("Australia", "Asia", "Africa");
     private static final String VALID_FILLBLANKS_FRONT =
-            "A __ is a four sided polygon with equal sides meeting at right angles.";
+            "A _ is a four sided polygon with equal sides meeting at right angles.";
     private static final String INVALID_FILLBLANKS_ARGUMENT = " ";
     private static final String VALID_FILLBLANKS_BACK = "square";
     private static final String INVALID_FILLBLANKS_BACK_ARGUMENTS = "square, too, many, arguments";
@@ -168,10 +168,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseFillBlanksCard_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard((String) null,
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard(null,
                 VALID_FILLBLANKS_BACK));
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFillBlanksCard(VALID_FILLBLANKS_FRONT,
-                (String) null));
+                null));
     }
 
     @Test

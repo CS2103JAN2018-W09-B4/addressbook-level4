@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 
 import seedu.address.commons.core.index.Index;
@@ -26,7 +27,8 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
     public EditCardCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_ADD_TAG, PREFIX_REMOVE_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_OPTION,
+                        PREFIX_ADD_TAG, PREFIX_REMOVE_TAG);
 
         Index index;
 
@@ -42,6 +44,8 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
                     .ifPresent(editCardDescriptor::setFront);
             ParserUtil.parseBack(argMultimap.getValue(PREFIX_BACK))
                     .ifPresent(editCardDescriptor::setBack);
+            ParserUtil.parseOptions(argMultimap.getAllValues(PREFIX_OPTION))
+                    .ifPresent(editCardDescriptor::setOptions);
             ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_ADD_TAG))
                     .ifPresent(editCardDescriptor::setTagsToAdd);
             ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_REMOVE_TAG))

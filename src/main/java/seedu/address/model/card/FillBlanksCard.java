@@ -13,12 +13,10 @@ import java.util.UUID;
  */
 public class FillBlanksCard extends Card {
 
-    public static final String MESSAGE_FILLBLANKS_CARD_CONSTRAINTS =
-            "Fill Blanks Card should have multiple front and back parameters, and it should not be blank";
     public static final String MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS =
             "Fill Blanks Card back should have the same number of answers as there are blanks";
     public static final String TYPE = "FillBlanks";
-    public static final String BLANK = "__";
+    public static final String BLANK = "_";
 
     public FillBlanksCard(String front, String back) {
         this(UUID.randomUUID(), front, back);
@@ -26,6 +24,7 @@ public class FillBlanksCard extends Card {
 
     public FillBlanksCard(UUID id, String front, String back) {
         super(id, front, back);
+        super.setType(TYPE);
         checkArgument(isValidFillBlanksCard(front, back), MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
     }
 

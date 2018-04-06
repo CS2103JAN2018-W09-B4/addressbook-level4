@@ -14,11 +14,16 @@ import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FillBlanksCard;
+import seedu.address.model.card.McqCard;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.MismatchedCardsException;
 import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -50,6 +55,7 @@ public class EditCardCommand extends UndoableCommand {
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the address book.";
+    public static final String MESSAGE_MISMATCHED_CARDS = "%1s card cannot be converted to a %2s card.";
 
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
@@ -114,22 +120,51 @@ public class EditCardCommand extends UndoableCommand {
         }
 
         cardToEdit = lastShownList.get(index.getZeroBased());
-        editedCard = createEditedCard(cardToEdit, editCardDescriptor);
+        try {
+            editedCard = createEditedCard(cardToEdit, editCardDescriptor);
+        } catch (MismatchedCardsException mce) {
+            throw new CommandException(mce.getMessage());
+        } catch (IllegalValueException ive) {
+            throw new CommandException(ive.getMessage());
+        }
         editedTagsToAdd = editCardDescriptor.getTagsToAdd();
         editedTagsToRemove = editCardDescriptor.getTagsToRemove();
     }
-
+    
     /**
      * Creates and returns a {@code Card} with the details of {@code cardToEdit}
      * edited with {@code editCardDescriptor}.
      */
-    private static Card createEditedCard(Card cardToEdit, EditCardDescriptor editCardDescriptor) {
+    private static Card createEditedCard(Card cardToEdit, EditCardDescriptor editCardDescriptor)
+            throws MismatchedCardsException, IllegalValueException {
         assert cardToEdit != null;
 
         String updatedFront = editCardDescriptor.getFront().orElse(cardToEdit.getFront());
         String updatedBack = editCardDescriptor.getBack().orElse(cardToEdit.getBack());
-
-        return new Card(cardToEdit.getId(), updatedFront, updatedBack);
+        Optional<List<String>> options = editCardDescriptor.getOptions();
+        if (cardToEdit.getType().equals(Card.TYPE)) {
+            if (options.isPresent()) {
+                throw new MismatchedCardsException(String.format(MESSAGE_MISMATCHED_CARDS, Card.TYPE, McqCard.TYPE));
+            } else if (FillBlanksCard.containsBlanks(updatedFront)) {
+                throw new MismatchedCardsException(String.format(MESSAGE_MISMATCHED_CARDS,
+                        Card.TYPE, FillBlanksCard.TYPE));
+            }
+            return new Card(cardToEdit.getId(), updatedFront, updatedBack);
+        } else if (cardToEdit.getType().equals(FillBlanksCard.TYPE)) {
+            if (options.isPresent()) {
+                throw new MismatchedCardsException(String.format(MESSAGE_MISMATCHED_CARDS,
+                        FillBlanksCard.TYPE, McqCard.TYPE));
+            } else if (!FillBlanksCard.containsBlanks(updatedFront)) {
+                throw new MismatchedCardsException(String.format(MESSAGE_MISMATCHED_CARDS,
+                        FillBlanksCard.TYPE, Card.TYPE));
+            }
+            ParserUtil.parseFillBlanksCard(updatedFront, updatedBack);
+            return new FillBlanksCard(cardToEdit.getId(), updatedFront, updatedBack);
+        } else {
+            List<String> updatedOptions = options.orElse(((McqCard) cardToEdit).getOptions());
+            ParserUtil.parseMcqCard(updatedFront, updatedBack, updatedOptions);
+            return new McqCard(cardToEdit.getId(), updatedFront, updatedBack, updatedOptions);
+        }
     }
 
     @Override
@@ -159,6 +194,7 @@ public class EditCardCommand extends UndoableCommand {
         private String front;
         private String back;
         private UUID id;
+        private List<String> options;
         private Set<Tag> tagsToAdd;
         private Set<Tag> tagsToRemove;
 
@@ -171,6 +207,7 @@ public class EditCardCommand extends UndoableCommand {
         public EditCardDescriptor(EditCardDescriptor toCopy) {
             setFront(toCopy.front);
             setBack(toCopy.back);
+            setOptions(toCopy.options);
             setTagsToAdd(toCopy.tagsToAdd);
             setTagsToRemove(toCopy.tagsToRemove);
         }
@@ -179,7 +216,7 @@ public class EditCardCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(this.front, this.back, this.tagsToAdd, this.tagsToRemove);
+            return CollectionUtil.isAnyNonNull(this.front, this.back, this.options, this.tagsToAdd, this.tagsToRemove);
         }
 
         public void setFront(String front) {
@@ -196,6 +233,14 @@ public class EditCardCommand extends UndoableCommand {
 
         public Optional<String> getBack() {
             return Optional.ofNullable(back);
+        }
+
+        public void setOptions(List<String> options) {
+            this.options = options;
+        }
+
+        public Optional<List<String>> getOptions() {
+            return Optional.ofNullable(options);
         }
 
         public Optional<Set<Tag>> getTagsToAdd() {
@@ -231,6 +276,7 @@ public class EditCardCommand extends UndoableCommand {
 
             return getFront().equals(e.getFront())
                     && getBack().equals(e.getBack())
+                    && getOptions().equals(e.getOptions())
                     && getTagsToAdd().equals(e.getTagsToAdd());
         }
 

@@ -170,6 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addCard(Card card) throws DuplicateCardException {
         addressBook.addCard(card);
+        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
@@ -206,6 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedCard);
 
         addressBook.updateCard(target, editedCard);
+        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
