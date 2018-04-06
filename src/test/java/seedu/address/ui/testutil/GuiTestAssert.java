@@ -36,7 +36,6 @@ public class GuiTestAssert {
      * @param actualCard
      */
     public static void assertCardDisplaysCard(Card expectedCard, CardCardHandle actualCard) {
-        assertEquals(expectedCard.getBack(), actualCard.getBack());
         assertEquals(expectedCard.getFront(), actualCard.getFront());
     }
     /**
