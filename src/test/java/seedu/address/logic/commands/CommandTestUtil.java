@@ -189,7 +189,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the tag at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s card bank.
      */
     public static void showTagAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTagList().size());

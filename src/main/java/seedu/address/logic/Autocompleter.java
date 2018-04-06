@@ -16,7 +16,6 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCardCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCardCommand;
@@ -94,7 +93,6 @@ public class Autocompleter {
         commands.add(FindCommand.class);
         commands.add(HelpCommand.class);
         commands.add(ListCommand.class);
-        commands.add(ListCardCommand.class);
         commands.add(RedoCommand.class);
         commands.add(SelectCommand.class);
         commands.add(SelectCardCommand.class);
