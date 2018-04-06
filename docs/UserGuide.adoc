@@ -243,29 +243,32 @@ This section will teach you how to let Flashy's intelligent scheduling algorithm
 
 ==== Showing a flashcard : `showDue`
 
-Reveals the answer of the flashcard identified by the index number used in the list. +
-Format: `show INDEX`
+Show flashcards that are due for review by a certain date
+Format: `showdue d/DAY m/MONTH y/YEAR`
 
 ****
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* showdue can be used without any options, this will just show the flashcards due by today.
+* suppose you wanna view cards due before the date 28/04/2018, you can just do `showdue` d/28 m/04 y/2018.
+* suppose today is 13/04/2018, you want to view cards due before the date 28/04/2018, you can do `showdue` d/28 the options that you have not entered will be automatically assumed to be the current month and year.
 ****
 
 Examples:
 
-* `show 2` +
-Shows the 2nd flashcard in the list.
-* `show 1` +
-Shows the 1st flashcard in the list.
+* `showdue d/28 m/04 y/2018` +
+Show cards due before 28/04/2018
+* `showdue d/28` +
+Suppose to day is 13/04/2018, `m/04 y/2018` are automatically assumed to be the current month.
 
-==== Answering flashcards: `Answer`
-Answer to give feedback to the scheduling algorithm to schedule the cards for future review.
+==== Answering flashcards: `answer`
+After clicking and selecting a flashcard. Answer to give feedback to the scheduling algorithm to schedule the cards for future review.
 
-Format: `schedule CONFIDENCE`
+Format: `answer c/CONFIDENCE`
 
 ****
 * The confidence can only be 0, 1, 2.
-* `show` cammand must be used first before `schedule` can be used.
+* Card must be selected first before answering
+** To select a card either click on it
+** Then `answer c/CONFIDENCE`
 ****
 
 There are 3 `CONFIDENCE` levels
@@ -286,19 +289,27 @@ This design is based off the well known forgetting curve, you can read more abou
 
 Examples:
 
-* `schedule 1` +
+* `schedule ` +
 Card will be resheduled into near future.
 
-==== Show flashcards for review: `Schedule`
-Lists and show flashcards due for review today.
+==== Manually schedule card for a date: `schedule`
+Manually schedule cards to be reviewed on a date in the future.
 
-Format: `Today`
+Format: `schedule  d/DAY m/MONTH y/YEAR`
 
-Example:
+****
+* schedule can be used without any options, this will just schedule the flashcard for today
+* suppose you want to schedule cards for review on the date 28/04/2018, you can just do `schedule d/28 m/04 y/2018`.
+* suppose today is 13/04/2018,
+you want to schedule card for review on the date 28/04/2018, you can do `showdue` d/28 the options that you have not entered will be automatically assumed to be the current month and year.
+****
 
-* `Today`
+Examples:
 
-Lists and show flashcards due for review today.
+* `schedule d/28 m/04 y/2018` +
+Show cards due before 28/04/2018
+* `schedule d/28` +
+Suppose today is 13/04/2018, `m/04 y/2018` are automatically assumed to be the current month.
 
 === Misc
 ==== Autocompleting
