@@ -22,7 +22,7 @@ Flashy, lightning fast flashcard management.
 // comment: better one liners?
 [TIP]
 ====
-What are flashcards? Traditionally physical flashcards are actual cards that people use to help memorise things.
+What are flashcards? Traditionally, physical flashcards are actual cards that people use to help memorise things.
 The front will have a question prompt and the back will have an answer.
 ====
 // comment: Other ways to explain flashcard?
@@ -140,21 +140,22 @@ Ensure that if there are blanks, the parameter for `b/` should have the same num
 ==== Editing a flashcard : `editc`
 
 Edits an existing flashcard currently stored in Flashy. +
-Format: `editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK]`
+Format: `editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]`
 
 ****
 * Edits the flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * This only applies to parameters which you have supplied. If, for example, no parameters for `f/` are supplied, the front of the card would not be edited.
-* A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (i.e. you cannot edit a normal flashcard to a MCQ flashcard).
+* A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (e.g. you cannot edit a normal flashcard to a MCQ flashcard).
+* When removing a tag from a flashcard, ensure that the tag exists and the flashcard is associated with that tag.
 ****
 
 Examples:
 
-* `editc 1 f/What is the greatest flashcard application? b/Flashy` +
-Edits the front and back of the 1st flashcard to be `What is the greatest flashcard application?` and `Flashy` respectively.
-* `editc 2 b/Lee Hsien Loong` +
-Edits the back of the 2nd flashcard to be `Lee Hsien Loong`.
+* `editc 1 f/What is the greatest flashcard application? b/Flashy +t/Trivia` +
+Edits the front and back of the 1st flashcard to be `What is the greatest flashcard application?` and `Flashy` respectively, and also add a Trivia tag to it.
+* `editc 2 b/Lee Hsien Loong -t/Trivia` +
+Edits the back of the 2nd flashcard to be `Lee Hsien Loong`, and remove its tag Trivia.
 * `editc 1 o/Asia o/Australia o/Africa` +
 Edits the options of the 1st flashcard to be `Asia`, `Australia` and `Africa`. (Only if that flashcard is a MCQ flashcard).
 
