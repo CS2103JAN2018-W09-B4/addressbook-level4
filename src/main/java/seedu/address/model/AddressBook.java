@@ -4,12 +4,15 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.model.card.Card;
 import seedu.address.model.card.UniqueCardList;
 import seedu.address.model.card.exceptions.CardNotFoundException;
@@ -164,16 +167,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         cards.setCard(target, editedCard);
     }
 
+    //@@author pukipuki
     //// predicate for card review
-    public Predicate<Card> isBefore () {
+    public Predicate<Card> isBefore() {
         return c -> c.getSchedule().getNextReview()
-                .isBefore(LocalDateTime.now());
+              .isBefore(LocalDateTime.now());
+    }
+
+    /**
+     * Predicate for card review before a certain time
+     */
+    public Predicate<Card> isBefore(LocalDateTime date) {
+        return c -> c.getSchedule().getNextReview()
+            .isBefore(date.plusDays(1).minusNanos(1));
     }
 
     //// get list of cards for review
-    public ObservableList<Card> getTodayReviewList() {
-        return new FilteredList<Card>(cards.asObservableList(), isBefore());
+    public ObservableList<Card> getReviewList(LocalDateTime date) {
+        requireNonNull(date);
+        Comparator<Card> byDate =
+            Comparator.comparing(Card::getSchedule);
+
+        ObservableList<Card> cardsList = cards.asObservableList();
+        FXCollections.sort(cardsList, byDate);
+        FilteredList<Card> filteredList = new FilteredList<Card>(cardsList, isBefore(date));
+
+        return filteredList;
     }
+    //@@author
 
     //// util methods
 

@@ -131,7 +131,7 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure
-            setStyleToIndicateCommandFailure();
+            setStyleToIndicateCommandfailure();
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
@@ -157,7 +157,7 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Sets the command box style to indicate a failed command.
      */
-    private void setStyleToIndicateCommandFailure() {
+    private void setStyleToIndicateCommandfailure() {
         ObservableList<String> styleClass = commandTextField.getStyleClass();
 
         if (styleClass.contains(ERROR_STYLE_CLASS)) {

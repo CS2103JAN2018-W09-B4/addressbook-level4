@@ -39,6 +39,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
+
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index

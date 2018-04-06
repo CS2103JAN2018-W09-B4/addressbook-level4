@@ -48,4 +48,16 @@ public class TypicalAddressBook {
 
         return addressBook;
     }
+
+    public static AddressBook getAddressBookFromCardArray(Card[] cardArray) {
+        AddressBook addressBook = new AddressBook();
+        for (Card card : cardArray) {
+            try {
+                addressBook.addCard(card);
+            } catch (DuplicateCardException dce) {
+                throw new AssertionError("not possible");
+            }
+        }
+        return addressBook;
+    }
 }

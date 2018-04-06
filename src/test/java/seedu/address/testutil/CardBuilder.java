@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.UUID;
 
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Schedule;
 
 /**
  * A utility class to help with building Card objects.
@@ -15,11 +16,13 @@ public class CardBuilder {
     protected UUID id;
     protected String front;
     protected String back;
+    protected Schedule schedule;
 
     public CardBuilder() {
         id = UUID.randomUUID();
         front = DEFAULT_FRONT;
         back = DEFAULT_BACK;
+        schedule = new Schedule();
     }
 
     /**
@@ -29,6 +32,7 @@ public class CardBuilder {
         id = cardToCopy.getId();
         front = cardToCopy.getFront();
         back = cardToCopy.getBack();
+        schedule = cardToCopy.getSchedule();
     }
 
 
@@ -56,8 +60,16 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code schedule} of the {@code Card} that we are building.
+     */
+    public CardBuilder withSchedule(Schedule schedule) {
+        this.schedule = schedule;
+        return this;
+    }
+
     public Card build() {
-        return new Card(id, front, back);
+        return new Card(id, front, back, schedule);
     }
 
 }

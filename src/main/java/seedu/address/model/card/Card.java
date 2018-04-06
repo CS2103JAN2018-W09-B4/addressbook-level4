@@ -47,6 +47,17 @@ public class Card {
         this.type = TYPE;
     }
 
+    public Card(UUID id, String front, String back, Schedule schedule) {
+        requireAllNonNull(id, front, back, schedule);
+        checkArgument(isValidCard(front), MESSAGE_CARD_CONSTRAINTS);
+        checkArgument(isValidCard(back), MESSAGE_CARD_CONSTRAINTS);
+        this.front = front;
+        this.back = back;
+        this.id = id;
+        this.schedule = schedule;
+        this.type = TYPE;
+    }
+
     public UUID getId() {
         return id;
     }

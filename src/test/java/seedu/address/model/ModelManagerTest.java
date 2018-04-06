@@ -1,26 +1,41 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
 import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.tag.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    private ModelManager model;
+    private LocalDateTime todaysDate;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        todaysDate = LocalDate.now().atStartOfDay();
+    }
 
     @Test
     public void getFilteredTagList_modifyList_throwsUnsupportedOperationException() {
@@ -30,17 +45,48 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setSelectedCard_null() {
+        assertNull(model.getSelectedCard());
+        model.setSelectedCard(null);
+        assertNull(model.getSelectedCard());
+    }
+
+    @Test
+    public void setSelectedCard_success() {
+        assertNull(model.getSelectedCard());
+        model.setSelectedCard(PHYSICS_CARD);
+        assertEquals(model.getSelectedCard(), PHYSICS_CARD);
+    }
+
+    @Test
+    public void getSelectedCard_null() {
+        assertNull(model.getSelectedCard());
+    }
+
+    @Test
+    public void setNextReview_throwsCommandException() throws Exception {
+        thrown.expect(NoCardSelectedException.class);
+        model.setNextReview(todaysDate);
+    }
+
+    @Test
+    public void answerSelectedCard_throwsNoCardSelectedException() throws Exception {
+        thrown.expect(NoCardSelectedException.class);
+        model.answerSelectedCard(0);
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder()
-                .withTag(PHYSICS_TAG)
-                .withTag(MATHEMATICS_TAG)
-                .withCard(PHYSICS_CARD)
-                .withCard(PHYSICS_CARD_2)
-                .withCard(MATHEMATICS_CARD)
-                .withEdge(PHYSICS_CARD, PHYSICS_TAG)
-                .withEdge(PHYSICS_CARD_2, PHYSICS_TAG)
-                .withEdge(MATHEMATICS_CARD, MATHEMATICS_TAG)
-                .build();
+            .withTag(PHYSICS_TAG)
+            .withTag(MATHEMATICS_TAG)
+            .withCard(PHYSICS_CARD)
+            .withCard(PHYSICS_CARD_2)
+            .withCard(MATHEMATICS_CARD)
+            .withEdge(PHYSICS_CARD, PHYSICS_TAG)
+            .withEdge(PHYSICS_CARD_2, PHYSICS_TAG)
+            .withEdge(MATHEMATICS_CARD, MATHEMATICS_TAG)
+            .build();
 
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();

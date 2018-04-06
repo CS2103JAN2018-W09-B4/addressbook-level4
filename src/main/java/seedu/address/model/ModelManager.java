@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -13,6 +15,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -21,6 +24,7 @@ import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.cardtag.DuplicateEdgeException;
 import seedu.address.model.cardtag.EdgeNotFoundException;
@@ -59,6 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCards.setAll(this.addressBook.getCardList());
 
         selectedTag = null;
+        selectedCard = null;
     }
 
     public ModelManager() {
@@ -75,6 +80,18 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
+
+    //@@author pukipuki
+    @Override
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    @Override
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+    }
+    //@@author
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
@@ -171,6 +188,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author pukipuki
+    @Override
+    public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
+        if (selectedCard == null) {
+            throw new NoCardSelectedException();
+        } else {
+            selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
+        }
+        showDueCards(LocalDate.now().atStartOfDay());
+    }
+    //@@author
+
     @Override
     public void updateCard(Card target, Card editedCard)
             throws DuplicateCardException, CardNotFoundException {
@@ -212,8 +241,18 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author pukipuki
     @Override
-    public void showDueCards() {
-        filteredCards.setAll(this.addressBook.getTodayReviewList());
+    public void setNextReview(LocalDateTime date) throws NoCardSelectedException {
+        if (selectedCard == null) {
+            throw new NoCardSelectedException();
+        } else {
+            selectedCard.getSchedule().setNextReview(date);
+        }
+        showDueCards(LocalDate.now().atStartOfDay());
+    }
+
+    @Override
+    public void showDueCards(LocalDateTime date) {
+        filteredCards.setAll(this.addressBook.getReviewList(date));
     }
     //@@author
 

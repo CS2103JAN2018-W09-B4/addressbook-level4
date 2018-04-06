@@ -1,12 +1,12 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,12 +18,14 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.card.Card;
 import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.CardArrayBuilder;
+import seedu.address.testutil.TypicalAddressBook;
 
 public class AddressBookTest {
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -66,20 +68,30 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getTodayReviewList() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        List<Card> originalList = addressBook.getCardList();
-        List<Card> reviewList = addressBook.getTodayReviewList();
-        assertEquals(originalList, reviewList);
+    public void getReviewList() throws Exception {
+        LocalDateTime todaysDate = LocalDate.now().atStartOfDay();
+        ObservableList<Card> list = addressBook.getReviewList(todaysDate);
+        assert (list.isEmpty());
+        int[] days = new int[]{-1, 0, 1, 3};
+        Card[] cardArray = CardArrayBuilder.getMapDaysToCardArray(days);
+        AddressBook addressBookSchedule = TypicalAddressBook
+            .getAddressBookFromCardArray(cardArray);
+        list = addressBookSchedule.getReviewList(todaysDate.minusDays(1L));
+        assertEquals(list.size(), 1);
+        list = addressBookSchedule.getReviewList(todaysDate);
+        assertEquals(list.size(), 2);
+        list = addressBookSchedule.getReviewList(todaysDate.plusDays(1L));
+        assertEquals(list.size(), 3);
+        list = addressBookSchedule.getReviewList(todaysDate.plusDays(2L));
+        assertEquals(list.size(), 3);
+        list = addressBookSchedule.getReviewList(todaysDate.plusDays(3L));
+        assertEquals(list.size(), 4);
+    }
 
-        // predicate filter should not include tomorrow's card
-        Card removedCard = newData.getCardList().get(0);
-        removedCard.getSchedule().setRelativeNextReview(1);
-        List<Card> notEqualsList = addressBook.getTodayReviewList();
-        assertNotEquals(originalList, notEqualsList);
-
-        assertFalse(notEqualsList.contains(removedCard));
+    @Test
+    public void getReviewList_nullArgument_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        addressBook.getReviewList(null);
     }
 
     /**

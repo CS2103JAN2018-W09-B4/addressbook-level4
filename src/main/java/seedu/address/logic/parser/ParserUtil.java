@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.ui.UiManager.VALID_THEMES;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -17,6 +20,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FillBlanksCard;
 import seedu.address.model.card.McqCard;
+import seedu.address.model.card.Schedule;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 
@@ -34,11 +38,13 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
     public static final String MESSAGE_INVALID_THEME =
-            "Theme must be one of " + String.join(", ", VALID_THEMES);
+        "Theme must be one of " + String.join(", ", VALID_THEMES);
+    public static final String MESSAGE_INVALID_NUMBER = "Not a number, please put a valid number.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws IllegalValueException {
@@ -176,7 +182,114 @@ public class ParserUtil {
         return validThemes.indexOf(theme.get());
     }
 
+    //@@author pukipuki
+
+    /**
+     * Parses a {@code String confidenceLevel} into an {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code confidenceLevel} is invalid.
+     */
+    public static int parseConfidenceLevel(String confidenceLevelString) throws IllegalValueException {
+        requireNonNull(confidenceLevelString);
+        String trimmedConfidenceLevelString = confidenceLevelString.trim();
+        try {
+            if (!Schedule
+                .isValidConfidenceLevel(trimmedConfidenceLevelString)) {
+                throw new IllegalValueException(Schedule.MESSAGE_ANSWER_CONSTRAINTS);
+            }
+        } catch (NumberFormatException nfe) {
+            throw new IllegalValueException(Schedule.MESSAGE_ANSWER_CONSTRAINTS);
+        }
+        return Integer.parseInt(confidenceLevelString);
+    }
+
+    /**
+     * Parses {@code String dayString, String monthString, String yearString} into a {@code LocalDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given date is invalid.
+     */
+    public static LocalDateTime parseDate(String dayString, String monthString, String yearString)
+        throws IllegalValueException, DateTimeException {
+
+        try {
+            int year = getYear(yearString);
+            int month = getMonth(monthString);
+            int day = getDay(dayString);
+            if (!Schedule.isValidDay(day)) {
+                throw new IllegalValueException(Schedule.MESSAGE_DAY_CONSTRAINTS);
+            } else if (!Schedule.isValidMonth(month)) {
+                throw new IllegalValueException(Schedule.MESSAGE_MONTH_CONSTRAINTS);
+            }
+            LocalDateTime date = LocalDate.of(year, month, day).atStartOfDay();
+            return date;
+        } catch (DateTimeException dte) {
+            throw new IllegalValueException(dte.getMessage());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
+    }
+
+    /**
+     * Helper functions for parseDate
+     */
+    public static String trimDateArgs(Optional<String> args) {
+        if (args.isPresent()) {
+            return args.get();
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Helper functions for parseDate
+     */
+    public static int getYear(String yearString) {
+        if (yearString.equals("")) {
+            return LocalDate.now().getYear();
+        } else {
+            try {
+                return Integer.parseInt(yearString);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException(MESSAGE_INVALID_NUMBER);
+            }
+        }
+    }
+
+    /**
+     * Helper functions for parseDate
+     */
+    public static int getMonth(String monthString) {
+        if (monthString.equals("")) {
+            return LocalDate.now().getMonthValue();
+        } else {
+            try {
+                return Integer.parseInt(monthString);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException(MESSAGE_INVALID_NUMBER);
+            }
+        }
+    }
+
+    /**
+     * Helper functions for parseDate
+     */
+    public static int getDay(String dayString) {
+        if (dayString.equals("")) {
+            return LocalDate.now().getDayOfMonth();
+        } else {
+            try {
+                return Integer.parseInt(dayString);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException(MESSAGE_INVALID_NUMBER);
+            }
+        }
+    }
+    //@@author
+
     //@@author jethrokuan
+
     /**
      * Parses a {@code String tag} into a {@code Tag}
      * Leading and trailing whitespaces will be trimmed
