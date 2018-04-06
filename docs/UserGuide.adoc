@@ -1,5 +1,6 @@
 = Flashy - User Guide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -176,68 +177,6 @@ Examples:
 `deletec 2` +
 Deletes the 2nd flashcard in the list.
 
-=== Using flashcard
-After adding and managing your flashcards, its time to get your A+!
-This section will teach you how to let Flashy's intelligent scheduling algorithm prompt you the best time to study!
-
-==== Showing a flashcard : `show`
-
-Reveals the answer of the flashcard identified by the index number used in the list. +
-Format: `show INDEX`
-
-****
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `show 2` +
-Shows the 2nd flashcard in the list.
-* `show 1` +
-Shows the 1st flashcard in the list.
-
-==== Answering flashcards: `Schedule`
-Answer to give feedback to the scheduling algorithm to schedule the cards for future review.
-
-Format: `schedule CONFIDENCE`
-
-****
-* The confidence can only be 0, 1, 2.
-* `show` cammand must be used first before `schedule` can be used.
-****
-
-There are 3 `CONFIDENCE` levels
-
-* `answer 0` +
-Go again. I don't know the answer to this card. Card will then be requeued into the same session again.
-* `answer 1` +
-Pass. I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
-* `answer 2` +
-Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.
-
-[TIP]
-====
-This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it.
-
-This design is based off the well known forgetting curve, you can read more about it here https://en.wikipedia.org/wiki/Forgetting_curve
-====
-
-Examples:
-
-* `schedule 1` +
-Card will be resheduled into near future.
-
-==== Show flashcards for review: `Today`
-Lists and show flashcards due for review today.
-
-Format: `Today`
-
-Example:
-
-* `Today`
-
-Lists and show flashcards due for review today.
 
 === Managing Tags
 ==== Selecting a tag : `select`
@@ -298,7 +237,72 @@ Examples:
 * `delete 1` deletes the first visible tag.
 * `delete 2` deletes the second visible tag.
 
-=== Clearing all data : `clear`
+=== Using flashcard
+After adding and managing your flashcards, its time to get your A+!
+This section will teach you how to let Flashy's intelligent scheduling algorithm prompt you the best time to study!
+
+==== Showing a flashcard : `showDue`
+
+Reveals the answer of the flashcard identified by the index number used in the list. +
+Format: `show INDEX`
+
+****
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `show 2` +
+Shows the 2nd flashcard in the list.
+* `show 1` +
+Shows the 1st flashcard in the list.
+
+==== Answering flashcards: `Answer`
+Answer to give feedback to the scheduling algorithm to schedule the cards for future review.
+
+Format: `schedule CONFIDENCE`
+
+****
+* The confidence can only be 0, 1, 2.
+* `show` cammand must be used first before `schedule` can be used.
+****
+
+There are 3 `CONFIDENCE` levels
+
+* `answer 0` +
+Go again. I don't know the answer to this card. Card will then be requeued into the same session again.
+* `answer 1` +
+Pass. I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
+* `answer 2` +
+Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.
+
+[TIP]
+====
+This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it.
+
+This design is based off the well known forgetting curve, you can read more about it here https://en.wikipedia.org/wiki/Forgetting_curve
+====
+
+Examples:
+
+* `schedule 1` +
+Card will be resheduled into near future.
+
+==== Show flashcards for review: `Schedule`
+Lists and show flashcards due for review today.
+
+Format: `Today`
+
+Example:
+
+* `Today`
+
+Lists and show flashcards due for review today.
+
+=== Misc
+==== Autocompleting
+==== Clearing all data : `clear`
 
 Instructs Flashy to clear all data. +
 Format: `clear`
@@ -306,7 +310,7 @@ Format: `clear`
 [TIP]
 This command will instruct Flashy to delete all tags and flashcards. Use this command with caution.
 
-=== Listing entered commands : `history`
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -316,12 +320,14 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+
+
 // tag::undoredo[]
-=== Undo and Redo
+==== Undo and Redo
 Some commands support undoing and redoing. The commands are `add`, `addc`, `addm`, `edit`, `editc`, `editm`, `delete`, `deletec`, and `clear`.
 
 
-==== Undoing previous command : `undo`
+===== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -347,7 +353,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-==== Redoing the previously undone command : `redo`
+===== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -370,7 +376,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Exiting the program : `exit` or `quit`
+==== Exiting the program : `exit` or `quit`
 
 Exits the program. +
 Format: `exit` or `quit`
