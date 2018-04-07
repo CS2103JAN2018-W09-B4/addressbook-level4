@@ -207,14 +207,6 @@ public class ParserUtilTest {
         assertEquals(Optional.of(VALID_FRONT), ParserUtil.parseFront(Optional.of(VALID_FRONT)));
     }
 
-    /*
-    @Test
-    public void parseFront_validValueWithWhitespace_returnsTrimmedFront() throws Exception {
-        String frontWithWhitespace = WHITESPACE + VALID_FRONT + WHITESPACE;
-        assertEquals(Optional.of(VALID_FRONT), ParserUtil.parseFront(Optional.of(frontWithWhitespace)));
-    }
-    */
-
     @Test
     public void parseBack_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseBack((Optional<String>) null));
@@ -235,13 +227,26 @@ public class ParserUtilTest {
         assertEquals(Optional.of(VALID_BACK), ParserUtil.parseBack(Optional.of(VALID_BACK)));
     }
 
-    /*
     @Test
-    public void parseBack_validValueWithWhitespace_returnsTrimmedBack() throws Exception {
-        String frontWithWhitespace = WHITESPACE + VALID_BACK + WHITESPACE;
-        assertEquals(Optional.of(VALID_BACK), ParserUtil.parseBack(Optional.of(backWithWhitespace)));
+    public void parseOptions_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseOptions((List<String>) null));
     }
-    */
+
+    @Test
+    public void parseOptions_invalidValue_throwsIllegalValueException() {
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseOptions(Arrays.asList(WHITESPACE,
+                WHITESPACE, WHITESPACE)));
+    }
+
+    @Test
+    public void parseOptions_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseOptions(Arrays.asList()).isPresent());
+    }
+
+    @Test
+    public void parseOptions_validValueWithoutWhitespace_returnsFront() throws Exception {
+        assertEquals(Optional.of(VALID_MCQ_OPTIONS), ParserUtil.parseOptions(VALID_MCQ_OPTIONS));
+    }
 
     @Test
     public void parseTheme_incorrectString_throwsIllegalValueException() throws Exception {

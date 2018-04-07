@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -53,6 +54,14 @@ public class EditCardDescriptorBuilder {
      */
     public EditCardDescriptorBuilder withUuid(UUID uuid) {
         descriptor.setId(uuid);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Options} of the {@code EditCardDescriptor} that we are building.
+     */
+    public EditCardDescriptorBuilder withOptions(List<String> options) {
+        descriptor.setOptions(options);
         return this;
     }
 

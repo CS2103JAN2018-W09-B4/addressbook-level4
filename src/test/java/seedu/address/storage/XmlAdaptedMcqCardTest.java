@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalMcqCards.MATHEMATICS_CARD;
+import static seedu.address.testutil.TypicalMcqCards.MATHEMATICS_MCQ_CARD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +29,8 @@ public class XmlAdaptedMcqCardTest {
 
     @Test
     public void toModelType_validMcqCardDetails_returnsMcqCard() throws Exception {
-        XmlAdaptedMcqCard card = new XmlAdaptedMcqCard(MATHEMATICS_CARD);
-        assertEquals(card.toModelType(), MATHEMATICS_CARD);
+        XmlAdaptedMcqCard card = new XmlAdaptedMcqCard(MATHEMATICS_MCQ_CARD);
+        assertEquals(card.toModelType(), MATHEMATICS_MCQ_CARD);
     }
 
     @Test

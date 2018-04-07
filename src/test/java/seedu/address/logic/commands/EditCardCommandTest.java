@@ -14,6 +14,8 @@ import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.model.cardtag.CardTag.MESSAGE_CARD_NO_TAG;
 import static seedu.address.model.tag.Tag.MESSAGE_TAG_NOT_FOUND;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBookFillBlanksCards;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBookMcqCards;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
@@ -35,10 +37,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.FillBlanksCard;
+import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
+import seedu.address.testutil.FillBlanksCardBuilder;
+import seedu.address.testutil.McqCardBuilder;
 
 /**ed
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
@@ -47,7 +53,10 @@ import seedu.address.testutil.EditCardDescriptorBuilder;
 public class EditCardCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model modelWithMcqCards = new ModelManager(getTypicalAddressBookMcqCards(), new UserPrefs());
+    private Model modelWithFillBlanksCards = new ModelManager(getTypicalAddressBookFillBlanksCards(), new UserPrefs());
 
+    //@@author shawnclq
     @Test
     public void execute_frontBackSpecifiedUnfilteredList_success() throws Exception {
         Card editedCard = new CardBuilder().build();
@@ -64,6 +73,65 @@ public class EditCardCommandTest {
         // To check whether card ID has changed
         assertEqualCardId(targetCard, editedCard);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_mismatchedCardsToFillBlanksCard_failure() throws Exception {
+        FillBlanksCard editedCard = new FillBlanksCardBuilder().build();
+        Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_MISMATCHED_CARDS,
+                targetCard.getType(), editedCard.getType());
+
+        assertCommandFailure(editCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_mismatchedCardsToMcqCard_failure() throws Exception {
+        McqCard editedCard = new McqCardBuilder().build();
+        Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard)
+                .withOptions(editedCard.getOptions()).build();
+        EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_MISMATCHED_CARDS,
+                targetCard.getType(), editedCard.getType());
+
+        assertCommandFailure(editCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_mismatchedFillBlanksCardsToMcqCard_failure() throws Exception {
+        McqCard editedCard = new McqCardBuilder().build();
+        FillBlanksCard targetCard = (FillBlanksCard) modelWithFillBlanksCards.getFilteredCardList()
+                .get(INDEX_FIRST_CARD.getZeroBased());
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard)
+                .withOptions(editedCard.getOptions()).build();
+        EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
+        editCommand.setData(modelWithFillBlanksCards, new CommandHistory(), new UndoRedoStack());
+
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_MISMATCHED_CARDS,
+                targetCard.getType(), editedCard.getType());
+
+        assertCommandFailure(editCommand, modelWithFillBlanksCards, expectedMessage);
+    }
+
+    @Test
+    public void execute_mismatchedFillBlanksCardsToCard_failure() throws Exception {
+        Card editedCard = new CardBuilder().build();
+        FillBlanksCard targetCard = (FillBlanksCard) modelWithFillBlanksCards.getFilteredCardList()
+                .get(INDEX_FIRST_CARD.getZeroBased());
+        EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
+        editCommand.setData(modelWithFillBlanksCards, new CommandHistory(), new UndoRedoStack());
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_MISMATCHED_CARDS,
+                targetCard.getType(), editedCard.getType());
+
+        assertCommandFailure(editCommand, modelWithFillBlanksCards, expectedMessage);
     }
 
     @Test
@@ -88,6 +156,7 @@ public class EditCardCommandTest {
         assertEqualCardId(lastCard, editedCard);
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+    //@@author
 
     //@@author jethrokuan
     @Test
@@ -176,6 +245,7 @@ public class EditCardCommandTest {
     }
     //@@author
 
+    //@@author shawnclq
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
@@ -373,4 +443,5 @@ public class EditCardCommandTest {
         editCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         return editCommand;
     }
+
 }

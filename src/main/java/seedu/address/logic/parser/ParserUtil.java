@@ -172,6 +172,7 @@ public class ParserUtil {
      * Parses a {@code List<String>} into a {@code Optional<List<String>>}
      */
     public static Optional<List<String>> parseOptions(List<String> optionValues) throws IllegalValueException {
+        requireAllNonNull(optionValues);
         if (optionValues.isEmpty()) {
             return Optional.empty();
         }
