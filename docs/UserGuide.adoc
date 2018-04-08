@@ -214,7 +214,7 @@ Examples:
 ==== Editing a tag : `edit`
 
 Updates an existing tag to the specified values. +
-Format: `edit INDEX t/TAG c/COLOR`
+Format: `edit INDEX n/TAG c/COLOR`
 
 ****
 * Edits the tag at the specified `INDEX`. The index refers to the index number shown in the current tag listing. The index *must be a positive integer* 1, 2, 3, ...
@@ -224,9 +224,9 @@ Format: `edit INDEX t/TAG c/COLOR`
 
 Examples:
 
-* `edit 1 t/French` +
+* `edit 1 n/French` +
 Changes the name of the first tag in the list to `French`.
-* `edit 2 t/German c/FF5733` +
+* `edit 2 n/German c/FF5733` +
 Changes the name of the second tag in the list to `German` and the color of the tag to a shade of orange.
 
 ==== Deleting a Tag: `delete`
