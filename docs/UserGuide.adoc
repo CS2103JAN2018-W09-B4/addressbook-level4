@@ -211,6 +211,11 @@ Examples:
 
 * `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, and `Biology Midterms`, and not `bio`, or `chemistry`.
 
+==== Clearing all filters: `list`
+
+Removes all existing filters: showing all flashcards and tags. +
+Format: `list`
+
 ==== Editing a tag : `edit`
 
 Updates an existing tag to the specified values. +
