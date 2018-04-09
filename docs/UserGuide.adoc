@@ -431,12 +431,10 @@ _{explain how the user can enable/disable data encryption}_
 `addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right`
 
 |Edit Normal Flashcard
-|`editc [f/FRONT] [b/BACK]`
-|`editc f/When is National Day in Singapore?`
-
-|Edit MCQ-Type Flashcard
-|`editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION] ... [b/BACK]`
-|`editm 1 f/When is National Day in Singapore? o/1/10th July o/3/9th August b/3`
+|`editc [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]`
+|`editc f/When is National Day in Singapore?` +
+ +
+`editc o/Asia o/Australia o/Africa b/3 +t/Trivia`
 
 |Reveal Answer to Flashcard
 |`show INDEX`
