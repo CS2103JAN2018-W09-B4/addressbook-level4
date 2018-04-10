@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +26,6 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedCard> cards;
 
-    @XmlElement
-    private List<XmlAdaptedMcqCard> mcqCards;
-
     @XmlElement(name = "cardtag")
     private XmlAdaptedCardTag cardTag = null;
 
@@ -38,7 +36,6 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         tags = new ArrayList<>();
         cards = new ArrayList<>();
-        mcqCards = new ArrayList<>();
     }
 
     /**
@@ -49,10 +46,11 @@ public class XmlSerializableAddressBook {
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
         for (Card card: src.getCardList()) {
             if (card.getType().equals(McqCard.TYPE)) {
-                mcqCards.add(new XmlAdaptedMcqCard(card.getId().toString(), card.getFront(),
-                        card.getBack(), ((McqCard) card).getOptions()));
+                cards.add(new XmlAdaptedCard(card.getId().toString(), card.getFront(),
+                        card.getBack(), ((McqCard) card).getOptions(), card.getType()));
             } else {
-                cards.add(new XmlAdaptedCard(card.getId().toString(), card.getFront(), card.getBack()));
+                cards.add(new XmlAdaptedCard(card.getId().toString(), card.getFront(),
+                        card.getBack(), Arrays.asList(), card.getType()));
             }
         }
         cardTag = new XmlAdaptedCardTag(src.getCardTag());

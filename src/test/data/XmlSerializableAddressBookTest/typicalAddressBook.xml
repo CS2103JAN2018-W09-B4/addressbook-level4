@@ -28,51 +28,61 @@
         <front>What is 1 + 1?</front>
         <back>2</back>
         <id>3648b549-d900-4f0e-8573-e3c9ab499054</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>Name two types of bonding between atoms</front>
         <back>Covalent and Ionic bonding</back>
         <id>f581860a-d5db-4925-aeab-1f1e441407f3</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>What is Java?</front>
         <back>A programming language</back>
         <id>3f92bd2c-affc-499c-a9a0-28b46fd61791</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>Which continent is Singapore in?</front>
         <back>Asia</back>
         <id>8c19a1f2-cfa2-4060-b9e3-67bd1ef101e0</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>When is Singapore's National Day?</front>
         <back>9th August 1965</back>
         <id>8c488abb-ab40-4a5b-9b1b-7ee78d453538</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>What does GDP stand for?</front>
         <back>Gross Domestic Product</back>
         <id>6375641d-822e-42b1-b98e-49e40b31c328</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>Who wrote To Kill A Mockingbird?</front>
         <back>Harper Lee</back>
         <id>3dd96485-a4e4-42fe-a2fb-9e9f01d7f08d</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>Why do things fall?</front>
         <back>Gravity</back>
         <id>7d59e0a2-4e64-4540-abdf-ce0fa552edb7</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>What is Newton's First Law?</front>
         <back>An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.</back>
         <id>50992d13-2f39-4c5c-b3e9-b088c8a04311</id>
+        <type>Normal</type>
     </cards>
     <cards>
         <front>What is a neuron?</front>
         <back>a specialized cell transmitting nerve impulses; a nerve cell</back>
         <id>801d8f6b-97a1-44d0-8abe-429fd0471c90</id>
+        <type>Normal</type>
     </cards>
     <cardtag>
         <cardEntry>

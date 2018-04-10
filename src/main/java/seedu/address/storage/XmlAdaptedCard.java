@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -8,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.FillBlanksCard;
+import seedu.address.model.card.McqCard;
 
 /**
  * JAXB-friendly version of the Card.
@@ -22,6 +25,10 @@ public class XmlAdaptedCard {
     protected String back;
     @XmlElement(required = true)
     protected String id;
+    @XmlElement(required = true)
+    private List<String> option = new ArrayList<>();
+    @XmlElement(required = true)
+    private String type;
 
     /**
      * Constructs an XmlAdaptedCard.
@@ -31,23 +38,36 @@ public class XmlAdaptedCard {
 
 
     /**
-     * Constructs an {@code XmlAdaptedCard} with the given tag details.
+     * Constructs an {@code XmlAdaptedCard} with the given card details.
      */
-    public XmlAdaptedCard(String id, String front, String back) {
+    public XmlAdaptedCard(String id, String front, String back, List<String> options, String type) {
         this.id = id;
         this.front = front;
         this.back = back;
+        this.type = type;
+        if (options == null) {
+            option = null;
+        } else {
+            option.addAll(options);
+        }
     }
 
     /**
      * Converts a given Card into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedTag
+     * @param source future changes to this will not affect the created XmlAdaptedCard
      */
     public XmlAdaptedCard(Card source) {
-        id = source.getId().toString();
-        front = source.getFront();
-        back = source.getBack();
+        this(source.getId().toString(), source.getFront(), source.getBack(), null, source.getType());
+    }
+
+    /**
+     * Converts a given McqCard into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedCard
+     */
+    public XmlAdaptedCard(McqCard source) {
+        this(source.getId().toString(), source.getFront(), source.getBack(), source.getOptions(), source.getType());
     }
 
     /**
@@ -72,11 +92,17 @@ public class XmlAdaptedCard {
         if (!Card.isValidCard(this.back)) {
             throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
         }
-        if (FillBlanksCard.containsBlanks(this.front)) {
+        if (this.type.equals(FillBlanksCard.TYPE)) {
             if (!FillBlanksCard.isValidFillBlanksCard(this.front, this.back)) {
                 throw new IllegalValueException(FillBlanksCard.MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
             }
             return new FillBlanksCard(UUID.fromString(id), this.front, this.back);
+        }
+        if (this.type.equals(McqCard.TYPE)) {
+            if (!McqCard.isValidMcqCard(this.back, this.option)) {
+                throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_ANSWER_CONSTRAINTS);
+            }
+            return new McqCard(UUID.fromString(this.id), this.front, this.back, this.option);
         }
         return new Card(UUID.fromString(id), front, back);
     }
@@ -95,5 +121,9 @@ public class XmlAdaptedCard {
         return Objects.equals(id, otherCard.id)
                 && Objects.equals(front, otherCard.front)
                 && Objects.equals(back, otherCard.back);
+    }
+
+    public String getType() {
+        return type;
     }
 }
