@@ -24,7 +24,6 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
-    Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -114,4 +113,7 @@ public interface Model {
 
     /** Adds the tags for a card */
     void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException;
+
+    /** Show only cards without tags*/
+    void showUntaggedCards();
 }
