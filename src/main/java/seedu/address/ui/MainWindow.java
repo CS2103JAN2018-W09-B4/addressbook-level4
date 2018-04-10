@@ -204,6 +204,7 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    //@@author yong-jie
     @Subscribe
     private void handleChangeThemeEvent(ChangeThemeRequestEvent event) {
         String currentTheme = UiManager.getCurrentTheme();
