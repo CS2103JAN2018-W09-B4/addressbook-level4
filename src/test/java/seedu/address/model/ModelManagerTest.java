@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
@@ -23,7 +23,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.tag.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.CardBankBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -33,7 +33,7 @@ public class ModelManagerTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
         todaysDate = LocalDate.now().atStartOfDay();
     }
 
@@ -77,7 +77,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder()
+        CardBank cardBank = new CardBankBuilder()
             .withTag(PHYSICS_TAG)
             .withTag(MATHEMATICS_TAG)
             .withCard(PHYSICS_CARD)
@@ -88,12 +88,12 @@ public class ModelManagerTest {
             .withEdge(MATHEMATICS_CARD, MATHEMATICS_TAG)
             .build();
 
-        AddressBook differentAddressBook = new AddressBook();
+        CardBank differentCardBank = new CardBank();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(cardBank, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(cardBank, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -105,13 +105,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different cardBank -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentCardBank, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = PHYSICS_TAG.getName().fullName.split("\\s+");
         modelManager.updateFilteredTagList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(cardBank, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
@@ -121,7 +121,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookName("differentName");
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setCardBankName("differentName");
+        assertTrue(modelManager.equals(new ModelManager(cardBank, differentUserPrefs)));
     }
 }

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
@@ -35,7 +35,7 @@ public class SelectCardCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class SelectCardCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of the list of cards
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getCardList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getCardBank().getCardList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }

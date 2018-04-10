@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.CardBank;
 import seedu.address.model.cardtag.CardTag;
 
 /**
@@ -11,8 +11,8 @@ public class TypicalCardTag {
      * Returns a typical CardTag.
      */
     public static CardTag getTypicalCardTag() {
-        AddressBook addressBook = TypicalAddressBook.getTypicalAddressBook();
+        CardBank cardBank = TypicalCardBank.getTypicalCardBank();
 
-        return addressBook.getCardTag();
+        return cardBank.getCardTag();
     }
 }

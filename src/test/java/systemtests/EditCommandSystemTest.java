@@ -30,7 +30,7 @@ import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 import seedu.address.testutil.TagBuilder;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends CardBankSystemTest {
 
     @Test
     public void edit() throws Exception {
@@ -81,7 +81,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
-        int invalidIndex = getModel().getAddressBook().getTagList().size();
+        int invalidIndex = getModel().getCardBank().getTagList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_COMSCI,
                 Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
 
@@ -126,7 +126,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: edit a tag with new values same as another tag's values -> rejected */
-        assertTrue(getModel().getAddressBook().getTagList().contains(MATHEMATICS_TAG));
+        assertTrue(getModel().getCardBank().getTagList().contains(MATHEMATICS_TAG));
         index = INDEX_FIRST_TAG;
         assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(MATHEMATICS_TAG));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MATHEMATICS;
@@ -186,8 +186,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 5. Asserts that the status bar's sync status changes.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -206,8 +206,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

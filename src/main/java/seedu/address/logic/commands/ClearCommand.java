@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.EmptyCardBackEvent;
-import seedu.address.model.AddressBook;
+import seedu.address.model.CardBank;
 
 /**
  * Clears the address book.
@@ -19,7 +19,7 @@ public class ClearCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() {
         requireNonNull(model);
-        model.resetData(new AddressBook());
+        model.resetData(new CardBank());
         EventsCenter.getInstance().post(new EmptyCardBackEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }

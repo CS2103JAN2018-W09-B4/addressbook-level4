@@ -10,8 +10,8 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private String addressBookFilePath = "data/addressbook.xml";
-    private String addressBookName = "MyAddressBook";
+    private String cardBankFilePath = "data/cardBank.xml";
+    private String cardBankName = "MyCardBank";
     private String theme = "view/DarkTheme.css";
 
     public UserPrefs() {
@@ -30,20 +30,20 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
-    public String getAddressBookFilePath() {
-        return addressBookFilePath;
+    public String getCardBankFilePath() {
+        return cardBankFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setCardBankFilePath(String cardBankFilePath) {
+        this.cardBankFilePath = cardBankFilePath;
     }
 
-    public String getAddressBookName() {
-        return addressBookName;
+    public String getCardBankName() {
+        return cardBankName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setCardBankName(String cardBankName) {
+        this.cardBankName = cardBankName;
     }
 
     public String getTheme() {
@@ -66,22 +66,22 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName)
+                && Objects.equals(cardBankFilePath, o.cardBankFilePath)
+                && Objects.equals(cardBankName, o.cardBankName)
                 && Objects.equals(theme, o.theme);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, addressBookName);
+        return Objects.hash(guiSettings, cardBankFilePath, cardBankName);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nLocal data file location : " + cardBankFilePath);
+        sb.append("\nCardBank name : " + cardBankName);
         sb.append("\nTheme : " + theme);
         return sb.toString();
     }

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TAGS_LISTED_OVERVIEW;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
 import static seedu.address.testutil.TypicalTags.HISTORY_TAG;
 
@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
-import seedu.address.model.AddressBook;
+import seedu.address.model.CardBank;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -27,7 +27,7 @@ import seedu.address.model.tag.Tag;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCardBank(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -84,14 +84,14 @@ public class FindCommandTest {
      * Asserts that {@code command} is successfully executed, and<br>
      *     - the command feedback is equal to {@code expectedMessage}<br>
      *     - the {@code FilteredList<Tag>} is equal to {@code expectedList}<br>
-     *     - the {@code AddressBook} in model remains the same after executing the {@code command}
+     *     - the {@code CardBank} in model remains the same after executing the {@code command}
      */
     private void assertCommandSuccess(FindCommand command, String expectedMessage, List<Tag> expectedList) {
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        CardBank expectedCardBank = new CardBank(model.getCardBank());
         CommandResult commandResult = command.execute();
 
         assertEquals(expectedMessage, commandResult.feedbackToUser);
         assertEquals(expectedList, model.getFilteredTagList());
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        assertEquals(expectedCardBank, model.getCardBank());
     }
 }

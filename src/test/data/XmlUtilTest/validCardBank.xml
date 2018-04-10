@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<cardBank>
     <tags>
         <id>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</id>
         <name>Physics</name>
@@ -104,4 +104,4 @@
             <cards>8c488abb-ab40-4a5b-9b1b-7ee78d453538</cards>
         </tagEntry>
     </cardtag>
-</addressbook>
+</cardBank>

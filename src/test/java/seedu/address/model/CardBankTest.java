@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
@@ -23,31 +23,31 @@ import seedu.address.model.card.Card;
 import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardArrayBuilder;
-import seedu.address.testutil.TypicalAddressBook;
+import seedu.address.testutil.TypicalCardBank;
 
-public class AddressBookTest {
+public class CardBankTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final CardBank cardBank = new CardBank();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getTagList());
-        assertEquals(Collections.emptyList(), addressBook.getCardList());
+        assertEquals(Collections.emptyList(), cardBank.getTagList());
+        assertEquals(Collections.emptyList(), cardBank.getCardList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        cardBank.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyCardBank_replacesData() {
+        CardBank newData = getTypicalCardBank();
+        cardBank.resetData(newData);
+        assertEquals(newData, cardBank);
     }
 
     @Test
@@ -55,54 +55,54 @@ public class AddressBookTest {
         // Repeat PHYSICS_TAG twice
         List<Tag> newTags = Arrays.asList(PHYSICS_TAG, PHYSICS_TAG);
         List<Card> newCards = Arrays.asList(MATHEMATICS_CARD, MATHEMATICS_CARD);
-        AddressBookStub newData = new AddressBookStub(newTags, newCards);
+        CardBankStub newData = new CardBankStub(newTags, newCards);
 
         thrown.expect(AssertionError.class);
-        addressBook.resetData(newData);
+        cardBank.resetData(newData);
     }
 
     @Test
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTagList().remove(0);
+        cardBank.getTagList().remove(0);
     }
 
     @Test
     public void getReviewList() throws Exception {
         LocalDateTime todaysDate = LocalDate.now().atStartOfDay();
-        ObservableList<Card> list = addressBook.getReviewList(todaysDate);
+        ObservableList<Card> list = cardBank.getReviewList(todaysDate);
         assert (list.isEmpty());
         int[] days = new int[]{-1, 0, 1, 3};
         Card[] cardArray = CardArrayBuilder.getMapDaysToCardArray(days);
-        AddressBook addressBookSchedule = TypicalAddressBook
-            .getAddressBookFromCardArray(cardArray);
-        list = addressBookSchedule.getReviewList(todaysDate.minusDays(1L));
+        CardBank cardBankSchedule = TypicalCardBank
+            .getCardBankFromCardArray(cardArray);
+        list = cardBankSchedule.getReviewList(todaysDate.minusDays(1L));
         assertEquals(list.size(), 1);
-        list = addressBookSchedule.getReviewList(todaysDate);
+        list = cardBankSchedule.getReviewList(todaysDate);
         assertEquals(list.size(), 2);
-        list = addressBookSchedule.getReviewList(todaysDate.plusDays(1L));
+        list = cardBankSchedule.getReviewList(todaysDate.plusDays(1L));
         assertEquals(list.size(), 3);
-        list = addressBookSchedule.getReviewList(todaysDate.plusDays(2L));
+        list = cardBankSchedule.getReviewList(todaysDate.plusDays(2L));
         assertEquals(list.size(), 3);
-        list = addressBookSchedule.getReviewList(todaysDate.plusDays(3L));
+        list = cardBankSchedule.getReviewList(todaysDate.plusDays(3L));
         assertEquals(list.size(), 4);
     }
 
     @Test
     public void getReviewList_nullArgument_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        addressBook.getReviewList(null);
+        cardBank.getReviewList(null);
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose tags and tags lists can violate interface constraints.
+     * A stub ReadOnlyCardBank whose tags and tags lists can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class CardBankStub implements ReadOnlyCardBank {
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Card> cards = FXCollections.observableArrayList();
         private final CardTag cardTag = new CardTag();
 
-        AddressBookStub(Collection<Tag> tags, Collection<Card> cards) {
+        CardBankStub(Collection<Tag> tags, Collection<Card> cards) {
             this.tags.setAll(tags);
             this.cards.setAll(cards);
         }

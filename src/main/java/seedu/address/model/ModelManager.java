@@ -20,7 +20,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.CardBankChangedEvent;
 import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.EmptyCardBackEvent;
 import seedu.address.commons.events.ui.TagListPanelSelectionChangedEvent;
@@ -43,58 +43,58 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final CardBank cardBank;
     private final FilteredList<Tag> filteredTags;
     private final ObservableList<Card> filteredCards;
     private Card selectedCard;
     private Tag selectedTag;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given cardBank and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCardBank cardBank, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(cardBank, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + cardBank + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        filteredTags = new FilteredList<>(this.addressBook.getTagList());
+        this.cardBank = new CardBank(cardBank);
+        filteredTags = new FilteredList<>(this.cardBank.getTagList());
 
-        // To prevent direct referencing, which would cause setAll() to affect addressBook's list
+        // To prevent direct referencing, which would cause setAll() to affect cardBank's list
         filteredCards = FXCollections.observableArrayList();
-        filteredCards.setAll(this.addressBook.getCardList());
+        filteredCards.setAll(this.cardBank.getCardList());
 
         selectedTag = null;
         selectedCard = null;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new CardBank(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyCardBank newData) {
+        cardBank.resetData(newData);
+        indicateCardBankChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyCardBank getCardBank() {
+        return cardBank;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+    private void indicateCardBankChanged() {
+        raise(new CardBankChangedEvent(cardBank));
         updateFilteredCardList();
     }
 
     //@@author jethrokuan
     @Override
     public synchronized void deleteTag(Tag target) throws TagNotFoundException {
-        CardTag cardTag = this.addressBook.getCardTag();
-        List<Card> cards = cardTag.getCards(target, this.addressBook.getCardList());
+        CardTag cardTag = this.cardBank.getCardTag();
+        List<Card> cards = cardTag.getCards(target, this.cardBank.getCardList());
         for (Card card : cards) {
             try {
                 cardTag.removeEdge(card, target);
@@ -103,15 +103,15 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
 
-        addressBook.removeTag(target);
-        indicateAddressBookChanged();
+        cardBank.removeTag(target);
+        indicateCardBankChanged();
     }
 
     @Override
     public synchronized AddTagResult addTag(Tag tag) {
-        AddTagResult tagResult = addressBook.addTag(tag);
+        AddTagResult tagResult = cardBank.addTag(tag);
         updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
-        indicateAddressBookChanged();
+        indicateCardBankChanged();
         return tagResult;
     }
 
@@ -120,8 +120,8 @@ public class ModelManager extends ComponentManager implements Model {
         throws DuplicateTagException, TagNotFoundException {
         requireAllNonNull(target, editedTag);
 
-        addressBook.updateTag(target, editedTag);
-        indicateAddressBookChanged();
+        cardBank.updateTag(target, editedTag);
+        indicateCardBankChanged();
     }
     //@@author
 
@@ -129,7 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
-     * {@code addressBook}
+     * {@code cardBank}
      */
     @Override
     public ObservableList<Tag> getFilteredTagList() {
@@ -156,21 +156,21 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return cardBank.equals(other.cardBank)
             && filteredTags.equals(other.filteredTags);
     }
 
     //@@author jethrokuan
     @Override
     public synchronized void addCard(Card card) throws DuplicateCardException {
-        addressBook.addCard(card);
-        indicateAddressBookChanged();
+        cardBank.addCard(card);
+        indicateCardBankChanged();
     }
 
     @Override
     public synchronized void deleteCard(Card card) throws CardNotFoundException {
-        CardTag cardTag = this.getAddressBook().getCardTag();
-        List<Tag> tags = cardTag.getTags(card, this.getAddressBook().getTagList());
+        CardTag cardTag = this.getCardBank().getCardTag();
+        List<Tag> tags = cardTag.getTags(card, this.getCardBank().getTagList());
 
         // We need to clone tags because removing tags while iterating over it results in strange behaviour.
         List<Tag> tempTags = new ArrayList<>();
@@ -183,7 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
             try {
                 cardTag.removeEdge(card, tag);
                 if (!cardTag.hasCards(tag)) {
-                    addressBook.removeTag(tag);
+                    cardBank.removeTag(tag);
                 }
             } catch (EdgeNotFoundException e) {
                 throw new IllegalStateException("Not possible to reach here.");
@@ -191,8 +191,8 @@ public class ModelManager extends ComponentManager implements Model {
                 throw new IllegalStateException("Not possible to reach here.");
             }
         }
-        addressBook.deleteCard(card);
-        indicateAddressBookChanged();
+        cardBank.deleteCard(card);
+        indicateCardBankChanged();
     }
 
     //@@author
@@ -224,14 +224,14 @@ public class ModelManager extends ComponentManager implements Model {
         throws DuplicateCardException, CardNotFoundException {
         requireAllNonNull(target, editedCard);
 
-        addressBook.updateCard(target, editedCard);
-        indicateAddressBookChanged();
+        cardBank.updateCard(target, editedCard);
+        indicateCardBankChanged();
     }
 
     //@@author yong-jie
     @Override
     public void showAllCards() {
-        filteredCards.setAll(this.addressBook.getCardList());
+        filteredCards.setAll(this.cardBank.getCardList());
     }
 
     /**
@@ -247,9 +247,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void filterCardsByTag(Tag tag) {
-        filteredCards.setAll(addressBook
+        filteredCards.setAll(cardBank
             .getCardTag()
-            .getCards(tag, addressBook.getCardList()));
+            .getCards(tag, cardBank.getCardList()));
     }
 
     //@@author
@@ -271,7 +271,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void showDueCards(LocalDateTime date) {
-        filteredCards.setAll(this.addressBook.getReviewList(date, filteredCards));
+        filteredCards.setAll(this.cardBank.getReviewList(date, filteredCards));
         EventsCenter.getInstance().post(new EmptyCardBackEvent());
         this.selectedCard = null;
     }
@@ -280,41 +280,41 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jethrokuan
     @Override
     public List<Tag> getTags(Card card) {
-        return this.getAddressBook()
+        return this.getCardBank()
             .getCardTag()
-            .getTags(card, this.getAddressBook().getTagList());
+            .getTags(card, this.getCardBank().getTagList());
     }
 
     // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
     @Override
     public void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException {
-        CardTag cardTag = this.getAddressBook().getCardTag();
+        CardTag cardTag = this.getCardBank().getCardTag();
         for (Tag tag : tags) {
-            int index = this.addressBook.getTagList().indexOf(tag);
+            int index = this.cardBank.getTagList().indexOf(tag);
             if (index == -1) {
                 throw new TagNotFoundException(tag);
             }
-            Tag existingTag = this.addressBook.getTagList().get(index);
+            Tag existingTag = this.cardBank.getTagList().get(index);
             cardTag.removeEdge(card, existingTag);
         }
-        indicateAddressBookChanged(); // Force UI update.
+        indicateCardBankChanged(); // Force UI update.
     }
 
     // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
     @Override
     public void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException {
-        CardTag cardTag = this.getAddressBook().getCardTag();
+        CardTag cardTag = this.getCardBank().getCardTag();
         for (Tag tag : tags) {
             Tag newOrExistingTag = addTag(tag).getTag();
             cardTag.addEdge(card, newOrExistingTag);
         }
-        indicateAddressBookChanged(); // Force UI update.
+        indicateCardBankChanged(); // Force UI update.
     }
 
     @Override
     public void showUntaggedCards() {
         Predicate<Card> predCardsNoTags = card -> getTags(card).isEmpty();
-        filteredCards.setAll(this.getAddressBook().getCardList().filtered(predCardsNoTags));
+        filteredCards.setAll(this.getCardBank().getCardList().filtered(predCardsNoTags));
     }
     //@@author
 

@@ -26,12 +26,12 @@ public interface Model {
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyCardBank newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the CardBank */
+    ReadOnlyCardBank getCardBank();
 
-    /** Returns the AddressBook */
+    /** Returns the CardBank */
     Card getSelectedCard();
 
     /** Set selected card */

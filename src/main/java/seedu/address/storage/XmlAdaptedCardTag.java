@@ -62,7 +62,7 @@ public class XmlAdaptedCardTag {
     }
 
     /**
-     * Converts this addressbook into the model's {@code CardTag} object.
+     * Converts this cardBank into the model's {@code CardTag} object.
      * @return corresponding CardTag object
      * @throws IllegalValueException if there are invalid values within the cardTag entries.
      */

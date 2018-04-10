@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static junit.framework.TestCase.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,7 +37,7 @@ public class AnswerCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
         todaysDate = LocalDate.now().atStartOfDay();
         answerCommand = new AnswerCommand(0);
         answerCommand.setData(model, new CommandHistory(), new UndoRedoStack());

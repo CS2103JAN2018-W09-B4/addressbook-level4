@@ -18,15 +18,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.AddressBook;
-import seedu.address.testutil.TypicalAddressBook;
+import seedu.address.model.CardBank;
+import seedu.address.testutil.TypicalCardBank;
 
 //@@author jethrokuan
 public class CardTagTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private AddressBook addressBook = TypicalAddressBook.getTypicalAddressBook();
+    private CardBank cardBank = TypicalCardBank.getTypicalCardBank();
 
     private CardTag cardTag;
 
@@ -55,29 +55,29 @@ public class CardTagTest {
 
     @Test
     public void getCards_withEdges() {
-        assertEquals(cardTag.getCards(PHYSICS_TAG, addressBook.getCardList()), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
+        assertEquals(cardTag.getCards(PHYSICS_TAG, cardBank.getCardList()), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
                 .collect(Collectors.toList()));
-        assertEquals(cardTag.getCards(BIOLOGY_TAG, addressBook.getCardList()), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
+        assertEquals(cardTag.getCards(BIOLOGY_TAG, cardBank.getCardList()), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
                 .collect(Collectors.toList()));
     }
 
     @Test
     public void getCards_withoutEdges() {
-        assertEquals(cardTag.getCards(MATHEMATICS_TAG, addressBook.getCardList()),
+        assertEquals(cardTag.getCards(MATHEMATICS_TAG, cardBank.getCardList()),
                 Stream.of().collect(Collectors.toList()));
     }
 
     @Test
     public void getTags_withEdges() {
-        assertEquals(cardTag.getTags(MATHEMATICS_CARD, addressBook.getTagList()),
+        assertEquals(cardTag.getTags(MATHEMATICS_CARD, cardBank.getTagList()),
                 Stream.of(PHYSICS_TAG).collect(Collectors.toList()));
-        assertEquals(cardTag.getTags(COMSCI_CARD, addressBook.getTagList()), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
+        assertEquals(cardTag.getTags(COMSCI_CARD, cardBank.getTagList()), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
                 .collect(Collectors.toList()));
     }
 
     @Test
     public void getTags_withoutEdges() {
-        assertEquals(cardTag.getTags(GEOGRAPHY_CARD, addressBook.getTagList()),
+        assertEquals(cardTag.getTags(GEOGRAPHY_CARD, cardBank.getTagList()),
                 Stream.of().collect(Collectors.toList()));
     }
 
@@ -90,8 +90,8 @@ public class CardTagTest {
     @Test
     public void removeEdge_works() throws EdgeNotFoundException {
         cardTag.removeEdge(COMSCI_CARD, BIOLOGY_TAG);
-        assertTrue(!cardTag.getTags(COMSCI_CARD, addressBook.getTagList()).contains(BIOLOGY_TAG));
-        assertTrue(!cardTag.getCards(BIOLOGY_TAG, addressBook.getCardList()).contains(COMSCI_CARD));
+        assertTrue(!cardTag.getTags(COMSCI_CARD, cardBank.getTagList()).contains(BIOLOGY_TAG));
+        assertTrue(!cardTag.getCards(BIOLOGY_TAG, cardBank.getCardList()).contains(COMSCI_CARD));
     }
 
     @Test

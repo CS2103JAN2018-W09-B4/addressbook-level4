@@ -18,7 +18,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
 //@@author yong-jie
-public class SelectCardCommandSystemTest extends AddressBookSystemTest {
+public class SelectCardCommandSystemTest extends CardBankSystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
@@ -65,7 +65,7 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
          */
 
         selectTag(Index.fromZeroBased(0));
-        int invalidIndex = getModel().getAddressBook().getCardList().size();
+        int invalidIndex = getModel().getCardBank().getCardList().size();
         System.out.println(getModel().getFilteredCardList());
         assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
@@ -106,8 +106,8 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
@@ -131,8 +131,8 @@ public class SelectCardCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Model}, {@code Storage} and {@code CardListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

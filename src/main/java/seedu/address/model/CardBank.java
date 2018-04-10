@@ -29,7 +29,7 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class CardBank implements ReadOnlyCardBank {
 
     private final UniqueTagList tags;
     private final UniqueCardList cards;
@@ -48,12 +48,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         cardTag = new CardTag();
     }
 
-    public AddressBook() {}
+    public CardBank() {}
 
     /**
-     * Creates an AddressBook using the Tags and Cards in the {@code toBeCopied}
+     * Creates an CardBank using the Tags and Cards in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public CardBank(ReadOnlyCardBank toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -69,16 +69,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code CardBank} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyCardBank newData) {
         requireNonNull(newData);
         List<Tag> syncedTagList = new ArrayList<>(newData.getTagList());
 
         try {
             setTags(syncedTagList);
         } catch (DuplicateTagException e) {
-            throw new AssertionError("AddressBooks should not have duplicate tags");
+            throw new AssertionError("CardBanks should not have duplicate tags");
         }
 
         List<Card> syncedCardList = new ArrayList<>(newData.getCardList());
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         try {
             setCards(syncedCardList);
         } catch (DuplicateCardException e) {
-            throw new AssertionError("AddressBooks should not have duplicate cards");
+            throw new AssertionError("CardBanks should not have duplicate cards");
         }
 
         CardTag cardTag = new CardTag(newData.getCardTag());
@@ -119,8 +119,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * @throws TagNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     * Removes {@code key} from this {@code CardBank}.
+     * @throws TagNotFoundException if the {@code key} is not in this {@code CardBank}.
      */
     public boolean removeTag(Tag key) throws TagNotFoundException {
         if (tags.remove(key)) {
@@ -245,10 +245,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.tags.equals(((AddressBook) other).tags)
-                && this.cards.equals(((AddressBook) other).cards))
-                && this.cardTag.equals(((AddressBook) other).cardTag);
+                || (other instanceof CardBank // instanceof handles nulls
+                && this.tags.equals(((CardBank) other).tags)
+                && this.cards.equals(((CardBank) other).cards))
+                && this.cardTag.equals(((CardBank) other).cardTag);
     }
 
     @Override

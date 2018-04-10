@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showTagAtIndex;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TAG;
 
@@ -23,7 +23,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.EditCommand.EditTagDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.CardBank;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -36,7 +36,7 @@ import seedu.address.testutil.TagBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCardBank(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
@@ -46,7 +46,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TAG_SUCCESS, editedTag);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         Tag firstTag = model.getFilteredTagList().get(INDEX_FIRST_TAG.getZeroBased());
 
         expectedModel.updateTag(firstTag, editedTag);
@@ -68,7 +68,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TAG_SUCCESS, editedTag);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         expectedModel.updateTag(lastTag, editedTag);
 
         assertEquals(lastTag.getId(), editedTag.getId());
@@ -82,7 +82,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TAG_SUCCESS, editedTag);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -98,7 +98,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TAG_SUCCESS, editedTag);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         Tag firstTag = model.getFilteredTagList().get(INDEX_FIRST_TAG.getZeroBased());
 
         expectedModel.updateTag(firstTag, editedTag);
@@ -121,7 +121,7 @@ public class EditCommandTest {
         showTagAtIndex(model, INDEX_FIRST_TAG);
 
         // edit tag in filtered list into a duplicate in address book
-        Tag tagInList = model.getAddressBook().getTagList().get(INDEX_SECOND_TAG.getZeroBased());
+        Tag tagInList = model.getCardBank().getTagList().get(INDEX_SECOND_TAG.getZeroBased());
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TAG,
                 new EditTagDescriptorBuilder(tagInList).build());
 
@@ -146,7 +146,7 @@ public class EditCommandTest {
         showTagAtIndex(model, INDEX_FIRST_TAG);
         Index outOfBoundIndex = INDEX_SECOND_TAG;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getTagList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getCardBank().getTagList().size());
 
         EditCommand editCommand = prepareCommand(outOfBoundIndex,
                 new EditTagDescriptorBuilder().withName(VALID_NAME_COMSCI).build());
@@ -163,13 +163,13 @@ public class EditCommandTest {
         Tag tagToEdit = model.getFilteredTagList().get(INDEX_FIRST_TAG.getZeroBased());
         EditCommand.EditTagDescriptor descriptor = new EditTagDescriptorBuilder(editedTag).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TAG, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
 
         // edit -> first tag edited
         editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered tag list to show all tags
+        // undo -> reverts cardBank back to previous state and filtered tag list to show all tags
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first tag edited again
@@ -209,7 +209,7 @@ public class EditCommandTest {
         Tag editedTag = new TagBuilder().withName("Jethro Kuan").build();
         EditTagDescriptor descriptor = new EditTagDescriptorBuilder(editedTag).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_TAG, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
 
         showTagAtIndex(model, INDEX_SECOND_TAG);
         Tag tagToEdit = model.getFilteredTagList().get(INDEX_FIRST_TAG.getZeroBased());
@@ -217,7 +217,7 @@ public class EditCommandTest {
         editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered tag list to show all tags
+        // undo -> reverts cardBank back to previous state and filtered tag list to show all tags
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         expectedModel.updateTag(tagToEdit, editedTag);

@@ -13,9 +13,9 @@ import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.model.cardtag.CardTag.MESSAGE_CARD_NO_TAG;
 import static seedu.address.model.tag.Tag.MESSAGE_TAG_NOT_FOUND;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBookFillBlanksCards;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBookMcqCards;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBankFillBlanksCards;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBankMcqCards;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
@@ -32,7 +32,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.CardBank;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -52,9 +52,9 @@ import seedu.address.testutil.McqCardBuilder;
  */
 public class EditCardCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model modelWithMcqCards = new ModelManager(getTypicalAddressBookMcqCards(), new UserPrefs());
-    private Model modelWithFillBlanksCards = new ModelManager(getTypicalAddressBookFillBlanksCards(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCardBank(), new UserPrefs());
+    private Model modelWithMcqCards = new ModelManager(getTypicalCardBankMcqCards(), new UserPrefs());
+    private Model modelWithFillBlanksCards = new ModelManager(getTypicalCardBankFillBlanksCards(), new UserPrefs());
 
     //@@author shawnclq
     @Test
@@ -66,7 +66,7 @@ public class EditCardCommandTest {
 
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         expectedModel.updateCard(model.getFilteredCardList().get(0), editedCard);
         editedCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
 
@@ -149,7 +149,7 @@ public class EditCardCommandTest {
 
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         expectedModel.updateCard(lastCard, editedCard);
 
         // To check whether card ID has changed
@@ -164,7 +164,7 @@ public class EditCardCommandTest {
         Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
         Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
 
         expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)));
 
@@ -191,7 +191,7 @@ public class EditCardCommandTest {
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
         EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         expectedModel.removeTags(lastCard, new HashSet<>(Arrays.asList(tag)));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -210,7 +210,7 @@ public class EditCardCommandTest {
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
         EditCardCommand editCardCommand = prepareCommand(indexLastCard, descriptor);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(newTag)));
 
         assertCommandSuccess(editCardCommand, model, expectedMessage, expectedModel);
@@ -254,7 +254,7 @@ public class EditCardCommandTest {
 
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
 
         // To check whether card ID has changed
         assertEqualCardId(targetCard, editedCard);
@@ -270,7 +270,7 @@ public class EditCardCommandTest {
 
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         expectedModel.updateCard(model.getFilteredCardList().get(0), editedCard);
 
         // To check whether card ID has changed
@@ -290,7 +290,7 @@ public class EditCardCommandTest {
     @Test
     public void execute_duplicateCardFilteredList_failure() {
         // edit card in filtered list into a duplicate in address book
-        Card cardInList = model.getAddressBook().getCardList().get(INDEX_SECOND_CARD.getZeroBased());
+        Card cardInList = model.getCardBank().getCardList().get(INDEX_SECOND_CARD.getZeroBased());
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD,
                 new EditCardDescriptorBuilder(cardInList).build());
 
@@ -316,7 +316,7 @@ public class EditCardCommandTest {
         model.filterCardsByTag(new Tag(new Name("Name")));
         Index outOfBoundIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCardList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getCardBank().getCardList().size());
 
         EditCardCommand editCommand = prepareCommand(outOfBoundIndex,
                 new EditCardDescriptorBuilder().withFront(VALID_NAME_COMSCI).build());
@@ -334,7 +334,7 @@ public class EditCardCommandTest {
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard)
                 .withUuid(cardToEdit.getId()).build();
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         Card newCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         // To check whether card ID has changed
         assertEqualCardId(cardToEdit, newCard);
@@ -343,7 +343,7 @@ public class EditCardCommandTest {
         editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered card list to show all cards
+        // undo -> reverts cardBank back to previous state and filtered card list to show all cards
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first card edited again
@@ -385,7 +385,7 @@ public class EditCardCommandTest {
         Card targetCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         EditCardCommand editCommand = prepareCommand(INDEX_FIRST_CARD, descriptor);
         Card newCard = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
         // To check whether card ID has changed
         assertEqualCardId(targetCard, newCard);
 
@@ -397,7 +397,7 @@ public class EditCardCommandTest {
         editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered card list to show all cards
+        // undo -> reverts cardBank back to previous state and filtered card list to show all cards
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         expectedModel.updateCard(cardToEdit, editedCard);

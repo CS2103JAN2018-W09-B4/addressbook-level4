@@ -38,11 +38,11 @@ import seedu.address.testutil.EditTagDescriptorBuilder;
 import seedu.address.testutil.TagBuilder;
 import seedu.address.testutil.TagUtil;
 
-public class AddressBookParserTest {
+public class CardBankParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final CardBankParser parser = new CardBankParser();
 
     @Test
     public void parseCommand_addCard() throws Exception {

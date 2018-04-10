@@ -25,7 +25,7 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.testutil.CardUtil;
 
 //@@author jethrokuan
-public class AddCardCommandSystemTest extends AddressBookSystemTest {
+public class AddCardCommandSystemTest extends CardBankSystemTest {
 
     @Test
     public void add() throws Exception {
@@ -105,8 +105,8 @@ public class AddCardCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Card toAdd) throws DuplicateCardException {
         assertCommandSuccess(CardUtil.getAddCardCommand(toAdd), toAdd);
@@ -149,8 +149,8 @@ public class AddCardCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Model}, {@code Storage} and {@code TagListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

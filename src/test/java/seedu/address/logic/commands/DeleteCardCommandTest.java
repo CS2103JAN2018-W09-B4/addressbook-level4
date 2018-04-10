@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
@@ -30,7 +30,7 @@ import seedu.address.model.tag.Tag;
  */
 public class DeleteCardCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCardBank(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
@@ -39,7 +39,7 @@ public class DeleteCardCommandTest {
 
         String expectedMessage = String.format(DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getCardBank(), new UserPrefs());
         expectedModel.deleteCard(cardToDelete);
 
         assertCommandSuccess(deleteCardCommand, model, expectedMessage, expectedModel);
@@ -60,7 +60,7 @@ public class DeleteCardCommandTest {
 
         String expectedMessage = String.format(DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCardBank(), new UserPrefs());
         expectedModel.deleteCard(cardToDelete);
 
         assertCommandSuccess(deleteCardCommand, model, expectedMessage, expectedModel);
@@ -84,13 +84,13 @@ public class DeleteCardCommandTest {
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Card cardToDelete = model.getFilteredCardList().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCardCommand deleteCardCommand = prepareCommand(INDEX_FIRST_CARD);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCardBank(), new UserPrefs());
 
         // delete -> first card deleted
         deleteCardCommand.execute();
         undoRedoStack.push(deleteCardCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered card list to show all cards
+        // undo -> reverts cardBank back to previous state and filtered card list to show all cards
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first card deleted again
@@ -127,7 +127,7 @@ public class DeleteCardCommandTest {
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         DeleteCardCommand deleteCardCommand = prepareCommand(INDEX_FIRST_CARD);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCardBank(), new UserPrefs());
 
         Tag tag = model.getFilteredTagList().get(0);
         model.filterCardsByTag(tag);
@@ -137,7 +137,7 @@ public class DeleteCardCommandTest {
         deleteCardCommand.execute();
         undoRedoStack.push(deleteCardCommand);
 
-        // undo -> reverts addressbook back to previous state and filtered card list to show all card
+        // undo -> reverts cardBank back to previous state and filtered card list to show all card
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         expectedModel.deleteCard(cardToDelete);
