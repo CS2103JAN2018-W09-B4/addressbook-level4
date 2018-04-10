@@ -20,7 +20,7 @@ public class ScheduleCommand extends UndoableCommand {
             + PREFIX_DAY + "30 "
             + PREFIX_MONTH + "2 "
             + PREFIX_YEAR + "2018";
-    public static final String MESSAGE_SUCCESS = "Card scheduled for rewview on %s";
+    public static final String MESSAGE_SUCCESS = "Card scheduled for review on %s";
     public static final String MESSAGE_CARD_NOT_SELECTED = "Cannot answer to no card, please select a card first.";
 
     private final LocalDateTime date;

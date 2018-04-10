@@ -184,13 +184,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// get list of cards for review
     public ObservableList<Card> getReviewList(LocalDateTime date) {
+        return getReviewList(date, cards.asObservableList());
+    }
+
+    public ObservableList<Card> getReviewList(LocalDateTime date, ObservableList<Card> cardsList) {
         requireNonNull(date);
         Comparator<Card> byDate =
             Comparator.comparing(Card::getSchedule);
 
-        ObservableList<Card> cardsList = cards.asObservableList();
         FXCollections.sort(cardsList, byDate);
-        FilteredList<Card> filteredList = new FilteredList<Card>(cardsList, isBefore(date));
+        cardsList = new FilteredList<Card>(cardsList, isBefore(date));
+        ObservableList<Card> filteredList =  FXCollections.observableArrayList();
+        for (Card each : cardsList) {
+            filteredList.add(each);
+        }
 
         return filteredList;
     }
