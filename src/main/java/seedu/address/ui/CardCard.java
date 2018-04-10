@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.card.Card;
+import seedu.address.model.tag.Tag;
 
 /**
  * A UI component that displays information about a {@code Card}.
@@ -26,11 +30,15 @@ public class CardCard extends UiPart<Region> {
     @FXML
     private Label front;
 
-    public CardCard(Card card, int displayedIndex) {
+    @FXML
+    private FlowPane tags;
+
+    public CardCard(Card card, int displayedIndex, List<Tag> tagList) {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
         front.setText(card.getFront());
+        tagList.forEach(tag -> tags.getChildren().add(new Label(tag.getName().toString())));
     }
 
     @Override
