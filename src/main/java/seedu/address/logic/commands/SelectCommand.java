@@ -43,8 +43,8 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToTagRequestEvent(targetIndex));
         EventsCenter.getInstance().post(new EmptyCardBackEvent());
+        EventsCenter.getInstance().post(new JumpToTagRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_TAG_SUCCESS, targetIndex.getOneBased()));
 
     }
