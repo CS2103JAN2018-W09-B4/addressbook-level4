@@ -320,7 +320,7 @@ Schedule card for 28/04/2018
 Suppose today is 13/04/2018, although `m/04 y/2018` is not typed,
 they are implicitly assumed to be the current month and year.
 
-=== Misc
+=== Quality-of-Life features
 ==== Autocompletion
 
 After typing a valid command, you can instruct Flashy to automatically fill the input box with the relevant parameters by pressing `TAB`.
