@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 public class ShowDueCommand extends Command {
     public static final String COMMAND_WORD = "showdue";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all cards due on a date "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all cards due on a date.\n"
         + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
         + PREFIX_DAY + "30 "
         + PREFIX_MONTH + "2 "
