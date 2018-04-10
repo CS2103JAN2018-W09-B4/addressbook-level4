@@ -15,6 +15,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Cleared all filters.";
 
+    public static final String MESSAGE_SUCCESS_NO_TAGS_ONLY = "Showing cards with no tags.";
+
     public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists all cards and tags.\n"
             + COMMAND_WORD + " " + ListCommandParser.PREFIX_NO_TAGS_ONLY + ": lists only cards without tags.";
@@ -26,15 +28,18 @@ public class ListCommand extends Command {
     }
     @Override
     public CommandResult execute() {
+        String message;
         model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
         if (untaggedOnly) {
+            message = MESSAGE_SUCCESS_NO_TAGS_ONLY;
             model.showUntaggedCards();
         } else {
+            message = MESSAGE_SUCCESS;
             model.showAllCards();
         }
 
         EventsCenter.getInstance().post(new EmptyCardBackEvent());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(message);
     }
 
     @Override
