@@ -3,6 +3,7 @@ package seedu.address.model.card;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -73,6 +74,10 @@ public class Card {
 
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    public List<String> getOptions() {
+        return null;
     }
 
     //@@author shawnclq
