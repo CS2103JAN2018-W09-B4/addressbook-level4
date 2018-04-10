@@ -38,7 +38,7 @@ public class CardCardTest extends GuiUnitTest {
         CardCardHandle cardCardHandle = new CardCardHandle(cardCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", cardCardHandle.getId());
+        assertEquals(Integer.toString(expectedId), cardCardHandle.getId());
 
         // verify card details are displayed properly
         assertCardDisplaysCard(card, cardCardHandle);
