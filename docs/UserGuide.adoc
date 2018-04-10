@@ -326,7 +326,7 @@ Flashy has many features to speed up your workflow and make your experience as p
 
 ==== Autocompletion
 
-Instead of memorising the parameters of all the commands, you can instruct Flashy to automatically fill in the relevant parameters for you! After typing a valid command, simply press `TAB` and let Flashy do the rest for you.
+Instead of memorising the parameters of all the commands, you can instruct Flashy to automatically fill in the relevant parameters for you! After typing a valid command, simply press `TAB` and let Flashy handle the rest.
 
 ==== Clearing all data : `clear`
 
