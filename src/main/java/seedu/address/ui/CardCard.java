@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,12 +34,18 @@ public class CardCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    private FlowPane options;
+
     public CardCard(Card card, int displayedIndex, List<Tag> tagList) {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
         front.setText(card.getFront());
         tagList.forEach(tag -> tags.getChildren().add(new Label(tag.getName().toString())));
+        if (card.getType().equals(McqCard.TYPE)) {
+            card.getOptions().forEach(option -> options.getChildren().add(new Label(option)));
+        }
     }
 
     @Override
