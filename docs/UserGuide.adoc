@@ -226,10 +226,20 @@ Examples:
 
 * `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, and `Biology Midterms`, and not `bio`, or `chemistry`.
 
-==== Clearing all filters: `list`
+==== Clearing filters: `list`
 
-Removes all existing filters: showing all flashcards and tags. +
-Format: `list`
+The usage of `list` is 2-fold. `list` allows you to see all your flashcards and tags by clearing all filters. `list`
+can also be invoked with an additional flag as `list -t`, to list all cards without tags. This allows you to reorganize
+otherwise cards that are otherwise inaccessible. +
+
+Format: `list [-t]`
+
+Examples:
+
+* `list` +
+Shows all tags and cards.
+* `list -t` +
+Shows all tags, but shows only cards without tags.
 
 ==== Editing a tag : `edit`
 
