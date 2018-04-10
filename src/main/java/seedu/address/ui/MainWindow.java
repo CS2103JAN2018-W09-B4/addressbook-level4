@@ -196,7 +196,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

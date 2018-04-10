@@ -49,6 +49,7 @@ public class McqCard extends Card {
      * Returns all options in this list as a Set.
      * This set is mutable and change-insulated against options list.
      */
+    @Override
     public List<String> getOptions() {
         assert CollectionUtil.elementsAreUnique(optionsList);
         return optionsList;
