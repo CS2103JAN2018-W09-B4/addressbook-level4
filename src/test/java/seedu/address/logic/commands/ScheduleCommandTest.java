@@ -50,7 +50,7 @@ public class ScheduleCommandTest {
         LocalDateTime expectedDate = todaysDate.plusYears(1L);
         ScheduleCommand scheduleCommand = prepareCommand(expectedDate);
         scheduleCommand.executeUndoableCommand();
-        LocalDateTime actualDate = model.getSelectedCard().getSchedule().getNextReview();
+        LocalDateTime actualDate = selectedCard.getSchedule().getNextReview();
         assertTrue(actualDate.equals(todaysDate.plusYears(1L)));
     }
 

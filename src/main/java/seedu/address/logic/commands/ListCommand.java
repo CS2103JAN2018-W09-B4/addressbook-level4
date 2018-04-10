@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.EmptyCardBackEvent;
 import seedu.address.logic.parser.ListCommandParser;
 
 //@@author jethrokuan
@@ -31,6 +33,7 @@ public class ListCommand extends Command {
             model.showAllCards();
         }
 
+        EventsCenter.getInstance().post(new EmptyCardBackEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
