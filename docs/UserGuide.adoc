@@ -219,12 +219,13 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 [TIP]
 ====
-The search is case-insensitive, and finds exact partial matches to the tag name. For example, `bio` would match `Biology`.
+The search is case-insensitive, but finds exact partial matches to the tag name.
 ====
 
 Examples:
 
-* `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, and `Biology Midterms`, and not `bio`, or `chemistry`.
+* `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, `biOlogy`,
+and `Biology Midterms`, but not `bio`, or `chemistry`.
 
 ==== Clearing filters: `list`
 
