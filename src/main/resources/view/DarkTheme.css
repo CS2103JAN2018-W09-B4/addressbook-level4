@@ -363,3 +363,18 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.card-id {
+}
+
+.card-type {
+    -fx-right: 0;
+}
+
+.card-text {
+    -fx-font-size: 18;
+}
+
+.card-back {
+    -fx-background-color: #424d5f;
+}
