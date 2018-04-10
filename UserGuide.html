@@ -45,7 +45,7 @@
 <li><a href="#deleting-a-tag-code-delete-code">4.2.5. Deleting a Tag: <code>delete</code></a></li>
 </ul>
 </li>
-<li><a href="#using-flashcard">4.3. Using flashcard</a>
+<li><a href="#using-flashcards">4.3. Using flashcards</a>
 <ul class="sectlevel3">
 <li><a href="#showing-a-flashcard-code-showdue-code">4.3.1. Showing a flashcard : <code>showdue</code></a></li>
 <li><a href="#answering-flashcards-code-answer-code">4.3.2. Answering flashcards: <code>answer</code></a>
@@ -56,9 +56,9 @@
 <li><a href="#show-flashcards-for-review-code-schedule-code">4.3.3. Show flashcards for review: <code>Schedule</code></a></li>
 </ul>
 </li>
-<li><a href="#misc">4.4. Misc</a>
+<li><a href="#quality-of-life-features">4.4. Quality-of-Life features</a>
 <ul class="sectlevel3">
-<li><a href="#autocompleting">4.4.1. Autocompleting</a></li>
+<li><a href="#autocompletion">4.4.1. Autocompletion</a></li>
 <li><a href="#clearing-all-data-code-clear-code">4.4.2. Clearing all data : <code>clear</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code">4.4.3. Listing entered commands : <code>history</code></a></li>
 <li><a href="#undo-and-redo">4.4.4. Undo and Redo</a>
@@ -132,6 +132,14 @@ Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#82
 <div class="sect1">
 <h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>(ADD PREFACE)
+(PROVIDE LINKS TO RELEVANT DOWNLOADABLES)</p>
+</div>
+<div class="paragraph">
+<p>(maybe like how to use the userguide)
+(put introduction to describe what the icons mean.)</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -151,17 +159,20 @@ This app will not work with earlier versions of Java 8.
 </div>
 </li>
 <li>
-<p>Download the latest <code>addressbook.jar</code> <a href="https://github.com/CS2103JAN2018-W09-B4/main/releases">here</a>.</p>
+<p>Download the latest <code>flashy.jar</code> <a href="https://github.com/CS2103JAN2018-W09-B4/main/releases">here</a>.</p>
 </li>
 <li>
-<p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
+<p>Copy the file to the desktop.</p>
 </li>
 <li>
-<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<p>Double-click the file to start the Flashy. The GUI should appear in a few seconds.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/Ui.png" alt="Ui" width="790">
 </div>
+</div>
+<div class="paragraph">
+<p>(NEW SECTION HERE)</p>
 </div>
 </li>
 <li>
@@ -215,6 +226,9 @@ MCQ flashcards allows you to provide different options as the answer, similar to
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Command Format</strong></p>
+</div>
+<div class="paragraph">
+<p>(ADD PREFACE)</p>
 </div>
 <div class="ulist">
 <ul>
@@ -312,6 +326,30 @@ MCQ flashcards allows you to provide different options as the answer, similar to
 Format: <code>addc f/FRONT b/BACK t/TAG</code> or<br>
 <code>addc f/FRONT o/OPTION o/OPTION .. b/BACK t/TAG</code></p>
 </div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Ensure that the parameter for <code>b/</code> falls between 1 the number of options inclusive.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Ensure that if there are blanks, the parameter for <code>b/</code> should have the same number of answers (separated by <code>,</code>) as there are blanks.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
@@ -339,31 +377,7 @@ Adds a MCQ-type flashcard with the front being <code>Which continent is Singapor
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-A flashcard can have any number of tags (including 0).
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Ensure that the parameter for <code>b/</code> falls between 1 the number of options inclusive.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Ensure that if there are blanks, the parameter for <code>b/</code> should have the same number of answers (separated by <code>,</code>) as there are blanks.
+A flashcard can have any number of tags (including 0).<br>
 </td>
 </tr>
 </table>
@@ -433,8 +447,22 @@ Ensure that the constraints on flashcard is not violated when editing. For const
 <div class="sect3">
 <h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">4.1.3. Deleting a flashcard : <code>deletec</code></a></h4>
 <div class="paragraph">
-<p>Deletes the specified flashcard.<br>
-Format: <code>deletec INDEX</code></p>
+<p>Deletes the specified flashcard.<br></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a tag no longer has associated flashcards, the tag will also be removed. Don&#8217;t be alarmed if some of your tags are also removed in the process!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>deletec INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -570,10 +598,6 @@ Format: <code>edit INDEX n/TAG c/COLOR</code></p>
 <p><code>edit 1 n/French</code><br>
 Changes the name of the first tag in the list to <code>French</code>.</p>
 </li>
-<li>
-<p><code>edit 2 n/German c/FF5733</code><br>
-Changes the name of the second tag in the list to <code>German</code> and the color of the tag to a shade of orange.</p>
-</li>
 </ul>
 </div>
 </div>
@@ -598,7 +622,7 @@ Changes the name of the second tag in the list to <code>German</code> and the co
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-flashcard"><a class="link" href="#using-flashcard">4.3. Using flashcard</a></h3>
+<h3 id="using-flashcards"><a class="link" href="#using-flashcards">4.3. Using flashcards</a></h3>
 <div class="paragraph">
 <p>After adding and managing your flashcards, its time to get your A+!
 This section will teach you how to let Flashy&#8217;s intelligent scheduling algorithm prompt you the best time to study!</p>
@@ -663,7 +687,7 @@ they are implicitly assumed to be the current month and year.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-CONDENCE_LEVEL can only be 0, 1 or 2.<br>
+CONFIDENCE_LEVEL can only be 0, 1 or 2.<br>
 Card must be selected first before answering.
 </td>
 </tr>
@@ -751,15 +775,20 @@ they are implicitly assumed to be the current month and year.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="misc"><a class="link" href="#misc">4.4. Misc</a></h3>
+<h3 id="quality-of-life-features"><a class="link" href="#quality-of-life-features">4.4. Quality-of-Life features</a></h3>
+<div class="paragraph">
+<p>Flashy has many features to speed up your workflow and make your experience as pain-free as possible.</p>
+</div>
 <div class="sect3">
-<h4 id="autocompleting"><a class="link" href="#autocompleting">4.4.1. Autocompleting</a></h4>
-
+<h4 id="autocompletion"><a class="link" href="#autocompletion">4.4.1. Autocompletion</a></h4>
+<div class="paragraph">
+<p>Instead of memorising the parameters of all the commands, you can instruct Flashy to automatically fill in the relevant parameters for you! After typing a valid command, simply press <code>TAB</code> and let Flashy handle the rest.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.4.2. Clearing all data : <code>clear</code></a></h4>
 <div class="paragraph">
-<p>Instructs Flashy to clear all data.<br>
+<p>Rather than manually deleting cards and tags, Flashy is able to clear all of its data for you.<br>
 Format: <code>clear</code></p>
 </div>
 <div class="admonitionblock tip">
@@ -769,7 +798,7 @@ Format: <code>clear</code></p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-This command will instruct Flashy to delete all tags and flashcards. Use this command with caution.
+This command will instruct Flashy to delete all tags and flashcards. Use this command with caution!
 </td>
 </tr>
 </table>
@@ -778,7 +807,7 @@ This command will instruct Flashy to delete all tags and flashcards. Use this co
 <div class="sect3">
 <h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.4.3. Listing entered commands : <code>history</code></a></h4>
 <div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order.<br>
+<p>If you lose track of the actions you have made at any point in time, you can ask Flashy to list them for you in reverse chronological order.<br>
 Format: <code>history</code></p>
 </div>
 <div class="admonitionblock note">
@@ -789,7 +818,7 @@ Format: <code>history</code></p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
+<p>You can also press the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows to display the previous and next input respectively in the command box.</p>
 </div>
 </td>
 </tr>
@@ -799,12 +828,12 @@ Format: <code>history</code></p>
 <div class="sect3">
 <h4 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.4.4. Undo and Redo</a></h4>
 <div class="paragraph">
-<p>Some commands support undoing and redoing. The commands are <code>add</code>, <code>addc</code>, <code>addm</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>, <code>delete</code>, <code>deletec</code>, and <code>clear</code>.</p>
+<p>Flashy does not come built in with an eraser. To compensate for that, some commands support undoing and redoing. The commands are <code>add</code>, <code>addc</code>, <code>addm</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>, <code>delete</code>, <code>deletec</code>, and <code>clear</code>.</p>
 </div>
 <div class="sect4">
 <h5 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h5>
 <div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
+<p>You can restore the state of Flashy&#8217;s card bank to its preious state before <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
 </div>
 <div class="admonitionblock note">
@@ -849,7 +878,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 <div class="sect4">
 <h5 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h5>
 <div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
+<p>Flashy can also revert any <code>undo</code> commands made by mistake!<br>
 Format: <code>redo</code></p>
 </div>
 <div class="paragraph">
@@ -882,7 +911,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <div class="sect3">
 <h4 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.4.5. Exiting the program : <code>exit</code> or <code>quit</code></a></h4>
 <div class="paragraph">
-<p>Exits the program.<br>
+<p>Once you are confident in acing that exam, don&#8217;t forget to power down Flashy! When this is done, Flashy will save all changes made to its card bank before gracefully shutting down.<br>
 Format: <code>exit</code> or <code>quit</code></p>
 </div>
 </div>
@@ -925,7 +954,7 @@ Flashy remembers your most recently used theme and will load it the next time yo
 <div class="sect2">
 <h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.6. Saving the data</a></h3>
 <div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+<p>All data saved in Flashy&#8217;s card bank is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
@@ -969,6 +998,11 @@ There is no need to save manually.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Show Help Screen</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all Flashcards and Tags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Add Flashcard</p></td>
@@ -1025,8 +1059,8 @@ There is no need to save manually.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Edit Tag</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit INDEX [t/TAG] [c/COLOR]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit 1 t/German c/FFFFFF</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit INDEX [t/TAG]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit 1 t/German</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Delete Tag</p></td>
@@ -1080,7 +1114,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-10 08:36:18 UTC
+Last updated 2018-04-10 08:48:11 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
