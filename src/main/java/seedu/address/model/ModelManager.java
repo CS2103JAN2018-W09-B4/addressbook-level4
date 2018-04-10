@@ -82,26 +82,13 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
-    //@@author pukipuki
-    @Override
-    public Card getSelectedCard() {
-        return selectedCard;
-    }
-
-    @Override
-    public void setSelectedCard(Card selectedCard) {
-        this.selectedCard = selectedCard;
-    }
-    //@@author
-
-    /**
-     * Raises an event to indicate the model has changed
-     */
+    /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
         updateFilteredCardList();
     }
 
+    //@@author jethrokuan
     @Override
     public synchronized void deleteTag(Tag target) throws TagNotFoundException {
         CardTag cardTag = this.addressBook.getCardTag();
@@ -134,6 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.updateTag(target, editedTag);
         indicateAddressBookChanged();
     }
+    //@@author
 
     //=========== Filtered Tag List Accessors =============================================================
 
@@ -170,6 +158,7 @@ public class ModelManager extends ComponentManager implements Model {
             && filteredTags.equals(other.filteredTags);
     }
 
+    //@@author jethrokuan
     @Override
     public synchronized void addCard(Card card) throws DuplicateCardException {
         addressBook.addCard(card);
@@ -204,7 +193,19 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
+
     //@@author pukipuki
+    @Override
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    @Override
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+    }
+
     @Override
     public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
         if (selectedCard == null) {
@@ -304,6 +305,12 @@ public class ModelManager extends ComponentManager implements Model {
             cardTag.addEdge(card, newOrExistingTag);
         }
         indicateAddressBookChanged(); // Force UI update.
+    }
+
+    @Override
+    public void showUntaggedCards() {
+        Predicate<Card> predCardsNoTags = card -> getTags(card).isEmpty();
+        filteredCards.setAll(this.getAddressBook().getCardList().filtered(predCardsNoTags));
     }
     //@@author
 
