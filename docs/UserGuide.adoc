@@ -330,20 +330,20 @@ Instead of memorising the parameters of all the commands, you can instruct Flash
 
 ==== Clearing all data : `clear`
 
-Instructs Flashy to clear all data. +
+Rather than manually deleting cards and tags, Flashy is able to clear all of its data for you. +
 Format: `clear`
 
 [TIP]
-This command will instruct Flashy to delete all tags and flashcards. Use this command with caution.
+This command will instruct Flashy to delete all tags and flashcards. Use this command with caution!
 
 ==== Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+If you lose track of the commands the actions you have made at any point in time, you can ask Flashy to list them for you in reverse chronological order. +
 Format: `history`
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+You can also press the kbd:[&uarr;] and kbd:[&darr;] arrows to display the previous and next input respectively in the command box.
 ====
 
 
