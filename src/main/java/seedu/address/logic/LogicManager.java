@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
@@ -12,6 +13,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
+import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -54,6 +56,16 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Card> getFilteredCardList() {
         return model.getFilteredCardList();
+    }
+
+    @Override
+    public CardTag getCardTag() {
+        return model.getAddressBook().getCardTag();
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return FXCollections.unmodifiableObservableList(model.getAddressBook().getTagList());
     }
 
     @Override

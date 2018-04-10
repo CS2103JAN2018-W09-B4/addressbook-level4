@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalCards.BIOLOGY_CARD;
+import static seedu.address.testutil.TypicalCards.CHEMISTRY_CARD;
+import static seedu.address.testutil.TypicalCards.ECONOMICS_CARD;
 import static seedu.address.testutil.TypicalCards.HISTORY_CARD;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
@@ -15,6 +18,8 @@ import static seedu.address.testutil.TypicalMcqCards.HISTORY_MCQ_CARD;
 import static seedu.address.testutil.TypicalMcqCards.MATHEMATICS_MCQ_CARD;
 import static seedu.address.testutil.TypicalMcqCards.PHYSICS_MCQ_CARD;
 import static seedu.address.testutil.TypicalMcqCards.getTypicalMcqCards;
+import static seedu.address.testutil.TypicalTags.BIOLOGY_TAG;
+import static seedu.address.testutil.TypicalTags.CHEMISTRY_TAG;
 import static seedu.address.testutil.TypicalTags.ECONOMICS_TAG;
 import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
 import static seedu.address.testutil.TypicalTags.HISTORY_TAG;
@@ -54,6 +59,9 @@ public class TypicalAddressBook {
         try {
             addressBook.addEdge(PHYSICS_CARD, PHYSICS_TAG);
             addressBook.addEdge(PHYSICS_CARD_2, PHYSICS_TAG);
+            addressBook.addEdge(BIOLOGY_CARD, BIOLOGY_TAG);
+            addressBook.addEdge(CHEMISTRY_CARD, CHEMISTRY_TAG);
+            addressBook.addEdge(ECONOMICS_CARD, ECONOMICS_TAG);
             addressBook.addEdge(MATHEMATICS_CARD, MATHEMATICS_TAG);
             addressBook.addEdge(HISTORY_CARD, HISTORY_TAG);
         } catch (DuplicateEdgeException e) {

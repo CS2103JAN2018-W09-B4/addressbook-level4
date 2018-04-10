@@ -16,6 +16,18 @@
         <cardId>8c488abb-ab40-4a5b-9b1b-7ee78d453538</cardId>
         <tags>49af579d-3990-43e1-b11f-ed7ea0630434</tags>
     </cardEntry>
+    <cardEntry>
+        <cardId>f581860a-d5db-4925-aeab-1f1e441407f3</cardId>
+        <tags>2c941c30-fde8-4572-ab41-9f29270a4245</tags>
+    </cardEntry>
+    <cardEntry>
+        <cardId>801d8f6b-97a1-44d0-8abe-429fd0471c90</cardId>
+        <tags>f7a33f28-8246-41ba-9347-0455124625c0</tags>
+    </cardEntry>
+    <cardEntry>
+        <cardId>6375641d-822e-42b1-b98e-49e40b31c328</cardId>
+        <tags>b7a91de5-32c9-476e-a72f-4c9fa963d4b4</tags>
+    </cardEntry>
     <tagEntry>
         <tagId>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</tagId>
         <cards>50992d13-2f39-4c5c-b3e9-b088c8a04311</cards>
@@ -28,5 +40,17 @@
     <tagEntry>
         <tagId>49af579d-3990-43e1-b11f-ed7ea0630434</tagId>
         <cards>8c488abb-ab40-4a5b-9b1b-7ee78d453538</cards>
+    </tagEntry>
+    <tagEntry>
+        <tagId>2c941c30-fde8-4572-ab41-9f29270a4245</tagId>
+        <cards>f581860a-d5db-4925-aeab-1f1e441407f3</cards>
+    </tagEntry>
+    <tagEntry>
+        <tagId>f7a33f28-8246-41ba-9347-0455124625c0</tagId>
+        <cards>801d8f6b-97a1-44d0-8abe-429fd0471c90</cards>
+    </tagEntry>
+    <tagEntry>
+        <tagId>b7a91de5-32c9-476e-a72f-4c9fa963d4b4</tagId>
+        <cards>6375641d-822e-42b1-b98e-49e40b31c328</cards>
     </tagEntry>
 </cardtag>

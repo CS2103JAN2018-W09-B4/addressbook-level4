@@ -62,6 +62,12 @@ public class TypicalCards {
             .withFront("What are action words?")
             .withBack("Verbs").build();
 
+    public static final Card BIOLOGY_CARD = new CardBuilder()
+            .withId("801d8f6b-97a1-44d0-8abe-429fd0471c90")
+            .withFront("What is a neuron?")
+            .withBack("a specialized cell transmitting nerve impulses; a nerve cell")
+            .build();
+
     // Manually added - Card's details found in {@code CommandTestUtil}
     public static final Card CS2103T_CARD = new CardBuilder()
             .withFront(VALID_FRONT_CS2103T_CARD)
@@ -76,6 +82,6 @@ public class TypicalCards {
 
     public static List<Card> getTypicalCards() {
         return new ArrayList<>(Arrays.asList(MATHEMATICS_CARD, CHEMISTRY_CARD, COMSCI_CARD, GEOGRAPHY_CARD,
-                HISTORY_CARD, ECONOMICS_CARD, LITERATURE_CARD, PHYSICS_CARD, PHYSICS_CARD_2));
+                HISTORY_CARD, ECONOMICS_CARD, LITERATURE_CARD, PHYSICS_CARD, PHYSICS_CARD_2, BIOLOGY_CARD));
     }
 }

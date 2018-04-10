@@ -15,12 +15,12 @@ import seedu.address.model.card.exceptions.NoCardSelectedException;
  */
 public class ScheduleCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "schedule";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedule card to be reviewed on the specified date."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedule card to be reviewed on the specified date.\n"
             + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
             + PREFIX_DAY + "30 "
             + PREFIX_MONTH + "2 "
             + PREFIX_YEAR + "2018";
-    public static final String MESSAGE_SUCCESS = "Card scheduled for rewview on %s";
+    public static final String MESSAGE_SUCCESS = "Card scheduled for review on %s";
     public static final String MESSAGE_CARD_NOT_SELECTED = "Cannot answer to no card, please select a card first.";
 
     private final LocalDateTime date;

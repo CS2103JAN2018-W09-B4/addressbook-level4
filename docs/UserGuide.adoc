@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W09-B4/main
+:stem: latexmath
 
 By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 
@@ -42,6 +43,12 @@ Interested? Jump to the <<Quick Start>> to get started.
 // comment: add a preface to everything, need to orientate user
 
 == Quick Start
+(ADD PREFACE)
+(PROVIDE LINKS TO RELEVANT DOWNLOADABLES)
+
+(maybe like how to use the userguide)
+// comment: put introduction to describe what the icons mean.
+(put introduction to describe what the icons mean.)
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
 +
@@ -49,13 +56,14 @@ Interested? Jump to the <<Quick Start>> to get started.
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `flashy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the desktop.
+.  Double-click the file to start the Flashy. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 
+(NEW SECTION HERE)
 .  Here are some example commands you can try:
 
 * *`list`* : lists all tags and cards
@@ -82,6 +90,8 @@ Cards can have multiple tags.
 == Features
 
 *Command Format*
+
+(ADD PREFACE)
 
 * Words in `UPPER_CASE` are parameters to be supplied by the user.
 
@@ -120,6 +130,11 @@ Adds a flashcard to Flashy. The presence of `o/OPTION` parameters will determine
 Format: `addc f/FRONT b/BACK t/TAG` or +
 `addc f/FRONT o/OPTION o/OPTION .. b/BACK t/TAG`
 
+[CAUTION]
+Ensure that the parameter for `b/` falls between 1 the number of options inclusive.
+[CAUTION]
+Ensure that if there are blanks, the parameter for `b/` should have the same number of answers (separated by `,`) as there are blanks.
+
 Examples:
 
 * `addc f/What is the greatest flashcard application? b/Flashy t/Trivia` +
@@ -131,11 +146,7 @@ Note that a blank is denoted by a single underscore `_`. +
 Adds a MCQ-type flashcard with the front being `Which continent is Singapore in?`, options includes `Asia`, `Africa`, `Australia` and `South America` and back being `1`.
 
 [TIP]
-A flashcard can have any number of tags (including 0).
-[CAUTION]
-Ensure that the parameter for `b/` falls between 1 the number of options inclusive.
-[CAUTION]
-Ensure that if there are blanks, the parameter for `b/` should have the same number of answers (separated by `,`) as there are blanks.
+A flashcard can have any number of tags (including 0). +
 
 ==== Editing a flashcard : `editc`
 
@@ -165,6 +176,10 @@ Ensure that the constraints on flashcard is not violated when editing. For const
 ==== Deleting a flashcard : `deletec`
 
 Deletes the specified flashcard. +
+
+[NOTE]
+If a tag no longer has associated flashcards, the tag will also be removed. Don't be alarmed if some of your tags are also removed in the process!
+
 Format: `deletec INDEX`
 
 ****
@@ -211,10 +226,25 @@ Examples:
 
 * `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, and `Biology Midterms`, and not `bio`, or `chemistry`.
 
+==== Clearing filters: `list`
+
+The usage of `list` is 2-fold. `list` allows you to see all your flashcards and tags by clearing all filters. `list`
+can also be invoked with an additional flag as `list -t`, to list all cards without tags. This allows you to reorganize
+otherwise cards that are otherwise inaccessible. +
+
+Format: `list [-t]`
+
+Examples:
+
+* `list` +
+Shows all tags and cards.
+* `list -t` +
+Shows all tags, but shows only cards without tags.
+
 ==== Editing a tag : `edit`
 
 Updates an existing tag to the specified values. +
-Format: `edit INDEX t/TAG c/COLOR`
+Format: `edit INDEX n/TAG c/COLOR`
 
 ****
 * Edits the tag at the specified `INDEX`. The index refers to the index number shown in the current tag listing. The index *must be a positive integer* 1, 2, 3, ...
@@ -224,10 +254,8 @@ Format: `edit INDEX t/TAG c/COLOR`
 
 Examples:
 
-* `edit 1 t/French` +
+* `edit 1 n/French` +
 Changes the name of the first tag in the list to `French`.
-* `edit 2 t/German c/FF5733` +
-Changes the name of the second tag in the list to `German` and the color of the tag to a shade of orange.
 
 ==== Deleting a Tag: `delete`
 
@@ -238,45 +266,52 @@ Examples:
 * `delete 1` deletes the first visible tag.
 * `delete 2` deletes the second visible tag.
 
-=== Using flashcard
+=== Using flashcards
 After adding and managing your flashcards, its time to get your A+!
 This section will teach you how to let Flashy's intelligent scheduling algorithm prompt you the best time to study!
 
-==== Showing a flashcard : `showDue`
+==== Showing a flashcard : `showdue`
+To start using a flashcard, you have to click on a flashcard first.
+`showdue` helps you filter out cards that are due by a certain date.
+Using it without any arguments will show cards due by today.
 
-Reveals the answer of the flashcard identified by the index number used in the list. +
-Format: `show INDEX`
+Format: `showdue d/DAY m/MONTH y/YEAR`
 
-****
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+[NOTE]
+`showdue` can be used without any options, this will just show the flashcards due by today. +
+You can omit some parameters in `showdue`. suppose to day is `13/04/2018`,
+paramters that you omit would be implicitly assumed to be the current day, month or year.
+If you key in `showdue d/28` without typing in `m/04 y/2018`,
+the month and year are assumed to be the current month. +
+This would show you card due before `28/04/2018`.
 
 Examples:
 
-* `show 2` +
-Shows the 2nd flashcard in the list.
-* `show 1` +
-Shows the 1st flashcard in the list.
+* `showdue d/28 m/04 y/2018` +
+Show cards due before 28/04/2018
+* `showdue d/28` +
+Suppose today is 13/04/2018, although `m/04 y/2018` is not typed,
+they are implicitly assumed to be the current month and year.
 
-==== Answering flashcards: `Answer`
-Answer to give feedback to the scheduling algorithm to schedule the cards for future review.
+==== Answering flashcards: `answer`
+After using `showdue` to show a list of flashcards, you have to click on it to use the flashcard.
+`answer` uses our spaced repetition algorithm to intelligently schedule the card to the right time in the future for review.
 
-Format: `schedule CONFIDENCE`
+Format: `answer c/CONFIDENCE_LEVEL`
 
-****
-* The confidence can only be 0, 1, 2.
-* `show` cammand must be used first before `schedule` can be used.
-****
+[IMPORTANT]
+CONFIDENCE_LEVEL can only be 0, 1 or 2. +
+Card must be selected first before answering.
+// wait for select card to appear then I link here to there wit ha note.
 
-There are 3 `CONFIDENCE` levels
+===== What does `CONFIDENCE_LEVEL` mean?
 
-* `answer 0` +
-Go again. I don't know the answer to this card. Card will then be requeued into the same session again.
-* `answer 1` +
-Pass. I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
-* `answer 2` +
-Easy A+. Card will then be scheduled further into the future. Other cards need more review than this one.
+* `answer c/0` Again +
+I don't know the answer to this card. Card will then be requeued into the same session again.
+* `answer c/1` Passable +
+I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
+* `answer c/2` Easy A+ +
+Card will then be scheduled further into the future. Other cards need more review than this one.
 
 [TIP]
 ====
@@ -285,52 +320,64 @@ This gives feedback to the scheduler algorithm to automatically schedule the car
 This design is based off the well known forgetting curve, you can read more about it here https://en.wikipedia.org/wiki/Forgetting_curve
 ====
 
+==== Show flashcards for review: `Schedule`
+Using the `answer` command to answer a flash card will automatically schedule the card based on our spaced repetition algorithm.
+However sometimes when you need to manually `schedule` a card for review you can do so as well.
+
+Format: `schedule  d/DAY m/MONTH y/YEAR`
+
+[NOTE]
+`schedule` can be used without any options, this will just schedule the cards for today. +
+You can omit some parameters in `schedule`. suppose to day is `13/04/2018`,
+paramters that you omit would be implicitly assumed to be the current day, month or year.
+If you key in `schedule d/28` without typing in `m/04 y/2018`,
+the month and year are assumed to be the current month. +
+This would schedule the card for `28/04/2018`.
+
 Examples:
 
-* `schedule 1` +
-Card will be resheduled into near future.
+* `schedule d/28 m/04 y/2018` +
+Schedule card for 28/04/2018
+* `schedule d/28` +
+Suppose today is 13/04/2018, although `m/04 y/2018` is not typed,
+they are implicitly assumed to be the current month and year.
 
-==== Show flashcards for review: `Schedule`
-Lists and show flashcards due for review today.
+=== Quality-of-Life features
 
-Format: `Today`
+Flashy has many features to speed up your workflow and make your experience as pain-free as possible.
 
-Example:
+==== Autocompletion
 
-* `Today`
+Instead of memorising the parameters of all the commands, you can instruct Flashy to automatically fill in the relevant parameters for you! After typing a valid command, simply press `TAB` and let Flashy handle the rest.
 
-Lists and show flashcards due for review today.
-
-=== Misc
-==== Autocompleting
 ==== Clearing all data : `clear`
 
-Instructs Flashy to clear all data. +
+Rather than manually deleting cards and tags, Flashy is able to clear all of its data for you. +
 Format: `clear`
 
 [TIP]
-This command will instruct Flashy to delete all tags and flashcards. Use this command with caution.
+This command will instruct Flashy to delete all tags and flashcards. Use this command with caution!
 
 ==== Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+If you lose track of the actions you have made at any point in time, you can ask Flashy to list them for you in reverse chronological order. +
 Format: `history`
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+You can also press the kbd:[&uarr;] and kbd:[&darr;] arrows to display the previous and next input respectively in the command box.
 ====
 
 
 
 // tag::undoredo[]
 ==== Undo and Redo
-Some commands support undoing and redoing. The commands are `add`, `addc`, `addm`, `edit`, `editc`, `editm`, `delete`, `deletec`, and `clear`.
+Flashy does not come built in with an eraser. To compensate for that, some commands support undoing and redoing. The commands are `add`, `addc`, `addm`, `edit`, `editc`, `editm`, `delete`, `deletec`, and `clear`.
 
 
 ===== Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+You can restore the state of Flashy's card bank to its preious state before _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -356,7 +403,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 ===== Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Flashy can also revert any `undo` commands made by mistake! +
 Format: `redo`
 
 Examples:
@@ -379,7 +426,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Exiting the program : `exit` or `quit`
 
-Exits the program. +
+Once you are confident in acing that exam, don't forget to power down Flashy! When this is done, Flashy will save all changes made to its card bank before gracefully shutting down. +
 Format: `exit` or `quit`
 
 === Managing User Preferences
@@ -399,7 +446,7 @@ Examples:
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+All data saved in Flashy's card bank is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -422,6 +469,10 @@ _{explain how the user can enable/disable data encryption}_
 |`help`
 |`help`
 
+|List all Flashcards and Tags
+|`list`
+|`list`
+
 |Add Flashcard
 |`addc f/FRONT [o/OPTION] ...  b/BACK [t/TAG]`
 |`addc f/What is the best flashcard application? b/Flashy! t/flashy` +
@@ -431,12 +482,10 @@ _{explain how the user can enable/disable data encryption}_
 `addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right`
 
 |Edit Normal Flashcard
-|`editc [f/FRONT] [b/BACK]`
-|`editc f/When is National Day in Singapore?`
-
-|Edit MCQ-Type Flashcard
-|`editm INDEX [f/FRONT] [o/OPTION_NUMBER/OPTION] [o/OPTION_NUMBER/OPTION] ... [b/BACK]`
-|`editm 1 f/When is National Day in Singapore? o/1/10th July o/3/9th August b/3`
+|`editc [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]`
+|`editc f/When is National Day in Singapore?` +
+ +
+`editc o/Asia o/Australia o/Africa b/3 +t/Trivia`
 
 |Reveal Answer to Flashcard
 |`show INDEX`
@@ -460,8 +509,8 @@ _{explain how the user can enable/disable data encryption}_
 |`find Biology Chemistry`
 
 |Edit Tag
-|`edit INDEX [t/TAG] [c/COLOR]`
-|`edit 1 t/German c/FFFFFF`
+|`edit INDEX [t/TAG]`
+|`edit 1 t/German`
 
 |Delete Tag
 |`delete INDEX`

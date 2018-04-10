@@ -4,6 +4,6 @@
 
 <?import javafx.scene.control.Label?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="cardBack" />
+<StackPane xmlns:fx="http://javafx.com/fxml/1" styleClass="card-back">
+    <Label fx:id="cardBack" styleClass="card-text" />
 </StackPane>

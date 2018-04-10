@@ -129,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
         tagListPanel = new TagListPanel(logic.getFilteredTagList());
         tagListPanelPlaceholder.getChildren().add(tagListPanel.getRoot());
 
-        cardListPanel = new CardListPanel(logic.getFilteredCardList());
+        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.getCardTag(), logic.getTagList());
         cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -196,7 +196,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe
@@ -205,6 +204,7 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    //@@author yong-jie
     @Subscribe
     private void handleChangeThemeEvent(ChangeThemeRequestEvent event) {
         String currentTheme = UiManager.getCurrentTheme();
