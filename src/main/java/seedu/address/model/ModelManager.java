@@ -40,8 +40,6 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private final Predicate<Card> PREDICATE_CARDS_WITHOUT_TAGS =
-            card -> getTags(card).isEmpty();
 
     private final AddressBook addressBook;
     private final FilteredList<Tag> filteredTags;
@@ -311,7 +309,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void showUntaggedCards() {
-        filteredCards.setAll(this.getAddressBook().getCardList().filtered(PREDICATE_CARDS_WITHOUT_TAGS));
+        Predicate<Card> predCardsNoTags = card -> getTags(card).isEmpty();
+        filteredCards.setAll(this.getAddressBook().getCardList().filtered(predCardsNoTags));
     }
     //@@author
 
