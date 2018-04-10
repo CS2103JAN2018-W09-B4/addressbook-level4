@@ -244,7 +244,7 @@ Examples:
 * `delete 1` deletes the first visible tag.
 * `delete 2` deletes the second visible tag.
 
-=== Using flashcard
+=== Using flashcards
 After adding and managing your flashcards, its time to get your A+!
 This section will teach you how to let Flashy's intelligent scheduling algorithm prompt you the best time to study!
 
@@ -321,7 +321,10 @@ Suppose today is 13/04/2018, although `m/04 y/2018` is not typed,
 they are implicitly assumed to be the current month and year.
 
 === Misc
-==== Autocompleting
+==== Autocompletion
+
+After typing a valid command, you can instruct Flashy to automatically fill the input box with the relevant parameters by pressing `TAB`.
+
 ==== Clearing all data : `clear`
 
 Instructs Flashy to clear all data. +
