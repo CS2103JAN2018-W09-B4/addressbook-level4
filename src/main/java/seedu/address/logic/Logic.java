@@ -5,6 +5,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
+import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,4 +29,10 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredCardList();
+
+    /** Returns a view of the CardTag */
+    CardTag getCardTag();
+
+    /** Returns a view of all Cards */
+    ObservableList<Tag> getTagList();
 }
