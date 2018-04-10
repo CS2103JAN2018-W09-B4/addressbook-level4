@@ -43,6 +43,12 @@ Interested? Jump to the <<Quick Start>> to get started.
 // comment: add a preface to everything, need to orientate user
 
 == Quick Start
+(ADD PREFACE)
+(PROVIDE LINKS TO RELEVANT DOWNLOADABLES)
+
+(maybe like how to use the userguide)
+// comment: put introduction to describe what the icons mean.
+(put introduction to describe what the icons mean.)
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
 +
@@ -50,13 +56,14 @@ Interested? Jump to the <<Quick Start>> to get started.
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `flashy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the desktop.
+.  Double-click the file to start the Flashy. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 
+(NEW SECTION HERE)
 .  Here are some example commands you can try:
 
 * *`list`* : lists all tags and cards
@@ -83,6 +90,8 @@ Cards can have multiple tags.
 == Features
 
 *Command Format*
+
+(ADD PREFACE)
 
 * Words in `UPPER_CASE` are parameters to be supplied by the user.
 
@@ -121,6 +130,11 @@ Adds a flashcard to Flashy. The presence of `o/OPTION` parameters will determine
 Format: `addc f/FRONT b/BACK t/TAG` or +
 `addc f/FRONT o/OPTION o/OPTION .. b/BACK t/TAG`
 
+[CAUTION]
+Ensure that the parameter for `b/` falls between 1 the number of options inclusive.
+[CAUTION]
+Ensure that if there are blanks, the parameter for `b/` should have the same number of answers (separated by `,`) as there are blanks.
+
 Examples:
 
 * `addc f/What is the greatest flashcard application? b/Flashy t/Trivia` +
@@ -132,11 +146,7 @@ Note that a blank is denoted by a single underscore `_`. +
 Adds a MCQ-type flashcard with the front being `Which continent is Singapore in?`, options includes `Asia`, `Africa`, `Australia` and `South America` and back being `1`.
 
 [TIP]
-A flashcard can have any number of tags (including 0).
-[CAUTION]
-Ensure that the parameter for `b/` falls between 1 the number of options inclusive.
-[CAUTION]
-Ensure that if there are blanks, the parameter for `b/` should have the same number of answers (separated by `,`) as there are blanks.
+A flashcard can have any number of tags (including 0). +
 
 ==== Editing a flashcard : `editc`
 
@@ -166,6 +176,10 @@ Ensure that the constraints on flashcard is not violated when editing. For const
 ==== Deleting a flashcard : `deletec`
 
 Deletes the specified flashcard. +
+
+[NOTE]
+If a tag no longer has associated flashcards, the tag will also be removed. Don't be alarmed if some of your tags are also removed in the process!
+
 Format: `deletec INDEX`
 
 ****
@@ -232,8 +246,6 @@ Examples:
 
 * `edit 1 n/French` +
 Changes the name of the first tag in the list to `French`.
-* `edit 2 n/German c/FF5733` +
-Changes the name of the second tag in the list to `German` and the color of the tag to a shade of orange.
 
 ==== Deleting a Tag: `delete`
 
@@ -278,7 +290,7 @@ After using `showdue` to show a list of flashcards, you have to click on it to u
 Format: `answer c/CONFIDENCE_LEVEL`
 
 [IMPORTANT]
-CONDENCE_LEVEL can only be 0, 1 or 2. +
+CONFIDENCE_LEVEL can only be 0, 1 or 2. +
 Card must be selected first before answering.
 // wait for select card to appear then I link here to there wit ha note.
 
@@ -447,6 +459,10 @@ _{explain how the user can enable/disable data encryption}_
 |`help`
 |`help`
 
+|List all Flashcards and Tags
+|`list`
+|`list`
+
 |Add Flashcard
 |`addc f/FRONT [o/OPTION] ...  b/BACK [t/TAG]`
 |`addc f/What is the best flashcard application? b/Flashy! t/flashy` +
@@ -483,8 +499,8 @@ _{explain how the user can enable/disable data encryption}_
 |`find Biology Chemistry`
 
 |Edit Tag
-|`edit INDEX [t/TAG] [c/COLOR]`
-|`edit 1 t/German c/FFFFFF`
+|`edit INDEX [t/TAG]`
+|`edit 1 t/German`
 
 |Delete Tag
 |`delete INDEX`
