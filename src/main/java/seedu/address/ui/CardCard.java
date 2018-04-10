@@ -11,6 +11,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Tag;
 
+//@@author yong-jie
 /**
  * A UI component that displays information about a {@code Card}.
  */
