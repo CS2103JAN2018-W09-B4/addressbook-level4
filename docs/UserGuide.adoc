@@ -350,12 +350,12 @@ You can also press the kbd:[&uarr;] and kbd:[&darr;] arrows to display the previ
 
 // tag::undoredo[]
 ==== Undo and Redo
-Some commands support undoing and redoing. The commands are `add`, `addc`, `addm`, `edit`, `editc`, `editm`, `delete`, `deletec`, and `clear`.
+Flashy does not come built in with an eraser. To compensate for that, some commands support undoing and redoing. The commands are `add`, `addc`, `addm`, `edit`, `editc`, `editm`, `delete`, `deletec`, and `clear`.
 
 
 ===== Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+You can restore the state of Flashy's card bank to its preious state before _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -381,7 +381,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 ===== Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Flashy can also revert any `undo` commands made by mistake! +
 Format: `redo`
 
 Examples:
@@ -404,7 +404,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Exiting the program : `exit` or `quit`
 
-Exits the program. +
+Once you are confident in acing that exam, don't forget to power down Flashy! When this is done, Flashy will save all changes made to its card bank before gracefully shutting down. +
 Format: `exit` or `quit`
 
 === Managing User Preferences
