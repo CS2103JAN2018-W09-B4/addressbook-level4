@@ -34,10 +34,6 @@ public class TypicalTags {
             .withId("49af579d-3990-43e1-b11f-ed7ea0630434")
             .withName("History")
             .build();
-    public static final Tag MALAY_TAG = new TagBuilder()
-            .withId("437f5cba-8023-47d3-8269-7d23b7a7338b")
-            .withName("Malay")
-            .build();
     public static final Tag MATHEMATICS_TAG = new TagBuilder()
             .withId("e08641c4-fc6e-4426-bf3f-72fc63d67fe6")
             .withName("Mathematics")
@@ -67,6 +63,6 @@ public class TypicalTags {
 
     public static List<Tag> getTypicalTags() {
         return new ArrayList<>(Arrays.asList(PHYSICS_TAG, BIOLOGY_TAG,
-                CHEMISTRY_TAG, ECONOMICS_TAG, HISTORY_TAG, MALAY_TAG, MATHEMATICS_TAG));
+                CHEMISTRY_TAG, ECONOMICS_TAG, HISTORY_TAG, MATHEMATICS_TAG));
     }
 }
