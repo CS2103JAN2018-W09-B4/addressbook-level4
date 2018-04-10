@@ -11,6 +11,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Tag;
 
+//@@author yong-jie
 /**
  * A UI component that displays information about a {@code Card}.
  */
@@ -40,7 +41,7 @@ public class CardCard extends UiPart<Region> {
     public CardCard(Card card, int displayedIndex, List<Tag> tagList) {
         super(FXML);
         this.card = card;
-        id.setText(displayedIndex + ". ");
+        id.setText(Integer.toString(displayedIndex));
         front.setText(card.getFront());
         tagList.forEach(tag -> tags.getChildren().add(new Label(tag.getName().toString())));
         if (card.getType().equals(McqCard.TYPE)) {
