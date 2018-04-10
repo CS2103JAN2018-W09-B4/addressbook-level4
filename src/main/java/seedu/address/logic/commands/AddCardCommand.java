@@ -27,14 +27,14 @@ public class AddCardCommand extends UndoableCommand {
             + PREFIX_BACK + "BACK "
             + "[" + PREFIX_TAG + "TAG]";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the card bank. "
             + "Parameters: "
             + PARAMS;
 
     public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PARAMS;
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the card bank";
 
     private final Card cardToAdd;
     private final Optional<Set<Tag>> tagsToAdd;
