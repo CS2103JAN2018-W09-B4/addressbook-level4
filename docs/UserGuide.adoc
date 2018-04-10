@@ -338,7 +338,7 @@ This command will instruct Flashy to delete all tags and flashcards. Use this co
 
 ==== Listing entered commands : `history`
 
-If you lose track of the commands the actions you have made at any point in time, you can ask Flashy to list them for you in reverse chronological order. +
+If you lose track of the actions you have made at any point in time, you can ask Flashy to list them for you in reverse chronological order. +
 Format: `history`
 
 [NOTE]
