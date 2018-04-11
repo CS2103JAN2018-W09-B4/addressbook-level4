@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 
+//@@author shawnclq
 public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
@@ -63,33 +64,6 @@ public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
         assertCommandSuccess(index);
-
-        /* Case: filtered card list, delete index within bounds of address book but out of bounds of card list
-         * -> rejected
-         */
-        /* ------------------------------------- Not implemented --------------------------------------------- */
-        /*
-        showCardsWithName(KEYWORD_MATCHING_MIDTERMS);
-        int invalidIndex = getModel().getAddressBook().getCardList().size();
-        command = DeleteCardCommand.COMMAND_WORD + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
-        */
-
-        /* --------------------- Performing delete operation while a card is selected ------------------------ */
-        /* ------------------------------------- Not implemented --------------------------------------------- */
-
-        /* Case: delete the selected card -> card list panel selects the card before the deleted card */
-        /*
-        showAllCards();
-        expectedModel = getModel();
-        Index selectedIndex = getLastIndex(expectedModel);
-        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectCard(selectedIndex);
-        command = DeleteCardCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedCard = removeCard(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_CARD_SUCCESS, deletedCard);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
-        */
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
@@ -195,3 +169,4 @@ public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchanged();
     }
 }
+//@@author

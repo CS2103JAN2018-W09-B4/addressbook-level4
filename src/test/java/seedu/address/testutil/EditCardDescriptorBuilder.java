@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * A utility class to help with building EditCardDescriptor objects.
  */
 public class EditCardDescriptorBuilder {
-
+    //@@author shawnclq
     private EditCardDescriptor descriptor;
 
     public EditCardDescriptorBuilder() {
@@ -64,7 +64,9 @@ public class EditCardDescriptorBuilder {
         descriptor.setOptions(options);
         return this;
     }
+    //@@author
 
+    //@@author jethrokuan
     /**
      * Sets the {@code tagsToAdd} of the {@code EditCardDescriptor} that we are building.
      */
@@ -80,6 +82,7 @@ public class EditCardDescriptorBuilder {
         descriptor.setTagsToRemove(tags);
         return this;
     }
+    //@@author
 
     public EditCardDescriptor build() {
         return descriptor;

@@ -19,6 +19,7 @@ import seedu.address.model.card.FillBlanksCard;
 import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Tag;
 
+//@@author shawnclq
 /**
  * Parses input arguments and creates a new AddCardCommand object
  */
@@ -75,3 +76,4 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
     }
 
 }
+//@@author
