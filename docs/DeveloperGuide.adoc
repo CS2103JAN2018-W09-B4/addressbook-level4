@@ -5,7 +5,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:xrefstyle: full
+:xrefstyle: short
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -425,16 +425,29 @@ The software requires that:
 Physics question may be added to the "Physics" tag, and the "Midterm
 2018" tag.
 
-2. A tag can be associated with many cards. For example, The "Physics"
-tag may contain many Physics flashcards on different topics.
+2. A tag can be associated with 1 or more cards. For example, The "Physics"
+tag may contain many Physics flashcards on different topics. We enforce that
+a tag must have at least one card, because a tag without cards is not useful
+and can be removed.
+
+This relationship is illustrated in <<CardTagRelation>>:
+
+[[CardTagRelation]]
+.Class diagram describing association between flashcards and tags.
+image::Card_Tag_relation.png[width="650"]
 
 ==== Current Implementation
-image::Card_Tag_relation.png[width="300"]
-
 Edges are stored in an instance of `CardTag`. `CardTag` is an
 association class, containing two `HashMap`s.
 
-image::CardTag_Association_Class.png[width="300"]
+image::CardTag_Association_Class.png[width="650"]
+
+As of now, no additional metadata is stored for the relations between flashcards and tags.
+Examples of such metadata would include time of association between flashcard and tag.
+Hence, using HashMaps of IDs to IDs suffice.
+
+As with `UniqueCardList` and `UniqueTagList`, only one instance of `CardTag` exists in each
+`AddressBook`.
 
 ==== Exposed APIs
 Interaction with the `CardTag` instance is performed through the
@@ -461,14 +474,11 @@ version 1.4. While the choice of APIs require some logic to be placed
 in the commands (such as `AddCardCommand` and `EditCardCommand`), they
 are reusable and their implementations can be easily changed.
 
-==== Adding an Edge
+.Sequence Diagram for `addTags`
+image::addTags_SQ.svg[width="800"]
 
-Edges are added during editing of an existing card (with new tags) and
-adding of a new card. Below is the sequence diagram for adding an
-edge.
-
+==== User Scenarios
 // TODO
-
 ==== Design Considerations
 ===== Aspect: Storage of Edges
 
@@ -479,19 +489,25 @@ design choices for `CardTag`.
 * Alternative 1 (current choice): Add UUIDs to Cards and Tags, and
 model edges as UUID pairs.
 
-  - Pros: This allows the `CardTag` instance to be easily serialized to and
-  from `xml`. Reduces coupling between the `Card` and `Tag` class.
+  - Pros: This allows the `CardTag` instance to be easily, and cheaply
+   serialized to and from `xml`. Reduces coupling between the `Card` and `Tag` class.
 
   - Cons: Requires the addition of a UUID field to the `Card` and
     `Tag` class. Developer needs to be careful with implementation,
     because UUID strings for `Card` and `Tag` are indistinguishable.
+    The additional code complexity is a result of storage being through serialization and
+    deserialization of xml, and should be greatly reduced if a proper relational database
+    and Object-Relational Mapping (ORM) tool were used.
 
 * Alternative 2: Store the edge information in `Card` and `Tag`.
 
-  - Pros: No need for additional UUID field.
+  - Pros: No need for additional UUID field. Lower estimated code complexity.
 
-  - Cons: Strong coupling between the `Card` and `Tag` class.
-    Serializing to and from `xml` is less straightforward.
+  - Cons: Strong coupling between the `Card` and `Tag` class. Requires
+  heavy duplication of content in storage. The developer will also have
+  to be careful with the implementation: editing an object would require
+  changes in both the `Card` object and `Tag` object.
+
 
 ===== Aspect: Choice of Data Structure
 
@@ -503,13 +519,13 @@ The application requires the following two operations to be fast:
 Adjacency lists provide much better performance -- O(1) on both
 operations, as compared to an adjacency matrix. In addition, a typical
 `CardTag` graph is sparse, and adjacency lists are much more memory
-efficient.
+efficient. Hence, the adjacency list is a natural choice.
 
 * Alternative 1 (current choice): Storing edges in 2 `HashMap`s:
   `cardMap` and `tagMap`.
 
   - Pros: `O(1)` for both operations.
-  - Cons: Double the memory requirements:
+  - Cons: Double the memory requirements.
 
 * Alternative 2: Storing edges in 1 `HashMap`:
   `cardMap` or `tagMap`.
