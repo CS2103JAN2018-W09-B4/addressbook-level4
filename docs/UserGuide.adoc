@@ -129,6 +129,25 @@ If the command specifies `f/FRONT, b/BACK`, `b/BACK f/FRONT` is also acceptable.
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
 
 === Managing Cards
+// tag::selectcard[]
+==== Selecting a card : `selectc`
+
+You can select a card that is currently being listed with the `selectc` command. +
+Format: `selectc INDEX`
+
+The following figure shows where the index of a card can be found at:
+
+image::cardIndex.png[width="350"]
+
+Examples:
+
+* `selectc 2` +
+Selects the 2nd card in the list.
+* `select 1` +
+Selects the 1st card in the list.
+
+// end::selectcard[]
+
 // tag::addcard[]
 ==== Adding a flashcard: `addc`
 
