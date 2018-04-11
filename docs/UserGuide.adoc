@@ -17,7 +17,9 @@ endif::[]
 
 By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 
+
 == Introduction
+//tag::overview[]
 // comment: add a logo for flashy?
 Flashy, lightning fast flashcard management.
 // comment: better one liners?
@@ -39,8 +41,11 @@ it is able to handle thousands of cards. Therefore, Flahsy should prove useful f
 
 Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
+//end::overview[]
+
 Interested? Jump to the <<Quick Start>> to get started.
 // comment: add a preface to everything, need to orientate user
+
 
 == Quick Start
 (ADD PREFACE)
