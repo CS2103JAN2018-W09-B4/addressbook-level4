@@ -405,6 +405,7 @@ logging level) through the configuration file (default:
 `config.json`).
 
 
+//tag::cardtag[]
 === Card-Tag Association
 This section describes the implementation details on how we model the
 association between flashcards and tags.
@@ -463,7 +464,7 @@ Edges are added during editing of an existing card (with new tags) and
 adding of a new card. Below is the sequence diagram for adding an
 edge.
 
-TODO
+// TODO
 
 ==== Design Considerations
 ===== Aspect: Storage of Edges
@@ -513,6 +514,7 @@ efficient.
   - Pros: Uses minimal amount of memory.
   - Cons: O(1) operation for only one operation.
 
+//end::cardtag[]
 === Schedule feature
 
 image::ScheduleLogic.png[width="800"]

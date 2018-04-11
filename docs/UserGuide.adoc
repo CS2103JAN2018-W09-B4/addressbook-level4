@@ -17,7 +17,9 @@ endif::[]
 
 By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 
+
 == Introduction
+//tag::overview[]
 // comment: add a logo for flashy?
 Flashy, lightning fast flashcard management.
 // comment: better one liners?
@@ -39,8 +41,11 @@ it is able to handle thousands of cards. Therefore, Flahsy should prove useful f
 
 Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
+//end::overview[]
+
 Interested? Jump to the <<Quick Start>> to get started.
 // comment: add a preface to everything, need to orientate user
+
 
 == Quick Start
 (ADD PREFACE)
@@ -224,12 +229,13 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 [TIP]
 ====
-The search is case-insensitive, and finds exact partial matches to the tag name. For example, `bio` would match `Biology`.
+The search is case-insensitive, but finds exact partial matches to the tag name.
 ====
 
 Examples:
 
-* `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, and `Biology Midterms`, and not `bio`, or `chemistry`.
+* `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, `biOlogy`,
+and `Biology Midterms`, but not `bio`, or `chemistry`.
 
 ==== Clearing filters: `list`
 

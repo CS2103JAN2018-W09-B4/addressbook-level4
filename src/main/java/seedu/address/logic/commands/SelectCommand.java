@@ -5,6 +5,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.EmptyCardBackEvent;
 import seedu.address.commons.events.ui.JumpToTagRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.Tag;
@@ -42,6 +43,7 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
         }
 
+        EventsCenter.getInstance().post(new EmptyCardBackEvent());
         EventsCenter.getInstance().post(new JumpToTagRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_TAG_SUCCESS, targetIndex.getOneBased()));
 
