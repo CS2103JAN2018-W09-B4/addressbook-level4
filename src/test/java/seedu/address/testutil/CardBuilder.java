@@ -5,6 +5,7 @@ import java.util.UUID;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Schedule;
 
+//@@author shawnclq
 /**
  * A utility class to help with building Card objects.
  */
@@ -73,3 +74,4 @@ public class CardBuilder {
     }
 
 }
+//@@author

@@ -11,14 +11,25 @@ import guitests.guihandles.CardCardHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.McqCard;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.McqCardBuilder;
 
 public class CardCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         Card card = new CardBuilder().build();
+        ObservableList<Tag> tags = FXCollections.observableArrayList(BIOLOGY_TAG, PHYSICS_TAG);
+        CardCard cardCard = new CardCard(card, 1, tags);
+        uiPartRule.setUiPart(cardCard);
+        assertCardDisplay(cardCard, card, 1);
+    }
+
+    @Test
+    public void displayMcqCard() {
+        McqCard card = new McqCardBuilder().build();
         ObservableList<Tag> tags = FXCollections.observableArrayList(BIOLOGY_TAG, PHYSICS_TAG);
         CardCard cardCard = new CardCard(card, 1, tags);
         uiPartRule.setUiPart(cardCard);

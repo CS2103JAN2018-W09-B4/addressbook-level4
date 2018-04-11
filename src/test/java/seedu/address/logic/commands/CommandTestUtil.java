@@ -13,6 +13,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
+import static seedu.address.testutil.TypicalCards.CHEMISTRY_CARD;
+import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,6 +99,10 @@ public class CommandTestUtil {
     public static final String FRONT_DESC_CS2101_CARD = " " + PREFIX_FRONT + VALID_FRONT_CS2101_CARD;
     public static final String BACK_DESC_CS2103T_CARD = " " + PREFIX_BACK + VALID_BACK_CS2103T_CARD;
     public static final String BACK_DESC_CS2101_CARD = " " + PREFIX_BACK + VALID_BACK_CS2101_CARD;
+    public static final String FRONT_DESC_MATHEMATICS_CARD = " " + PREFIX_FRONT + MATHEMATICS_CARD.getFront();
+    public static final String BACK_DESC_MATHEMATICS_CARD = " " + PREFIX_BACK + MATHEMATICS_CARD.getBack();
+    public static final String FRONT_DESC_CHEMISTRY_CARD = " " + PREFIX_FRONT + CHEMISTRY_CARD.getFront();
+    public static final String BACK_DESC_CHEMISTRY_CARD = " " + PREFIX_BACK + CHEMISTRY_CARD.getBack();
 
     public static final String VALID_THEME_1 = "light";
     public static final String VALID_THEME_2 = "dark";

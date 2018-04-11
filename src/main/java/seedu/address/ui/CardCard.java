@@ -45,7 +45,10 @@ public class CardCard extends UiPart<Region> {
         front.setText(card.getFront());
         tagList.forEach(tag -> tags.getChildren().add(new Label(tag.getName().toString())));
         if (card.getType().equals(McqCard.TYPE)) {
-            card.getOptions().forEach(option -> options.getChildren().add(new Label(option)));
+            for (int i = 0; i < card.getOptions().size(); i++) {
+                String option = card.getOptions().get(i);
+                options.getChildren().add(new Label((i + 1) + ") " + option));
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.card.FillBlanksCard;
+
 //@@author shawnclq
 /**
  * A utility class to help with building Card objects.

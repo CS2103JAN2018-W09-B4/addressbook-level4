@@ -14,6 +14,7 @@ import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author shawnclq
 /**
  * Parses input arguments and creates a new EditCardCommand object
  */
@@ -61,3 +62,5 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
         return new EditCardCommand(index, editCardDescriptor);
     }
 }
+//@@author
+

@@ -10,6 +10,8 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CardListPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.EmptyCardBackEvent;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.McqCard;
 
 //@@author yong-jie
 /**
@@ -31,7 +33,13 @@ public class CardBack extends UiPart<Region> {
     @Subscribe
     private void handleCardListPanelSelectionChangedEvent(CardListPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        cardBack.setText(event.getNewSelection().card.getBack());
+        Card card = event.getNewSelection().card;
+        if (card.getType().equals(McqCard.TYPE)) {
+            cardBack.setText(card.getOptions()
+                    .get(Integer.valueOf(card.getBack()) - 1));
+        } else {
+            cardBack.setText(card.getBack());
+        }
     }
 
     @Subscribe
