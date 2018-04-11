@@ -62,4 +62,4 @@ include::../DeveloperGuide.adoc[tag=editcardusecase]
 
 include::../DeveloperGuide.adoc[tag=deletecardusecase]
 
-include::../DeveloperGuide.adoc[tag=deletetagusecase]
+include::../DeveloperGuide.adoc[tag=edittagusecase]
