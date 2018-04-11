@@ -1,0 +1,64 @@
+= Wong Ding Feng - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Flashy
+
+---
+
+== Overview
+
+Flashy is a desktop flashcard management application to help students memorise better.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to automatically schedule and answer flashcard*
+** What it does: correctly approximate the forgetting curve to remind user when is the best time to study
+** Justification: This feature is core to flashcard memorisation technique. Spaced repetition for better memory.
+** Highlights: This enhancement affects existing commands and commands to be added in future.
+It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*: added a simple Tag functionality that was eventually changed into CardTag Association.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Added issues and milestones.
+** Enhancements to existing features:
+*** Wrote additional tests for existing features. (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Added Logo.
+*** Added prefaces and introduction.
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Tools:
+*** Personal pull and push scripts to Github.
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=showdue]
+
+include::../UserGuide.adoc[tag=schedule]
+
+include::../UserGuide.adoc[tag=answer]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../UserGuide.adoc[tag=introduction]
