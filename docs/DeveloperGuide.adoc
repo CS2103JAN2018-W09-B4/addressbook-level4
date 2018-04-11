@@ -547,6 +547,7 @@ If the interval is too long, users might forget cards. Thus lowering the `easing
 
 A predicate filter is used in conjunction with Schedule class to retrieve a list of cards due for review.
 
+// tag::mcqcard[]
 === MCQ flashcards
 Allowing different types of cards is essential the Flashy. This enables the user to add either a normal card or a MCQ-type card so that he can learn more efficiently, and use whichever that suits his fancy.
 A new class McqCard was created to implement this enhancement, and it will inherit the Card class.
@@ -554,13 +555,17 @@ It has the additional attribute for the options for the MCQ.
 
 image::Card_model.png[width="300"]
 image::Card_inheritance.png[width="300"]
+// end::mcqcard[]
 
+// tag::storage[]
 === Storage
 
 TODO
 image::Card_storage.png[width="300"]
+// end::storage[]
 
 === Design Considerations
+// tag::mcqcardconsideration[]
 ==== Command for adding MCQ type cards
 There would be an add command for MCQ type cards.
 
@@ -571,6 +576,7 @@ Alternative 1 (current choice): Use `addc` for the adding of MCQ type cards.
 Alternative 2: Implement a different `addm` command for adding of MCQ type cards.
 
 - Cons: More commands for users and there would be repeated codes due to similarities between adding of normal and MCQ type cards.
+// end::mcqcardconsideration[]
 
 == Documentation
 
@@ -799,6 +805,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `CardBank` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+// tag::addcardusecase[]
 === Use case: Add a flashcard
 *MSS*
 
@@ -812,10 +819,11 @@ Use case ends.
 * 1a. The given parameters are invalid.
 +
 Use case ends.
+// end::addcardusecase[]
 
 [discrete]
+// tag::editcardusecase[]
 === Use case: Edit flashcard
-
 *MSS*
 
 1.  User requests to filter flashcards associated with a certain tag
@@ -838,8 +846,10 @@ Use case ends.
 ** 3a1. CardBank shows an error message.
 +
 Use case resumes at step 2.
+// end::editcardusecase[]
 
 [discrete]
+// tag::edittagusecase[]
 === Use case: Edit tag
 
 *MSS*
@@ -864,8 +874,10 @@ Use case ends.
 ** 3a1. CardBank shows an error message.
 +
 Use case resumes at step 2.
+// end::edittagusecase[]
 
 [discrete]
+// tag::deletecardusecase[]
 === Use case: Delete flashcard
 
 *MSS*
@@ -890,6 +902,7 @@ Use case ends.
 ** 3a1. CardBank shows an error message.
 +
 Use case resumes at step 2.
+// end::deletecardusecase[]
 
 [discrete]
 === Use case: View back of flashcard

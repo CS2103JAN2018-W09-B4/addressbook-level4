@@ -124,6 +124,7 @@ If the command specifies `f/FRONT, b/BACK`, `b/BACK f/FRONT` is also acceptable.
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
 
 === Managing Cards
+// tag::addcard[]
 ==== Adding a flashcard: `addc`
 
 Adds a flashcard to Flashy. The presence of `o/OPTION` parameters will determine whether it is a normal or MCQ-type flashcard. +
@@ -147,7 +148,9 @@ Adds a MCQ-type flashcard with the front being `Which continent is Singapore in?
 
 [TIP]
 A flashcard can have any number of tags (including 0). +
+// end::addcard[]
 
+// tag::editcard[]
 ==== Editing a flashcard : `editc`
 
 Edits an existing flashcard currently stored in Flashy. +
@@ -172,7 +175,9 @@ Edits the options of the 1st flashcard to be `Asia`, `Australia` and `Africa`. (
 
 [CAUTION]
 Ensure that the constraints on flashcard is not violated when editing. For constraints, refer to the *Caution* warning under Section 4.1.1: Adding a flashcard.
+// end::editcard[]
 
+// tag::deletecard[]
 ==== Deleting a flashcard : `deletec`
 
 Deletes the specified flashcard. +
@@ -192,7 +197,7 @@ Examples:
 
 `deletec 2` +
 Deletes the 2nd flashcard in the list.
-
+// end::deletecard[]
 
 === Managing Tags
 ==== Selecting a tag : `select`

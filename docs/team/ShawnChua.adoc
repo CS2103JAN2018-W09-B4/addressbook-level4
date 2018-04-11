@@ -1,0 +1,65 @@
+= Shawn Chua - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Flashy
+
+---
+
+== Overview
+
+Flashy is an application to help users organise their flashcards to help them memorise better.
+
+== Summary of contributions
+
+* *Major enhancement*: Enhanced flashcards to be *polymorphic*.
+** What it does: Allows users to add and edit MCQ or fill-in-the-blanks flashcards (instead of normal ones).
+** Justification: This feature improves the product significantly because different users learn differently (some need prompts) and the ability to add different kinds of cards would allow them to add flashcards that suits their learning style.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*: Added a delete flashcard feature so that flashcards can be deleted when users no longer have a use for them.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Added issues and milestones
+** Enhancements to existing features:
+*** Changed typical cards to aid tests for existing features (Pull requests https://github.com/CS2103JAN2018-W09-B4/main/commit/8b586a700cd7d31a4b1d5ccd3a9ff4f386add7f2#diff-d8bf209606ae9b177294a457ab8118b6[#66], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/CS2103JAN2018-W09-B4/main/commit/1578c3de904822845d6fb1cd479c967ab0036bad[#76]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addcard]
+
+include::../UserGuide.adoc[tag=editcard]
+
+include::../UserGuide.adoc[tag=deletecard]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=mcqcard]
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=mcqcardconsideration]
+
+include::../DeveloperGuide.adoc[tag=addcardusecase]
+
+include::../DeveloperGuide.adoc[tag=editcardusecase]
+
+include::../DeveloperGuide.adoc[tag=deletecardusecase]
+
+include::../DeveloperGuide.adoc[tag=deletetagusecase]
