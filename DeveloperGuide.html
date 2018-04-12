@@ -51,9 +51,9 @@
 <li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
 <li><a href="#card-tag-association">3.6. Card-Tag Association</a></li>
 <li><a href="#schedule-feature">3.7. Schedule feature</a></li>
-<li><a href="#mcq-flashcards">3.8. MCQ flashcards</a></li>
-<li><a href="#storage">3.9. Storage</a></li>
-<li><a href="#design-considerations-3">3.10. Design Considerations</a></li>
+<li><a href="#polymorphic-flashcards">3.8. Polymorphic flashcards</a></li>
+<li><a href="#adding-and-editing-of-polymorphic-flashcards">3.9. Adding and editing of polymorphic flashcards</a></li>
+<li><a href="#storage-of-flashcards">3.10. Storage of flashcards</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -308,7 +308,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <h3 id="Design-Architecture"><a class="link" href="#Design-Architecture">2.1. Architecture</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/ArchitectureDiagram.png" alt="ArchitectureDiagram" width="600">
+<img src="images/ArchitectureDiagramBW.png" alt="ArchitectureDiagramBW" width="600">
 </div>
 <div class="title">Figure 1. Architecture Diagram</div>
 </div>
@@ -322,7 +322,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The <code>.pptx</code> files used to create diagrams in this document can be found in the <a href="https://github.com/CS2103JAN2018-W09-B4/main/docs/diagrams/">diagrams</a> folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose <code>Save as picture</code>.
+The <code>.pptx</code> files used to create diagrams in this document can be found in the <a href="https://github.com/CS2103JAN2018-W09-B4/main/tree/master/docs/diagrams/WhiteBlackDiagrams">diagrams</a> folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose <code>Save as picture</code>.
 </td>
 </tr>
 </table>
@@ -402,7 +402,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <div class="content">
 <img src="images/SDforDeleteCardBW.png" alt="SDforDeleteCardBW" width="800">
 </div>
-<div class="title">Figure 3. Component interactions for <code>delete 1</code> command (part 1)</div>
+<div class="title">Figure 3. Component interactions for <code>deletec 1</code> command (part 1)</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -411,7 +411,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Address Book data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
+Note how the <code>Model</code> simply raises a <code>CardBankChangedEvent</code> when the Card Bank data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
 </td>
 </tr>
 </table>
@@ -496,7 +496,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>Logic</code> uses the <code>AddressBookParser</code> class to parse the user command.</p>
+<p><code>Logic</code> uses the <code>CardBankParser</code> class to parse the user command.</p>
 </li>
 <li>
 <p>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</p>
@@ -510,7 +510,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </ol>
 </div>
 <div class="paragraph">
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call.</p>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("deletec 1")</code> API call.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -542,7 +542,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores the flashcard data.</p>
 </li>
 <li>
-<p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+<p>exposes an unmodifiable <code>ObservableList&lt;Card&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
 </li>
 <li>
 <p>does not depend on any of the other three components.</p>
@@ -594,7 +594,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of the application (e.g. <code>add</code>, <code>edit</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
+<p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of the application (e.g. <code>addc</code>, <code>editc</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>UndoRedoStack</code> only deals with <code>UndoableCommands</code>. Commands that cannot be undone will inherit from <code>Command</code> instead. The following diagram shows the inheritance diagram for commands:</p>
@@ -646,7 +646,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>Suppose that the user has just launched the application. The <code>UndoRedoStack</code> will be empty at the beginning.</p>
 </div>
 <div class="paragraph">
-<p>The user executes a new <code>UndoableCommand</code>, <code>delete 5</code>, to delete the 5th person in the application. The current state of the application is saved before the <code>delete 5</code> command executes. The <code>delete 5</code> command will then be pushed onto the <code>undoStack</code> (the current state is saved together with the command).</p>
+<p>The user executes a new <code>UndoableCommand</code>, <code>deletec 5</code>, to delete the 5th person in the application. The current state of the application is saved before the <code>deletec 5</code> command executes. The <code>deletec 5</code> command will then be pushed onto the <code>undoStack</code> (the current state is saved together with the command).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -654,7 +654,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p>As the user continues to use the program, more commands are added into the <code>undoStack</code>. For example, the user may execute <code>add n/David &#8230;&#8203;</code> to add a new person.</p>
+<p>As the user continues to use the program, more commands are added into the <code>undoStack</code>. For example, the user may execute <code>addc f/What is &#8230;&#8203;</code> to add a new card.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -674,10 +674,10 @@ If a command fails its execution, it will not be pushed to the <code>UndoRedoSta
 </table>
 </div>
 <div class="paragraph">
-<p>The user now decides that adding the person was a mistake, and decides to undo that action using <code>undo</code>.</p>
+<p>The user now decides that adding the card was a mistake, and decides to undo that action using <code>undo</code>.</p>
 </div>
 <div class="paragraph">
-<p>We will pop the most recent command out of the <code>undoStack</code> and push it back to the <code>redoStack</code>. We will restore the application to the state before the <code>add</code> command executed.</p>
+<p>We will pop the most recent command out of the <code>undoStack</code> and push it back to the <code>redoStack</code>. We will restore the application to the state before the <code>addc</code> command executed.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1230,56 +1230,281 @@ If the interval is too long, users might forget cards. Thus lowering the <code>e
 </div>
 </div>
 <div class="sect2">
-<h3 id="mcq-flashcards"><a class="link" href="#mcq-flashcards">3.8. MCQ flashcards</a></h3>
-<div class="paragraph">
-<p>Allowing different types of cards is essential the Flashy. This enables the user to add either a normal card or a MCQ-type card so that he can learn more efficiently, and use whichever that suits his fancy.
-A new class McqCard was created to implement this enhancement, and it will inherit the Card class.
-It has the additional attribute for the options for the MCQ.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/Card_model.png" alt="Card model" width="300">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/Card_inheritance.png" alt="Card inheritance" width="300">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="storage"><a class="link" href="#storage">3.9. Storage</a></h3>
-<div class="paragraph">
-<p>TODO
-image::Card_storage.png[width="300"]</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.10. Design Considerations</a></h3>
+<h3 id="polymorphic-flashcards"><a class="link" href="#polymorphic-flashcards">3.8. Polymorphic flashcards</a></h3>
 <div class="sect3">
-<h4 id="command-for-adding-mcq-type-cards"><a class="link" href="#command-for-adding-mcq-type-cards">3.10.1. Command for adding MCQ type cards</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.8.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>There would be an add command for MCQ type cards.</p>
+<p>Allowing different types of cards is essential to Flashy. This enables the user to add and edit a normal, MCQ or fill-in-the-blanks flashcard so that the user can learn more efficiently, and use whichever that suits his learning style.<br>
+New classes <code>McqCard</code> and <code>FillBlanks</code> were created to implement this enhancement, and they inherit the Card class, as shown in Figure 11.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ModelClassDiagramBW.png" alt="ModelClassDiagramBW" width="800">
+</div>
+<div class="title">Figure 11. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CardInheritanceBW.png" alt="CardInheritanceBW" width="800">
+</div>
+<div class="title">Figure 12. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deisgn-considerations"><a class="link" href="#deisgn-considerations">3.8.2. Deisgn Considerations</a></h4>
+
+</div>
+<div class="sect3">
+<h4 id="aspect-implementation-of-polymorphic-flashcards"><a class="link" href="#aspect-implementation-of-polymorphic-flashcards">3.8.3. Aspect: Implementation of polymorphic flashcards</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Have a class each for MCQ and fill blanks type flashcards and let them inherit the <code>Card</code> class.<br>
+MCQ flashcards have the constraint that the back of the card should be an integer between 1 and the number of options available.<br>
+For fill blanks flashcards, the constraint is that the number of answers should be the same as the number of blanks.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: In terms of usability, having constraints allows users to input the right arguments for different cards.</p>
+</li>
+<li>
+<p>Cons: Additional classes have to be implemented.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Just use a single <code>Card</code> class for all cards, so no constaints are set.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No additional classes have to be implemented. Let the user add flashcards with any arguments.</p>
+</li>
+<li>
+<p>Cons: No constraints for the flashcards.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-and-editing-of-polymorphic-flashcards"><a class="link" href="#adding-and-editing-of-polymorphic-flashcards">3.9. Adding and editing of polymorphic flashcards</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.9.1. Current implementation</a></h4>
 <div class="paragraph">
-<p>Alternative 1 (current choice): Use <code>addc</code> for the adding of MCQ type cards.</p>
+<p>The <code>addc</code> command is used to add all types of flashcards.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.9.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-add-command-for-mcq-and-fill-blanks-type-flashcards"><a class="link" href="#aspect-implementation-of-add-command-for-mcq-and-fill-blanks-type-flashcards">Aspect: Implementation of add command for MCQ and fill blanks type flashcards.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Use <code>addc</code> for the adding of MCQ and fill blanks type flashcards.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: There would be less commands to keep track of and combining the command reduces repeated codes since there are similarities between adding of normal and other type cards.<br>
+One example of similarity is shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommand: executeUndoableCommand()</code> below.</p>
+</li>
+<li>
+<p>Cons: The add card command has to be changed which can result in undesired consequences if mistakes were made. Care has to be taken when implementing the add card feature for MCQ and fill blanks flashcards as both have constraints which cannot be violated.<br>
+Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommandParser: parse()</code><br></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    public CommandResult executeUndoableCommand() throws CommandException {
+            requireNonNull(model);
+
+            try {
+                model.addCard(cardToAdd);
+            }
+            // ... Catch exception ...
+
+            if (tagsToAdd.isPresent()) {
+                Set&lt;Tag&gt; tags = tagsToAdd.get();
+                try {
+                    model.addTags(cardToAdd, tags);
+                }
+                // ... Catch exception ...
+            }
+
+            // ... Return result ...
+
+        }</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">public</span> AddCardCommand parse(<span class="predefined-type">String</span> args) {
+        <span class="comment">// ...</span>
+
+        <span class="keyword">try</span> {
+            <span class="comment">// ... Parse arguments ...</span>
+
+            <span class="keyword">if</span> (options.isEmpty()) {
+                <span class="keyword">if</span> (FillBlanksCard.containsBlanks(front)) {
+                    card = ParserUtil.parseFillBlanksCard(front, back);
+                } <span class="keyword">else</span> {
+                    card = <span class="keyword">new</span> Card(front, back);
+                }
+            } <span class="keyword">else</span> {
+                <span class="keyword">for</span> (<span class="predefined-type">String</span> option: options) {
+                    ParserUtil.parseMcqOption(option);
+                }
+                card = ParserUtil.parseMcqCard(front, back, options);
+                card.setType(McqCard.TYPE);
+            }
+
+            <span class="keyword">return</span> <span class="keyword">new</span> AddCardCommand(card, tags);
+        } <span class="keyword">catch</span> (IllegalValueException ive) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(ive.getMessage(), ive);
+        }
+    }</code></pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Less commands for users and reduces repeated codes due to similarities between adding of normal and MCQ type cards.</p>
+<p><strong>Alternative 2</strong>: Implement a different <code>addm</code> and <code>addf</code> command for adding of MCQ and fill blanks type flashcard respectively.<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No changes needs to be made to the <code>addc</code> command. Even if <code>addm</code> or <code>addf</code> fails, <code>addc</code> command can still work.</p>
+</li>
+<li>
+<p>Cons: Less commands for developers to keep track of. It is also less efficient to have similar codes for different commands.<br>
+If there is a change in implementation, developers would have to change code for three separate commands, which is troublesome.</p>
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="storage-of-flashcards"><a class="link" href="#storage-of-flashcards">3.10. Storage of flashcards</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.10.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>Alternative 2: Implement a different <code>addm</code> command for adding of MCQ type cards.</p>
+<p>The current implementation saves the flashcard data in XML format and reads it back when the card bank is loaded.
+A single <code>XmlAdaptedCard</code> class is used to convert the attributes of flashcards into XML Elements and <code>XmlSerializableAddressBook</code> stores a list of <code>XmlAdaptedCard</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.10.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-code-xmladaptedcard-code-class"><a class="link" href="#aspect-implementation-of-code-xmladaptedcard-code-class">Aspect: Implementation of <code>XmlAdaptedCard</code> class</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Implement a single <code>XmlAdaptedCard</code> class to convert all types of flashcards into XML format.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Flashcards would be stored in the order in which they were added.</p>
+</li>
+<li>
+<p>Cons: <code>XmlAdaptedCard</code> has to be tweaked to take in the <code>options</code> attribute from the <code>McqCard</code> class, and the <code>toModelType()</code> method has to check for the constraints of the MCQ and fill blanks flashcard as shown in the code snippets below:<br>
+From <code>src.main.java.seedu.address.storage.XmlAdaptedCard</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    public class XmlAdaptedCard {
+
+        // ... Other attributes ...
+
+        @XmlElement(required = true)
+        private List&lt;String&gt; option = new ArrayList&lt;&gt;();
+
+        // ... Constructors and methods ...
+    }
+
+    // ...
+
+    public Card toModelType() throws IllegalValueException {
+        // ... Check id, front, back constraints ...
+
+        if (this.type.equals(FillBlanksCard.TYPE)) {
+            if (!FillBlanksCard.isValidFillBlanksCard(this.front, this.back)) {
+                // ... Catch exception ...
+            }
+            // ... Return card ...;
+        }
+        if (this.type.equals(McqCard.TYPE)) {
+            if (!McqCard.isValidMcqCard(this.back, this.option)) {
+                // ... Catch exception ...
+            }
+            // ... Return card ...
+        }
+        // ... Return card ...
+     }</pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Cons: More commands for users and there would be repeated codes due to similarities between adding of normal and MCQ type cards.</p>
+<p><strong>Alternative 2:</strong> Implementing a separate <code>XmlAdaptedMcqCard</code> and <code>XmlAdaptedFillBlanksCard</code> to convert MCQ and fill blanks flashcards into XML format respectively.<br>
+Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAdaptedCard</code>. In <code>XmlSerializableAddressBook</code>, there would be a separate list for <code>XmlAdaptedMcqCard</code>, as shown in the code snippet below (which was implemented initially but later removed from source code):</p>
 </li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    public class XmlSerializableAddressBook {
+        // ... Other attributes ...
+
+        @XmlElement
+        private List&lt;XmlAdaptedCard&gt; cards;
+
+        // New list for XmlAdaptedMcqCards
+        @XmlElement
+        private List&lt;XmlAdaptedMcqCard&gt; mcqCards;
+
+        /**
+         * Conversion
+         */
+        public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+            // ...
+            for (Card card: src.getCardList()) {
+                if (card.getType().equals(McqCard.TYPE)) {
+                    mcqCards.add(new XmlAdaptedMcqCard(...));
+                } else {
+                    cards.add(new XmlAdaptedCard(...));
+                }
+            }
+        }
+        // ...
+    }</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need to tweak <code>XmlAdaptedCard</code> and both classes would be separate, so mistakes in <code>XmlAdaptedMcqCard</code> would not affect that in <code>XmlAdaptedCard</code>. There&#8217;s no need to check for <code>McqCard</code> constraints.</p>
+</li>
+<li>
+<p>Cons: <code>XmlAdaptedCard</code> and <code>XmlAdaptedMcqCard</code> would be stored in separate lists in XML format. When the card bank is loaded, both lists would be read separately and the order in which the cards were added would not be captured.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1344,7 +1569,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 11. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 13. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 </div>
@@ -1600,7 +1825,7 @@ go through first.</p>
 <div class="sect2">
 <h3 id="shawn-chua"><a class="link" href="#shawn-chua">C.4. Shawn Chua</a></h3>
 <div class="paragraph">
-<p>Major enhancement: Implementing polymorphic cards to include MCQ-type and fill-in-the-blanks-type cards so that users
+<p>Major enhancement: Implementing polymorphic flashcards to include MCQ-type and fill-in-the-blanks-type flashcards so that users
 are able to memorise information in different ways.</p>
 </div>
 <div class="paragraph">
@@ -2221,7 +2446,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-11 23:11:31 UTC
+Last updated 2018-04-12 08:00:48 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">

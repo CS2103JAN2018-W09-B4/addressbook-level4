@@ -296,53 +296,281 @@ Deletes the 2nd flashcard in the list.</p>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="mcq-flashcards"><a class="link" href="#mcq-flashcards">MCQ flashcards</a></h3>
+<h3 id="polymorphic-flashcards"><a class="link" href="#polymorphic-flashcards">Polymorphic flashcards</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>Allowing different types of cards is essential the Flashy. This enables the user to add either a normal card or a MCQ-type card so that he can learn more efficiently, and use whichever that suits his fancy.
-A new class McqCard was created to implement this enhancement, and it will inherit the Card class.
-It has the additional attribute for the options for the MCQ.</p>
+<p>Allowing different types of cards is essential to Flashy. This enables the user to add and edit a normal, MCQ or fill-in-the-blanks flashcard so that the user can learn more efficiently, and use whichever that suits his learning style.<br>
+New classes <code>McqCard</code> and <code>FillBlanks</code> were created to implement this enhancement, and they inherit the Card class, as shown in Figure 11.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/Card_model.png" alt="Card model" width="300">
+<img src="../images/ModelClassDiagramBW.png" alt="ModelClassDiagramBW" width="800">
 </div>
+<div class="title">Figure 1. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/Card_inheritance.png" alt="Card inheritance" width="300">
+<img src="../images/CardInheritanceBW.png" alt="CardInheritanceBW" width="800">
+</div>
+<div class="title">Figure 2. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deisgn-considerations"><a class="link" href="#deisgn-considerations">Deisgn Considerations</a></h4>
+
+</div>
+<div class="sect3">
+<h4 id="aspect-implementation-of-polymorphic-flashcards"><a class="link" href="#aspect-implementation-of-polymorphic-flashcards">Aspect: Implementation of polymorphic flashcards</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Have a class each for MCQ and fill blanks type flashcards and let them inherit the <code>Card</code> class.<br>
+MCQ flashcards have the constraint that the back of the card should be an integer between 1 and the number of options available.<br>
+For fill blanks flashcards, the constraint is that the number of answers should be the same as the number of blanks.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: In terms of usability, having constraints allows users to input the right arguments for different cards.</p>
+</li>
+<li>
+<p>Cons: Additional classes have to be implemented.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Just use a single <code>Card</code> class for all cards, so no constaints are set.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No additional classes have to be implemented. Let the user add flashcards with any arguments.</p>
+</li>
+<li>
+<p>Cons: No constraints for the flashcards.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="storage"><a class="link" href="#storage">Storage</a></h3>
+<h3 id="adding-and-editing-of-polymorphic-flashcards"><a class="link" href="#adding-and-editing-of-polymorphic-flashcards">Adding and editing of polymorphic flashcards</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current implementation</a></h4>
 <div class="paragraph">
-<p>TODO
-image::Card_storage.png[width="300"]</p>
+<p>The <code>addc</code> command is used to add all types of flashcards.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="command-for-adding-mcq-type-cards"><a class="link" href="#command-for-adding-mcq-type-cards">Command for adding MCQ type cards</a></h4>
-<div class="paragraph">
-<p>There would be an add command for MCQ type cards.</p>
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-add-command-for-mcq-and-fill-blanks-type-flashcards"><a class="link" href="#aspect-implementation-of-add-command-for-mcq-and-fill-blanks-type-flashcards">Aspect: Implementation of add command for MCQ and fill blanks type flashcards.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Use <code>addc</code> for the adding of MCQ and fill blanks type flashcards.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: There would be less commands to keep track of and combining the command reduces repeated codes since there are similarities between adding of normal and other type cards.<br>
+One example of similarity is shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommand: executeUndoableCommand()</code> below.</p>
+</li>
+<li>
+<p>Cons: The add card command has to be changed which can result in undesired consequences if mistakes were made. Care has to be taken when implementing the add card feature for MCQ and fill blanks flashcards as both have constraints which cannot be violated.<br>
+Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommandParser: parse()</code><br></p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>Alternative 1 (current choice): Use <code>addc</code> for the adding of MCQ type cards.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    public CommandResult executeUndoableCommand() throws CommandException {
+            requireNonNull(model);
+
+            try {
+                model.addCard(cardToAdd);
+            }
+            // ... Catch exception ...
+
+            if (tagsToAdd.isPresent()) {
+                Set&lt;Tag&gt; tags = tagsToAdd.get();
+                try {
+                    model.addTags(cardToAdd, tags);
+                }
+                // ... Catch exception ...
+            }
+
+            // ... Return result ...
+
+        }</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">public</span> AddCardCommand parse(<span class="predefined-type">String</span> args) {
+        <span class="comment">// ...</span>
+
+        <span class="keyword">try</span> {
+            <span class="comment">// ... Parse arguments ...</span>
+
+            <span class="keyword">if</span> (options.isEmpty()) {
+                <span class="keyword">if</span> (FillBlanksCard.containsBlanks(front)) {
+                    card = ParserUtil.parseFillBlanksCard(front, back);
+                } <span class="keyword">else</span> {
+                    card = <span class="keyword">new</span> Card(front, back);
+                }
+            } <span class="keyword">else</span> {
+                <span class="keyword">for</span> (<span class="predefined-type">String</span> option: options) {
+                    ParserUtil.parseMcqOption(option);
+                }
+                card = ParserUtil.parseMcqCard(front, back, options);
+                card.setType(McqCard.TYPE);
+            }
+
+            <span class="keyword">return</span> <span class="keyword">new</span> AddCardCommand(card, tags);
+        } <span class="keyword">catch</span> (IllegalValueException ive) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(ive.getMessage(), ive);
+        }
+    }</code></pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Less commands for users and reduces repeated codes due to similarities between adding of normal and MCQ type cards.</p>
+<p><strong>Alternative 2</strong>: Implement a different <code>addm</code> and <code>addf</code> command for adding of MCQ and fill blanks type flashcard respectively.<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No changes needs to be made to the <code>addc</code> command. Even if <code>addm</code> or <code>addf</code> fails, <code>addc</code> command can still work.</p>
+</li>
+<li>
+<p>Cons: Less commands for developers to keep track of. It is also less efficient to have similar codes for different commands.<br>
+If there is a change in implementation, developers would have to change code for three separate commands, which is troublesome.</p>
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="storage-of-flashcards"><a class="link" href="#storage-of-flashcards">Storage of flashcards</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">Current Implementation</a></h4>
 <div class="paragraph">
-<p>Alternative 2: Implement a different <code>addm</code> command for adding of MCQ type cards.</p>
+<p>The current implementation saves the flashcard data in XML format and reads it back when the card bank is loaded.
+A single <code>XmlAdaptedCard</code> class is used to convert the attributes of flashcards into XML Elements and <code>XmlSerializableAddressBook</code> stores a list of <code>XmlAdaptedCard</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-code-xmladaptedcard-code-class"><a class="link" href="#aspect-implementation-of-code-xmladaptedcard-code-class">Aspect: Implementation of <code>XmlAdaptedCard</code> class</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Implement a single <code>XmlAdaptedCard</code> class to convert all types of flashcards into XML format.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Flashcards would be stored in the order in which they were added.</p>
+</li>
+<li>
+<p>Cons: <code>XmlAdaptedCard</code> has to be tweaked to take in the <code>options</code> attribute from the <code>McqCard</code> class, and the <code>toModelType()</code> method has to check for the constraints of the MCQ and fill blanks flashcard as shown in the code snippets below:<br>
+From <code>src.main.java.seedu.address.storage.XmlAdaptedCard</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    public class XmlAdaptedCard {
+
+        // ... Other attributes ...
+
+        @XmlElement(required = true)
+        private List&lt;String&gt; option = new ArrayList&lt;&gt;();
+
+        // ... Constructors and methods ...
+    }
+
+    // ...
+
+    public Card toModelType() throws IllegalValueException {
+        // ... Check id, front, back constraints ...
+
+        if (this.type.equals(FillBlanksCard.TYPE)) {
+            if (!FillBlanksCard.isValidFillBlanksCard(this.front, this.back)) {
+                // ... Catch exception ...
+            }
+            // ... Return card ...;
+        }
+        if (this.type.equals(McqCard.TYPE)) {
+            if (!McqCard.isValidMcqCard(this.back, this.option)) {
+                // ... Catch exception ...
+            }
+            // ... Return card ...
+        }
+        // ... Return card ...
+     }</pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Cons: More commands for users and there would be repeated codes due to similarities between adding of normal and MCQ type cards.</p>
+<p><strong>Alternative 2:</strong> Implementing a separate <code>XmlAdaptedMcqCard</code> and <code>XmlAdaptedFillBlanksCard</code> to convert MCQ and fill blanks flashcards into XML format respectively.<br>
+Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAdaptedCard</code>. In <code>XmlSerializableAddressBook</code>, there would be a separate list for <code>XmlAdaptedMcqCard</code>, as shown in the code snippet below (which was implemented initially but later removed from source code):</p>
 </li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    public class XmlSerializableAddressBook {
+        // ... Other attributes ...
+
+        @XmlElement
+        private List&lt;XmlAdaptedCard&gt; cards;
+
+        // New list for XmlAdaptedMcqCards
+        @XmlElement
+        private List&lt;XmlAdaptedMcqCard&gt; mcqCards;
+
+        /**
+         * Conversion
+         */
+        public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+            // ...
+            for (Card card: src.getCardList()) {
+                if (card.getType().equals(McqCard.TYPE)) {
+                    mcqCards.add(new XmlAdaptedMcqCard(...));
+                } else {
+                    cards.add(new XmlAdaptedCard(...));
+                }
+            }
+        }
+        // ...
+    }</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need to tweak <code>XmlAdaptedCard</code> and both classes would be separate, so mistakes in <code>XmlAdaptedMcqCard</code> would not affect that in <code>XmlAdaptedCard</code>. There&#8217;s no need to check for <code>McqCard</code> constraints.</p>
+</li>
+<li>
+<p>Cons: <code>XmlAdaptedCard</code> and <code>XmlAdaptedMcqCard</code> would be stored in separate lists in XML format. When the card bank is loaded, both lists would be read separately and the order in which the cards were added would not be captured.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -536,7 +764,7 @@ image::Card_storage.png[width="300"]</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-11 23:11:31 UTC
+Last updated 2018-04-12 08:00:48 UTC
 </div>
 </div>
 </body>
