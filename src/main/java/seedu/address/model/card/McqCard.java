@@ -27,7 +27,7 @@ public class McqCard extends Card {
             "MCQ Card back should be an integer between 1 and the number of options input";
     public static final String TYPE = "MCQ";
 
-    public final ObservableList<String> optionsList = FXCollections.observableArrayList();
+    private final ObservableList<String> optionsList = FXCollections.observableArrayList();
 
     public McqCard(String front, String back, List<String> options) {
         this(UUID.randomUUID(), front, back, options);
