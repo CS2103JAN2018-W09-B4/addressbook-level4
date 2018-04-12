@@ -165,27 +165,52 @@ Physics question may be added to the "Physics" tag, and the "Midterm
 2018" tag.</p>
 </li>
 <li>
-<p>A tag can be associated with many cards. For example, The "Physics"
-tag may contain many Physics flashcards on different topics.</p>
+<p>A tag can be associated with 1 or more cards. For example, The "Physics"
+tag may contain many Physics flashcards on different topics. We enforce that
+a tag must have at least one card, because a tag without cards is not useful
+and can be removed.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>This relationship is illustrated in <a href="#CardTagRelation">Class diagram describing association between flashcards and tags.</a>:</p>
+</div>
+<div id="CardTagRelation" class="imageblock">
+<div class="content">
+<img src="../images/Card_Tag_relation.png" alt="Card Tag relation" width="450">
+</div>
+<div class="title">Figure 1. Class diagram describing association between flashcards and tags.</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
-<div class="imageblock">
-<div class="content">
-<img src="../images/Card_Tag_relation.png" alt="Card Tag relation" width="300">
-</div>
-</div>
 <div class="paragraph">
 <p>Edges are stored in an instance of <code>CardTag</code>. <code>CardTag</code> is an
-association class, containing two `HashMap`s.</p>
+association class, containing two `HashMap`s, as illustrated in <a href="#fig:cardTagCD">Class Diagram illustrating relation between <code>Card</code>, <code>Tag</code> and <code>CardTag</code></a>.</p>
 </div>
-<div class="imageblock">
+<div id="fig:cardTagCD" class="imageblock">
 <div class="content">
-<img src="../images/CardTag_Association_Class.png" alt="CardTag Association Class" width="300">
+<img src="../images/cardTag_ClassDiagram.png" alt="cardTag ClassDiagram" width="450">
 </div>
+<div class="title">Figure 2. Class Diagram illustrating relation between <code>Card</code>, <code>Tag</code> and <code>CardTag</code></div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Note that <code>CardTag</code> is only weakly associated to <code>Card</code> and <code>CardTag</code>. In particular, it stores the string representation
+of the IDs of <code>Card</code> and <code>Tag</code> objects. This can lead to inconsistent states: for example, it is valid code-wise to have <code>CardTag</code>
+to contain IDs of <code>Tag</code> and <code>Card</code> objects that have been deleted. Defensive programming is added to ensure that their states are consistent and valid.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Similar to <code>UniqueCardList</code> and <code>UniqueTagList</code>, only one instance of <code>CardTag</code> exists in each
+<code>AddressBook</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -213,17 +238,55 @@ new edges:</p>
 </div>
 <div class="paragraph">
 <p>These three APIs are sufficient for Flashy&#8217;s design requirements as of
-version 1.4. While the choice of APIs require some logic to be placed
+version 1.5. While the choice of APIs require some logic to be placed
 in the commands (such as <code>AddCardCommand</code> and <code>EditCardCommand</code>), they
 are reusable and their implementations can be easily changed.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="adding-an-edge"><a class="link" href="#adding-an-edge">Adding an Edge</a></h4>
 <div class="paragraph">
-<p>Edges are added during editing of an existing card (with new tags) and
-adding of a new card. Below is the sequence diagram for adding an
-edge.</p>
+<p>The sequence diagrams for <code>addTags</code> and <code>removeTags</code> are shown in <a href="#fig:addTags">Sequence Diagram for <code>addTags</code></a>
+and <a href="#fig::removeTags">[fig::removeTags]</a> respectively. In particular, it is important to note that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>During an <code>addTags</code> operation,</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The tags will be created if they do not exist</p>
+</li>
+<li>
+<p><code>DuplicateEdgeException</code> is thrown when the flashcard is already associated with the tag</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>During a <code>removeTags</code> operation,</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>TagNotFoundException</code> is thrown when the tag is not found in the card bank</p>
+</li>
+<li>
+<p><code>EdgeNotFoundException</code> is thrown when the flashcard and tag are not associated</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="fig:addTags" class="imageblock">
+<div class="content">
+<img src="../images/addTags_SQ.png" alt="addTags SQ" width="800">
+</div>
+<div class="title">Figure 3. Sequence Diagram for <code>addTags</code></div>
+</div>
+<div id="fig:removeTags" class="imageblock">
+<div class="content">
+<img src="../images/removeTags_SQ.png" alt="removeTags SQ" width="800">
+</div>
+<div class="title">Figure 4. Sequence Diagram for <code>removeTags</code></div>
 </div>
 </div>
 <div class="sect3">
@@ -243,13 +306,16 @@ model edges as UUID pairs.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: This allows the <code>CardTag</code> instance to be easily serialized to and
-from <code>xml</code>. Reduces coupling between the <code>Card</code> and <code>Tag</code> class.</p>
+<p>Pros: This allows the <code>CardTag</code> instance to be easily, and cheaply
+serialized to and from <code>xml</code>. Reduces coupling between the <code>Card</code> and <code>Tag</code> class.</p>
 </li>
 <li>
 <p>Cons: Requires the addition of a UUID field to the <code>Card</code> and
 <code>Tag</code> class. Developer needs to be careful with implementation,
-because UUID strings for <code>Card</code> and <code>Tag</code> are indistinguishable.</p>
+because UUID strings for <code>Card</code> and <code>Tag</code> are indistinguishable.
+The additional code complexity is a result of storage being through serialization and
+deserialization of xml, and should be greatly reduced if a proper relational database
+and Object-Relational Mapping (ORM) tool were used (planned in v2.0).</p>
 </li>
 </ul>
 </div>
@@ -259,11 +325,13 @@ because UUID strings for <code>Card</code> and <code>Tag</code> are indistinguis
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: No need for additional UUID field.</p>
+<p>Pros: No need for additional UUID field. Lower estimated code complexity.</p>
 </li>
 <li>
-<p>Cons: Strong coupling between the <code>Card</code> and <code>Tag</code> class.
-Serializing to and from <code>xml</code> is less straightforward.</p>
+<p>Cons: Strong coupling between the <code>Card</code> and <code>Tag</code> class. Requires
+heavy duplication of content in storage. The developer will also have
+to be careful with the implementation: editing an object would require
+changes in both the <code>Card</code> object and <code>Tag</code> object.</p>
 </li>
 </ul>
 </div>
@@ -290,7 +358,7 @@ Serializing to and from <code>xml</code> is less straightforward.</p>
 <p>Adjacency lists provide much better performance&#8201;&#8212;&#8201;O(1) on both
 operations, as compared to an adjacency matrix. In addition, a typical
 <code>CardTag</code> graph is sparse, and adjacency lists are much more memory
-efficient.</p>
+efficient. Hence, the adjacency list is a natural choice.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -303,7 +371,7 @@ efficient.</p>
 <p>Pros: <code>O(1)</code> for both operations.</p>
 </li>
 <li>
-<p>Cons: Double the memory requirements:</p>
+<p>Cons: Double the memory requirements.</p>
 </li>
 </ul>
 </div>
@@ -332,7 +400,7 @@ efficient.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 08:00:48 UTC
+Last updated 2018-04-12 13:58:39 UTC
 </div>
 </div>
 </body>
