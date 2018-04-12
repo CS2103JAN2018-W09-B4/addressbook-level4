@@ -129,6 +129,26 @@ If the command specifies `f/FRONT, b/BACK`, `b/BACK f/FRONT` is also acceptable.
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
 
 === Managing Cards
+
+// tag::selectcard[]
+==== Selecting a flashcard : `selectc`
+
+You can select a card that is currently being listed with the `selectc` command. +
+Format: `selectc INDEX`
+
+The following figure shows where the index of a card can be found at:
+
+image::cardIndex.png[width="350"]
+
+Examples:
+
+* `selectc 2` +
+Selects the 2nd card in the list.
+* `select 1` +
+Selects the 1st card in the list.
+
+// end::selectcard[]
+
 // tag::addcard[]
 ==== Adding a flashcard: `addc`
 
@@ -353,6 +373,7 @@ Schedule card for 28/04/2018
 Suppose today is 13/04/2018, although `m/04 y/2018` is not typed,
 they are implicitly assumed to be the current month and year.
 
+// tag::qualityoflife[]
 === Quality-of-Life features
 
 Flashy has many features to speed up your workflow and make your experience as pain-free as possible.
@@ -380,15 +401,13 @@ You can also press the kbd:[&uarr;] and kbd:[&darr;] arrows to display the previ
 ====
 
 
-
-// tag::undoredo[]
 ==== Undo and Redo
 Flashy does not come built in with an eraser. To compensate for that, some commands support undoing and redoing. The commands are `add`, `addc`, `addm`, `edit`, `editc`, `editm`, `delete`, `deletec`, and `clear`.
 
 
 ===== Undoing previous command : `undo`
 
-You can restore the state of Flashy's card bank to its preious state before _undoable_ command was executed. +
+You can restore the state of Flashy's card bank to its preious state before an _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -433,28 +452,30 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
 ==== Exiting the program : `exit` or `quit`
 
 Once you are confident in acing that exam, don't forget to power down Flashy! When this is done, Flashy will save all changes made to its card bank before gracefully shutting down. +
 Format: `exit` or `quit`
 
+// end::qualityoflife[]
+
 === Managing User Preferences
 
+// tag::changetheme[]
 ==== Changing the theme : `theme`
-You can change the theme of Flashy's user interface. +
+Flashy knows that not all study sessions occur during the day. When carrying out all-nighters, remember that you can always switch the theme of Flashy's interface to match the lighting condition of your surroundings! +
 Format: `theme t/THEME`
 
 [TIP]
-Flashy remembers your most recently used theme and will load it the next time you come back
+Flashy remembers your most recently used theme and will load it the next time you come back.
 
 Examples:
 
 * `theme t/light`
 * `theme t/dark`
 
-
+// end::changetheme[]
 === Saving the data
 
 All data saved in Flashy's card bank is saved in the hard disk automatically after any command that changes the data. +

@@ -1,0 +1,52 @@
+= Foo Yong Jie - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Flashy
+
+---
+
+== Overview
+
+Flashy is an application to help users organise their flashcards to help them memorise better.
+
+== Summary of contributions
+
+* *Major enhancement*: Revamped user interface and enhanced user experience (UI/UX).
+** What was done for UI:
+*** Changed to a green colour scheme as it signifies growth, and studies have shown that green improves efficiency and focus.
+*** Implemented a 3-panel layout to display more information to the user.
+** What was done for UX:
+*** Added an autocompletion engine to help users enter commands quickly.
+*** Enabled autosaving of theme preferences to maintain a hassle-free experience.
+** Justification: This major enhancement directly shapes the user's overall experience of the product. An intuitive interface also reduces the learning curve of the features implemented by other team members.
+
+* *Minor enhancement*: Added the ability to change themes in Flashy to further improve the customisability of the application.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Provided extensive and rigorous discussion in code reviews. (Examples: https://github.com/CS2103JAN2018-W09-B4/main/pull/121[#121], https://github.com/CS2103JAN2018-W09-B4/main/pull/111[#111])
+*** Reviewed 59 out of 94 pull requests not made by myself.
+*** Helped with the management of github issues and milestones.
+*** Built the binary executables for Github releases.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=selectcard]
+include::../UserGuide.adoc[tag=qualityoflife]
+include::../UserGuide.adoc[tag=changetheme]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=themesupport]

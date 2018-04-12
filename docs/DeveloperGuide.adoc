@@ -359,6 +359,7 @@ image::UndoRedoActivityDiagramBW.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+// tag::themesupport[]
 === Support for multiple themes
 ==== Current Implementation
 The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. Below is the sequence diagram for the relevant functionality:
@@ -374,6 +375,8 @@ image::ChangeThemeSequenceDiagram.png[width="800"]
 ** Cons: More development effort needed to support multiple themes and ensure that they can be loaded.
 
 To allow the user to personalize their experience with Flashy, we have decided to add support for multiple themes. The architecture of this functionality has been designed to allow for maximum extensibility. Should you wish to add more themes to Flashy, simply duplicate and modify one of the existing CSS files. After that, modify the list of accepted themes in UiManager.java and the theme will be supported.
+
+// end::themesupport[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
