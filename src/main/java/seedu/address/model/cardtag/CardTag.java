@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 
@@ -21,8 +23,11 @@ import seedu.address.model.tag.Tag;
  * This class captures the relations between cards and tags.
  */
 public class CardTag {
+    public static final Logger logger = LogsCenter.getLogger(CardTag.class);
     public static final String MESSAGE_CARD_HAS_TAG = "Card already has tag '%s'";
     public static final String MESSAGE_CARD_NO_TAG = "Card has no tag '%s'";
+    public static final String LOG_EDGE_ADDED = "Edge added between Card %s and Tag %s";
+    private static final String LOG_EDGE_REMOVED = "Edge removed between Card %s and Tag %s";
 
     private HashMap<String, Set<String>> cardMap; // cardMap["cardId"] = Set<tagId>
     private HashMap<String, Set<String>> tagMap; // tagMap["tagId"] = Set<cardId>
@@ -145,6 +150,8 @@ public class CardTag {
         } else {
             cards.add(cardId);
         }
+
+        logger.info(String.format(LOG_EDGE_ADDED, card.toString(), tag.toString()));
     }
 
     /**
@@ -176,6 +183,8 @@ public class CardTag {
                 tagMap.remove(tagId);
             }
         }
+
+        logger.info(String.format(LOG_EDGE_REMOVED, card.toString(), tag.toString()));
     }
 
     @Override
