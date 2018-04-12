@@ -434,19 +434,23 @@ This relationship is illustrated in <<CardTagRelation>>:
 
 [[CardTagRelation]]
 .Class diagram describing association between flashcards and tags.
-image::Card_Tag_relation.png[width="650"]
+image::Card_Tag_relation.png[width="450"]
 
 ==== Current Implementation
 Edges are stored in an instance of `CardTag`. `CardTag` is an
-association class, containing two `HashMap`s.
+association class, containing two `HashMap`s, as illustrated in <<fig:cardTagCD>>.
 
-image::CardTag_Association_Class.png[width="650"]
+[[fig:cardTagCD]]
+.Class Diagram illustrating relation between `Card`, `Tag` and `CardTag`
+image::cardTag_ClassDiagram.png[width="450"]
 
-As of now, no additional metadata is stored for the relations between flashcards and tags.
-Examples of such metadata would include time of association between flashcard and tag.
-Hence, using HashMaps of IDs to IDs suffice.
 
-As with `UniqueCardList` and `UniqueTagList`, only one instance of `CardTag` exists in each
+[CAUTION]
+Note that `CardTag` is only weakly associated to `Card` and `CardTag`. In particular, it stores the string representation
+of the IDs of `Card` and `Tag` objects. This can lead to inconsistent states: for example, it is valid code-wise to have `CardTag`
+to contain IDs of `Tag` and `Card` objects that have been deleted. Defensive programming is added to ensure that their states are consistent and valid.
+
+Similar to `UniqueCardList` and `UniqueTagList`, only one instance of `CardTag` exists in each
 `AddressBook`.
 
 ==== Exposed APIs
@@ -470,15 +474,29 @@ public interface Model {
 ....
 
 These three APIs are sufficient for Flashy's design requirements as of
-version 1.4. While the choice of APIs require some logic to be placed
+version 1.5. While the choice of APIs require some logic to be placed
 in the commands (such as `AddCardCommand` and `EditCardCommand`), they
 are reusable and their implementations can be easily changed.
 
-.Sequence Diagram for `addTags`
-image::addTags_SQ.svg[width="800"]
+The sequence diagrams for `addTags` and `removeTags` are shown in <<fig:addTags>>
+and <<fig::removeTags>> respectively. In particular, it is important to note that:
 
-==== User Scenarios
-// TODO
+- During an `addTags` operation,
+  * The tags will be created if they do not exist
+  * `DuplicateEdgeException` is thrown when the flashcard is already associated with the tag
+
+- During a `removeTags` operation,
+  * `TagNotFoundException` is thrown when the tag is not found in the card bank
+  * `EdgeNotFoundException` is thrown when the flashcard and tag are not associated
+
+
+[[fig:addTags]]
+.Sequence Diagram for `addTags`
+image::addTags_SQ.png[width="800"]
+
+[[fig:removeTags]]
+.Sequence Diagram for `removeTags`
+image::removeTags_SQ.png[width="800"]
 ==== Design Considerations
 ===== Aspect: Storage of Edges
 
@@ -497,7 +515,7 @@ model edges as UUID pairs.
     because UUID strings for `Card` and `Tag` are indistinguishable.
     The additional code complexity is a result of storage being through serialization and
     deserialization of xml, and should be greatly reduced if a proper relational database
-    and Object-Relational Mapping (ORM) tool were used.
+    and Object-Relational Mapping (ORM) tool were used (planned in v2.0).
 
 * Alternative 2: Store the edge information in `Card` and `Tag`.
 
