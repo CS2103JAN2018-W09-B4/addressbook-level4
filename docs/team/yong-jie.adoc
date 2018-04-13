@@ -1,6 +1,7 @@
 = Foo Yong Jie - Project Portfolio
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: short
 
 == PROJECT: Flashy
 

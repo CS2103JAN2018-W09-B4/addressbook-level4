@@ -362,8 +362,10 @@ image::UndoRedoActivityDiagramBW.png[width="650"]
 // tag::themesupport[]
 === Support for multiple themes
 ==== Current Implementation
-The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. Below is the sequence diagram for the relevant functionality:
+The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. <<fig:changeThemeDiagram>> illustrates the sequence diagram for the theme changing functionality:
 
+[[fig:changeThemeDiagram]]
+.Sequence diagram for `theme`
 image::ChangeThemeSequenceDiagram.png[width="800"]
 
 ==== Aspect: The decision to support multiple themes

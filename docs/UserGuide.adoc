@@ -6,7 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:xrefstyle: full
+:xrefstyle: short
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -136,8 +136,10 @@ To access this help guide at any time, type `help` into the command box and pres
 You can select a card that is currently being listed with the `selectc` command. +
 Format: `selectc INDEX`
 
-The following figure shows where the index of a card can be found at:
+<<fig:cardIndex>> shows where the index of a card can be found at:
 
+[[fig:cardIndex]]
+.Diagram indicating location of the displayed index
 image::cardIndex.png[width="350"]
 
 Examples:
