@@ -374,3 +374,9 @@
 .card-text {
     -fx-font-size: 18;
 }
+
+.card-back {
+    -fx-padding: 15 30 15 30;
+    -fx-background-color: #a8d6a5;
+    -fx-height: 100;
+}

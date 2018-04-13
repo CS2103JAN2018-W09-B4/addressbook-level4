@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -43,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
 
     @FXML
-    private StackPane cardBackPlaceholder;
+    private VBox cardBackPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;

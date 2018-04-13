@@ -4,6 +4,21 @@
 
 <?import javafx.scene.control.Label?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1" styleClass="card-back">
-    <Label fx:id="cardBack" styleClass="card-text" />
-</StackPane>
+<?import javafx.scene.control.Separator?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      id="cardPane" fx:id="cardPane" maxWidth="300">
+    <GridPane HBox.hgrow="ALWAYS" styleClass="card-back">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="120" GridPane.columnIndex="0" spacing="5">
+            <HBox>
+                <Pane HBox.hgrow="ALWAYS" />
+                <Label fx:id="type" text="back" styleClass="card-type, cell_small_label" />
+            </HBox>
+            <Label fx:id="cardBack" styleClass="card-text" wrapText="true" />
+            <Separator />
+        </VBox>
+    </GridPane>
+</HBox>

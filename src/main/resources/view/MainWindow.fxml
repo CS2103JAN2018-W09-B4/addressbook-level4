@@ -60,11 +60,11 @@
             <StackPane fx:id="cardListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="cardBackPlaceholder" prefWidth="340" >
+          <VBox fx:id="cardBackPlaceholder" prefWidth="340" alignment="CENTER">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-          </StackPane>
+          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
