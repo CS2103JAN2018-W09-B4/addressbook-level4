@@ -37,7 +37,7 @@ And thus we gave Flashy an intelligent scheduler to help space out your study se
 // comment: how do we reference special words like spaced repetition?
 
 Although Flashy is best suited for language learners,
-it is able to handle thousands of cards. Therefore, Flahsy should prove useful for any student hoping to improve their flashcard organisation.
+it is able to handle thousands of cards. Therefore, Flashy should prove useful for any student hoping to improve their flashcard organisation.
 
 Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
