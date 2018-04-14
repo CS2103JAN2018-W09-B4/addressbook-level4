@@ -5,9 +5,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.function.Predicate;
+
+//@@author pukipuki
 
 /**
- * Holds the ScheduleCommand information for a Card
+ * Holds the Schedule information for a Card
  */
 public class Schedule implements Comparable<Schedule> {
 
@@ -26,7 +30,6 @@ public class Schedule implements Comparable<Schedule> {
     public static final int INITIAL_LAST_INTERVAL = 1;
     public static final double INITIAL_EASING_FACTOR = 1.3;
     public static final double INITIAL_HISTORICAL_EASING_FACTOR = 1.3;
-
     private final double lowerBoundRememberRate = 0.85;
 
     private LocalDateTime nextReview;
@@ -43,6 +46,68 @@ public class Schedule implements Comparable<Schedule> {
 
     public Schedule(LocalDateTime date) {
         this.nextReview = date;
+    }
+
+    /**
+     * Check if it is a valid confidence level between 0 1 2
+     *
+     * @param confidenceLevel
+     * @return true/false
+     */
+    public static boolean isValidConfidenceLevel(int confidenceLevel) {
+        return confidenceLevel >= VALID_MIN_CONFIDENCE_LEVEL
+            && confidenceLevel <= VALID_MAX_CONFIDENCE_LEVEL;
+    }
+
+    /**
+     * Check if it is a valid confidence level between 0 1 2 string version
+     *
+     * @param confidenceLevelString
+     * @return true/false
+     */
+    public static boolean isValidConfidenceLevel(String confidenceLevelString)
+        throws NumberFormatException {
+        try {
+            int confidenceLevel = Integer.parseInt(confidenceLevelString);
+            return isValidConfidenceLevel(confidenceLevel);
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException(nfe.getMessage());
+        }
+    }
+
+    /**
+     * Check if it is a valid Month between 1 to 12
+     *
+     * @param month
+     * @return true/false
+     */
+    public static boolean isValidMonth(int month) {
+        return month >= 1 && month <= 12;
+    }
+
+    /**
+     * Check if it is a valid day between 1 to 31
+     *
+     * @param day
+     * @return true/false
+     */
+    public static boolean isValidDay(int day) {
+        return day >= 1 && day <= 31;
+    }
+
+    /**
+     * Predicate for filtering cards before a {@code date}
+     * @param date before this date
+     * @return
+     */
+    public static Predicate<Card> before(LocalDateTime date) {
+        return c -> c.getSchedule().getNextReview()
+            .isBefore(date.plusDays(1).minusNanos(1));
+    }
+
+    public static Comparator<Card> getByDate() {
+        Comparator<Card> byDate = Comparator.comparing(Card::getSchedule);
+        return byDate;
     }
 
     public LocalDateTime getNextReview() {
@@ -83,49 +148,6 @@ public class Schedule implements Comparable<Schedule> {
     }
 
     /**
-     * Check if it is a valid confidence level between 0 1 2
-     * @param confidenceLevel
-     * @return true/false
-     */
-    public static boolean isValidConfidenceLevel(int confidenceLevel) {
-        return confidenceLevel >= VALID_MIN_CONFIDENCE_LEVEL
-            && confidenceLevel <= VALID_MAX_CONFIDENCE_LEVEL;
-    }
-
-    /**
-     * Check if it is a valid confidence level between 0 1 2 string version
-     * @param confidenceLevelString
-     * @return true/false
-     */
-    public static boolean isValidConfidenceLevel(String confidenceLevelString)
-        throws NumberFormatException {
-        try {
-            int confidenceLevel = Integer.parseInt(confidenceLevelString);
-            return isValidConfidenceLevel(confidenceLevel);
-        } catch (NumberFormatException nfe) {
-            throw new NumberFormatException(nfe.getMessage());
-        }
-    }
-
-    /**
-     * Check if it is a valid Month between 1 to 12
-     * @param month
-     * @return true/false
-     */
-    public static boolean isValidMonth(int month) {
-        return month >= 1 && month <= 12;
-    }
-
-    /**
-     * Check if it is a valid day between 1 to 31
-     * @param day
-     * @return true/false
-     */
-    public static boolean isValidDay(int day) {
-        return day >= 1 && day <= 31;
-    }
-
-    /**
      * Feedback router to switch between what to do given a certain
      * confidenceLevel input
      */
@@ -146,7 +168,7 @@ public class Schedule implements Comparable<Schedule> {
             feedback(true);
             tooEasy = true;
             break;
-        default :
+        default:
             break;
         }
         return tooEasy;
@@ -167,8 +189,8 @@ public class Schedule implements Comparable<Schedule> {
 
         if (total >= learningPhase) {
             double newEasingFactor = historicalEasingFactor
-                    * log(lowerBoundRememberRate)
-                    / log(successRate);
+                * log(lowerBoundRememberRate)
+                / log(successRate);
 
             if (isSuccess) {
                 easingFactor = Math.max(newEasingFactor, 1.1);
@@ -181,25 +203,26 @@ public class Schedule implements Comparable<Schedule> {
             double nextFactor = 1.0 / count;
 
             historicalEasingFactor =
-                    historicalEasingFactor * pastFactor
-                            + easingFactor * nextFactor;
+                historicalEasingFactor * pastFactor
+                    + easingFactor * nextFactor;
 
             lastInterval = (int) Math.ceil(easingFactor * lastInterval);
         }
         nextReview = nextReview.plusDays((long) lastInterval);
     }
 
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Schedule // instanceof handles nulls
-                && this.learningPhase == (((Schedule) other).learningPhase)
-                && this.lowerBoundRememberRate
-                == (((Schedule) other).lowerBoundRememberRate)
-                && this.lastInterval == (((Schedule) other).lastInterval)
-                && this.easingFactor == (((Schedule) other).easingFactor)
-                && this.success == (((Schedule) other).success)
-                && this.failure == (((Schedule) other).failure));
+            || (other instanceof Schedule // instanceof handles nulls
+            && this.learningPhase == (((Schedule) other).learningPhase)
+            && this.lowerBoundRememberRate
+            == (((Schedule) other).lowerBoundRememberRate)
+            && this.lastInterval == (((Schedule) other).lastInterval)
+            && this.easingFactor == (((Schedule) other).easingFactor)
+            && this.success == (((Schedule) other).success)
+            && this.failure == (((Schedule) other).failure));
     }
 
     @Override

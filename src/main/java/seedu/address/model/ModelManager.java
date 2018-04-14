@@ -48,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final ObservableList<Card> filteredCards;
     private Card selectedCard;
     private Tag selectedTag;
+    private LocalDateTime beforeThisDate;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -67,6 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         selectedTag = null;
         selectedCard = null;
+        beforeThisDate = null;
     }
 
     public ModelManager() {
@@ -84,7 +86,9 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
         updateFilteredCardList();
@@ -211,11 +215,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
         if (selectedCard == null) {
+            logger.warning("no card selected, unable to apply to null.");
             throw new NoCardSelectedException();
-        } else {
-            selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
         }
-        showDueCards(LocalDate.now().atStartOfDay());
+        boolean isTooEasy = selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
+        logger.fine("sending answer feedback to scheduler, confidenceLevel: " + confidenceLevel);
+        if (isTooEasy) {
+            filteredCards.remove(selectedCard);
+            emptyAndUnselectCard();
+        } else {
+            showDueCards(beforeThisDate);
+        }
     }
     //@@author
 
@@ -262,16 +272,29 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setNextReview(LocalDateTime date) throws NoCardSelectedException {
         if (selectedCard == null) {
+            logger.warning("no card selected, unable to apply to null.");
             throw new NoCardSelectedException();
-        } else {
-            selectedCard.getSchedule().setNextReview(date);
         }
-        showDueCards(LocalDate.now().atStartOfDay());
+        selectedCard.getSchedule().setNextReview(date);
+        logger.fine("Setting next review date of card to: " + date.toString());
+        showDueCards(beforeThisDate);
     }
 
     @Override
     public void showDueCards(LocalDateTime date) {
-        filteredCards.setAll(this.addressBook.getReviewList(date, filteredCards));
+        if (date == null) {
+            beforeThisDate = LocalDate.now().atStartOfDay();
+        } else {
+            beforeThisDate = date;
+        }
+        filteredCards.setAll(this.addressBook.getReviewList(beforeThisDate, filteredCards));
+        logger.fine("Showing cards due before: " + beforeThisDate.toString());
+        emptyAndUnselectCard();
+    }
+
+    @Override
+    public void emptyAndUnselectCard() {
+        logger.fine("Clearing back of card.");
         EventsCenter.getInstance().post(new EmptyCardBackEvent());
         this.selectedCard = null;
     }

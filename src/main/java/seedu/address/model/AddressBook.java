@@ -1,19 +1,21 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Schedule;
 import seedu.address.model.card.UniqueCardList;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
@@ -30,6 +32,7 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  * Duplicates are not allowed (by .equals comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
+    private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
 
     private final UniqueTagList tags;
     private final UniqueCardList cards;
@@ -168,32 +171,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //@@author pukipuki
-    //// predicate for card review
-    public Predicate<Card> isBefore() {
-        return c -> c.getSchedule().getNextReview()
-              .isBefore(LocalDateTime.now());
-    }
-
     /**
-     * Predicate for card review before a certain time
+     * get cards due for review before {@code date}
+     * @param date before this date
+     * @return
      */
-    public Predicate<Card> isBefore(LocalDateTime date) {
-        return c -> c.getSchedule().getNextReview()
-            .isBefore(date.plusDays(1).minusNanos(1));
-    }
-
-    //// get list of cards for review
     public ObservableList<Card> getReviewList(LocalDateTime date) {
+        requireNonNull(date);
         return getReviewList(date, cards.asObservableList());
     }
 
+    /**
+     * get cards due for review before {@code date} from a {@code cardsList}
+     * @param date before this date
+     * @param cardsList from this list
+     * @return
+     */
     public ObservableList<Card> getReviewList(LocalDateTime date, ObservableList<Card> cardsList) {
-        requireNonNull(date);
-        Comparator<Card> byDate =
-            Comparator.comparing(Card::getSchedule);
+        requireAllNonNull(date, cardsList);
 
-        FXCollections.sort(cardsList, byDate);
-        cardsList = new FilteredList<Card>(cardsList, isBefore(date));
+        FXCollections.sort(cardsList, Schedule.getByDate());
+        logger.fine("Sorting filteredCards List.");
+
+        cardsList = new FilteredList<Card>(cardsList, Schedule.before(date));
+        logger.fine("Filtering filteredCards List.");
+
         ObservableList<Card> filteredList =  FXCollections.observableArrayList();
         for (Card each : cardsList) {
             filteredList.add(each);
@@ -204,7 +206,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     //@@author
 
     //// util methods
-
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
