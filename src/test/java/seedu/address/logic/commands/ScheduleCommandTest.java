@@ -22,6 +22,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
 
+//@@author pukipuki
 public class ScheduleCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -44,6 +45,7 @@ public class ScheduleCommandTest {
 
     @Test
     public void execute_scheduleUpdate_success() throws Exception {
+        model.showDueCards(LocalDate.now().atStartOfDay());
         ObservableList<Card> observableList = model.getFilteredCardList();
         Card selectedCard = observableList.get(0);
         model.setSelectedCard(selectedCard);

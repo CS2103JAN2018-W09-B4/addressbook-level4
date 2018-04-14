@@ -24,6 +24,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Schedule;
 
+//@@author pukipuki
 /**
  * Contains integration tests (interaction with the Model) for {@code AnswerCommand}.
  */
@@ -120,6 +121,7 @@ public class AnswerCommandTest {
      * Runs the answer command, used very often.
      */
     private void commandRunner(int confidenceLevel) {
+        model.showDueCards(LocalDate.now().atStartOfDay());
         AnswerCommand answerCommand = prepareCommand(confidenceLevel);
         Card selectedCard = model.getFilteredCardList().get(0);
         model.setSelectedCard(selectedCard);

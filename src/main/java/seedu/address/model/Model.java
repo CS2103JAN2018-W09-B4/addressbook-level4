@@ -78,6 +78,11 @@ public interface Model {
     void showDueCards(LocalDateTime date);
 
     /**
+     * Empty back of card and sets {@code selectedCard} to null
+     */
+    void emptyAndUnselectCard();
+
+    /**
      * Sets the card list to contain only those with given tag.
      * @param tag
      */
