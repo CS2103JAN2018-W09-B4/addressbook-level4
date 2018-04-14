@@ -389,8 +389,8 @@ The current implementation uses a single CSS file per designated theme. Flashy w
 [[fig:changeThemeDiagram]]
 .Sequence diagram for `theme`
 image::ChangeThemeSequenceDiagram.png[width="800"]
-
-==== Aspect: Supporting dynamically switchable themes
+==== Design considerations
+===== Aspect: Supporting dynamically switchable themes
 * **Alternative 1**: Do not support dynamic switching, ship a separate version for each theme.
 ** Pros: Consistent user experience with a single theme.
 ** Cons: No ability to customize the look and feel of the application on the fly.
@@ -427,7 +427,47 @@ The upon pressing `TAB`, the `CommandBox` first checks with `Autocompleter` to s
 .Activity Diagram for the autocompletion workflow
 image::autocompletion_ActivityDiagram.png[width="450"]
 
-==== Design Decisions
+==== Supporting autocompletion in future commands
+
+Should you develop more commands in the future, you can let your command support autocompletion by following these steps:
+
+1. Declare `COMMAND_WORD` and `PARAMS` in your class.
++
+....
+public class NewCommand extends Command {
+    public static final String COMMAND_WORD = "command word here";
+    public static final String PARAMS = "parameters here";
+    // ...
+}
+....
++
+2. Include your command's class in `Autocompleter`.
++
+....
+private static List<Class<? extends Command>> getCommandClasses() {
+    List<Class<? extends Command>> commands = new ArrayList<>();
+
+    // Must be added in increasing specificity so that add is not
+    // overridden by addc, for example.
+    commands.add(NewCommand.class);
+}
+....
+
+==== Design Considerations
+===== Aspect: Storage of command and parameters
+
+The commands and parameters used by `Autocompleter` need to be stored somewhere accessible at runtime so that it can validate and generate autocompletion text.
+
+* **Alternative 1**: Hardcode commands and parameters in `Autocompleter` itself.
+** Pros: This is easy to implement. Simply hardcode the command words and parameters within the `Autocompleter` class.
+
+** Cons: Doing so requires the class to be updated whenever any command words or parameters change.
+
+* **Alternative 2 (Current choice)**: Dynamically poll each command class for their command words and parameters at runtime.
+
+** Pros: Once this is implemented, there is no longer any need to modify `Autocompleter` 's code. Any changes made in the command class code is automatically reflected in `Autocompleter`.
+
+** Cons: This is a little more challenging to implement. It accessing class parameters at runtime with strings require the use of advanced Java features such as the reflection libary.
 
 // end::autocompletion[]
 
