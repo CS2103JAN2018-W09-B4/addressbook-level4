@@ -400,6 +400,37 @@ image::ChangeThemeSequenceDiagram.png[width="800"]
 
 // end::themesupport[]
 
+// tag::autocompletion[]
+=== Autocompletion
+We built Flashy with an autocompletion feature to save the user the trouble of memorising the parameters of all the possible commands supported by the application. At present, autocompletion is invoked by pressing the `TAB` key after entering a valid command.
+
+
+==== Current Implementation
+
+All autocompletion-related computation is done in the `Autocompleter` class. It abstracts the logic of validating the eligibility of autocompletion and generating the autocompletion text into two publicly-exposed APIs, as shown in this compressed code segment:
+
+....
+public class Autocompleter {
+    public static String getAutocompleteText(String input) {
+        // ...
+    }
+
+    public static Boolean isValidAutocomplete(String input) {
+       // ...
+    }
+}
+....
+
+The upon pressing `TAB`, the `CommandBox` first checks with `Autocompleter` to see if it is a valid command. If it is valid, it then generates an autocompletion text for `CommandBox` to be updated with. <<fig:autocompleteActivityDiagram>> contains a visual representation of the workflow.
+
+[[fig:autocompleteActivityDiagram]]
+.Activity Diagram for the autocompletion workflow
+image::autocompletion_ActivityDiagram.png[width="450"]
+
+==== Design Decisions
+
+// end::autocompletion[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

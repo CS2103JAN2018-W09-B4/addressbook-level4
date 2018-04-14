@@ -51,3 +51,4 @@ include::../UserGuide.adoc[tag=changetheme]
 |===
 
 include::../DeveloperGuide.adoc[tag=themesupport]
+include::../DeveloperGuide.adoc[tag=autocompletion]
