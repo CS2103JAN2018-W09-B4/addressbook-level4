@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.ChangeThemeCommand;
 
+//@@author yong-jie
 public class ChangeThemeCommandParserTest {
     private static final String SPACE = " ";
     private ChangeThemeCommandParser parser = new ChangeThemeCommandParser();

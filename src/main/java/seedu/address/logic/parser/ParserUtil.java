@@ -189,6 +189,7 @@ public class ParserUtil {
     }
     //@@author
 
+    //@@author yong-jie
     /**
      * Parses a {@code String theme} into an {@code Integer}.
      * Leading and trailing whitespaces will be trimmed.
@@ -203,6 +204,7 @@ public class ParserUtil {
         }
         return validThemes.indexOf(theme.get());
     }
+    //@@author
 
     //@@author pukipuki
 
