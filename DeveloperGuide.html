@@ -886,12 +886,13 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. Below is the sequence diagram for the relevant functionality:</p>
+<p>The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. <a href="#fig:changeThemeDiagram">Figure 11</a> illustrates the sequence diagram for the theme changing functionality:</p>
 </div>
-<div class="imageblock">
+<div id="fig:changeThemeDiagram" class="imageblock">
 <div class="content">
 <img src="images/ChangeThemeSequenceDiagram.png" alt="ChangeThemeSequenceDiagram" width="800">
 </div>
+<div class="title">Figure 11. Sequence diagram for <code>theme</code></div>
 </div>
 </div>
 <div class="sect3">
@@ -1016,26 +1017,26 @@ and can be removed.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>This relationship is illustrated in <a href="#CardTagRelation">Figure 11</a>:</p>
+<p>This relationship is illustrated in <a href="#CardTagRelation">Figure 12</a>:</p>
 </div>
 <div id="CardTagRelation" class="imageblock">
 <div class="content">
 <img src="images/Card_Tag_relation.png" alt="Card Tag relation" width="450">
 </div>
-<div class="title">Figure 11. Class diagram describing association between flashcards and tags.</div>
+<div class="title">Figure 12. Class diagram describing association between flashcards and tags.</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.6.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Edges are stored in an instance of <code>CardTag</code>. <code>CardTag</code> is an
-association class, containing two `HashMap`s, as illustrated in <a href="#fig:cardTagCD">Figure 12</a>.</p>
+association class, containing two `HashMap`s, as illustrated in <a href="#fig:cardTagCD">Figure 13</a>.</p>
 </div>
 <div id="fig:cardTagCD" class="imageblock">
 <div class="content">
 <img src="images/cardTag_ClassDiagram.png" alt="cardTag ClassDiagram" width="450">
 </div>
-<div class="title">Figure 12. Class Diagram illustrating relation between <code>Card</code>, <code>Tag</code> and <code>CardTag</code></div>
+<div class="title">Figure 13. Class Diagram illustrating relation between <code>Card</code>, <code>Tag</code> and <code>CardTag</code></div>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -1086,7 +1087,7 @@ in the commands (such as <code>AddCardCommand</code> and <code>EditCardCommand</
 are reusable and their implementations can be easily changed.</p>
 </div>
 <div class="paragraph">
-<p>The sequence diagrams for <code>addTags</code> and <code>removeTags</code> are shown in <a href="#fig:addTags">Figure 13</a>
+<p>The sequence diagrams for <code>addTags</code> and <code>removeTags</code> are shown in <a href="#fig:addTags">Figure 14</a>
 and <a href="#fig::removeTags">[fig::removeTags]</a> respectively. In particular, it is important to note that:</p>
 </div>
 <div class="ulist">
@@ -1123,13 +1124,13 @@ and <a href="#fig::removeTags">[fig::removeTags]</a> respectively. In particular
 <div class="content">
 <img src="images/addTags_SQ.png" alt="addTags SQ" width="800">
 </div>
-<div class="title">Figure 13. Sequence Diagram for <code>addTags</code></div>
+<div class="title">Figure 14. Sequence Diagram for <code>addTags</code></div>
 </div>
 <div id="fig:removeTags" class="imageblock">
 <div class="content">
 <img src="images/removeTags_SQ.png" alt="removeTags SQ" width="800">
 </div>
-<div class="title">Figure 14. Sequence Diagram for <code>removeTags</code></div>
+<div class="title">Figure 15. Sequence Diagram for <code>removeTags</code></div>
 </div>
 </div>
 <div class="sect3">
@@ -1309,13 +1310,13 @@ New classes <code>McqCard</code> and <code>FillBlanks</code> were created to imp
 <div class="content">
 <img src="images/ModelClassDiagramBW.png" alt="ModelClassDiagramBW" width="800">
 </div>
-<div class="title">Figure 15. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
+<div class="title">Figure 16. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/CardInheritanceBW.png" alt="CardInheritanceBW" width="800">
 </div>
-<div class="title">Figure 16. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
+<div class="title">Figure 17. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
 </div>
 </div>
 <div class="sect3">
@@ -1637,7 +1638,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 17. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 18. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 </div>
@@ -2514,7 +2515,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 15:46:30 UTC
+Last updated 2018-04-14 06:12:32 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
