@@ -11,7 +11,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -57,6 +59,7 @@ public class EditCardCommand extends UndoableCommand {
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the address book.";
     public static final String MESSAGE_MISMATCHED_CARDS = "%1s card cannot be converted to a %2s card.";
 
+    private static final Logger logger = LogsCenter.getLogger(EditCardCommand.class);
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
 
@@ -86,8 +89,10 @@ public class EditCardCommand extends UndoableCommand {
             try {
                 model.removeTags(cardToEdit, editedTagsToRemove.get());
             } catch (EdgeNotFoundException e) {
+                logger.warning(e.getMessage());
                 throw new CommandException(e.getMessage());
             } catch (TagNotFoundException e) {
+                logger.warning(e.getMessage());
                 throw new CommandException(e.getMessage());
             }
         }
@@ -95,6 +100,7 @@ public class EditCardCommand extends UndoableCommand {
         try {
             model.updateCard(cardToEdit, editedCard);
         } catch (DuplicateCardException dpe) {
+            logger.warning(MESSAGE_DUPLICATE_CARD);
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         } catch (CardNotFoundException pnfe) {
             throw new AssertionError("The target card cannot be missing");
@@ -104,6 +110,7 @@ public class EditCardCommand extends UndoableCommand {
             try {
                 model.addTags(editedCard, editedTagsToAdd.get());
             } catch (DuplicateEdgeException dpe) {
+                logger.warning(dpe.getMessage());
                 throw new CommandException(dpe.getMessage());
             }
         }
@@ -123,8 +130,10 @@ public class EditCardCommand extends UndoableCommand {
         try {
             editedCard = createEditedCard(cardToEdit, editCardDescriptor);
         } catch (MismatchedCardsException mce) {
+            logger.warning(mce.getMessage());
             throw new CommandException(mce.getMessage());
         } catch (IllegalValueException ive) {
+            logger.warning(ive.getMessage());
             throw new CommandException(ive.getMessage());
         }
         editedTagsToAdd = editCardDescriptor.getTagsToAdd();

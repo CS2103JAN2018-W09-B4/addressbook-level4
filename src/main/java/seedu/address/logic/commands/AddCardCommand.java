@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.DuplicateCardException;
@@ -33,9 +35,10 @@ public class AddCardCommand extends UndoableCommand {
 
     public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + PARAMS;
 
-    public static final String MESSAGE_SUCCESS = "New card added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New %1$s card added: %2$s";
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the card bank";
 
+    private static final Logger logger = LogsCenter.getLogger(AddCardCommand.class);
     private final Card cardToAdd;
     private final Optional<Set<Tag>> tagsToAdd;
 
@@ -62,6 +65,7 @@ public class AddCardCommand extends UndoableCommand {
         try {
             model.addCard(cardToAdd);
         } catch (DuplicateCardException e) {
+            logger.warning(MESSAGE_DUPLICATE_CARD);
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 
@@ -74,7 +78,7 @@ public class AddCardCommand extends UndoableCommand {
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, cardToAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, cardToAdd.getType(), cardToAdd));
 
     }
 
