@@ -419,11 +419,11 @@ For fill blanks flashcards, the constraint is that the number of answers should 
 <ul>
 <li>
 <p>Pros: There would be less commands to keep track of and combining the command reduces repeated codes since there are similarities between adding of normal and other type cards.<br>
-One example of similarity is shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommand: executeUndoableCommand()</code> below.</p>
+One example of similarity is shown in the code snippet for <code>seedu.flashy.logic.commands.AddCardCommand: executeUndoableCommand()</code> below.</p>
 </li>
 <li>
 <p>Cons: The add card command has to be changed which can result in undesired consequences if mistakes were made. Care has to be taken when implementing the add card feature for MCQ and fill blanks flashcards as both have constraints which cannot be violated.<br>
-Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommandParser: parse()</code><br></p>
+Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for <code>seedu.flashy.logic.commands.AddCardCommandParser: parse()</code><br></p>
 </li>
 </ul>
 </div>
@@ -527,7 +527,7 @@ A single <code>XmlAdaptedCard</code> class is used to convert the attributes of 
 </li>
 <li>
 <p>Cons: <code>XmlAdaptedCard</code> has to be tweaked to take in the <code>options</code> attribute from the <code>McqCard</code> class, and the <code>toModelType()</code> method has to check for the constraints of the MCQ and fill blanks flashcard as shown in the code snippets below:<br>
-From <code>src.main.java.seedu.address.storage.XmlAdaptedCard</code></p>
+From <code>src.main.java.seedu.flashy.storage.XmlAdaptedCard</code></p>
 </li>
 </ul>
 </div>
@@ -654,7 +654,7 @@ Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAd
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 14:09:18 UTC
+Last updated 2018-04-15 15:24:09 UTC
 </div>
 </div>
 </body>

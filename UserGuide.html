@@ -332,9 +332,6 @@ Feel free to try them out!</p>
 <p>In Flashy, flashcards are organised with tags. Tags are used to filter the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.
 Cards can also have multiple tags.</p>
 </div>
-<div class="paragraph">
-<p>(SHOW LABELLED UI PANEL)</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1088,7 +1085,7 @@ Format: <code>undo</code></p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<p>Undoable commands: those commands that modify the card bank&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
 </div>
 </td>
 </tr>
@@ -1214,8 +1211,20 @@ There is no need to save manually.</p>
 <h2 id="faq"><a class="link" href="#faq">6. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Flashy folder.</p>
+<p><strong>Q</strong>: How do I transfer my data to another computer?<br>
+<strong>A</strong>: Install Flashy in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Flashy folder.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: Help! I cannot find the save button!<br>
+<strong>A</strong>: Fret not, Flashy automatically saves your data after any changes are made.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: Why are there 'c' variants of certain commands? What do they stand for? How do I differentiate them?<br>
+<strong>A</strong>: We added a 'c' suffix to commands that have both tag and flashcard variants to help you distinguish one from the other. For example, the <code>select</code> command selects a tag, whereas the <code>selectc</code> command selects a flashcard.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: I added a card, but I cannot find it!<br>
+<strong>A</strong>: You probably created a flashcard without a tag. You can retrieve such flashcards with the <code>list -t</code> command.</p>
 </div>
 </div>
 </div>
@@ -1249,6 +1258,11 @@ There is no need to save manually.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all flashcards without tags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list -t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list -t</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Add flashcard</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/FRONT [o/OPTION] &#8230;&#8203;  b/BACK [t/TAG]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/What is the best flashcard application? b/Flashy! t/flashy</code><br>
@@ -1258,7 +1272,7 @@ There is no need to save manually.</p>
 <code>addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Edit normal flashcard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edit Pflashcard</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>editc [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>editc f/When is National Day in Singapore?</code><br>
 <br>
@@ -1376,7 +1390,7 @@ schedule</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 14:09:18 UTC
+Last updated 2018-04-15 15:24:09 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">

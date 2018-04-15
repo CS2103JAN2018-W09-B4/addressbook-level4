@@ -64,7 +64,7 @@
 <p>Added an autocompletion engine to help users enter commands quickly.</p>
 </li>
 <li>
-<p>Enabled autosaving of theme preferences to maintain a hassle-free experience.</p>
+<p>Added the ability to change themes in Flashy to further improve the customisability of the application.</p>
 </li>
 </ul>
 </div>
@@ -76,7 +76,7 @@
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: Added the ability to change themes in Flashy to further improve the customisability of the application.</p>
+<p><strong>Minor enhancement</strong>: Enabled autosaving of theme preferences to maintain a hassle-free experience.</p>
 </li>
 <li>
 <p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/functional/yong-jie.md">Functional Code</a>] [<a href="https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/test/yong-jie.md">Test Code</a>]</p>
@@ -160,14 +160,15 @@ Selects the 2nd card in the list.</p>
 </li>
 <li>
 <p><code>select 1</code><br>
-Selects the 1st card in the list.
-=== Quality-of-Life features</p>
+Selects the 1st card in the list.</p>
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="quality-of-life-features"><a class="link" href="#quality-of-life-features">Quality-of-Life features</a></h3>
 <div class="paragraph">
 <p>Flashy has many features to speed up your workflow and make your experience as pain-free as possible.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="autocompletion"><a class="link" href="#autocompletion">Autocompletion</a></h4>
@@ -234,7 +235,7 @@ Format: <code>undo</code></p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<p>Undoable commands: those commands that modify the card bank&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
 </div>
 </td>
 </tr>
@@ -336,6 +337,28 @@ Flashy remembers your most recently used theme and will load it the next time yo
 </li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="link" href="#faq">FAQ</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another computer?<br>
+<strong>A</strong>: Install Flashy in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Flashy folder.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: Help! I cannot find the save button!<br>
+<strong>A</strong>: Fret not, Flashy automatically saves your data after any changes are made.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: Why are there 'c' variants of certain commands? What do they stand for? How do I differentiate them?<br>
+<strong>A</strong>: We added a 'c' suffix to commands that have both tag and flashcard variants to help you distinguish one from the other. For example, the <code>select</code> command selects a tag, whereas the <code>selectc</code> command selects a flashcard.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: I added a card, but I cannot find it!<br>
+<strong>A</strong>: You probably created a flashcard without a tag. You can retrieve such flashcards with the <code>list -t</code> command.</p>
 </div>
 </div>
 </div>
@@ -541,7 +564,7 @@ Flashy remembers your most recently used theme and will load it the next time yo
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 14:09:18 UTC
+Last updated 2018-04-15 15:24:09 UTC
 </div>
 </div>
 </body>
