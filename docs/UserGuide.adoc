@@ -115,8 +115,6 @@ In Flashy, there are three different kinds of flashcards:
 In Flashy, flashcards are organised with tags. Tags are used to filter the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.
 Cards can also have multiple tags.
 
-(SHOW LABELLED UI PANEL)
-
 [[Features]]
 == Features
 Here are some of Flashy's features to help you with your work!
@@ -558,10 +556,23 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+//tag::faq[]
+
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Flashy folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install Flashy in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Flashy folder.
+
+*Q*: Help! I cannot find the save button! +
+*A*: Fret not, Flashy automatically saves your data after any changes are made.
+
+*Q*: Why are there 'c' variants of certain commands? What do they stand for? How do I differentiate them? +
+*A*: We added a 'c' suffix to commands that have both tag and flashcard variants to help you distinguish one from the other. For example, the `select` command selects a tag, whereas the `selectc` command selects a flashcard.
+
+*Q*: I added a card, but I cannot find it! +
+*A*: You probably created a flashcard without a tag. You can retrieve such flashcards with the `list -t` command.
+
+// end::faq[]
 
 == Command Summary
 === Cards

@@ -47,6 +47,7 @@ include::../UserGuide.adoc[tag=overview]
 include::../UserGuide.adoc[tag=selectcard]
 include::../UserGuide.adoc[tag=qualityoflife]
 include::../UserGuide.adoc[tag=changetheme]
+include::../UserGuide.adoc[tag=faq]
 
 == Contributions to the Developer Guide
 
