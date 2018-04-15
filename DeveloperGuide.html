@@ -29,7 +29,14 @@
 <li><a href="#prerequisites">1.1. Prerequisites</a></li>
 <li><a href="#setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
 <li><a href="#verifying-the-setup">1.3. Verifying the setup</a></li>
-<li><a href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
+<li><a href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a>
+<ul class="sectlevel3">
+<li><a href="#configuring-the-coding-style">1.4.1. Configuring the coding style</a></li>
+<li><a href="#updating-documentation-to-match-your-fork">1.4.2. Updating documentation to match your fork</a></li>
+<li><a href="#setting-up-ci">1.4.3. Setting up CI</a></li>
+<li><a href="#getting-started-with-coding">1.4.4. Getting started with coding</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#design">2. Design</a>
@@ -44,17 +51,98 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#support-for-multiple-themes">3.2. Support for multiple themes</a></li>
-<li><a href="#autocompletion">3.3. Autocompletion</a></li>
+<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation">3.1.1. Current Implementation</a></li>
+<li><a href="#design-considerations">3.1.2. Design Considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-implementation-of-code-undoablecommand-code">Aspect: Implementation of <code>UndoableCommand</code></a></li>
+<li><a href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></li>
+<li><a href="#aspect-type-of-commands-that-can-be-undone-redone">Aspect: Type of commands that can be undone/redone</a></li>
+<li><a href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#support-for-multiple-themes">3.2. Support for multiple themes</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-2">3.2.1. Current Implementation</a></li>
+<li><a href="#design-considerations-2">3.2.2. Design considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-supporting-dynamically-switchable-themes">Aspect: Supporting dynamically switchable themes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#autocompletion">3.3. Autocompletion</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-3">3.3.1. Current Implementation</a></li>
+<li><a href="#supporting-autocompletion-in-future-commands">3.3.2. Supporting autocompletion in future commands</a></li>
+<li><a href="#design-considerations-3">3.3.3. Design Considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-storage-of-command-and-parameters">Aspect: Storage of command and parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
 <li><a href="#logging">3.5. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
-<li><a href="#card-tag-association">3.7. Card-Tag Association</a></li>
-<li><a href="#schedule-feature">3.8. Schedule feature</a></li>
-<li><a href="#polymorphic-flashcards">3.9. Polymorphic flashcards</a></li>
-<li><a href="#adding-and-editing-of-polymorphic-flashcards">3.10. Adding and editing of polymorphic flashcards</a></li>
-<li><a href="#storage-of-flashcards">3.11. Storage of flashcards</a></li>
+<li><a href="#card-tag-association">3.7. Card-Tag Association</a>
+<ul class="sectlevel3">
+<li><a href="#design-requirements">3.7.1. Design Requirements</a></li>
+<li><a href="#current-implementation-4">3.7.2. Current Implementation</a></li>
+<li><a href="#exposed-apis">3.7.3. Exposed APIs</a></li>
+<li><a href="#design-considerations-4">3.7.4. Design Considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-storage-of-edges">Aspect: Storage of Edges</a></li>
+<li><a href="#aspect-choice-of-data-structure">Aspect: Choice of Data Structure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#scheduling-answering-and-showdue">3.8. Scheduling, Answering and Showdue</a>
+<ul class="sectlevel3">
+<li><a href="#spaced-repetition-implementation">3.8.1. Spaced Repetition Implementation</a>
+<ul class="sectlevel4">
+<li><a href="#how-schedule-approximate-forgetting-curve">How Schedule approximate forgetting curve</a></li>
+</ul>
+</li>
+<li><a href="#answer">3.8.2. Answer</a>
+<ul class="sectlevel4">
+<li><a href="#logic">Logic</a></li>
+</ul>
+</li>
+<li><a href="#date-parser-for-code-showdue-code-and-code-schedule-code">3.8.3. Date parser for <code>showdue</code> and <code>schedule</code></a></li>
+</ul>
+</li>
+<li><a href="#polymorphic-flashcards">3.9. Polymorphic flashcards</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-5">3.9.1. Current Implementation</a></li>
+<li><a href="#deisgn-considerations">3.9.2. Deisgn Considerations</a></li>
+<li><a href="#aspect-implementation-of-polymorphic-flashcards">3.9.3. Aspect: Implementation of polymorphic flashcards</a></li>
+</ul>
+</li>
+<li><a href="#adding-and-editing-of-polymorphic-flashcards">3.10. Adding and editing of polymorphic flashcards</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-6">3.10.1. Current implementation</a></li>
+<li><a href="#design-considerations-5">3.10.2. Design Considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-implementation-of-add-command-for-mcq-and-fill-blanks-type-flashcards">Aspect: Implementation of add command for MCQ and fill blanks type flashcards.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#storage-of-flashcards">3.11. Storage of flashcards</a>
+<ul class="sectlevel3">
+<li><a href="#current-implementation-7">3.11.1. Current Implementation</a></li>
+<li><a href="#design-considerations-6">3.11.2. Design Considerations</a>
+<ul class="sectlevel4">
+<li><a href="#aspect-implementation-of-code-xmladaptedcard-code-class">Aspect: Implementation of <code>XmlAdaptedCard</code> class</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1374,25 +1462,107 @@ efficient. Hence, the adjacency list is a natural choice.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="schedule-feature"><a class="link" href="#schedule-feature">3.8. Schedule feature</a></h3>
-<div class="imageblock">
-<div class="content">
-<img src="images/ScheduleLogic.png" alt="ScheduleLogic" width="800">
+<h3 id="scheduling-answering-and-showdue"><a class="link" href="#scheduling-answering-and-showdue">3.8. Scheduling, Answering and Showdue</a></h3>
+<div class="paragraph">
+<p>The core component of how spaced repetition works is that it keep tracks of how
+good the user is with a certain card. Our scheduling algorithm is an implementation
+of the well known SM2 algorithm used by Supermemo, another flashcard app.</p>
 </div>
+<div class="paragraph">
+<p>The main idea of how this is done is to keep a score of how good a user is with a certain card, a <code>Schedule</code> class is created.
+Each card has its own <code>Schedule</code> object. There are some functions to allow the user to update
+the score of the card after each time the user has answered it.</p>
 </div>
+<div class="paragraph">
+<p>There are many possible ways how this could have been implemented.
+However this document will try to walk you through the most difficult parts and talk about some note worthy mentions.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+The <code>Schedule</code> object in each card is different from the <code>ScheduleCommand</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To interface with this Schedule object, <code>answer</code>, <code>schedule</code> and <code>showdue</code> command has been added.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>answer</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Answers the card and update a score</p>
+</li>
+<li>
+<p>This also set date for future review.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>schedule</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allows one to manually set review date</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>showdue</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Show cards due by a certain date to allow for effective studying.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="spaced-repetition-implementation"><a class="link" href="#spaced-repetition-implementation">3.8.1. Spaced Repetition Implementation</a></h4>
 <div class="paragraph">
 <p>Schedule is implemented as an object in a Card.</p>
 </div>
 <div class="paragraph">
-<p>Schedule contains a <code>java.time.LocalDateTime</code> which can be used to filter and order the cards.</p>
+<p>Schedule contains a <code>java.time.LocalDateTime</code> which can be used to filter and order the cards.
+<code>showdue</code> uses <code>LocalDateTime</code> to filter out and sort cards that are due by a certain date.</p>
 </div>
 <div class="paragraph">
-<p>The <code>feedback()</code> function is the main part making the whole Scheduler system work.
-<code>feedback()</code> will take in a boolean, true denoting success, false denoting failure to recall.
-This will allow Schedule to gauge a user&#8217;s familiarity with a card and schedule review times appropriately.</p>
+<p>The <code>feedbackRouterHandler(int confidenceLevel)</code> function is the main part making the whole Scheduler system work.
+<code>feedbackRouterHandler(int confidenceLevel)</code> will take in a confidence level 0, 1 or 2. 0 meaning worse, 2 meaning best.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 move to back of queue, does not update internal score.</p>
+</li>
+<li>
+<p>1 move to back of queue, updates internal score as a failure.</p>
+</li>
+<li>
+<p>2 remove from queue, updates internal score as a success.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>This class has some math and many variables, here is a short reference for their meaning if they are not self evident.</p>
+<p>This will allow Schedule to gauge a user&#8217;s familiarity with a card and schedule review times appropriately.</p>
+</div>
+<div class="sect4">
+<h5 id="how-schedule-approximate-forgetting-curve"><a class="link" href="#how-schedule-approximate-forgetting-curve">How Schedule approximate forgetting curve</a></h5>
+<div class="paragraph">
+<p>This part will go into the specifics of what a score means and how it is calculated.
+This class has some math and many variables, here is a short reference for their meaning if they are not self evident.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1415,11 +1585,14 @@ the larger this number the easier it is.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Initially when the user first creates a card, we give then a grace period with <code>learningPhase</code>. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
-Any feedback within this period will not update the <code>easingFactor</code>, feedback will only update after the learning phase.</p>
+<p>Here is a simple summary of what is happening internally.</p>
 </div>
 <div class="paragraph">
 <p>\(newEasingFactor = historicalEasingFactor * \frac{\log{(lowerBoundRememberRate)}}{\log{(successRate)}}\)</p>
+</div>
+<div class="paragraph">
+<p>Initially when the user first creates a card, we give then a grace period with <code>learningPhase</code>. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
+Any feedback within this period will not update the <code>easingFactor</code>, feedback will only update after the learning phase.</p>
 </div>
 <div class="paragraph">
 <p>The <code>newEasingFactor</code> is dependent on \(\log{(successRate)}\).
@@ -1430,6 +1603,60 @@ If the interval is too long, users might forget cards. Thus lowering the <code>e
 </div>
 <div class="paragraph">
 <p>A predicate filter is used in conjunction with Schedule class to retrieve a list of cards due for review.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="answer"><a class="link" href="#answer">3.8.2. Answer</a></h4>
+<div class="sect4">
+<h5 id="logic"><a class="link" href="#logic">Logic</a></h5>
+<div class="paragraph">
+<p>AnswerCommand and AnswerCommandParser has a similar logic implementation to most commands.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/answerLogic.png" alt="answerLogic" width="800">
+</div>
+<div class="title">Figure 17. Structure for the Logic component of Answer. Parsing <code>answer c/0</code>.</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="date-parser-for-code-showdue-code-and-code-schedule-code"><a class="link" href="#date-parser-for-code-showdue-code-and-code-schedule-code">3.8.3. Date parser for <code>showdue</code> and <code>schedule</code></a></h4>
+<div class="paragraph">
+<p>We presume that users would often want to review lists of flashcards, thus these are very frequently typed.
+It would be very irritating if users had to constantly key in showdue d/14 m/4 y/2018 when its obviously just today&#8217;s date.
+Thus we designed these commands to be more intelligence and less strict about its input parameters.</p>
+</div>
+<div class="paragraph">
+<p>Whichever field <code>d/ m/ y/</code> are not present, it will be assumed to be today&#8217;s day, month or year.
+So doing <code>showdue</code> without any parameters will just return cards due by today.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Initially any typos or errors made would just assume users would like to get cards due by today.
+However some users find this flexibility to be a bug, now we strictly enforce that <code>showdue</code> must be empty to return today&#8217;s cards.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Although only <code>showdue</code> is talked about. This is actually a generic date parser. <code>schedule</code> command uses the same thing.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1444,13 +1671,13 @@ New classes <code>McqCard</code> and <code>FillBlanks</code> were created to imp
 <div class="content">
 <img src="images/ModelClassDiagramBW.png" alt="ModelClassDiagramBW" width="800">
 </div>
-<div class="title">Figure 17. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
+<div class="title">Figure 18. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/CardInheritanceBW.png" alt="CardInheritanceBW" width="800">
 </div>
-<div class="title">Figure 18. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
+<div class="title">Figure 19. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
 </div>
 </div>
 <div class="sect3">
@@ -1772,7 +1999,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 19. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 20. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 </div>
@@ -2649,7 +2876,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 09:00:48 UTC
+Last updated 2018-04-15 09:07:36 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
