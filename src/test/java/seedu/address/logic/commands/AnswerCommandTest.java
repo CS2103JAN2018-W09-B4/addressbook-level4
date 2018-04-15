@@ -25,6 +25,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.Schedule;
 
 //@@author pukipuki
+
 /**
  * Contains integration tests (interaction with the Model) for {@code AnswerCommand}.
  */
@@ -45,7 +46,6 @@ public class AnswerCommandTest {
     }
 
     // error states
-
     @Test
     public void execute_noCardSelected_throwsCommandException() throws Exception {
         thrown.expect(CommandException.class);
@@ -55,15 +55,6 @@ public class AnswerCommandTest {
     @Test
     public void execute_answerCommand_noCardSelected() {
         assertCommandFailure(answerCommand, model, AnswerCommand.MESSAGE_CARD_NOT_SELECTED);
-    }
-
-    @Test
-    public void execute_answerCommand_success() {
-        for (int confidenceLevel = Schedule.VALID_MIN_CONFIDENCE_LEVEL;
-             confidenceLevel <= Schedule.VALID_MAX_CONFIDENCE_LEVEL;
-             confidenceLevel++) {
-            commandRunner(confidenceLevel);
-        }
     }
 
     @Test
@@ -79,33 +70,59 @@ public class AnswerCommandTest {
     }
 
     @Test
-    public void execute_answer0_success() {
-        ObservableList<Card> list = model.getFilteredCardList();
-        model.showDueCards(todaysDate);
-        int initialSize = list.size();
-        commandRunner(0);
-        int finalSize = list.size();
-        assertEquals(initialSize, finalSize);
+    public void execute_answerCommand_success() {
+        for (int confidenceLevel = Schedule.VALID_MIN_CONFIDENCE_LEVEL;
+             confidenceLevel <= Schedule.VALID_MAX_CONFIDENCE_LEVEL;
+             confidenceLevel++) {
+            commandRunner(confidenceLevel);
+        }
+    }
+
+
+    @Test
+    public void execute_answer0_checkFilterList() {
+        answerRunner(0);
     }
 
     @Test
-    public void execute_answer1_success() {
-        ObservableList<Card> list = model.getFilteredCardList();
-        model.showDueCards(todaysDate);
-        int initialSize = list.size();
-        commandRunner(1);
-        int finalSize = list.size();
-        assertEquals(initialSize, finalSize);
+    public void execute_answer1_checkFilterList() {
+        answerRunner(1);
     }
 
     @Test
-    public void execute_answer2_success() {
-        ObservableList<Card> list = model.getFilteredCardList();
+    public void execute_answer2_checkFilterList() {
+        answerRunner(2);
+    }
+
+    /**
+     * runs the test given a {@code confidenceLevel}
+     */
+    private void answerRunner(int confidenceLevel) {
         model.showDueCards(todaysDate);
+        ObservableList<Card> list = model.getFilteredCardList();
+        Card selectedCard = list.get(0);
         int initialSize = list.size();
-        commandRunner(2);
+        commandRunner(confidenceLevel);
         int finalSize = list.size();
-        assertEquals(initialSize - 1, finalSize);
+        if (confidenceLevel <= 1) {
+            // should be same size
+            assertEquals(initialSize, finalSize);
+
+            // card should still be in list
+            assert (list.contains(selectedCard));
+
+            // card should be at last index
+            assertEquals(list.size() - 1, list.indexOf(selectedCard));
+        } else {
+            // should be smaller by 1
+            assertEquals(initialSize - 1, finalSize);
+
+            // card should not be in the list
+            assertFalse(list.contains(selectedCard));
+        }
+    }
+
+    private void assertFalse(boolean contains) {
     }
 
     /**
