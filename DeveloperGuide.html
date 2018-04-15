@@ -287,7 +287,7 @@ This will generate all resources required by the application and tests.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the <code>seedu.address.MainApp</code> and try a few commands</p>
+<p>Run the <code>seedu.flashy.MainApp</code> and try a few commands</p>
 </li>
 <li>
 <p><a href="#Testing">Run the tests</a> to ensure they all pass.</p>
@@ -417,7 +417,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </table>
 </div>
 <div class="paragraph">
-<p><code>Main</code> has only one class called <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<p><code>Main</code> has only one class called <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/flashy/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
 </div>
 <div class="ulist">
 <ul>
@@ -539,13 +539,13 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 5. Structure of the UI Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/flashy/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/flashy/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component,</p>
@@ -580,7 +580,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
-<a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/flashy/logic/Logic.java"><code>Logic.java</code></a></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -617,7 +617,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 9. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/flashy/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Model</code>,</p>
@@ -648,7 +648,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="title">Figure 10. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103JAN2018-W09-B4/main/src/main/java/seedu/flashy/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Storage</code> component,</p>
@@ -667,7 +667,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="sect2">
 <h3 id="Design-Commons"><a class="link" href="#Design-Commons">2.6. Common classes</a></h3>
 <div class="paragraph">
-<p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
+<p>Classes used by multiple components are in the <code>seedu.flashy.commons</code> package.</p>
 </div>
 </div>
 </div>
@@ -1276,7 +1276,7 @@ to contain IDs of <code>Tag</code> and <code>Card</code> objects that have been 
 </div>
 <div class="paragraph">
 <p>Similar to <code>UniqueCardList</code> and <code>UniqueTagList</code>, only one instance of <code>CardTag</code> exists in each
-<code>AddressBook</code>.</p>
+<code>CardBank</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1740,11 +1740,11 @@ For fill blanks flashcards, the constraint is that the number of answers should 
 <ul>
 <li>
 <p>Pros: There would be less commands to keep track of and combining the command reduces repeated codes since there are similarities between adding of normal and other type cards.<br>
-One example of similarity is shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommand: executeUndoableCommand()</code> below.</p>
+One example of similarity is shown in the code snippet for <code>seedu.flashy.logic.commands.AddCardCommand: executeUndoableCommand()</code> below.</p>
 </li>
 <li>
 <p>Cons: The add card command has to be changed which can result in undesired consequences if mistakes were made. Care has to be taken when implementing the add card feature for MCQ and fill blanks flashcards as both have constraints which cannot be violated.<br>
-Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for <code>seedu.address.logic.commands.AddCardCommandParser: parse()</code><br></p>
+Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for <code>seedu.flashy.logic.commands.AddCardCommandParser: parse()</code><br></p>
 </li>
 </ul>
 </div>
@@ -1830,7 +1830,7 @@ If there is a change in implementation, developers would have to change code for
 <h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.11.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The current implementation saves the flashcard data in XML format and reads it back when the card bank is loaded.
-A single <code>XmlAdaptedCard</code> class is used to convert the attributes of flashcards into XML Elements and <code>XmlSerializableAddressBook</code> stores a list of <code>XmlAdaptedCard</code>.</p>
+A single <code>XmlAdaptedCard</code> class is used to convert the attributes of flashcards into XML Elements and <code>XmlSerializableCardBank</code> stores a list of <code>XmlAdaptedCard</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1848,7 +1848,7 @@ A single <code>XmlAdaptedCard</code> class is used to convert the attributes of 
 </li>
 <li>
 <p>Cons: <code>XmlAdaptedCard</code> has to be tweaked to take in the <code>options</code> attribute from the <code>McqCard</code> class, and the <code>toModelType()</code> method has to check for the constraints of the MCQ and fill blanks flashcard as shown in the code snippets below:<br>
-From <code>src.main.java.seedu.address.storage.XmlAdaptedCard</code></p>
+From <code>src.main.java.seedu.flashy.storage.XmlAdaptedCard</code></p>
 </li>
 </ul>
 </div>
@@ -1892,13 +1892,13 @@ From <code>src.main.java.seedu.address.storage.XmlAdaptedCard</code></p>
 <ul>
 <li>
 <p><strong>Alternative 2:</strong> Implementing a separate <code>XmlAdaptedMcqCard</code> and <code>XmlAdaptedFillBlanksCard</code> to convert MCQ and fill blanks flashcards into XML format respectively.<br>
-Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAdaptedCard</code>. In <code>XmlSerializableAddressBook</code>, there would be a separate list for <code>XmlAdaptedMcqCard</code>, as shown in the code snippet below (which was implemented initially but later removed from source code):</p>
+Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAdaptedCard</code>. In <code>XmlSerializableCardBank</code>, there would be a separate list for <code>XmlAdaptedMcqCard</code>, as shown in the code snippet below (which was implemented initially but later removed from source code):</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    public class XmlSerializableAddressBook {
+<pre>    public class XmlSerializableCardBank {
         // ... Other attributes ...
 
         @XmlElement
@@ -1911,7 +1911,7 @@ Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAd
         /**
          * Conversion
          */
-        public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+        public XmlSerializableCardBank(ReadOnlyCardBank src) {
             // ...
             for (Card card: src.getCardList()) {
                 if (card.getType().equals(McqCard.TYPE)) {
@@ -2084,7 +2084,7 @@ See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run 
 <p><em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
 </li>
 <li>
-<p><em>Unit tests</em> that test the individual components. These are in <code>seedu.address.ui</code> package.</p>
+<p><em>Unit tests</em> that test the individual components. These are in <code>seedu.flashy.ui</code> package.</p>
 </li>
 </ol>
 </div>
@@ -2095,15 +2095,15 @@ See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run 
 <ol class="loweralpha" type="a">
 <li>
 <p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
-e.g. <code>seedu.address.commons.StringUtilTest</code></p>
+e.g. <code>seedu.flashy.commons.StringUtilTest</code></p>
 </li>
 <li>
 <p><em>Integration tests</em> that are checking the integration of multiple code units (those code units are assumed to be working).<br>
-e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
+e.g. <code>seedu.flashy.storage.StorageManagerTest</code></p>
 </li>
 <li>
 <p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
-e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
+e.g. <code>seedu.flashy.logic.LogicManagerTest</code></p>
 </li>
 </ol>
 </div>
@@ -2876,7 +2876,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 09:07:36 UTC
+Last updated 2018-04-15 09:25:53 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
