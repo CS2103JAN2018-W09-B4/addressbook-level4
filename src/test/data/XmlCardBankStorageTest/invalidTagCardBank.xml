@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<cardbank>
-    <!-- Tag with invalid name field -->
-    <tags>
-        <name>Ha!ns Mu@ster</name>
-    </tags>
-</cardbank>

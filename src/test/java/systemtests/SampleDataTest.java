@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.flashy.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,17 +8,17 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import seedu.flashy.model.CardBank;
-import seedu.flashy.model.tag.Tag;
-import seedu.flashy.model.util.SampleDataUtil;
-import seedu.flashy.testutil.TestUtil;
+import seedu.address.model.AddressBook;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleDataUtil;
+import seedu.address.testutil.TestUtil;
 
-public class SampleDataTest extends CardBankSystemTest {
+public class SampleDataTest extends AddressBookSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */
     @Override
-    protected CardBank getInitialData() {
+    protected AddressBook getInitialData() {
         return null;
     }
 
@@ -44,7 +44,7 @@ public class SampleDataTest extends CardBankSystemTest {
     }
 
     @Test
-    public void cardBank_dataFileDoesNotExist_loadSampleData() {
+    public void addressBook_dataFileDoesNotExist_loadSampleData() {
         Tag[] expectedList = SampleDataUtil.getSampleTags();
         assertListMatching(getTagListPanel(), expectedList);
     }

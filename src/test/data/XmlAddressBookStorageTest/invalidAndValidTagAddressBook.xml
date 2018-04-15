@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Valid Tag -->
+    <tags>
+        <id>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</id>
+        <name>Physics</name>
+    </tags>
+    <!-- Tag with invalid name field -->
+    <tags>
+        <id>67d1fc9c-4d3b-46ff-a663-bc76d80c148a</id>
+        <name>Phys!cs</name>
+    </tags>
+</addressbook>

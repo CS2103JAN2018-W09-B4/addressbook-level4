@@ -468,7 +468,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the card bank's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:

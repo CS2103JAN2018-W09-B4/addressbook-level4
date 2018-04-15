@@ -1,27 +1,27 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.flashy.commons.core.Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX;
-import static seedu.flashy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.flashy.logic.commands.DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS;
-import static seedu.flashy.testutil.TestUtil.getLastIndex;
-import static seedu.flashy.testutil.TestUtil.getMidIndex;
-import static seedu.flashy.testutil.TestUtil.getTag;
-import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_TAG;
-import static seedu.flashy.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS;
+import static seedu.address.testutil.TestUtil.getLastIndex;
+import static seedu.address.testutil.TestUtil.getMidIndex;
+import static seedu.address.testutil.TestUtil.getTag;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
+import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
 
-import seedu.flashy.commons.core.Messages;
-import seedu.flashy.commons.core.index.Index;
-import seedu.flashy.logic.commands.DeleteCommand;
-import seedu.flashy.logic.commands.RedoCommand;
-import seedu.flashy.logic.commands.UndoCommand;
-import seedu.flashy.model.Model;
-import seedu.flashy.model.tag.Tag;
-import seedu.flashy.model.tag.exceptions.TagNotFoundException;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
-public class DeleteCommandSystemTest extends CardBankSystemTest {
+public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -59,17 +59,17 @@ public class DeleteCommandSystemTest extends CardBankSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered tag list, delete index within bounds of flashy book and tag list -> deleted */
+        /* Case: filtered tag list, delete index within bounds of address book and tag list -> deleted */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         Index index = INDEX_FIRST_TAG;
         assertTrue(index.getZeroBased() < getModel().getFilteredTagList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered tag list, delete index within bounds of flashy book but out of bounds of tag list
+        /* Case: filtered tag list, delete index within bounds of address book but out of bounds of tag list
          * -> rejected
          */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
-        int invalidIndex = getModel().getCardBank().getTagList().size();
+        int invalidIndex = getModel().getAddressBook().getTagList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
 
@@ -98,7 +98,7 @@ public class DeleteCommandSystemTest extends CardBankSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getCardBank().getTagList().size() + 1);
+                getModel().getAddressBook().getTagList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
 
@@ -113,7 +113,7 @@ public class DeleteCommandSystemTest extends CardBankSystemTest {
     }
 
     /**
-     * Removes the {@code Tag} at the specified {@code index} in {@code model}'s flashy book.
+     * Removes the {@code Tag} at the specified {@code index} in {@code model}'s address book.
      * @return the removed tag
      */
     private Tag removeTag(Model model, Index index) {
@@ -149,8 +149,8 @@ public class DeleteCommandSystemTest extends CardBankSystemTest {
      * 5. Asserts that the status bar's sync status changes.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -178,8 +178,8 @@ public class DeleteCommandSystemTest extends CardBankSystemTest {
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

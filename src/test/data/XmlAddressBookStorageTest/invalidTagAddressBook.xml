@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Tag with invalid name field -->
+    <tags>
+        <name>Ha!ns Mu@ster</name>
+    </tags>
+</addressbook>

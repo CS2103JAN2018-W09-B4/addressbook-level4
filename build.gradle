@@ -16,7 +16,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.flashy.MainApp'
+mainClassName = 'seedu.address.MainApp'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -132,16 +132,16 @@ test {
         }
 
         if (runNonGuiTests) {
-            test.include 'seedu/flashy/**'
+            test.include 'seedu/address/**'
         }
 
         if (runGuiTests) {
             test.include 'systemtests/**'
-            test.include 'seedu/flashy/ui/**'
+            test.include 'seedu/address/ui/**'
         }
 
         if (!runGuiTests) {
-            test.exclude 'seedu/flashy/ui/**'
+            test.exclude 'seedu/address/ui/**'
         }
     }
 }

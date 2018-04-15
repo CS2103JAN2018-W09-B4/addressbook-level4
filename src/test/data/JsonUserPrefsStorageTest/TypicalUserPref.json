@@ -7,6 +7,6 @@
       "y" : 100
     }
   },
-  "cardBankFilePath" : "cardbank.xml",
-  "cardBankName" : "TypicalCardBankName"
+  "addressBookFilePath" : "addressbook.xml",
+  "addressBookName" : "TypicalAddressBookName"
 }

@@ -2,23 +2,23 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 
-import static seedu.flashy.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
-import static seedu.flashy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flashy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.flashy.logic.commands.SelectCardCommand.MESSAGE_SELECT_CARD_SUCCESS;
-import static seedu.flashy.testutil.TypicalCards.getTypicalCards;
-import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.SelectCardCommand.MESSAGE_SELECT_CARD_SUCCESS;
+import static seedu.address.testutil.TypicalCards.getTypicalCards;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
-import seedu.flashy.commons.core.index.Index;
-import seedu.flashy.logic.commands.RedoCommand;
-import seedu.flashy.logic.commands.SelectCardCommand;
-import seedu.flashy.logic.commands.UndoCommand;
-import seedu.flashy.model.Model;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCardCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
 
 //@@author yong-jie
-public class SelectCardCommandSystemTest extends CardBankSystemTest {
+public class SelectCardCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
@@ -54,18 +54,18 @@ public class SelectCardCommandSystemTest extends CardBankSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered card list, select index within bounds of flashy book and card list -> selected */
+        /* Case: filtered card list, select index within bounds of address book and card list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredCardList().size());
         command = SelectCardCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
-        /* Case: filtered card list, select index within bounds of flashy book but out of bounds of card list
+        /* Case: filtered card list, select index within bounds of address book but out of bounds of card list
          * -> rejected
          */
 
         selectTag(Index.fromZeroBased(0));
-        int invalidIndex = getModel().getCardBank().getCardList().size();
+        int invalidIndex = getModel().getAddressBook().getCardList().size();
         System.out.println(getModel().getFilteredCardList());
         assertCommandFailure(SelectCardCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
@@ -106,8 +106,8 @@ public class SelectCardCommandSystemTest extends CardBankSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
@@ -131,8 +131,8 @@ public class SelectCardCommandSystemTest extends CardBankSystemTest {
      * 4. {@code Model}, {@code Storage} and {@code CardListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

@@ -1,31 +1,31 @@
 package systemtests;
 
-import static seedu.flashy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flashy.logic.commands.CommandTestUtil.BACK_DESC_CS2103T_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.BACK_DESC_MCQ_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CS2103T_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.INVALID_BACK_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
-import static seedu.flashy.testutil.TypicalCards.CS2101_CARD;
-import static seedu.flashy.testutil.TypicalCards.CS2103T_CARD;
-import static seedu.flashy.testutil.TypicalCards.ENGLISH_CARD;
-import static seedu.flashy.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_MCQ_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_BACK_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
+import static seedu.address.testutil.TypicalCards.CS2101_CARD;
+import static seedu.address.testutil.TypicalCards.CS2103T_CARD;
+import static seedu.address.testutil.TypicalCards.ENGLISH_CARD;
+import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
 
-import seedu.flashy.commons.core.Messages;
-import seedu.flashy.commons.core.index.Index;
-import seedu.flashy.logic.commands.AddCardCommand;
-import seedu.flashy.logic.commands.RedoCommand;
-import seedu.flashy.logic.commands.UndoCommand;
-import seedu.flashy.model.Model;
-import seedu.flashy.model.card.Card;
-import seedu.flashy.model.card.exceptions.DuplicateCardException;
-import seedu.flashy.testutil.CardUtil;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddCardCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.testutil.CardUtil;
 
 //@@author jethrokuan
-public class AddCardCommandSystemTest extends CardBankSystemTest {
+public class AddCardCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() throws Exception {
@@ -33,7 +33,7 @@ public class AddCardCommandSystemTest extends CardBankSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a tag to a non-empty flashy book, command with leading spaces and trailing spaces
+        /* Case: add a tag to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
         Card toAdd = CS2103T_CARD;
@@ -105,8 +105,8 @@ public class AddCardCommandSystemTest extends CardBankSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Card toAdd) throws DuplicateCardException {
         assertCommandSuccess(CardUtil.getAddCardCommand(toAdd), toAdd);
@@ -149,8 +149,8 @@ public class AddCardCommandSystemTest extends CardBankSystemTest {
      * 4. {@code Model}, {@code Storage} and {@code TagListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

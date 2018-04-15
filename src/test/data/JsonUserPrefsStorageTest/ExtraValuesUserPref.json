@@ -9,6 +9,6 @@
       "z" : 99
     }
   },
-  "cardBankFilePath" : "cardbank.xml",
-  "cardBankName" : "TypicalCardBankName"
+  "addressBookFilePath" : "addressbook.xml",
+  "addressBookName" : "TypicalAddressBookName"
 }

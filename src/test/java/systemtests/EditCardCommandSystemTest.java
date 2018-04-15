@@ -2,31 +2,31 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.flashy.logic.commands.CommandTestUtil.BACK_DESC_CHEMISTRY_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CHEMISTRY_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_MATHEMATICS_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
-import static seedu.flashy.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
-import static seedu.flashy.testutil.TypicalCards.CHEMISTRY_CARD;
-import static seedu.flashy.testutil.TypicalCards.MATHEMATICS_CARD;
-import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CHEMISTRY_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CHEMISTRY_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_MATHEMATICS_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
+import static seedu.address.testutil.TypicalCards.CHEMISTRY_CARD;
+import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
-import seedu.flashy.commons.core.Messages;
-import seedu.flashy.commons.core.index.Index;
-import seedu.flashy.logic.commands.EditCardCommand;
-import seedu.flashy.logic.commands.RedoCommand;
-import seedu.flashy.logic.commands.UndoCommand;
-import seedu.flashy.model.Model;
-import seedu.flashy.model.card.Card;
-import seedu.flashy.model.card.exceptions.CardNotFoundException;
-import seedu.flashy.model.card.exceptions.DuplicateCardException;
-import seedu.flashy.testutil.CardBuilder;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditCardCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.exceptions.CardNotFoundException;
+import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.testutil.CardBuilder;
 
 //@@author shawnclq
-public class EditCardCommandSystemTest extends CardBankSystemTest {
+public class EditCardCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void edit() throws Exception {
@@ -91,7 +91,7 @@ public class EditCardCommandSystemTest extends CardBankSystemTest {
                         + INDEX_FIRST_CARD.getOneBased() + INVALID_FRONT_CARD, Card.MESSAGE_CARD_CONSTRAINTS);
 
         /* Case: edit a card with new values same as another card's values -> rejected */
-        assertTrue(getModel().getCardBank().getCardList().contains(CHEMISTRY_CARD));
+        assertTrue(getModel().getAddressBook().getCardList().contains(CHEMISTRY_CARD));
         index = INDEX_FIRST_CARD;
         assertFalse(getModel().getFilteredCardList().get(index.getZeroBased()).equals(CHEMISTRY_CARD));
         command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased()
@@ -153,8 +153,8 @@ public class EditCardCommandSystemTest extends CardBankSystemTest {
      * 5. Asserts that the status bar's sync status changes.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
 
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
@@ -174,8 +174,8 @@ public class EditCardCommandSystemTest extends CardBankSystemTest {
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

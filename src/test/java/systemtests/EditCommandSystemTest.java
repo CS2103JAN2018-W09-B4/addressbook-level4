@@ -2,35 +2,35 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.flashy.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.flashy.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
-import static seedu.flashy.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
-import static seedu.flashy.logic.commands.CommandTestUtil.NAME_DESC_MATHEMATICS;
-import static seedu.flashy.logic.commands.CommandTestUtil.NAME_DESC_SOCIOLOGY;
-import static seedu.flashy.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
-import static seedu.flashy.logic.commands.CommandTestUtil.VALID_NAME_SOCIOLOGY;
-import static seedu.flashy.model.Model.PREDICATE_SHOW_ALL_TAGS;
-import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_TAG;
-import static seedu.flashy.testutil.TypicalTags.COMSCI_TAG;
-import static seedu.flashy.testutil.TypicalTags.ENGLISH_TAG;
-import static seedu.flashy.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
-import static seedu.flashy.testutil.TypicalTags.MATHEMATICS_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MATHEMATICS;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_SOCIOLOGY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_COMSCI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SOCIOLOGY;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
+import static seedu.address.testutil.TypicalTags.COMSCI_TAG;
+import static seedu.address.testutil.TypicalTags.ENGLISH_TAG;
+import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
+import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 
 import org.junit.Test;
 
-import seedu.flashy.commons.core.Messages;
-import seedu.flashy.commons.core.index.Index;
-import seedu.flashy.logic.commands.EditCommand;
-import seedu.flashy.logic.commands.RedoCommand;
-import seedu.flashy.logic.commands.UndoCommand;
-import seedu.flashy.model.Model;
-import seedu.flashy.model.tag.Name;
-import seedu.flashy.model.tag.Tag;
-import seedu.flashy.model.tag.exceptions.DuplicateTagException;
-import seedu.flashy.model.tag.exceptions.TagNotFoundException;
-import seedu.flashy.testutil.TagBuilder;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.tag.Name;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.DuplicateTagException;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
+import seedu.address.testutil.TagBuilder;
 
-public class EditCommandSystemTest extends CardBankSystemTest {
+public class EditCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void edit() throws Exception {
@@ -68,7 +68,7 @@ public class EditCommandSystemTest extends CardBankSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered tag list, edit index within bounds of flashy book and tag list -> edited */
+        /* Case: filtered tag list, edit index within bounds of address book and tag list -> edited */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         index = INDEX_FIRST_TAG;
         assertTrue(index.getZeroBased() < getModel().getFilteredTagList().size());
@@ -77,11 +77,11 @@ public class EditCommandSystemTest extends CardBankSystemTest {
         editedTag = new TagBuilder(tagToEdit).withName(VALID_NAME_SOCIOLOGY).build();
         assertCommandSuccess(command, index, editedTag);
 
-        /* Case: filtered tag list, edit index within bounds of flashy book but out of bounds of tag list
+        /* Case: filtered tag list, edit index within bounds of address book but out of bounds of tag list
          * -> rejected
          */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
-        int invalidIndex = getModel().getCardBank().getTagList().size();
+        int invalidIndex = getModel().getAddressBook().getTagList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_COMSCI,
                 Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
 
@@ -126,7 +126,7 @@ public class EditCommandSystemTest extends CardBankSystemTest {
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: edit a tag with new values same as another tag's values -> rejected */
-        assertTrue(getModel().getCardBank().getTagList().contains(MATHEMATICS_TAG));
+        assertTrue(getModel().getAddressBook().getTagList().contains(MATHEMATICS_TAG));
         index = INDEX_FIRST_TAG;
         assertFalse(getModel().getFilteredTagList().get(index.getZeroBased()).equals(MATHEMATICS_TAG));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MATHEMATICS;
@@ -186,8 +186,8 @@ public class EditCommandSystemTest extends CardBankSystemTest {
      * 5. Asserts that the status bar's sync status changes.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -206,8 +206,8 @@ public class EditCommandSystemTest extends CardBankSystemTest {
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
-     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
