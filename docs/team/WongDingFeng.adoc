@@ -5,10 +5,13 @@
 == PROJECT: Flashy
 
 ---
+image::logo.png[width="320"]
 
 == Overview
 
+This document is prepared to summarise my contributions to the app Flashy.
 Flashy is a desktop flashcard management application to help students memorise better.
+Flashy is made for CS2103, a Software Engineering module in National University of Singapore(NUS).
 
 == Summary of contributions
 
@@ -28,18 +31,14 @@ The implementation too was challenging as it required changes to existing comman
 ** Project management:
 *** Added issues and milestones.
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features. (Pull requests https://github.com[#36], https://github.com[#38])
+*** Added logging (Pull requests https://github.com[#199])
+*** Wrote additional tests for features. (Pull requests https://github.com[#129])
 ** Documentation:
-*** Added Logo.
-*** Added prefaces and introduction.
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Added Logo. (Pull requests https://github.com[#198])
+*** Added prefaces and introduction. (Pull requests https://github.com[#198])
+*** Did cosmetic tweaks to existing contents of the User Guide: (Pull requests https://github.com[#198])
 ** Tools:
 *** Personal pull and push scripts to Github.
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -57,3 +56,4 @@ include::../UserGuide.adoc[tag=usingflashcards]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=spacedrepetition]

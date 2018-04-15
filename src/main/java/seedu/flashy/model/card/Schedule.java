@@ -118,10 +118,6 @@ public class Schedule implements Comparable<Schedule> {
         this.nextReview = date;
     }
 
-    public void setRelativeNextReview(int days) {
-        this.nextReview = LocalDate.now().atStartOfDay().plusDays(days);
-    }
-
     public int getLastInterval() {
         return lastInterval;
     }

@@ -1,5 +1,6 @@
 = Flashy - Developer Guide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -645,18 +646,50 @@ efficient. Hence, the adjacency list is a natural choice.
   - Cons: O(1) operation for only one operation.
 
 //end::cardtag[]
-=== Schedule feature
 
-image::ScheduleLogic.png[width="800"]
+//tag:spacedrepetition[]
+=== Scheduling, Answering and Showdue
+The core component of how spaced repetition works is that it keep tracks of how
+good the user is with a certain card. Our scheduling algorithm is an implementation
+of the well known SM2 algorithm used by Supermemo, another flashcard app.
 
+The main idea of how this is done is to keep a score of how good a user is with a certain card, a `Schedule` class is created.
+Each card has its own `Schedule` object. There are some functions to allow the user to update
+the score of the card after each time the user has answered it.
+
+There are many possible ways how this could have been implemented.
+However this document will try to walk you through the most difficult parts and talk about some note worthy mentions.
+
+[CAUTION]
+The `Schedule` object in each card is different from the `ScheduleCommand`
+
+To interface with this Schedule object, `answer`, `schedule` and `showdue` command has been added.
+
+* `answer`
+** Answers the card and update a score
+** This also set date for future review.
+* `schedule`
+** Allows one to manually set review date
+* `showdue`
+** Show cards due by a certain date to allow for effective studying.
+
+==== Spaced Repetition Implementation
 Schedule is implemented as an object in a Card.
 
 Schedule contains a `java.time.LocalDateTime` which can be used to filter and order the cards.
+`showdue` uses `LocalDateTime` to filter out and sort cards that are due by a certain date.
 
-The `feedback()` function is the main part making the whole Scheduler system work.
-`feedback()` will take in a boolean, true denoting success, false denoting failure to recall.
+The `feedbackRouterHandler(int confidenceLevel)` function is the main part making the whole Scheduler system work.
+`feedbackRouterHandler(int confidenceLevel)` will take in a confidence level 0, 1 or 2. 0 meaning worse, 2 meaning best.
+
+* 0 move to back of queue, does not update internal score.
+* 1 move to back of queue, updates internal score as a failure.
+* 2 remove from queue, updates internal score as a success.
+
 This will allow Schedule to gauge a user's familiarity with a card and schedule review times appropriately.
 
+===== How Schedule approximate forgetting curve
+This part will go into the specifics of what a score means and how it is calculated.
 This class has some math and many variables, here is a short reference for their meaning if they are not self evident.
 
 * `lowerBoundRememberRate` default = 0.85. The percent of information we want users to retain.
@@ -666,10 +699,12 @@ This class has some math and many variables, here is a short reference for their
 the larger this number the easier it is.
 * `historicalEasingFactor` the cumulative form of `easingFactor`
 
-Initially when the user first creates a card, we give then a grace period with `learningPhase`. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
-Any feedback within this period will not update the `easingFactor`, feedback will only update after the learning phase.
+Here is a simple summary of what is happening internally.
 
 latexmath:[newEasingFactor = historicalEasingFactor * \frac{\log{(lowerBoundRememberRate)}}{\log{(successRate)}}]
+
+Initially when the user first creates a card, we give then a grace period with `learningPhase`. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
+Any feedback within this period will not update the `easingFactor`, feedback will only update after the learning phase.
 
 The `newEasingFactor` is dependent on latexmath:[\log{(successRate)}].
 Suppose we want the user to retain 85% of the information learnt.
@@ -678,6 +713,29 @@ If `successRate` < `lowerBoundRememberRate` newEasingFactor will reduce and card
 If the interval is too long, users might forget cards. Thus lowering the `easingFactor` and `intervals` will reduce.
 
 A predicate filter is used in conjunction with Schedule class to retrieve a list of cards due for review.
+
+==== Answer
+===== Logic
+AnswerCommand and AnswerCommandParser has a similar logic implementation to most commands.
+
+.Structure for the Logic component of Answer. Parsing `answer c/0`.
+image::answerLogic.png[width="800"]
+
+==== Date parser for `showdue` and `schedule`
+We presume that users would often want to review lists of flashcards, thus these are very frequently typed.
+It would be very irritating if users had to constantly key in showdue d/14 m/4 y/2018 when its obviously just today's date.
+Thus we designed these commands to be more intelligence and less strict about its input parameters.
+
+Whichever field `d/ m/ y/` are not present, it will be assumed to be today's day, month or year.
+So doing `showdue` without any parameters will just return cards due by today.
+
+[NOTE]
+Initially any typos or errors made would just assume users would like to get cards due by today.
+However some users find this flexibility to be a bug, now we strictly enforce that `showdue` must be empty to return today's cards.
+
+[NOTE]
+Although only `showdue` is talked about. This is actually a generic date parser. `schedule` command uses the same thing.
+//end:spacedrepetition[]
 
 // tag::polymorphiccards[]
 === Polymorphic flashcards
