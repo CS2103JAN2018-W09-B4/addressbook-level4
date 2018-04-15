@@ -9,9 +9,7 @@ image::logo.png[width="320"]
 
 == Overview
 
-This document is prepared to summarise my contributions to the app Flashy.
-Flashy is a desktop flashcard management application to help students memorise better.
-Flashy is made for CS2103, a Software Engineering module in National University of Singapore(NUS).
+include::../UserGuide.adoc[tag=overview]
 
 == Summary of contributions
 
@@ -24,7 +22,7 @@ The implementation too was challenging as it required changes to existing comman
 
 * *Minor enhancement*: added a simple Tag functionality that was eventually changed into CardTag Association.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/functional/pukipuki.md[Functional Code]] [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/test/pukipuki.md[Test Code]]
 
 * *Other contributions*:
 

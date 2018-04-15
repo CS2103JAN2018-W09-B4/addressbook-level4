@@ -12,6 +12,7 @@ import seedu.flashy.model.card.Card;
 import seedu.flashy.model.card.FillBlanksCard;
 import seedu.flashy.model.card.McqCard;
 
+//@@author shawnclq
 /**
  * JAXB-friendly version of the Card.
  */
@@ -127,3 +128,4 @@ public class XmlAdaptedCard {
         return type;
     }
 }
+//@@author
