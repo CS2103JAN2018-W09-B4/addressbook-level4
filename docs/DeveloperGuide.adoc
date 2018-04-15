@@ -1055,6 +1055,7 @@ for reference
 
 === Foo Yong Jie
 Major enhancement: Improving the UI / UX of the application. This includes:
+
 - Changing to a green colour scheme to signify growth, efficiency, and focus.
 - Implementing a 3-panel layout to display more information to the user.
 - Adding an autocompletion engine to help users enter commands quickly.

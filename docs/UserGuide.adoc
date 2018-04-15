@@ -443,6 +443,7 @@ they are implicitly assumed to be the current month and year.
 // end::usingflashcards[]
 
 // tag::qualityoflife[]
+
 === Quality-of-Life features
 
 Flashy has many features to speed up your workflow and make your experience as pain-free as possible.
@@ -532,6 +533,7 @@ Format: `exit` or `quit`
 === Managing User Preferences
 
 // tag::changetheme[]
+
 ==== Changing the theme : `theme`
 Flashy knows that not all study sessions occur during the day. When carrying out all-nighters, remember that you can always switch the theme of Flashy's interface to match the lighting condition of your surroundings! +
 Format: `theme t/THEME`
