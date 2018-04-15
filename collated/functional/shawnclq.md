@@ -1,4 +1,87 @@
 # shawnclq
+###### /java/seedu/address/logic/parser/AddCardCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new AddCardCommand object
+ */
+public class AddCardCommandParser implements Parser<AddCardCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddCardCommand
+     * and returns an AddCardCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public AddCardCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_OPTION, PREFIX_TAG);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_FRONT, PREFIX_BACK)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
+            String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
+            List<String> options = argMultimap.getAllValues(PREFIX_OPTION);
+            Optional<Set<Tag>> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+            Card card;
+
+            if (options.isEmpty()) {
+                if (FillBlanksCard.containsBlanks(front)) {
+                    card = ParserUtil.parseFillBlanksCard(front, back);
+                } else {
+                    card = new Card(front, back);
+                }
+            } else {
+                for (String option: options) {
+                    ParserUtil.parseMcqOption(option);
+                }
+                card = ParserUtil.parseMcqCard(front, back, options);
+                card.setType(McqCard.TYPE);
+            }
+
+            return new AddCardCommand(card, tags);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
+        }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+}
+```
+###### /java/seedu/address/logic/parser/DeleteCardCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new DeleteCommand object
+ */
+public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * and returns an DeleteCardCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DeleteCardCommand parse(String args) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteCardCommand(index);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE));
+        }
+    }
+
+}
+```
 ###### /java/seedu/address/logic/parser/EditCardCommandParser.java
 ``` java
 /**
@@ -159,87 +242,60 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
         return Optional.of(options);
     }
 ```
-###### /java/seedu/address/logic/parser/AddCardCommandParser.java
+###### /java/seedu/address/model/card/FillBlanksCard.java
 ``` java
 /**
- * Parses input arguments and creates a new AddCardCommand object
+ * Represents a fill-in-the-blanks Flashcard.
+ * Guarantees: Front, Back must not be null.
+ *
  */
-public class AddCardCommandParser implements Parser<AddCardCommand> {
+public class FillBlanksCard extends Card {
 
-    /**
-     * Parses the given {@code String} of arguments in the context of the AddCardCommand
-     * and returns an AddCardCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public AddCardCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_OPTION, PREFIX_TAG);
+    public static final String MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS =
+            "Fill Blanks Card back should have the same number of answers as there are blanks";
+    public static final String TYPE = "FillBlanks";
+    public static final String BLANK = "_";
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_FRONT, PREFIX_BACK)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
-        }
+    public FillBlanksCard(String front, String back) {
+        this(UUID.randomUUID(), front, back);
+    }
 
-        try {
-            String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
-            String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
-            List<String> options = argMultimap.getAllValues(PREFIX_OPTION);
-            Optional<Set<Tag>> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-            Card card;
-
-            if (options.isEmpty()) {
-                if (FillBlanksCard.containsBlanks(front)) {
-                    card = ParserUtil.parseFillBlanksCard(front, back);
-                } else {
-                    card = new Card(front, back);
-                }
-            } else {
-                for (String option: options) {
-                    ParserUtil.parseMcqOption(option);
-                }
-                card = ParserUtil.parseMcqCard(front, back, options);
-                card.setType(McqCard.TYPE);
-            }
-
-            return new AddCardCommand(card, tags);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage(), ive);
-        }
+    public FillBlanksCard(UUID id, String front, String back) {
+        super(id, front, back);
+        super.setType(TYPE);
+        checkArgument(isValidFillBlanksCard(front, back), MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if a given front and back string is valid.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    public static boolean isValidFillBlanksCard(String front, String back) {
+        requireAllNonNull(front, back);
+        return (front.split(BLANK, -1).length) == back.split(",").length + 1;
     }
-
-}
-```
-###### /java/seedu/address/logic/parser/DeleteCardCommandParser.java
-``` java
-/**
- * Parses input arguments and creates a new DeleteCommand object
- */
-public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns an DeleteCardCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Returns true if a given string contains blanks.
      */
-    public DeleteCardCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteCardCommand(index);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE));
-        }
+    public static boolean containsBlanks(String test) {
+        return (test.indexOf(BLANK)) != -1;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof FillBlanksCard)) {
+            return false;
+        }
+
+        FillBlanksCard otherCard = (FillBlanksCard) other;
+
+        return otherCard.getFront().equals(this.getFront())
+                && otherCard.getBack().equals(this.getBack());
+    }
 }
 ```
 ###### /java/seedu/address/model/card/Card.java
@@ -352,62 +408,6 @@ public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
                 .append(getBack());
         return builder.toString();
     }
-```
-###### /java/seedu/address/model/card/FillBlanksCard.java
-``` java
-/**
- * Represents a fill-in-the-blanks Flashcard.
- * Guarantees: Front, Back must not be null.
- *
- */
-public class FillBlanksCard extends Card {
-
-    public static final String MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS =
-            "Fill Blanks Card back should have the same number of answers as there are blanks";
-    public static final String TYPE = "FillBlanks";
-    public static final String BLANK = "_";
-
-    public FillBlanksCard(String front, String back) {
-        this(UUID.randomUUID(), front, back);
-    }
-
-    public FillBlanksCard(UUID id, String front, String back) {
-        super(id, front, back);
-        super.setType(TYPE);
-        checkArgument(isValidFillBlanksCard(front, back), MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
-    }
-
-    /**
-     * Returns true if a given front and back string is valid.
-     */
-    public static boolean isValidFillBlanksCard(String front, String back) {
-        requireAllNonNull(front, back);
-        return (front.split(BLANK, -1).length) == back.split(",").length + 1;
-    }
-
-    /**
-     * Returns true if a given string contains blanks.
-     */
-    public static boolean containsBlanks(String test) {
-        return (test.indexOf(BLANK)) != -1;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof FillBlanksCard)) {
-            return false;
-        }
-
-        FillBlanksCard otherCard = (FillBlanksCard) other;
-
-        return otherCard.getFront().equals(this.getFront())
-                && otherCard.getBack().equals(this.getBack());
-    }
-}
 ```
 ###### /java/seedu/address/model/card/McqCard.java
 ``` java
