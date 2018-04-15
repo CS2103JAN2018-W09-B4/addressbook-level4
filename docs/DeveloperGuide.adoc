@@ -105,7 +105,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103JAN2018-W09-B4/main/tree/master/docs/diagrams/WhiteBlackDiagrams[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/flashy/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -159,11 +159,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagramBW.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/flashy/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/flashy/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -182,7 +182,7 @@ image::LogicClassDiagramBW.png[width="800"]
 image::LogicCommandClassDiagramBW.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/flashy/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `CardBankParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -200,7 +200,7 @@ image::DeletePersonSdForLogicBW.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagramBW.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/flashy/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -215,7 +215,7 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagramBW.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/flashy/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -225,7 +225,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.flashy.commons` package.
 
 == Implementation
 
@@ -544,7 +544,7 @@ of the IDs of `Card` and `Tag` objects. This can lead to inconsistent states: fo
 to contain IDs of `Tag` and `Card` objects that have been deleted. Defensive programming is added to ensure that their states are consistent and valid.
 
 Similar to `UniqueCardList` and `UniqueTagList`, only one instance of `CardTag` exists in each
-`AddressBook`.
+`CardBank`.
 
 ==== Exposed APIs
 Interaction with the `CardTag` instance is performed through the
@@ -776,7 +776,7 @@ If there is a change in implementation, developers would have to change code for
 === Storage of flashcards
 ==== Current Implementation
 The current implementation saves the flashcard data in XML format and reads it back when the card bank is loaded.
-A single `XmlAdaptedCard` class is used to convert the attributes of flashcards into XML Elements and `XmlSerializableAddressBook` stores a list of `XmlAdaptedCard`.
+A single `XmlAdaptedCard` class is used to convert the attributes of flashcards into XML Elements and `XmlSerializableCardBank` stores a list of `XmlAdaptedCard`.
 
 ==== Design Considerations
 ===== Aspect: Implementation of `XmlAdaptedCard` class
@@ -819,10 +819,10 @@ From `src.main.java.seedu.flashy.storage.XmlAdaptedCard`
 ----
 
 * **Alternative 2:** Implementing a separate `XmlAdaptedMcqCard` and `XmlAdaptedFillBlanksCard` to convert MCQ and fill blanks flashcards into XML format respectively. +
-Initially, `XmlAdaptedMcqCard` was implemented to inherit `XmlAdaptedCard`. In `XmlSerializableAddressBook`, there would be a separate list for `XmlAdaptedMcqCard`, as shown in the code snippet below (which was implemented initially but later removed from source code):
+Initially, `XmlAdaptedMcqCard` was implemented to inherit `XmlAdaptedCard`. In `XmlSerializableCardBank`, there would be a separate list for `XmlAdaptedMcqCard`, as shown in the code snippet below (which was implemented initially but later removed from source code):
 [source,java]
 ----
-    public class XmlSerializableAddressBook {
+    public class XmlSerializableCardBank {
         // ... Other attributes ...
 
         @XmlElement
@@ -835,7 +835,7 @@ Initially, `XmlAdaptedMcqCard` was implemented to inherit `XmlAdaptedCard`. In `
         /**
          * Conversion
          */
-        public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+        public XmlSerializableCardBank(ReadOnlyCardBank src) {
             // ...
             for (Card card: src.getCardList()) {
                 if (card.getType().equals(McqCard.TYPE)) {

@@ -20,18 +20,18 @@ import seedu.flashy.commons.util.ConfigUtil;
 import seedu.flashy.commons.util.StringUtil;
 import seedu.flashy.logic.Logic;
 import seedu.flashy.logic.LogicManager;
-import seedu.flashy.model.AddressBook;
+import seedu.flashy.model.CardBank;
 import seedu.flashy.model.Model;
 import seedu.flashy.model.ModelManager;
-import seedu.flashy.model.ReadOnlyAddressBook;
+import seedu.flashy.model.ReadOnlyCardBank;
 import seedu.flashy.model.UserPrefs;
 import seedu.flashy.model.util.SampleDataUtil;
-import seedu.flashy.storage.AddressBookStorage;
+import seedu.flashy.storage.CardBankStorage;
 import seedu.flashy.storage.JsonUserPrefsStorage;
 import seedu.flashy.storage.Storage;
 import seedu.flashy.storage.StorageManager;
 import seedu.flashy.storage.UserPrefsStorage;
-import seedu.flashy.storage.XmlAddressBookStorage;
+import seedu.flashy.storage.XmlCardBankStorage;
 import seedu.flashy.ui.Ui;
 import seedu.flashy.ui.UiManager;
 
@@ -54,15 +54,15 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing CardBank ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        CardBankStorage cardBankStorage = new XmlCardBankStorage(userPrefs.getCardBankFilePath());
+        storage = new StorageManager(cardBankStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -86,20 +86,20 @@ public class MainApp extends Application {
      * or an empty flashy book will be used instead if errors occur when reading {@code storage}'s flashy book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyCardBank> cardBankOptional;
+        ReadOnlyCardBank initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            cardBankOptional = storage.readCardBank();
+            if (!cardBankOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample CardBank");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = cardBankOptional.orElseGet(SampleDataUtil::getSampleCardBank);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty CardBank");
+            initialData = new CardBank();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty CardBank");
+            initialData = new CardBank();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -163,7 +163,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty CardBank");
             initializedPrefs = new UserPrefs();
         }
 
@@ -183,7 +183,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting CardBank " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

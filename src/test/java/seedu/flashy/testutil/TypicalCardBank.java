@@ -26,7 +26,7 @@ import static seedu.flashy.testutil.TypicalTags.HISTORY_TAG;
 import static seedu.flashy.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.flashy.testutil.TypicalTags.PHYSICS_TAG;
 
-import seedu.flashy.model.AddressBook;
+import seedu.flashy.model.CardBank;
 import seedu.flashy.model.card.Card;
 import seedu.flashy.model.card.FillBlanksCard;
 import seedu.flashy.model.card.McqCard;
@@ -37,107 +37,107 @@ import seedu.flashy.model.tag.Tag;
 /**
  * Class that creates a typical flashy book.
  */
-public class TypicalAddressBook {
+public class TypicalCardBank {
 
     /**
-     * Returns an {@code AddressBook} with all stub data.
+     * Returns an {@code CardBank} with all stub data.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook addressBook = new AddressBook();
+    public static CardBank getTypicalCardBank() {
+        CardBank cardBank = new CardBank();
         for (Tag tag : TypicalTags.getTypicalTags()) {
-            addressBook.addTag(tag);
+            cardBank.addTag(tag);
         }
 
         for (Card card : getTypicalCards()) {
             try {
-                addressBook.addCard(card);
+                cardBank.addCard(card);
             } catch (DuplicateCardException e) {
                 throw new AssertionError("not possible");
             }
         }
 
         try {
-            addressBook.addEdge(PHYSICS_CARD, PHYSICS_TAG);
-            addressBook.addEdge(PHYSICS_CARD_2, PHYSICS_TAG);
-            addressBook.addEdge(BIOLOGY_CARD, BIOLOGY_TAG);
-            addressBook.addEdge(CHEMISTRY_CARD, CHEMISTRY_TAG);
-            addressBook.addEdge(ECONOMICS_CARD, ECONOMICS_TAG);
-            addressBook.addEdge(MATHEMATICS_CARD, MATHEMATICS_TAG);
-            addressBook.addEdge(HISTORY_CARD, HISTORY_TAG);
+            cardBank.addEdge(PHYSICS_CARD, PHYSICS_TAG);
+            cardBank.addEdge(PHYSICS_CARD_2, PHYSICS_TAG);
+            cardBank.addEdge(BIOLOGY_CARD, BIOLOGY_TAG);
+            cardBank.addEdge(CHEMISTRY_CARD, CHEMISTRY_TAG);
+            cardBank.addEdge(ECONOMICS_CARD, ECONOMICS_TAG);
+            cardBank.addEdge(MATHEMATICS_CARD, MATHEMATICS_TAG);
+            cardBank.addEdge(HISTORY_CARD, HISTORY_TAG);
         } catch (DuplicateEdgeException e) {
             throw new AssertionError("not possible");
         }
 
-        return addressBook;
+        return cardBank;
     }
 
     /**
-     * Returns an {@code AddressBook} with all stub data (MCQ cards).
+     * Returns an {@code CardBank} with all stub data (MCQ cards).
      */
-    public static AddressBook getTypicalAddressBookMcqCards() {
-        AddressBook addressBook = new AddressBook();
+    public static CardBank getTypicalCardBankMcqCards() {
+        CardBank cardBank = new CardBank();
         for (Tag tag : TypicalTags.getTypicalTags()) {
-            addressBook.addTag(tag);
+            cardBank.addTag(tag);
         }
 
         for (McqCard card : getTypicalMcqCards()) {
             try {
-                addressBook.addCard(card);
+                cardBank.addCard(card);
             } catch (DuplicateCardException e) {
                 throw new AssertionError("not possible");
             }
         }
 
         try {
-            addressBook.addEdge(PHYSICS_MCQ_CARD, PHYSICS_TAG);
-            addressBook.addEdge(MATHEMATICS_MCQ_CARD, MATHEMATICS_TAG);
-            addressBook.addEdge(HISTORY_MCQ_CARD, HISTORY_TAG);
-            addressBook.addEdge(ENGLISH_MCQ_CARD, ENGLISH_TAG);
+            cardBank.addEdge(PHYSICS_MCQ_CARD, PHYSICS_TAG);
+            cardBank.addEdge(MATHEMATICS_MCQ_CARD, MATHEMATICS_TAG);
+            cardBank.addEdge(HISTORY_MCQ_CARD, HISTORY_TAG);
+            cardBank.addEdge(ENGLISH_MCQ_CARD, ENGLISH_TAG);
         } catch (DuplicateEdgeException e) {
             throw new AssertionError("not possible");
         }
 
-        return addressBook;
+        return cardBank;
     }
 
     /**
-     * Returns an {@code AddressBook} with all stub data (MCQ cards).
+     * Returns an {@code CardBank} with all stub data (MCQ cards).
      */
-    public static AddressBook getTypicalAddressBookFillBlanksCards() {
-        AddressBook addressBook = new AddressBook();
+    public static CardBank getTypicalCardBankFillBlanksCards() {
+        CardBank cardBank = new CardBank();
         for (Tag tag : TypicalTags.getTypicalTags()) {
-            addressBook.addTag(tag);
+            cardBank.addTag(tag);
         }
 
         for (FillBlanksCard card : getTypicalFillBlanksCards()) {
             try {
-                addressBook.addCard(card);
+                cardBank.addCard(card);
             } catch (DuplicateCardException e) {
                 throw new AssertionError("not possible");
             }
         }
 
         try {
-            addressBook.addEdge(PHYSICS_FILLBLANKS_CARD, PHYSICS_TAG);
-            addressBook.addEdge(MATHEMATICS_FILLBLANKS_CARD, MATHEMATICS_TAG);
-            addressBook.addEdge(HISTORY_FILLBLANKS_CARD, HISTORY_TAG);
-            addressBook.addEdge(ECONOMICS_FILLBLANKS_CARD, ECONOMICS_TAG);
+            cardBank.addEdge(PHYSICS_FILLBLANKS_CARD, PHYSICS_TAG);
+            cardBank.addEdge(MATHEMATICS_FILLBLANKS_CARD, MATHEMATICS_TAG);
+            cardBank.addEdge(HISTORY_FILLBLANKS_CARD, HISTORY_TAG);
+            cardBank.addEdge(ECONOMICS_FILLBLANKS_CARD, ECONOMICS_TAG);
         } catch (DuplicateEdgeException e) {
             throw new AssertionError("not possible");
         }
 
-        return addressBook;
+        return cardBank;
     }
 
-    public static AddressBook getAddressBookFromCardArray(Card[] cardArray) {
-        AddressBook addressBook = new AddressBook();
+    public static CardBank getCardBankFromCardArray(Card[] cardArray) {
+        CardBank cardBank = new CardBank();
         for (Card card : cardArray) {
             try {
-                addressBook.addCard(card);
+                cardBank.addCard(card);
             } catch (DuplicateCardException dce) {
                 throw new AssertionError("not possible");
             }
         }
-        return addressBook;
+        return cardBank;
     }
 }

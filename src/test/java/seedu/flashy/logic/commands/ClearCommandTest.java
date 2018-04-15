@@ -1,7 +1,7 @@
 package seedu.flashy.logic.commands;
 
 import static seedu.flashy.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.flashy.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.flashy.testutil.TypicalCardBank.getTypicalCardBank;
 
 import org.junit.Test;
 
@@ -14,14 +14,14 @@ import seedu.flashy.model.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyCardBank_success() {
         Model model = new ModelManager();
         assertCommandSuccess(prepareCommand(model), model, ClearCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyCardBank_success() {
+        Model model = new ModelManager(getTypicalCardBank(), new UserPrefs());
         assertCommandSuccess(prepareCommand(model), model, ClearCommand.MESSAGE_SUCCESS, model);
     }
 

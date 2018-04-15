@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static seedu.flashy.logic.commands.CommandTestUtil.deleteFirstTag;
 import static seedu.flashy.logic.commands.CommandTestUtil.showTagAtIndex;
-import static seedu.flashy.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.flashy.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 
 import org.junit.Test;
@@ -17,10 +17,10 @@ import seedu.flashy.model.tag.Tag;
 import seedu.flashy.model.tag.exceptions.TagNotFoundException;
 
 public class UndoableCommandTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalCardBank(), new UserPrefs());
     private final DummyCommand dummyCommand = new DummyCommand(model);
 
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCardBank(), new UserPrefs());
 
     @Test
     public void executeUndo() throws Exception {
@@ -32,7 +32,7 @@ public class UndoableCommandTest {
 
         // undo() should cause the model's filtered list to show all tags
         dummyCommand.undo();
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalCardBank(), new UserPrefs());
         assertEquals(expectedModel, model);
     }
 

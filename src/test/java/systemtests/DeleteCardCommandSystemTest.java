@@ -21,7 +21,7 @@ import seedu.flashy.model.card.Card;
 import seedu.flashy.model.card.exceptions.CardNotFoundException;
 
 //@@author shawnclq
-public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
+public class DeleteCardCommandSystemTest extends CardBankSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE);
@@ -77,7 +77,7 @@ public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getCardList().size() + 1);
+                getModel().getCardBank().getCardList().size() + 1);
         command = DeleteCardCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
@@ -128,8 +128,8 @@ public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
      * 5. Asserts that the status bar's sync status changes.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -157,8 +157,8 @@ public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

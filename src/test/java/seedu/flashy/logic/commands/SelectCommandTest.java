@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.flashy.logic.commands.CommandTestUtil.showTagAtIndex;
-import static seedu.flashy.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.flashy.testutil.TypicalCardBank.getTypicalCardBank;
 import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_TAG;
 import static seedu.flashy.testutil.TypicalIndexes.INDEX_SECOND_TAG;
 import static seedu.flashy.testutil.TypicalIndexes.INDEX_THIRD_TAG;
@@ -36,7 +36,7 @@ public class SelectCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_TAG;
         // ensures that outOfBoundIndex is still in bounds of flashy book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getTagList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getCardBank().getTagList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
     }

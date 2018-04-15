@@ -12,7 +12,7 @@ import seedu.flashy.commons.core.EventsCenter;
 import seedu.flashy.ui.testutil.UiPartRule;
 
 /**
- * A GUI unit test class for AddressBook.
+ * A GUI unit test class for CardBank.
  */
 public abstract class GuiUnitTest {
     @Rule

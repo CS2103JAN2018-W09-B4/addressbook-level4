@@ -5,23 +5,23 @@ import static seedu.flashy.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.flashy.model.Model.PREDICATE_SHOW_ALL_TAGS;
 
 import seedu.flashy.logic.commands.exceptions.CommandException;
-import seedu.flashy.model.AddressBook;
-import seedu.flashy.model.ReadOnlyAddressBook;
+import seedu.flashy.model.CardBank;
+import seedu.flashy.model.ReadOnlyCardBank;
 
 /**
  * Represents a command which can be undone and redone.
  */
 public abstract class UndoableCommand extends Command {
-    private ReadOnlyAddressBook previousAddressBook;
+    private ReadOnlyCardBank previousCardBank;
 
     protected abstract CommandResult executeUndoableCommand() throws CommandException;
 
     /**
-     * Stores the current state of {@code model#addressBook}.
+     * Stores the current state of {@code model#cardBank}.
      */
-    private void saveAddressBookSnapshot() {
+    private void saveCardBankSnapshot() {
         requireNonNull(model);
-        this.previousAddressBook = new AddressBook(model.getAddressBook());
+        this.previousCardBank = new CardBank(model.getCardBank());
     }
 
     /**
@@ -31,13 +31,13 @@ public abstract class UndoableCommand extends Command {
     protected void preprocessUndoableCommand() throws CommandException {}
 
     /**
-     * Reverts the AddressBook to the state before this command
+     * Reverts the CardBank to the state before this command
      * was executed and updates the filtered tag list to
      * show all tags.
      */
     protected final void undo() {
-        requireAllNonNull(model, previousAddressBook);
-        model.resetData(previousAddressBook);
+        requireAllNonNull(model, previousCardBank);
+        model.resetData(previousCardBank);
         model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
     }
 
@@ -58,7 +58,7 @@ public abstract class UndoableCommand extends Command {
 
     @Override
     public final CommandResult execute() throws CommandException {
-        saveAddressBookSnapshot();
+        saveCardBankSnapshot();
         preprocessUndoableCommand();
         return executeUndoableCommand();
     }

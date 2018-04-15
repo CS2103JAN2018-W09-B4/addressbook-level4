@@ -30,17 +30,17 @@ import seedu.flashy.logic.commands.ClearCommand;
 import seedu.flashy.logic.commands.FindCommand;
 import seedu.flashy.logic.commands.ListCommand;
 import seedu.flashy.logic.commands.SelectCommand;
-import seedu.flashy.model.AddressBook;
+import seedu.flashy.model.CardBank;
 import seedu.flashy.model.Model;
-import seedu.flashy.testutil.TypicalAddressBook;
+import seedu.flashy.testutil.TypicalCardBank;
 import seedu.flashy.ui.CommandBox;
 
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for CardBank, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class CardBankSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -75,8 +75,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalAddressBook.getTypicalAddressBook();
+    protected CardBank getInitialData() {
+        return TypicalCardBank.getTypicalCardBank();
     }
 
     /**
@@ -133,7 +133,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllTags() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getTagList().size(), getModel().getFilteredTagList().size());
+        assertEquals(getModel().getCardBank().getTagList().size(), getModel().getFilteredTagList().size());
     }
 
     /**
@@ -141,7 +141,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showTagsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredTagList().size() < getModel().getAddressBook().getTagList().size());
+        assertTrue(getModel().getFilteredTagList().size() < getModel().getCardBank().getTagList().size());
     }
 
     /**
@@ -157,8 +157,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void clearCardBank() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getTagList().size());
-        assertEquals(0, getModel().getAddressBook().getCardList().size());
+        assertEquals(0, getModel().getCardBank().getTagList().size());
+        assertEquals(0, getModel().getCardBank().getCardList().size());
     }
 
     /**
@@ -171,7 +171,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel, getModel());
-        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+        assertEquals(expectedModel.getCardBank(), testApp.readStorageCardBank());
         assertListMatching(getTagListPanel(), expectedModel.getFilteredTagList());
     }
 

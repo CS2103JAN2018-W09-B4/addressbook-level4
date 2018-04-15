@@ -24,7 +24,7 @@ import seedu.flashy.commons.core.index.Index;
 import seedu.flashy.logic.CommandHistory;
 import seedu.flashy.logic.UndoRedoStack;
 import seedu.flashy.logic.commands.exceptions.CommandException;
-import seedu.flashy.model.AddressBook;
+import seedu.flashy.model.CardBank;
 import seedu.flashy.model.Model;
 import seedu.flashy.model.card.Card;
 import seedu.flashy.model.tag.NameContainsKeywordsPredicate;
@@ -178,7 +178,7 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        CardBank expectedCardBank = new CardBank(actualModel.getCardBank());
         List<Tag> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTagList());
 
         try {
@@ -186,7 +186,7 @@ public class CommandTestUtil {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedCardBank, actualModel.getCardBank());
             assertEquals(expectedFilteredList, actualModel.getFilteredTagList());
         }
     }

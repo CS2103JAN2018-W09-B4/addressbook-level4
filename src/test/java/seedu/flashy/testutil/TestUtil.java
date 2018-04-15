@@ -36,41 +36,41 @@ public class TestUtil {
      * Returns the middle index of the tag in the {@code model}'s tag list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getAddressBook().getTagList().size() / 2);
+        return Index.fromOneBased(model.getCardBank().getTagList().size() / 2);
     }
 
     /**
      * Returns the last index of the tag in the {@code model}'s tag list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getAddressBook().getTagList().size());
+        return Index.fromOneBased(model.getCardBank().getTagList().size());
     }
 
     /**
      * Returns the tag in the {@code model}'s tag list at {@code index}.
      */
     public static Tag getTag(Model model, Index index) {
-        return model.getAddressBook().getTagList().get(index.getZeroBased());
+        return model.getCardBank().getTagList().get(index.getZeroBased());
     }
 
     /**
      * Returns the middle index of the card in the {@code model}'s card list.
      */
     public static Index getCardMidIndex(Model model) {
-        return Index.fromOneBased(model.getAddressBook().getCardList().size() / 2);
+        return Index.fromOneBased(model.getCardBank().getCardList().size() / 2);
     }
 
     /**
      * Returns the last index of the tag in the {@code model}'s tag list.
      */
     public static Index getCardLastIndex(Model model) {
-        return Index.fromOneBased(model.getAddressBook().getCardList().size());
+        return Index.fromOneBased(model.getCardBank().getCardList().size());
     }
 
     /**
      * Returns the card in the {@code model}'s card list at {@code index}.
      */
     public static Card getCard(Model model, Index index) {
-        return model.getAddressBook().getCardList().get(index.getZeroBased());
+        return model.getCardBank().getCardList().get(index.getZeroBased());
     }
 }

@@ -8,7 +8,7 @@ import seedu.flashy.model.tag.Tag;
 /**
  * Unmodifiable view of an flashy book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyCardBank {
 
     /**
      * Returns an unmodifiable view of the tags list.

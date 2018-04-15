@@ -2,8 +2,8 @@ package seedu.flashy.model.util;
 
 import java.util.Arrays;
 
-import seedu.flashy.model.AddressBook;
-import seedu.flashy.model.ReadOnlyAddressBook;
+import seedu.flashy.model.CardBank;
+import seedu.flashy.model.ReadOnlyCardBank;
 import seedu.flashy.model.card.Card;
 import seedu.flashy.model.card.FillBlanksCard;
 import seedu.flashy.model.card.McqCard;
@@ -13,7 +13,7 @@ import seedu.flashy.model.tag.Name;
 import seedu.flashy.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code CardBank} with sample data.
  */
 public class SampleDataUtil {
 
@@ -41,8 +41,8 @@ public class SampleDataUtil {
         return new Card[] { BIOLOGY_CARD, CHEMISTRY_MCQ_CARD, MATHEMATICS_CARD, PHYSICS_FILLBLANKS_CARD, ENGLISH_CARD };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyCardBank getSampleCardBank() {
+        CardBank sampleAb = new CardBank();
         for (Tag sampleTag : getSampleTags()) {
             sampleAb.addTag(sampleTag);
         }

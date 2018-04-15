@@ -1,6 +1,6 @@
 package seedu.flashy.testutil;
 
-import seedu.flashy.model.AddressBook;
+import seedu.flashy.model.CardBank;
 import seedu.flashy.model.cardtag.CardTag;
 
 /**
@@ -11,8 +11,8 @@ public class TypicalCardTag {
      * Returns a typical CardTag.
      */
     public static CardTag getTypicalCardTag() {
-        AddressBook addressBook = TypicalAddressBook.getTypicalAddressBook();
+        CardBank cardBank = TypicalCardBank.getTypicalCardBank();
 
-        return addressBook.getCardTag();
+        return cardBank.getCardTag();
     }
 }

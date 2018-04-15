@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<cardbank>
     <!-- Tag with invalid name field -->
     <tags>
         <name>H@n!s Muster</name>
     </tags>
-</addressbook>
+</cardbank>
