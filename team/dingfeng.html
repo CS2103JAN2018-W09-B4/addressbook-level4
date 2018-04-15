@@ -339,12 +339,210 @@ they are implicitly assumed to be the current month and year.</p>
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="scheduling-answering-and-showdue"><a class="link" href="#scheduling-answering-and-showdue">Scheduling, Answering and Showdue</a></h3>
+<div class="paragraph">
+<p>The core component of how spaced repetition works is that it keep tracks of how
+good the user is with a certain card. Our scheduling algorithm is an implementation
+of the well known SM2 algorithm used by Supermemo, another flashcard app.</p>
+</div>
+<div class="paragraph">
+<p>The main idea of how this is done is to keep a score of how good a user is with a certain card, a <code>Schedule</code> class is created.
+Each card has its own <code>Schedule</code> object. There are some functions to allow the user to update
+the score of the card after each time the user has answered it.</p>
+</div>
+<div class="paragraph">
+<p>There are many possible ways how this could have been implemented.
+However this document will try to walk you through the most difficult parts and talk about some note worthy mentions.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+The <code>Schedule</code> object in each card is different from the <code>ScheduleCommand</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To interface with this Schedule object, <code>answer</code>, <code>schedule</code> and <code>showdue</code> command has been added.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>answer</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Answers the card and update a score</p>
+</li>
+<li>
+<p>This also set date for future review.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>schedule</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allows one to manually set review date</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>showdue</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Show cards due by a certain date to allow for effective studying.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="spaced-repetition-implementation"><a class="link" href="#spaced-repetition-implementation">Spaced Repetition Implementation</a></h4>
+<div class="paragraph">
+<p>Schedule is implemented as an object in a Card.</p>
+</div>
+<div class="paragraph">
+<p>Schedule contains a <code>java.time.LocalDateTime</code> which can be used to filter and order the cards.
+<code>showdue</code> uses <code>LocalDateTime</code> to filter out and sort cards that are due by a certain date.</p>
+</div>
+<div class="paragraph">
+<p>The <code>feedbackRouterHandler(int confidenceLevel)</code> function is the main part making the whole Scheduler system work.
+<code>feedbackRouterHandler(int confidenceLevel)</code> will take in a confidence level 0, 1 or 2. 0 meaning worse, 2 meaning best.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 move to back of queue, does not update internal score.</p>
+</li>
+<li>
+<p>1 move to back of queue, updates internal score as a failure.</p>
+</li>
+<li>
+<p>2 remove from queue, updates internal score as a success.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This will allow Schedule to gauge a user&#8217;s familiarity with a card and schedule review times appropriately.</p>
+</div>
+<div class="sect4">
+<h5 id="how-schedule-approximate-forgetting-curve"><a class="link" href="#how-schedule-approximate-forgetting-curve">How Schedule approximate forgetting curve</a></h5>
+<div class="paragraph">
+<p>This part will go into the specifics of what a score means and how it is calculated.
+This class has some math and many variables, here is a short reference for their meaning if they are not self evident.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>lowerBoundRememberRate</code> default = 0.85. The percent of information we want users to retain.</p>
+</li>
+<li>
+<p><code>learningPhase</code> default = 3. The number of days we denote as a learning phase.</p>
+</li>
+<li>
+<p><code>lastInterval</code> default = 1. The last interval given to schedule a review.</p>
+</li>
+<li>
+<p><code>easingFactor</code> default = 1.3. How easy is it for the user to remember a fact,
+the larger this number the easier it is.</p>
+</li>
+<li>
+<p><code>historicalEasingFactor</code> the cumulative form of <code>easingFactor</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is a simple summary of what is happening internally.</p>
+</div>
+<div class="paragraph">
+<p>\(newEasingFactor = historicalEasingFactor * \frac{\log{(lowerBoundRememberRate)}}{\log{(successRate)}}\)</p>
+</div>
+<div class="paragraph">
+<p>Initially when the user first creates a card, we give then a grace period with <code>learningPhase</code>. During this period we do not want to penalise the user for mistakes as this is a grace period for the user to pick up new cards. Penalising would be irritating and might demotivate learning.
+Any feedback within this period will not update the <code>easingFactor</code>, feedback will only update after the learning phase.</p>
+</div>
+<div class="paragraph">
+<p>The <code>newEasingFactor</code> is dependent on \(\log{(successRate)}\).
+Suppose we want the user to retain 85% of the information learnt.
+We set the <code>lowerBoundRememberRate</code> to 0.85.
+If <code>successRate</code> &lt; <code>lowerBoundRememberRate</code> newEasingFactor will reduce and card will be scheduled more frequently.
+If the interval is too long, users might forget cards. Thus lowering the <code>easingFactor</code> and <code>intervals</code> will reduce.</p>
+</div>
+<div class="paragraph">
+<p>A predicate filter is used in conjunction with Schedule class to retrieve a list of cards due for review.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="answer-2"><a class="link" href="#answer-2">Answer</a></h4>
+<div class="sect4">
+<h5 id="logic"><a class="link" href="#logic">Logic</a></h5>
+<div class="paragraph">
+<p>AnswerCommand and AnswerCommandParser has a similar logic implementation to most commands.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/answerLogic.png" alt="answerLogic" width="800">
+</div>
+<div class="title">Figure 1. Structure for the Logic component of Answer. Parsing <code>answer c/0</code>.</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="date-parser-for-code-showdue-code-and-code-schedule-code"><a class="link" href="#date-parser-for-code-showdue-code-and-code-schedule-code">Date parser for <code>showdue</code> and <code>schedule</code></a></h4>
+<div class="paragraph">
+<p>We presume that users would often want to review lists of flashcards, thus these are very frequently typed.
+It would be very irritating if users had to constantly key in showdue d/14 m/4 y/2018 when its obviously just today&#8217;s date.
+Thus we designed these commands to be more intelligence and less strict about its input parameters.</p>
+</div>
+<div class="paragraph">
+<p>Whichever field <code>d/ m/ y/</code> are not present, it will be assumed to be today&#8217;s day, month or year.
+So doing <code>showdue</code> without any parameters will just return cards due by today.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Initially any typos or errors made would just assume users would like to get cards due by today.
+However some users find this flexibility to be a bug, now we strictly enforce that <code>showdue</code> must be empty to return today&#8217;s cards.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Although only <code>showdue</code> is talked about. This is actually a generic date parser. <code>schedule</code> command uses the same thing.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 09:42:40 UTC
+Last updated 2018-04-15 09:48:03 UTC
 </div>
 </div>
 </body>
