@@ -23,12 +23,12 @@ import seedu.address.model.tag.Tag;
  * This class captures the relations between cards and tags.
  */
 public class CardTag {
-    public static final Logger logger = LogsCenter.getLogger(CardTag.class);
     public static final String MESSAGE_CARD_HAS_TAG = "Card already has tag '%s'";
     public static final String MESSAGE_CARD_NO_TAG = "Card has no tag '%s'";
     public static final String LOG_EDGE_ADDED = "Edge added between Card %s and Tag %s";
     private static final String LOG_EDGE_REMOVED = "Edge removed between Card %s and Tag %s";
 
+    private static final Logger logger = LogsCenter.getLogger(CardTag.class);
     private HashMap<String, Set<String>> cardMap; // cardMap["cardId"] = Set<tagId>
     private HashMap<String, Set<String>> tagMap; // tagMap["tagId"] = Set<cardId>
 
