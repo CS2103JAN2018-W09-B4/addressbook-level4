@@ -1,88 +1,5 @@
 # shawnclq
-###### /java/seedu/address/logic/parser/AddCardCommandParser.java
-``` java
-/**
- * Parses input arguments and creates a new AddCardCommand object
- */
-public class AddCardCommandParser implements Parser<AddCardCommand> {
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the AddCardCommand
-     * and returns an AddCardCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public AddCardCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_OPTION, PREFIX_TAG);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_FRONT, PREFIX_BACK)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
-        }
-
-        try {
-            String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
-            String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
-            List<String> options = argMultimap.getAllValues(PREFIX_OPTION);
-            Optional<Set<Tag>> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-            Card card;
-
-            if (options.isEmpty()) {
-                if (FillBlanksCard.containsBlanks(front)) {
-                    card = ParserUtil.parseFillBlanksCard(front, back);
-                } else {
-                    card = new Card(front, back);
-                }
-            } else {
-                for (String option: options) {
-                    ParserUtil.parseMcqOption(option);
-                }
-                card = ParserUtil.parseMcqCard(front, back, options);
-                card.setType(McqCard.TYPE);
-            }
-
-            return new AddCardCommand(card, tags);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage(), ive);
-        }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-}
-```
-###### /java/seedu/address/logic/parser/DeleteCardCommandParser.java
-``` java
-/**
- * Parses input arguments and creates a new DeleteCommand object
- */
-public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns an DeleteCardCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public DeleteCardCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteCardCommand(index);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE));
-        }
-    }
-
-}
-```
-###### /java/seedu/address/logic/parser/EditCardCommandParser.java
+###### /java/seedu/flashy/logic/parser/EditCardCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new EditCardCommand object
@@ -132,7 +49,7 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### /java/seedu/flashy/logic/parser/ParserUtil.java
 ``` java
     /**
      * Parses a {@code String card} into an {@code String}.
@@ -242,43 +159,184 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
         return Optional.of(options);
     }
 ```
-###### /java/seedu/address/model/card/FillBlanksCard.java
+###### /java/seedu/flashy/logic/parser/AddCardCommandParser.java
 ``` java
 /**
- * Represents a fill-in-the-blanks Flashcard.
- * Guarantees: Front, Back must not be null.
- *
+ * Parses input arguments and creates a new AddCardCommand object
  */
-public class FillBlanksCard extends Card {
+public class AddCardCommandParser implements Parser<AddCardCommand> {
 
-    public static final String MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS =
-            "Fill Blanks Card back should have the same number of answers as there are blanks";
-    public static final String TYPE = "FillBlanks";
-    public static final String BLANK = "_";
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddCardCommand
+     * and returns an AddCardCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public AddCardCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_FRONT, PREFIX_BACK, PREFIX_OPTION, PREFIX_TAG);
 
-    public FillBlanksCard(String front, String back) {
-        this(UUID.randomUUID(), front, back);
-    }
+        if (!arePrefixesPresent(argMultimap, PREFIX_FRONT, PREFIX_BACK)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
+        }
 
-    public FillBlanksCard(UUID id, String front, String back) {
-        super(id, front, back);
-        super.setType(TYPE);
-        checkArgument(isValidFillBlanksCard(front, back), MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
+        try {
+            String front = ParserUtil.parseCard(argMultimap.getValue(PREFIX_FRONT).get());
+            String back = ParserUtil.parseCard(argMultimap.getValue(PREFIX_BACK).get());
+            List<String> options = argMultimap.getAllValues(PREFIX_OPTION);
+            Optional<Set<Tag>> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+            Card card;
+
+            if (options.isEmpty()) {
+                if (FillBlanksCard.containsBlanks(front)) {
+                    card = ParserUtil.parseFillBlanksCard(front, back);
+                } else {
+                    card = new Card(front, back);
+                }
+            } else {
+                for (String option: options) {
+                    ParserUtil.parseMcqOption(option);
+                }
+                card = ParserUtil.parseMcqCard(front, back, options);
+                card.setType(McqCard.TYPE);
+            }
+
+            return new AddCardCommand(card, tags);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
+        }
     }
 
     /**
-     * Returns true if a given front and back string is valid.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
      */
-    public static boolean isValidFillBlanksCard(String front, String back) {
-        requireAllNonNull(front, back);
-        return (front.split(BLANK, -1).length) == back.split(",").length + 1;
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+}
+```
+###### /java/seedu/flashy/logic/parser/DeleteCardCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new DeleteCommand object
+ */
+public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * and returns an DeleteCardCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DeleteCardCommand parse(String args) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteCardCommand(index);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE));
+        }
+    }
+
+}
+```
+###### /java/seedu/flashy/storage/XmlAdaptedCard.java
+``` java
+/**
+ * JAXB-friendly version of the Card.
+ */
+public class XmlAdaptedCard {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
+
+    @XmlElement(required = true)
+    protected String front;
+    @XmlElement(required = true)
+    protected String back;
+    @XmlElement(required = true)
+    protected String id;
+    @XmlElement(required = true)
+    private List<String> option = new ArrayList<>();
+    @XmlElement(required = true)
+    private String type;
+
+    /**
+     * Constructs an XmlAdaptedCard.
+     * This is the no-arg constructor that is required by JAXB.
+     */
+    public XmlAdaptedCard() {}
+
+
+    /**
+     * Constructs an {@code XmlAdaptedCard} with the given card details.
+     */
+    public XmlAdaptedCard(String id, String front, String back, List<String> options, String type) {
+        this.id = id;
+        this.front = front;
+        this.back = back;
+        this.type = type;
+        if (options == null) {
+            option = null;
+        } else {
+            option.addAll(options);
+        }
     }
 
     /**
-     * Returns true if a given string contains blanks.
+     * Converts a given Card into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedCard
      */
-    public static boolean containsBlanks(String test) {
-        return (test.indexOf(BLANK)) != -1;
+    public XmlAdaptedCard(Card source) {
+        this(source.getId().toString(), source.getFront(), source.getBack(), null, source.getType());
+    }
+
+    /**
+     * Converts a given McqCard into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedCard
+     */
+    public XmlAdaptedCard(McqCard source) {
+        this(source.getId().toString(), source.getFront(), source.getBack(), source.getOptions(), source.getType());
+    }
+
+    /**
+     * Converts this jaxb-friendly adapted tag object into the model's Card object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted card
+     */
+    public Card toModelType() throws IllegalValueException {
+        if (this.id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
+        }
+        if (this.front == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
+        }
+        if (!Card.isValidCard(this.front)) {
+            throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+        }
+
+        if (this.back == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
+        }
+        if (!Card.isValidCard(this.back)) {
+            throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
+        }
+        if (this.type.equals(FillBlanksCard.TYPE)) {
+            if (!FillBlanksCard.isValidFillBlanksCard(this.front, this.back)) {
+                throw new IllegalValueException(FillBlanksCard.MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
+            }
+            return new FillBlanksCard(UUID.fromString(id), this.front, this.back);
+        }
+        if (this.type.equals(McqCard.TYPE)) {
+            if (!McqCard.isValidMcqCard(this.back, this.option)) {
+                throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_ANSWER_CONSTRAINTS);
+            }
+            return new McqCard(UUID.fromString(this.id), this.front, this.back, this.option);
+        }
+        return new Card(UUID.fromString(id), front, back);
     }
 
     @Override
@@ -287,18 +345,22 @@ public class FillBlanksCard extends Card {
             return true;
         }
 
-        if (!(other instanceof FillBlanksCard)) {
+        if (!(other instanceof XmlAdaptedCard)) {
             return false;
         }
 
-        FillBlanksCard otherCard = (FillBlanksCard) other;
+        XmlAdaptedCard otherCard = (XmlAdaptedCard) other;
+        return Objects.equals(id, otherCard.id)
+                && Objects.equals(front, otherCard.front)
+                && Objects.equals(back, otherCard.back);
+    }
 
-        return otherCard.getFront().equals(this.getFront())
-                && otherCard.getBack().equals(this.getBack());
+    public String getType() {
+        return type;
     }
 }
 ```
-###### /java/seedu/address/model/card/Card.java
+###### /java/seedu/flashy/model/card/Card.java
 ``` java
     public static final String MESSAGE_CARD_CONSTRAINTS =
             "Card front and back can take any values, and it should not be blank";
@@ -354,7 +416,7 @@ public class FillBlanksCard extends Card {
         return back;
     }
 ```
-###### /java/seedu/address/model/card/Card.java
+###### /java/seedu/flashy/model/card/Card.java
 ``` java
     public String getType() {
         return this.type;
@@ -409,7 +471,63 @@ public class FillBlanksCard extends Card {
         return builder.toString();
     }
 ```
-###### /java/seedu/address/model/card/McqCard.java
+###### /java/seedu/flashy/model/card/FillBlanksCard.java
+``` java
+/**
+ * Represents a fill-in-the-blanks Flashcard.
+ * Guarantees: Front, Back must not be null.
+ *
+ */
+public class FillBlanksCard extends Card {
+
+    public static final String MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS =
+            "Fill Blanks Card back should have the same number of answers as there are blanks";
+    public static final String TYPE = "FillBlanks";
+    public static final String BLANK = "_";
+
+    public FillBlanksCard(String front, String back) {
+        this(UUID.randomUUID(), front, back);
+    }
+
+    public FillBlanksCard(UUID id, String front, String back) {
+        super(id, front, back);
+        super.setType(TYPE);
+        checkArgument(isValidFillBlanksCard(front, back), MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
+    }
+
+    /**
+     * Returns true if a given front and back string is valid.
+     */
+    public static boolean isValidFillBlanksCard(String front, String back) {
+        requireAllNonNull(front, back);
+        return (front.split(BLANK, -1).length) == back.split(",").length + 1;
+    }
+
+    /**
+     * Returns true if a given string contains blanks.
+     */
+    public static boolean containsBlanks(String test) {
+        return (test.indexOf(BLANK)) != -1;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof FillBlanksCard)) {
+            return false;
+        }
+
+        FillBlanksCard otherCard = (FillBlanksCard) other;
+
+        return otherCard.getFront().equals(this.getFront())
+                && otherCard.getBack().equals(this.getBack());
+    }
+}
+```
+###### /java/seedu/flashy/model/card/McqCard.java
 ``` java
 /**
  * Represents a MCQ Flashcard.
@@ -527,123 +645,5 @@ public class McqCard extends Card {
         return builder.toString();
     }
 
-}
-```
-###### /java/seedu/address/storage/XmlAdaptedCard.java
-``` java
-/**
- * JAXB-friendly version of the Card.
- */
-public class XmlAdaptedCard {
-
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
-
-    @XmlElement(required = true)
-    protected String front;
-    @XmlElement(required = true)
-    protected String back;
-    @XmlElement(required = true)
-    protected String id;
-    @XmlElement(required = true)
-    private List<String> option = new ArrayList<>();
-    @XmlElement(required = true)
-    private String type;
-
-    /**
-     * Constructs an XmlAdaptedCard.
-     * This is the no-arg constructor that is required by JAXB.
-     */
-    public XmlAdaptedCard() {}
-
-
-    /**
-     * Constructs an {@code XmlAdaptedCard} with the given card details.
-     */
-    public XmlAdaptedCard(String id, String front, String back, List<String> options, String type) {
-        this.id = id;
-        this.front = front;
-        this.back = back;
-        this.type = type;
-        if (options == null) {
-            option = null;
-        } else {
-            option.addAll(options);
-        }
-    }
-
-    /**
-     * Converts a given Card into this class for JAXB use.
-     *
-     * @param source future changes to this will not affect the created XmlAdaptedCard
-     */
-    public XmlAdaptedCard(Card source) {
-        this(source.getId().toString(), source.getFront(), source.getBack(), null, source.getType());
-    }
-
-    /**
-     * Converts a given McqCard into this class for JAXB use.
-     *
-     * @param source future changes to this will not affect the created XmlAdaptedCard
-     */
-    public XmlAdaptedCard(McqCard source) {
-        this(source.getId().toString(), source.getFront(), source.getBack(), source.getOptions(), source.getType());
-    }
-
-    /**
-     * Converts this jaxb-friendly adapted tag object into the model's Card object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted card
-     */
-    public Card toModelType() throws IllegalValueException {
-        if (this.id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
-        }
-        if (this.front == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
-        }
-        if (!Card.isValidCard(this.front)) {
-            throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
-        }
-
-        if (this.back == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Card.class.getSimpleName()));
-        }
-        if (!Card.isValidCard(this.back)) {
-            throw new IllegalValueException(Card.MESSAGE_CARD_CONSTRAINTS);
-        }
-        if (this.type.equals(FillBlanksCard.TYPE)) {
-            if (!FillBlanksCard.isValidFillBlanksCard(this.front, this.back)) {
-                throw new IllegalValueException(FillBlanksCard.MESSAGE_FILLBLANKS_CARD_ANSWER_CONSTRAINTS);
-            }
-            return new FillBlanksCard(UUID.fromString(id), this.front, this.back);
-        }
-        if (this.type.equals(McqCard.TYPE)) {
-            if (!McqCard.isValidMcqCard(this.back, this.option)) {
-                throw new IllegalValueException(McqCard.MESSAGE_MCQ_CARD_ANSWER_CONSTRAINTS);
-            }
-            return new McqCard(UUID.fromString(this.id), this.front, this.back, this.option);
-        }
-        return new Card(UUID.fromString(id), front, back);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof XmlAdaptedCard)) {
-            return false;
-        }
-
-        XmlAdaptedCard otherCard = (XmlAdaptedCard) other;
-        return Objects.equals(id, otherCard.id)
-                && Objects.equals(front, otherCard.front)
-                && Objects.equals(back, otherCard.back);
-    }
-
-    public String getType() {
-        return type;
-    }
 }
 ```

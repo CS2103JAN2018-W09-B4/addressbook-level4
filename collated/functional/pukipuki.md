@@ -1,197 +1,44 @@
 # pukipuki
-###### /java/seedu/address/logic/commands/AnswerCommand.java
+###### /java/seedu/flashy/logic/parser/AnswerCommandParser.java
 ``` java
 /**
- * Answers a selected flashcard
+ * Parses input arguments and creates a new AddCommand object
  */
-public class AnswerCommand extends UndoableCommand {
-
-    public static final String COMMAND_WORD = "answer";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Answer a selected flashcard. "
-            + "Parameters: "
-            + PREFIX_CONFIDENCE + "CONFIDENCE LEVEL";
-
-    public static final String MESSAGE_SUCCESS = "Your card has been scheduled.";
-    public static final String MESSAGE_CARD_NOT_SELECTED = "Cannot answer to no card, please select a card first.";
-
-    private final int confidenceLevel;
+public class AnswerCommandParser implements Parser<AnswerCommand> {
 
     /**
-     * Creates an AnswerCommand to answer the selected {@code Card}
-     */
-    public AnswerCommand(int confidenceLevel) {
-        this.confidenceLevel = confidenceLevel;
-    }
-
-    @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
-        requireNonNull(model);
-        try {
-            model.answerSelectedCard(confidenceLevel);
-            return new CommandResult(MESSAGE_SUCCESS);
-        } catch (NoCardSelectedException e) {
-            throw new CommandException(MESSAGE_CARD_NOT_SELECTED);
-        }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AnswerCommand // instanceof handles nulls
-                && confidenceLevel == (((AnswerCommand) other).confidenceLevel));
-    }
-}
-```
-###### /java/seedu/address/logic/commands/ScheduleCommand.java
-``` java
-/**
- * Schedule the selected flashcard
- */
-public class ScheduleCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "schedule";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedule card to be reviewed on the specified date.\n"
-            + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
-            + PREFIX_DAY + "30 "
-            + PREFIX_MONTH + "2 "
-            + PREFIX_YEAR + "2018";
-    public static final String MESSAGE_SUCCESS = "Card scheduled for review on %s";
-    public static final String MESSAGE_CARD_NOT_SELECTED = "Cannot answer to no card, please select a card first.";
-
-    private final LocalDateTime date;
-
-    /**
-     * Creates an ScheduleCommand to schedule the selected {@code Card}
-     */
-    public ScheduleCommand(LocalDateTime date) {
-        this.date = date;
-    }
-
-    @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
-        requireNonNull(model);
-        try {
-            model.setNextReview(this.date);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.date.toLocalDate().toString()));
-        } catch (NoCardSelectedException e) {
-            throw new CommandException(MESSAGE_CARD_NOT_SELECTED);
-        }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ScheduleCommand // instanceof handles nulls
-                && date.equals(((ScheduleCommand) other).date));
-    }
-}
-```
-###### /java/seedu/address/logic/commands/ShowDueCommand.java
-``` java
-/**
- * Lists all cards in the card book.
- */
-public class ShowDueCommand extends Command {
-    public static final String COMMAND_WORD = "showdue";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all cards due on a date.\n"
-        + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
-        + PREFIX_DAY + "30 "
-        + PREFIX_MONTH + "2 "
-        + PREFIX_YEAR + "2018";
-
-    public static final String MESSAGE_SUCCESS = "Listed all cards due before, %s.\n%s";
-    public static final String MESSAGE_COMPLETED = "But you have no cards due. Hurray!";
-    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
-    private final LocalDateTime date;
-
-    public ShowDueCommand(LocalDateTime date) {
-        requireNonNull(date);
-        this.date = date;
-    }
-
-    @Override
-    public CommandResult execute() {
-        requireNonNull(this.date);
-        model.showDueCards(this.date);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, date.toLocalDate().toString(), correctButEmpty()));
-    }
-
-    /**
-     * The commands work properly, but need to notify user that there are no cards to study for that date.
-     * @return
-     */
-    public String correctButEmpty() {
-        if (model.getFilteredCardList().isEmpty()) {
-            return MESSAGE_COMPLETED;
-        } else {
-            return "";
-        }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof ShowDueCommand // instanceof handles nulls
-            && date.equals(((ShowDueCommand) other).date));
-    }
-}
-```
-###### /java/seedu/address/logic/parser/ScheduleCommandParser.java
-``` java
-/**
- * Parses input arguments and creates a new ScheduleCommand object
- */
-public class ScheduleCommandParser implements Parser<ScheduleCommand> {
-    public static final String MESSAGE_NOT_MORE_THAN_ONE = "Only one of each d/ m/ y/ argument allowed.\n";
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the ScheduleCommand
-     * and returns an ScheduleCommand object for execution.
-     *
+     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ScheduleCommand parse(String args) throws ParseException {
+    public AnswerCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR);
+                ArgumentTokenizer.tokenize(args, PREFIX_CONFIDENCE);
 
-        if (!argMultimap.getPreamble().isEmpty()
-            && !anyPrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
-        } else if (moreThanOnePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)) {
-            throw new ParseException(MESSAGE_NOT_MORE_THAN_ONE
-                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_CONFIDENCE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AnswerCommand.MESSAGE_USAGE));
         }
 
-        String dayString = ParserUtil.trimDateArgs(argMultimap.getValue(PREFIX_DAY));
-        String monthString = ParserUtil.trimDateArgs(argMultimap.getValue(PREFIX_MONTH));
-        String yearString = ParserUtil.trimDateArgs(argMultimap.getValue(PREFIX_YEAR));
-
         try {
-            LocalDateTime date = ParserUtil.parseDate(dayString, monthString, yearString);
-            return new ScheduleCommand(date);
+            int confidenceLevel = ParserUtil.parseConfidenceLevel(argMultimap.getValue(PREFIX_CONFIDENCE).get());
+            return new AnswerCommand(confidenceLevel);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
     }
 
     /**
-     * Returns true if any of the prefix is present.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    /**
-     * Returns true if more than one of the same prefix is present.
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean moreThanOnePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
-    }
 }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### /java/seedu/flashy/logic/parser/ParserUtil.java
 ``` java
 
     /**
@@ -297,46 +144,7 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
         }
     }
 ```
-###### /java/seedu/address/logic/parser/AnswerCommandParser.java
-``` java
-/**
- * Parses input arguments and creates a new AddCommand object
- */
-public class AnswerCommandParser implements Parser<AnswerCommand> {
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public AnswerCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CONFIDENCE);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_CONFIDENCE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AnswerCommand.MESSAGE_USAGE));
-        }
-
-        try {
-            int confidenceLevel = ParserUtil.parseConfidenceLevel(argMultimap.getValue(PREFIX_CONFIDENCE).get());
-            return new AnswerCommand(confidenceLevel);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage(), ive);
-        }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-}
-```
-###### /java/seedu/address/logic/parser/ShowDueCommandParser.java
+###### /java/seedu/flashy/logic/parser/ShowDueCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new ShowDueCommand object
@@ -390,7 +198,199 @@ public class ShowDueCommandParser implements Parser<ShowDueCommand> {
     }
 }
 ```
-###### /java/seedu/address/model/card/Schedule.java
+###### /java/seedu/flashy/logic/parser/ScheduleCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new ScheduleCommand object
+ */
+public class ScheduleCommandParser implements Parser<ScheduleCommand> {
+    public static final String MESSAGE_NOT_MORE_THAN_ONE = "Only one of each d/ m/ y/ argument allowed.\n";
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the ScheduleCommand
+     * and returns an ScheduleCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public ScheduleCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+            ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR);
+
+        if (!argMultimap.getPreamble().isEmpty()
+            && !anyPrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+        } else if (moreThanOnePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)) {
+            throw new ParseException(MESSAGE_NOT_MORE_THAN_ONE
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+        }
+
+        String dayString = ParserUtil.trimDateArgs(argMultimap.getValue(PREFIX_DAY));
+        String monthString = ParserUtil.trimDateArgs(argMultimap.getValue(PREFIX_MONTH));
+        String yearString = ParserUtil.trimDateArgs(argMultimap.getValue(PREFIX_YEAR));
+
+        try {
+            LocalDateTime date = ParserUtil.parseDate(dayString, monthString, yearString);
+            return new ScheduleCommand(date);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
+        }
+    }
+
+    /**
+     * Returns true if any of the prefix is present.
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if more than one of the same prefix is present.
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean moreThanOnePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
+    }
+}
+```
+###### /java/seedu/flashy/logic/commands/ShowDueCommand.java
+``` java
+/**
+ * Lists all cards in the card book.
+ */
+public class ShowDueCommand extends Command {
+    public static final String COMMAND_WORD = "showdue";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all cards due on a date.\n"
+        + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
+        + PREFIX_DAY + "30 "
+        + PREFIX_MONTH + "2 "
+        + PREFIX_YEAR + "2018";
+
+    public static final String MESSAGE_SUCCESS = "Listed all cards due before, %s.\n%s";
+    public static final String MESSAGE_COMPLETED = "But you have no cards due. Hurray!";
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
+    private final LocalDateTime date;
+
+    public ShowDueCommand(LocalDateTime date) {
+        requireNonNull(date);
+        this.date = date;
+    }
+
+    @Override
+    public CommandResult execute() {
+        requireNonNull(this.date);
+        model.showDueCards(this.date);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, date.toLocalDate().toString(), correctButEmpty()));
+    }
+
+    /**
+     * The commands work properly, but need to notify user that there are no cards to study for that date.
+     * @return
+     */
+    public String correctButEmpty() {
+        if (model.getFilteredCardList().isEmpty()) {
+            return MESSAGE_COMPLETED;
+        } else {
+            return "";
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ShowDueCommand // instanceof handles nulls
+            && date.equals(((ShowDueCommand) other).date));
+    }
+}
+```
+###### /java/seedu/flashy/logic/commands/AnswerCommand.java
+``` java
+/**
+ * Answers a selected flashcard
+ */
+public class AnswerCommand extends UndoableCommand {
+
+    public static final String COMMAND_WORD = "answer";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Answer a selected flashcard. "
+            + "Parameters: "
+            + PREFIX_CONFIDENCE + "CONFIDENCE LEVEL";
+
+    public static final String MESSAGE_SUCCESS = "Your card has been scheduled.";
+    public static final String MESSAGE_CARD_NOT_SELECTED = "Cannot answer to no card, please select a card first.";
+
+    private final int confidenceLevel;
+
+    /**
+     * Creates an AnswerCommand to answer the selected {@code Card}
+     */
+    public AnswerCommand(int confidenceLevel) {
+        this.confidenceLevel = confidenceLevel;
+    }
+
+    @Override
+    public CommandResult executeUndoableCommand() throws CommandException {
+        requireNonNull(model);
+        try {
+            model.answerSelectedCard(confidenceLevel);
+            return new CommandResult(MESSAGE_SUCCESS);
+        } catch (NoCardSelectedException e) {
+            throw new CommandException(MESSAGE_CARD_NOT_SELECTED);
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AnswerCommand // instanceof handles nulls
+                && confidenceLevel == (((AnswerCommand) other).confidenceLevel));
+    }
+}
+```
+###### /java/seedu/flashy/logic/commands/ScheduleCommand.java
+``` java
+/**
+ * Schedule the selected flashcard
+ */
+public class ScheduleCommand extends UndoableCommand {
+    public static final String COMMAND_WORD = "schedule";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedule card to be reviewed on the specified date.\n"
+            + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
+            + PREFIX_DAY + "30 "
+            + PREFIX_MONTH + "2 "
+            + PREFIX_YEAR + "2018";
+    public static final String MESSAGE_SUCCESS = "Card scheduled for review on %s";
+    public static final String MESSAGE_CARD_NOT_SELECTED = "Cannot answer to no card, please select a card first.";
+
+    private final LocalDateTime date;
+
+    /**
+     * Creates an ScheduleCommand to schedule the selected {@code Card}
+     */
+    public ScheduleCommand(LocalDateTime date) {
+        this.date = date;
+    }
+
+    @Override
+    public CommandResult executeUndoableCommand() throws CommandException {
+        requireNonNull(model);
+        try {
+            model.setNextReview(this.date);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, this.date.toLocalDate().toString()));
+        } catch (NoCardSelectedException e) {
+            throw new CommandException(MESSAGE_CARD_NOT_SELECTED);
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleCommand // instanceof handles nulls
+                && date.equals(((ScheduleCommand) other).date));
+    }
+}
+```
+###### /java/seedu/flashy/model/card/Schedule.java
 ``` java
 
 /**
@@ -610,7 +610,74 @@ public class Schedule implements Comparable<Schedule> {
     }
 }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### /java/seedu/flashy/model/ModelManager.java
+``` java
+    @Override
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    @Override
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+    }
+
+    @Override
+    public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
+        if (selectedCard == null) {
+            logger.warning("no card selected, unable to apply to null.");
+            throw new NoCardSelectedException();
+        }
+        boolean isTooEasy = selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
+        logger.fine("sending answer feedback to scheduler, confidenceLevel: " + confidenceLevel);
+        if (isTooEasy) {
+            filteredCards.remove(selectedCard);
+            emptyAndUnselectCard();
+        } else {
+            showDueCards(beforeThisDate);
+        }
+    }
+```
+###### /java/seedu/flashy/model/ModelManager.java
+``` java
+    @Override
+    public void setNextReview(LocalDateTime date) throws NoCardSelectedException {
+        if (selectedCard == null) {
+            logger.warning("no card selected, unable to apply to null.");
+            throw new NoCardSelectedException();
+        }
+        selectedCard.getSchedule().setNextReview(date);
+        logger.fine("Setting next review date of card to: " + date.toString());
+        showDueCards(beforeThisDate);
+    }
+
+    @Override
+    public void showDueCards(LocalDateTime date) {
+        if (date == null) {
+            beforeThisDate = LocalDate.now().atStartOfDay();
+        } else {
+            beforeThisDate = date;
+        }
+        filteredCards.setAll(this.cardBank.getReviewList(beforeThisDate, filteredCards));
+        logger.fine("Showing cards due before: " + beforeThisDate.toString());
+        emptyAndUnselectCard();
+    }
+
+    @Override
+    public void emptyAndUnselectCard() {
+        logger.fine("Clearing back of card.");
+        EventsCenter.getInstance().post(new EmptyCardBackEvent());
+        this.selectedCard = null;
+    }
+```
+###### /java/seedu/flashy/model/ModelManager.java
+``` java
+    @Subscribe
+    private void handleCardListPanelSelectionEvent(CardListPanelSelectionChangedEvent event) {
+        this.selectedCard = event.getNewSelection().card;
+    }
+```
+###### /java/seedu/flashy/model/CardBank.java
 ``` java
     /**
      * get cards due for review before {@code date}
@@ -643,72 +710,5 @@ public class Schedule implements Comparable<Schedule> {
         }
 
         return filteredList;
-    }
-```
-###### /java/seedu/address/model/ModelManager.java
-``` java
-    @Override
-    public Card getSelectedCard() {
-        return selectedCard;
-    }
-
-    @Override
-    public void setSelectedCard(Card selectedCard) {
-        this.selectedCard = selectedCard;
-    }
-
-    @Override
-    public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
-        if (selectedCard == null) {
-            logger.warning("no card selected, unable to apply to null.");
-            throw new NoCardSelectedException();
-        }
-        boolean isTooEasy = selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
-        logger.fine("sending answer feedback to scheduler, confidenceLevel: " + confidenceLevel);
-        if (isTooEasy) {
-            filteredCards.remove(selectedCard);
-            emptyAndUnselectCard();
-        } else {
-            showDueCards(beforeThisDate);
-        }
-    }
-```
-###### /java/seedu/address/model/ModelManager.java
-``` java
-    @Override
-    public void setNextReview(LocalDateTime date) throws NoCardSelectedException {
-        if (selectedCard == null) {
-            logger.warning("no card selected, unable to apply to null.");
-            throw new NoCardSelectedException();
-        }
-        selectedCard.getSchedule().setNextReview(date);
-        logger.fine("Setting next review date of card to: " + date.toString());
-        showDueCards(beforeThisDate);
-    }
-
-    @Override
-    public void showDueCards(LocalDateTime date) {
-        if (date == null) {
-            beforeThisDate = LocalDate.now().atStartOfDay();
-        } else {
-            beforeThisDate = date;
-        }
-        filteredCards.setAll(this.addressBook.getReviewList(beforeThisDate, filteredCards));
-        logger.fine("Showing cards due before: " + beforeThisDate.toString());
-        emptyAndUnselectCard();
-    }
-
-    @Override
-    public void emptyAndUnselectCard() {
-        logger.fine("Clearing back of card.");
-        EventsCenter.getInstance().post(new EmptyCardBackEvent());
-        this.selectedCard = null;
-    }
-```
-###### /java/seedu/address/model/ModelManager.java
-``` java
-    @Subscribe
-    private void handleCardListPanelSelectionEvent(CardListPanelSelectionChangedEvent event) {
-        this.selectedCard = event.getNewSelection().card;
     }
 ```

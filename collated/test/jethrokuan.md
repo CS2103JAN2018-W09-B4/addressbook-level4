@@ -1,122 +1,167 @@
 # jethrokuan
-###### /java/seedu/address/logic/commands/EditCardCommandTest.java
+###### /java/systemtests/AddCardCommandSystemTest.java
 ``` java
-    @Test
-    public void execute_someTagsAdded_success() throws Exception {
-        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
-        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
-        expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)));
-
-        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withTagsToAdd(new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)))
-                .build();
-
-        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
-        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
+public class AddCardCommandSystemTest extends CardBankSystemTest {
 
     @Test
-    public void execute_someTagsRemoved_success() throws Exception {
-        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
-        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
-        Tag tag = model.getTags(lastCard).get(0);
+    public void add() throws Exception {
+        Model model = getModel();
 
-        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withTagsToRemove(new HashSet<>(Arrays.asList(tag)))
-                .build();
+        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
-        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+        /* Case: add a tag to a non-empty flashy book, command with leading spaces and trailing spaces
+         * -> added
+         */
+        Card toAdd = CS2103T_CARD;
+        String command = "   " + AddCardCommand.COMMAND_WORD + "  " + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD;
+        assertCommandSuccess(command, toAdd);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.removeTags(lastCard, new HashSet<>(Arrays.asList(tag)));
+        /* Case: undo adding CS2103T card to the list -> CS2103T card deleted */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedResultMessage);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        /* Case: redo adding CS2103T card to the list -> CS2103T card added again */
+        command = RedoCommand.COMMAND_WORD;
+        model.addCard(toAdd);
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* Case: add a Card with all fields same as another card in the card bank -> rejected */
+        command = AddCardCommand.COMMAND_WORD + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD;
+        assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
+
+        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
+
+        /* Case: filters the card list before adding -> added */
+        showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
+        assertCommandSuccess(ENGLISH_CARD);
+
+        /* ------------------------ Perform add operation while a tag card is selected --------------------------- */
+
+        /* Case: selects first card in the card list, add a card-> added, card selection remains unchanged */
+        selectTag(Index.fromOneBased(1));
+        assertCommandSuccess(CS2101_CARD);
+
+        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
+
+        /* Case: add a duplicate card -> rejected */
+        command = CardUtil.getAddCardCommand(ENGLISH_CARD);
+        assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
+
+        /* Case: missing front -> rejected */
+        command = AddCardCommand.COMMAND_WORD + BACK_DESC_MCQ_CARD;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
+
+        /* Case: missing back -> rejected */
+        command = AddCardCommand.COMMAND_WORD + FRONT_DESC_CS2101_CARD;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
+
+        /* Case: invalid keyword -> rejected */
+        command = "adds " + CardUtil.getCardDetails(toAdd);
+        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
+
+        /* Case: invalid front -> rejected */
+        command = AddCardCommand.COMMAND_WORD + INVALID_FRONT_CARD + BACK_DESC_CS2103T_CARD;
+        assertCommandFailure(command, Card.MESSAGE_CARD_CONSTRAINTS);
+
+        /* Case: invalid back -> rejected */
+        command = AddCardCommand.COMMAND_WORD + FRONT_DESC_CS2103T_CARD + INVALID_BACK_CARD;
+        assertCommandFailure(command, Card.MESSAGE_CARD_CONSTRAINTS);
     }
 
-    @Test
-    public void execute_editCardNewTagCreated_success() throws Exception {
-        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
-        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
-
-        Tag newTag = new Tag(new Name("Machine Learning"));
-        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withTagsToAdd(new HashSet<>(Arrays.asList(newTag)))
-                .build();
-
-        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
-        EditCardCommand editCardCommand = prepareCommand(indexLastCard, descriptor);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(newTag)));
-
-        assertCommandSuccess(editCardCommand, model, expectedMessage, expectedModel);
+    /**
+     * Executes the {@code AddCardCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * 1. Command box displays an empty string.<br>
+     * 2. Command box has the default style class.<br>
+     * 3. Result display box displays the success message of executing {@code AddCardCommand} with the details of
+     * {@code toAdd}.<br>
+     * 4. {@code Model}, {@code Storage} and {@code TagListPanel} equal to the corresponding components in
+     * the current model added with {@code toAdd}.<br>
+     * 5. Browser url and selected card remain unchanged.<br>
+     * 6. Status bar's sync status changes.<br>
+     * Verifications 1, 3 and 4 are performed by
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandSuccess(Card toAdd) throws DuplicateCardException {
+        assertCommandSuccess(CardUtil.getAddCardCommand(toAdd), toAdd);
     }
 
-    @Test
-    public void execute_removeCardNoTag_failure() throws Exception {
-        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(Card)}. Executes {@code command}
+     * instead.
+     * @see AddCardCommandSystemTest#assertCommandSuccess(Card)
+     */
+    private void assertCommandSuccess(String command, Card toAdd) throws DuplicateCardException {
+        Model expectedModel = getModel();
+        expectedModel.addCard(toAdd);
 
-        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withTagsToRemove(new HashSet<>(Arrays.asList(ENGLISH_TAG)))
-                .build();
+        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd.getType(), toAdd);
 
-        String expectedMessage = String.format(MESSAGE_TAG_NOT_FOUND, ENGLISH_TAG.getName());
-        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
-
-        assertCommandFailure(editCommand, model, expectedMessage);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
 
-    @Test
-    public void execute_removeCardNoEdge_failure() throws Exception {
-        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
-
-        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
-                .withTagsToRemove(new HashSet<>(Arrays.asList(MATHEMATICS_TAG)))
-                .build();
-
-        String expectedMessage = String.format(MESSAGE_CARD_NO_TAG, MATHEMATICS_TAG.getName());
-        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
-
-        assertCommandFailure(editCommand, model, expectedMessage);
-    }
-```
-###### /java/seedu/address/logic/commands/ListCommandTest.java
-``` java
-public class ListCommandTest {
-    private Model model;
-    private Model expectedModel;
-    private ListCommand listCommand;
-
-    @Before
-    public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-
-        listCommand = new ListCommand(false);
-        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(String, Tag)} except asserts that
+     * the,<br>
+     * 1. Result display box displays {@code expectedResultMessage}.<br>
+     * 2. {@code Model}, {@code Storage} and {@code cardListPanel} equal to the corresponding components in
+     * {@code expectedModel}.<br>
+     * @see AddCardCommandSystemTest#assertCommandSuccess(String, Card)
+     */
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchangedExceptSyncStatus();
     }
 
-    @Test
-    public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
-    }
+    /**
+     * Executes {@code command} and asserts that the,<br>
+     * 1. Command box displays {@code command}.<br>
+     * 2. Command box has the error style class.<br>
+     * 3. Result display box displays {@code expectedResultMessage}.<br>
+     * 4. {@code Model}, {@code Storage} and {@code TagListPanel} remain unchanged.<br>
+     * 5. Browser url, selected card and status bar remain unchanged.<br>
+     * Verifications 1, 3 and 4 are performed by
+     * {@code CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see CardBankSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = getModel();
 
-    @Test
-    public void execute_listIsFiltered_showsEverything() {
-        showTagAtIndex(model, INDEX_FIRST_TAG); // filter tags
-        EventsCenter.getInstance().post(new JumpToTagRequestEvent(INDEX_FIRST_TAG)); //filter cards
-        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertCommandBoxShowsErrorStyle();
+        assertStatusBarUnchanged();
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddCardCommandParserTest.java
+###### /java/seedu/flashy/logic/parser/ListCommandParserTest.java
+``` java
+public class ListCommandParserTest {
+    private ListCommandParser parser = new ListCommandParser();
+
+    @Test
+    public void parse_validValues_success() {
+        assertParseSuccess(parser, "", new ListCommand(false));
+        assertParseSuccess(parser, "  ", new ListCommand(false));
+        assertParseSuccess(parser, ListCommandParser.PREFIX_NO_TAGS_ONLY,
+                new ListCommand(true));
+        assertParseSuccess(parser, "  " + ListCommandParser.PREFIX_NO_TAGS_ONLY + "  ",
+                new ListCommand(true));
+    }
+
+    @Test
+    public void parse_invalidValues_failure() {
+        String expectedMessage = ListCommandParser.MESSAGE_PARSE_FAILURE;
+        assertParseFailure(parser, "-c", expectedMessage);
+        assertParseFailure(parser, "hello", expectedMessage);
+    }
+}
+```
+###### /java/seedu/flashy/logic/parser/AddCardCommandParserTest.java
 ``` java
     @Test
     public void parse_allFieldsPresent_success() {
@@ -141,7 +186,7 @@ public class ListCommandTest {
                 new AddCardCommand(expectedCard, Optional.of(expectedTags)));
     }
 ```
-###### /java/seedu/address/logic/parser/AddCardCommandParserTest.java
+###### /java/seedu/flashy/logic/parser/AddCardCommandParserTest.java
 ``` java
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -164,7 +209,7 @@ public class ListCommandTest {
                 expectedMessage);
     }
 ```
-###### /java/seedu/address/logic/parser/AddCardCommandParserTest.java
+###### /java/seedu/flashy/logic/parser/AddCardCommandParserTest.java
 ``` java
     @Test
     public void parse_invalidValue_failure() {
@@ -179,7 +224,7 @@ public class ListCommandTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
     }
 ```
-###### /java/seedu/address/logic/parser/EditCardCommandParserTest.java
+###### /java/seedu/flashy/logic/parser/EditCardCommandParserTest.java
 ``` java
     @Test
     public void parser_allFieldsPresent_success() {
@@ -290,128 +335,124 @@ public class ListCommandTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 ```
-###### /java/seedu/address/logic/parser/ListCommandParserTest.java
+###### /java/seedu/flashy/logic/commands/ListCommandTest.java
 ``` java
-public class ListCommandParserTest {
-    private ListCommandParser parser = new ListCommandParser();
-
-    @Test
-    public void parse_validValues_success() {
-        assertParseSuccess(parser, "", new ListCommand(false));
-        assertParseSuccess(parser, "  ", new ListCommand(false));
-        assertParseSuccess(parser, ListCommandParser.PREFIX_NO_TAGS_ONLY,
-                new ListCommand(true));
-        assertParseSuccess(parser, "  " + ListCommandParser.PREFIX_NO_TAGS_ONLY + "  ",
-                new ListCommand(true));
-    }
-
-    @Test
-    public void parse_invalidValues_failure() {
-        String expectedMessage = ListCommandParser.MESSAGE_PARSE_FAILURE;
-        assertParseFailure(parser, "-c", expectedMessage);
-        assertParseFailure(parser, "hello", expectedMessage);
-    }
-}
-```
-###### /java/seedu/address/model/cardtag/CardTagTest.java
-``` java
-public class CardTagTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    private AddressBook addressBook = TypicalAddressBook.getTypicalAddressBook();
-
-    private CardTag cardTag;
+public class ListCommandTest {
+    private Model model;
+    private Model expectedModel;
+    private ListCommand listCommand;
 
     @Before
-    public void setUp() throws Exception {
-        cardTag = new CardTag();
+    public void setUp() {
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
 
-        cardTag.addEdge(MATHEMATICS_CARD, PHYSICS_TAG);
-        cardTag.addEdge(COMSCI_CARD, PHYSICS_TAG);
+        expectedModel = new ModelManager(model.getCardBank(), new UserPrefs());
 
-        cardTag.addEdge(CHEMISTRY_CARD, BIOLOGY_TAG);
-        cardTag.addEdge(COMSCI_CARD, BIOLOGY_TAG);
+        listCommand = new ListCommand(false);
+        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
     }
 
     @Test
-    public void addEdge_worksForNewEdges() {
-        assertTrue(cardTag.isConnected(MATHEMATICS_CARD, PHYSICS_TAG));
-        assertTrue(cardTag.isConnected(CHEMISTRY_CARD, BIOLOGY_TAG));
+    public void execute_listIsNotFiltered_showsSameList() {
+        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void addEdge_whereEdgeExistsThrowsDuplicateEdgeException() throws DuplicateEdgeException {
-        thrown.expect(DuplicateEdgeException.class);
-        cardTag.addEdge(COMSCI_CARD, PHYSICS_TAG);
-    }
-
-    @Test
-    public void getCards_withEdges() {
-        assertEquals(cardTag.getCards(PHYSICS_TAG, addressBook.getCardList()), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
-                .collect(Collectors.toList()));
-        assertEquals(cardTag.getCards(BIOLOGY_TAG, addressBook.getCardList()), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
-                .collect(Collectors.toList()));
-    }
-
-    @Test
-    public void getCards_withoutEdges() {
-        assertEquals(cardTag.getCards(MATHEMATICS_TAG, addressBook.getCardList()),
-                Stream.of().collect(Collectors.toList()));
-    }
-
-    @Test
-    public void getTags_withEdges() {
-        assertEquals(cardTag.getTags(MATHEMATICS_CARD, addressBook.getTagList()),
-                Stream.of(PHYSICS_TAG).collect(Collectors.toList()));
-        assertEquals(cardTag.getTags(COMSCI_CARD, addressBook.getTagList()), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
-                .collect(Collectors.toList()));
-    }
-
-    @Test
-    public void getTags_withoutEdges() {
-        assertEquals(cardTag.getTags(GEOGRAPHY_CARD, addressBook.getTagList()),
-                Stream.of().collect(Collectors.toList()));
-    }
-
-    @Test
-    public void isConnected_works() {
-        assertEquals(cardTag.isConnected(MATHEMATICS_CARD, BIOLOGY_TAG), false);
-        assertEquals(cardTag.isConnected(COMSCI_CARD, BIOLOGY_TAG), true);
-    }
-
-    @Test
-    public void removeEdge_works() throws EdgeNotFoundException {
-        cardTag.removeEdge(COMSCI_CARD, BIOLOGY_TAG);
-        assertTrue(!cardTag.getTags(COMSCI_CARD, addressBook.getTagList()).contains(BIOLOGY_TAG));
-        assertTrue(!cardTag.getCards(BIOLOGY_TAG, addressBook.getCardList()).contains(COMSCI_CARD));
-    }
-
-    @Test
-    public void removeEdge_noTagsLeft_removedFromCardMap() throws EdgeNotFoundException {
-        cardTag.removeEdge(MATHEMATICS_CARD, PHYSICS_TAG);
-        assertEquals(cardTag.getCardMap().size(), 2);
-    }
-
-    @Test
-    public void removeEdge_noCardsLeft_removedFromTagMap() throws EdgeNotFoundException {
-        // Case: Biology Tag still has 1 card associated -> still in Tag Map
-        cardTag.removeEdge(CHEMISTRY_CARD, BIOLOGY_TAG);
-        assertEquals(cardTag.getTagMap().size(), 2);
-
-        // Case: Biology Tag has no more cards associated -> removed from Tag Map
-        cardTag.removeEdge(COMSCI_CARD, BIOLOGY_TAG);
-        assertEquals(cardTag.getTagMap().size(), 1);
-    }
-
-    @Test
-    public void removeEdge_onNonExistingEdgeThrowsEdgeNotFoundException() throws EdgeNotFoundException {
-        thrown.expect(EdgeNotFoundException.class);
-        cardTag.removeEdge(MATHEMATICS_CARD, BIOLOGY_TAG);
+    public void execute_listIsFiltered_showsEverything() {
+        showTagAtIndex(model, INDEX_FIRST_TAG); // filter tags
+        EventsCenter.getInstance().post(new JumpToTagRequestEvent(INDEX_FIRST_TAG)); //filter cards
+        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
 ```
-###### /java/seedu/address/storage/XmlAdaptedCardTagTest.java
+###### /java/seedu/flashy/logic/commands/EditCardCommandTest.java
+``` java
+    @Test
+    public void execute_someTagsAdded_success() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
+
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
+
+        expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)));
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToAdd(new HashSet<>(Arrays.asList(MATHEMATICS_TAG, COMSCI_TAG)))
+                .build();
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_someTagsRemoved_success() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
+        Tag tag = model.getTags(lastCard).get(0);
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToRemove(new HashSet<>(Arrays.asList(tag)))
+                .build();
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
+        expectedModel.removeTags(lastCard, new HashSet<>(Arrays.asList(tag)));
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editCardNewTagCreated_success() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+        Card lastCard = model.getFilteredCardList().get(indexLastCard.getZeroBased());
+
+        Tag newTag = new Tag(new Name("Machine Learning"));
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToAdd(new HashSet<>(Arrays.asList(newTag)))
+                .build();
+
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, lastCard);
+        EditCardCommand editCardCommand = prepareCommand(indexLastCard, descriptor);
+
+        Model expectedModel = new ModelManager(new CardBank(model.getCardBank()), new UserPrefs());
+        expectedModel.addTags(lastCard, new HashSet<>(Arrays.asList(newTag)));
+
+        assertCommandSuccess(editCardCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_removeCardNoTag_failure() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToRemove(new HashSet<>(Arrays.asList(ENGLISH_TAG)))
+                .build();
+
+        String expectedMessage = String.format(MESSAGE_TAG_NOT_FOUND, ENGLISH_TAG.getName());
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        assertCommandFailure(editCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_removeCardNoEdge_failure() throws Exception {
+        Index indexLastCard = Index.fromOneBased(model.getFilteredCardList().size());
+
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+                .withTagsToRemove(new HashSet<>(Arrays.asList(MATHEMATICS_TAG)))
+                .build();
+
+        String expectedMessage = String.format(MESSAGE_CARD_NO_TAG, MATHEMATICS_TAG.getName());
+        EditCardCommand editCommand = prepareCommand(indexLastCard, descriptor);
+
+        assertCommandFailure(editCommand, model, expectedMessage);
+    }
+```
+###### /java/seedu/flashy/storage/XmlAdaptedCardTagTest.java
 ``` java
 public class XmlAdaptedCardTagTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlAdaptedCardTagTest/");
@@ -466,7 +507,105 @@ public class XmlAdaptedCardTagTest {
     }
 }
 ```
-###### /java/seedu/address/testutil/EditCardDescriptorBuilder.java
+###### /java/seedu/flashy/model/cardtag/CardTagTest.java
+``` java
+public class CardTagTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private CardBank cardBank = TypicalCardBank.getTypicalCardBank();
+
+    private CardTag cardTag;
+
+    @Before
+    public void setUp() throws Exception {
+        cardTag = new CardTag();
+
+        cardTag.addEdge(MATHEMATICS_CARD, PHYSICS_TAG);
+        cardTag.addEdge(COMSCI_CARD, PHYSICS_TAG);
+
+        cardTag.addEdge(CHEMISTRY_CARD, BIOLOGY_TAG);
+        cardTag.addEdge(COMSCI_CARD, BIOLOGY_TAG);
+    }
+
+    @Test
+    public void addEdge_worksForNewEdges() {
+        assertTrue(cardTag.isConnected(MATHEMATICS_CARD, PHYSICS_TAG));
+        assertTrue(cardTag.isConnected(CHEMISTRY_CARD, BIOLOGY_TAG));
+    }
+
+    @Test
+    public void addEdge_whereEdgeExistsThrowsDuplicateEdgeException() throws DuplicateEdgeException {
+        thrown.expect(DuplicateEdgeException.class);
+        cardTag.addEdge(COMSCI_CARD, PHYSICS_TAG);
+    }
+
+    @Test
+    public void getCards_withEdges() {
+        assertEquals(cardTag.getCards(PHYSICS_TAG, cardBank.getCardList()), Stream.of(MATHEMATICS_CARD, COMSCI_CARD)
+                .collect(Collectors.toList()));
+        assertEquals(cardTag.getCards(BIOLOGY_TAG, cardBank.getCardList()), Stream.of(CHEMISTRY_CARD, COMSCI_CARD)
+                .collect(Collectors.toList()));
+    }
+
+    @Test
+    public void getCards_withoutEdges() {
+        assertEquals(cardTag.getCards(MATHEMATICS_TAG, cardBank.getCardList()),
+                Stream.of().collect(Collectors.toList()));
+    }
+
+    @Test
+    public void getTags_withEdges() {
+        assertEquals(cardTag.getTags(MATHEMATICS_CARD, cardBank.getTagList()),
+                Stream.of(PHYSICS_TAG).collect(Collectors.toList()));
+        assertEquals(cardTag.getTags(COMSCI_CARD, cardBank.getTagList()), Stream.of(PHYSICS_TAG, BIOLOGY_TAG)
+                .collect(Collectors.toList()));
+    }
+
+    @Test
+    public void getTags_withoutEdges() {
+        assertEquals(cardTag.getTags(GEOGRAPHY_CARD, cardBank.getTagList()),
+                Stream.of().collect(Collectors.toList()));
+    }
+
+    @Test
+    public void isConnected_works() {
+        assertEquals(cardTag.isConnected(MATHEMATICS_CARD, BIOLOGY_TAG), false);
+        assertEquals(cardTag.isConnected(COMSCI_CARD, BIOLOGY_TAG), true);
+    }
+
+    @Test
+    public void removeEdge_works() throws EdgeNotFoundException {
+        cardTag.removeEdge(COMSCI_CARD, BIOLOGY_TAG);
+        assertTrue(!cardTag.getTags(COMSCI_CARD, cardBank.getTagList()).contains(BIOLOGY_TAG));
+        assertTrue(!cardTag.getCards(BIOLOGY_TAG, cardBank.getCardList()).contains(COMSCI_CARD));
+    }
+
+    @Test
+    public void removeEdge_noTagsLeft_removedFromCardMap() throws EdgeNotFoundException {
+        cardTag.removeEdge(MATHEMATICS_CARD, PHYSICS_TAG);
+        assertEquals(cardTag.getCardMap().size(), 2);
+    }
+
+    @Test
+    public void removeEdge_noCardsLeft_removedFromTagMap() throws EdgeNotFoundException {
+        // Case: Biology Tag still has 1 card associated -> still in Tag Map
+        cardTag.removeEdge(CHEMISTRY_CARD, BIOLOGY_TAG);
+        assertEquals(cardTag.getTagMap().size(), 2);
+
+        // Case: Biology Tag has no more cards associated -> removed from Tag Map
+        cardTag.removeEdge(COMSCI_CARD, BIOLOGY_TAG);
+        assertEquals(cardTag.getTagMap().size(), 1);
+    }
+
+    @Test
+    public void removeEdge_onNonExistingEdgeThrowsEdgeNotFoundException() throws EdgeNotFoundException {
+        thrown.expect(EdgeNotFoundException.class);
+        cardTag.removeEdge(MATHEMATICS_CARD, BIOLOGY_TAG);
+    }
+}
+```
+###### /java/seedu/flashy/testutil/EditCardDescriptorBuilder.java
 ``` java
     /**
      * Sets the {@code tagsToAdd} of the {@code EditCardDescriptor} that we are building.
@@ -483,143 +622,4 @@ public class XmlAdaptedCardTagTest {
         descriptor.setTagsToRemove(tags);
         return this;
     }
-```
-###### /java/systemtests/AddCardCommandSystemTest.java
-``` java
-public class AddCardCommandSystemTest extends AddressBookSystemTest {
-
-    @Test
-    public void add() throws Exception {
-        Model model = getModel();
-
-        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
-
-        /* Case: add a tag to a non-empty address book, command with leading spaces and trailing spaces
-         * -> added
-         */
-        Card toAdd = CS2103T_CARD;
-        String command = "   " + AddCardCommand.COMMAND_WORD + "  " + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: undo adding CS2103T card to the list -> CS2103T card deleted */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: redo adding CS2103T card to the list -> CS2103T card added again */
-        command = RedoCommand.COMMAND_WORD;
-        model.addCard(toAdd);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: add a Card with all fields same as another card in the card bank -> rejected */
-        command = AddCardCommand.COMMAND_WORD + FRONT_DESC_CS2103T_CARD + BACK_DESC_CS2103T_CARD;
-        assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
-
-        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
-
-        /* Case: filters the card list before adding -> added */
-        showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
-        assertCommandSuccess(ENGLISH_CARD);
-
-        /* ------------------------ Perform add operation while a tag card is selected --------------------------- */
-
-        /* Case: selects first card in the card list, add a card-> added, card selection remains unchanged */
-        selectTag(Index.fromOneBased(1));
-        assertCommandSuccess(CS2101_CARD);
-
-        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
-
-        /* Case: add a duplicate card -> rejected */
-        command = CardUtil.getAddCardCommand(ENGLISH_CARD);
-        assertCommandFailure(command, AddCardCommand.MESSAGE_DUPLICATE_CARD);
-
-        /* Case: missing front -> rejected */
-        command = AddCardCommand.COMMAND_WORD + BACK_DESC_MCQ_CARD;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
-
-        /* Case: missing back -> rejected */
-        command = AddCardCommand.COMMAND_WORD + FRONT_DESC_CS2101_CARD;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
-
-        /* Case: invalid keyword -> rejected */
-        command = "adds " + CardUtil.getCardDetails(toAdd);
-        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
-
-        /* Case: invalid front -> rejected */
-        command = AddCardCommand.COMMAND_WORD + INVALID_FRONT_CARD + BACK_DESC_CS2103T_CARD;
-        assertCommandFailure(command, Card.MESSAGE_CARD_CONSTRAINTS);
-
-        /* Case: invalid back -> rejected */
-        command = AddCardCommand.COMMAND_WORD + FRONT_DESC_CS2103T_CARD + INVALID_BACK_CARD;
-        assertCommandFailure(command, Card.MESSAGE_CARD_CONSTRAINTS);
-    }
-
-    /**
-     * Executes the {@code AddCardCommand} that adds {@code toAdd} to the model and asserts that the,<br>
-     * 1. Command box displays an empty string.<br>
-     * 2. Command box has the default style class.<br>
-     * 3. Result display box displays the success message of executing {@code AddCardCommand} with the details of
-     * {@code toAdd}.<br>
-     * 4. {@code Model}, {@code Storage} and {@code TagListPanel} equal to the corresponding components in
-     * the current model added with {@code toAdd}.<br>
-     * 5. Browser url and selected card remain unchanged.<br>
-     * 6. Status bar's sync status changes.<br>
-     * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandSuccess(Card toAdd) throws DuplicateCardException {
-        assertCommandSuccess(CardUtil.getAddCardCommand(toAdd), toAdd);
-    }
-
-    /**
-     * Performs the same verification as {@code assertCommandSuccess(Card)}. Executes {@code command}
-     * instead.
-     * @see AddCardCommandSystemTest#assertCommandSuccess(Card)
-     */
-    private void assertCommandSuccess(String command, Card toAdd) throws DuplicateCardException {
-        Model expectedModel = getModel();
-        expectedModel.addCard(toAdd);
-
-        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd.getType(), toAdd);
-
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
-    }
-
-    /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Tag)} except asserts that
-     * the,<br>
-     * 1. Result display box displays {@code expectedResultMessage}.<br>
-     * 2. {@code Model}, {@code Storage} and {@code cardListPanel} equal to the corresponding components in
-     * {@code expectedModel}.<br>
-     * @see AddCardCommandSystemTest#assertCommandSuccess(String, Card)
-     */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
-        executeCommand(command);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
-    }
-
-    /**
-     * Executes {@code command} and asserts that the,<br>
-     * 1. Command box displays {@code command}.<br>
-     * 2. Command box has the error style class.<br>
-     * 3. Result display box displays {@code expectedResultMessage}.<br>
-     * 4. {@code Model}, {@code Storage} and {@code TagListPanel} remain unchanged.<br>
-     * 5. Browser url, selected card and status bar remain unchanged.<br>
-     * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
-
-        executeCommand(command);
-        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertCommandBoxShowsErrorStyle();
-        assertStatusBarUnchanged();
-    }
-}
 ```

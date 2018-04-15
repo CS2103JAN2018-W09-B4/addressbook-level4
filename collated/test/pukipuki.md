@@ -1,53 +1,239 @@
 # pukipuki
-###### /java/seedu/address/logic/commands/ShowDueCommandTest.java
+###### /java/seedu/flashy/logic/parser/ShowDueCommandParserTest.java
 ``` java
-public class ShowDueCommandTest {
-    private Model model;
+public class ShowDueCommandParserTest {
     private LocalDateTime todaysDate;
+    private ShowDueCommandParser parser = new ShowDueCommandParser();
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        todaysDate = LocalDate.now().atStartOfDay();
+    }
+
+```
+###### /java/seedu/flashy/logic/parser/ShowDueCommandParserTest.java
+``` java
+    @Test
+    public void parse_allFieldsNotPresentCard_success() {
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ShowDueCommand(todaysDate));
+    }
+
+    @Test
+    public void parse_allFieldsEmptyPermutation_success() {
+        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
+
+        for (String each : powerSetString) {
+            assertParseSuccess(parser, each, new ShowDueCommand(todaysDate));
+        }
+    }
+
+    @Test
+    public void parse_allFieldsValidPermutation_success() {
+        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
+        LocalDateTime[] powerSetDateTime = preparePowerSetDateTime(LIST_VALID_DAY_MONTH_YEAR);
+
+        for (int i = 0; i < powerSetString.length; i++) {
+            assertParseSuccess(parser, powerSetString[i], new ShowDueCommand(powerSetDateTime[i]));
+        }
+    }
+
+    @Test
+    public void parse_invalidFields_failure() {
+        String[] powerSetString = preparePowerSetString(LIST_PREFIX_RUBBISH, true);
+        String expectedMessage = MESSAGE_INVALID_NUMBER;
+        for (String each : powerSetString) {
+            if (each.equals("")) {
+                continue;
+            }
+            assertParseFailure(parser, each, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_february29_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 2, 29);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_29FEBRUARY, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_february30_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 2, 30);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_30FEBRUARY, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_march32_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_32MARCH, expectedMessage);
+    }
+
+    @Test
+    public void parse_april31_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 4, 31);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_31APRIL, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_dayOfMonth32_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_32DAY_OF_MONTH, expectedMessage);
+    }
+
+    @Test
+    public void parse_dayOfMonth0_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_0DAY_OF_MONTH, expectedMessage);
+    }
+
+}
+```
+###### /java/seedu/flashy/logic/parser/ScheduleCommandParserTest.java
+``` java
+public class ScheduleCommandParserTest {
+    private LocalDateTime todaysDate;
+    private ScheduleCommandParser parser = new ScheduleCommandParser();
+
+    @Before
+    public void setUp() {
         todaysDate = LocalDate.now().atStartOfDay();
     }
 
     @Test
-    public void execute_correctMessage_success() {
-        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
-        String expectedMessage = String.format(ShowDueCommand.MESSAGE_SUCCESS,
-            todaysDate.toLocalDate().toString(), "");
-        assertCommandSuccess(showDueCommand, model, expectedMessage, model);
+    public void parse_allFieldsNotPresentCard_success() {
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ScheduleCommand(todaysDate));
     }
 
     @Test
-    public void execute_listsCorrectly_success() {
-        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
-        ObservableList<Card> list = model.getFilteredCardList();
-        showDueCommand.execute();
-        assert(!list.isEmpty());
+    public void parse_allFieldsEmptyPermutation_success() {
+        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
 
-        model.showAllCards();
-        showDueCommand = prepareCommand(todaysDate.minusYears(1L));
-        showDueCommand.execute();
-        assert(list.isEmpty());
-
-        model.showAllCards();
-        showDueCommand = prepareCommand(todaysDate.plusYears(1L));
-        showDueCommand.execute();
-        assert(!list.isEmpty());
+        for (String each : powerSetString) {
+            assertParseSuccess(parser, each, new ScheduleCommand(todaysDate));
+        }
     }
 
-    /**
-     * Returns a {@code ShowDueCommand} with parameters {@code date}.
-     */
-    private ShowDueCommand prepareCommand(LocalDateTime date) {
-        ShowDueCommand showDueCommand = new ShowDueCommand(date);
-        showDueCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        return showDueCommand;
+    @Test
+    public void parse_allFieldsValidPermutation_success() {
+        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
+        LocalDateTime[] powerSetDateTime = preparePowerSetDateTime(LIST_VALID_DAY_MONTH_YEAR);
+
+        for (int i = 0; i < powerSetString.length; i++) {
+            assertParseSuccess(parser, powerSetString[i], new ScheduleCommand(powerSetDateTime[i]));
+        }
+    }
+
+    @Test
+    public void parse_invalidFields_failure() {
+        String[] powerSetString = preparePowerSetString(LIST_PREFIX_RUBBISH, true);
+        String expectedMessage = MESSAGE_INVALID_NUMBER;
+        for (String each : powerSetString) {
+            if (each.equals("")) {
+                continue;
+            }
+            assertParseFailure(parser, each, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_february29_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 2, 29);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_29FEBRUARY, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_february30_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 2, 30);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_30FEBRUARY, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_march32_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_32MARCH, expectedMessage);
+    }
+
+    @Test
+    public void parse_april31_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 4, 31);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_31APRIL, expectedMessage);
+        }
+    }
+
+    @Test
+    public void parse_dayOfMonth32_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_32DAY_OF_MONTH, expectedMessage);
+    }
+
+    @Test
+    public void parse_dayOfMonth0_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_0DAY_OF_MONTH, expectedMessage);
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ScheduleCommandTest.java
+###### /java/seedu/flashy/logic/parser/AnswerCommandParserTest.java
+``` java
+public class AnswerCommandParserTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private AnswerCommandParser parser = new AnswerCommandParser();
+
+    @Test
+    public void parse_nonsenseArguments_throwIllegalArgumentException() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + PREFIX_CONFIDENCE, new AnswerCommand(0));
+    }
+
+    @Test
+    public void parse_outOfRangeMessage_failure() {
+        assertParseFailure(parser, " " + PREFIX_CONFIDENCE
+            + "99", "Confidence Levels should only be 0, 1 or 2");
+    }
+
+    @Test
+    public void parse_confidenceLevel_success() {
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + VALID_CONFIDENCE_LEVEL_0, new AnswerCommand(0));
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + VALID_CONFIDENCE_LEVEL_1, new AnswerCommand(1));
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + VALID_CONFIDENCE_LEVEL_2, new AnswerCommand(2));
+    }
+}
+```
+###### /java/seedu/flashy/logic/commands/ScheduleCommandTest.java
 ``` java
 public class ScheduleCommandTest {
     @Rule
@@ -58,7 +244,7 @@ public class ScheduleCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
         todaysDate = LocalDate.now().atStartOfDay();
     }
 
@@ -124,7 +310,55 @@ public class ScheduleCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/commands/AnswerCommandTest.java
+###### /java/seedu/flashy/logic/commands/ShowDueCommandTest.java
+``` java
+public class ShowDueCommandTest {
+    private Model model;
+    private LocalDateTime todaysDate;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
+        todaysDate = LocalDate.now().atStartOfDay();
+    }
+
+    @Test
+    public void execute_correctMessage_success() {
+        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
+        String expectedMessage = String.format(ShowDueCommand.MESSAGE_SUCCESS,
+            todaysDate.toLocalDate().toString(), "");
+        assertCommandSuccess(showDueCommand, model, expectedMessage, model);
+    }
+
+    @Test
+    public void execute_listsCorrectly_success() {
+        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
+        ObservableList<Card> list = model.getFilteredCardList();
+        showDueCommand.execute();
+        assert(!list.isEmpty());
+
+        model.showAllCards();
+        showDueCommand = prepareCommand(todaysDate.minusYears(1L));
+        showDueCommand.execute();
+        assert(list.isEmpty());
+
+        model.showAllCards();
+        showDueCommand = prepareCommand(todaysDate.plusYears(1L));
+        showDueCommand.execute();
+        assert(!list.isEmpty());
+    }
+
+    /**
+     * Returns a {@code ShowDueCommand} with parameters {@code date}.
+     */
+    private ShowDueCommand prepareCommand(LocalDateTime date) {
+        ShowDueCommand showDueCommand = new ShowDueCommand(date);
+        showDueCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        return showDueCommand;
+    }
+}
+```
+###### /java/seedu/flashy/logic/commands/AnswerCommandTest.java
 ``` java
 
 /**
@@ -140,7 +374,7 @@ public class AnswerCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalCardBank(), new UserPrefs());
         todaysDate = LocalDate.now().atStartOfDay();
         answerCommand = new AnswerCommand(0);
         answerCommand.setData(model, new CommandHistory(), new UndoRedoStack());
@@ -248,241 +482,7 @@ public class AnswerCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AnswerCommandParserTest.java
-``` java
-public class AnswerCommandParserTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    private AnswerCommandParser parser = new AnswerCommandParser();
-
-    @Test
-    public void parse_nonsenseArguments_throwIllegalArgumentException() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + PREFIX_CONFIDENCE, new AnswerCommand(0));
-    }
-
-    @Test
-    public void parse_outOfRangeMessage_failure() {
-        assertParseFailure(parser, " " + PREFIX_CONFIDENCE
-            + "99", "Confidence Levels should only be 0, 1 or 2");
-    }
-
-    @Test
-    public void parse_confidenceLevel_success() {
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + VALID_CONFIDENCE_LEVEL_0, new AnswerCommand(0));
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + VALID_CONFIDENCE_LEVEL_1, new AnswerCommand(1));
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + VALID_CONFIDENCE_LEVEL_2, new AnswerCommand(2));
-    }
-}
-```
-###### /java/seedu/address/logic/parser/ScheduleCommandParserTest.java
-``` java
-public class ScheduleCommandParserTest {
-    private LocalDateTime todaysDate;
-    private ScheduleCommandParser parser = new ScheduleCommandParser();
-
-    @Before
-    public void setUp() {
-        todaysDate = LocalDate.now().atStartOfDay();
-    }
-
-    @Test
-    public void parse_allFieldsNotPresentCard_success() {
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ScheduleCommand(todaysDate));
-    }
-
-    @Test
-    public void parse_allFieldsEmptyPermutation_success() {
-        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
-
-        for (String each : powerSetString) {
-            assertParseSuccess(parser, each, new ScheduleCommand(todaysDate));
-        }
-    }
-
-    @Test
-    public void parse_allFieldsValidPermutation_success() {
-        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
-        LocalDateTime[] powerSetDateTime = preparePowerSetDateTime(LIST_VALID_DAY_MONTH_YEAR);
-
-        for (int i = 0; i < powerSetString.length; i++) {
-            assertParseSuccess(parser, powerSetString[i], new ScheduleCommand(powerSetDateTime[i]));
-        }
-    }
-
-    @Test
-    public void parse_invalidFields_failure() {
-        String[] powerSetString = preparePowerSetString(LIST_PREFIX_RUBBISH, true);
-        String expectedMessage = MESSAGE_INVALID_NUMBER;
-        for (String each : powerSetString) {
-            if (each.equals("")) {
-                continue;
-            }
-            assertParseFailure(parser, each, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_february29_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 2, 29);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_29FEBRUARY, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_february30_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 2, 30);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_30FEBRUARY, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_march32_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_32MARCH, expectedMessage);
-    }
-
-    @Test
-    public void parse_april31_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 4, 31);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_31APRIL, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_dayOfMonth32_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_32DAY_OF_MONTH, expectedMessage);
-    }
-
-    @Test
-    public void parse_dayOfMonth0_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_0DAY_OF_MONTH, expectedMessage);
-    }
-}
-```
-###### /java/seedu/address/logic/parser/ShowDueCommandParserTest.java
-``` java
-public class ShowDueCommandParserTest {
-    private LocalDateTime todaysDate;
-    private ShowDueCommandParser parser = new ShowDueCommandParser();
-
-    @Before
-    public void setUp() {
-        todaysDate = LocalDate.now().atStartOfDay();
-    }
-
-```
-###### /java/seedu/address/logic/parser/ShowDueCommandParserTest.java
-``` java
-    @Test
-    public void parse_allFieldsNotPresentCard_success() {
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ShowDueCommand(todaysDate));
-    }
-
-    @Test
-    public void parse_allFieldsEmptyPermutation_success() {
-        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
-
-        for (String each : powerSetString) {
-            assertParseSuccess(parser, each, new ShowDueCommand(todaysDate));
-        }
-    }
-
-    @Test
-    public void parse_allFieldsValidPermutation_success() {
-        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
-        LocalDateTime[] powerSetDateTime = preparePowerSetDateTime(LIST_VALID_DAY_MONTH_YEAR);
-
-        for (int i = 0; i < powerSetString.length; i++) {
-            assertParseSuccess(parser, powerSetString[i], new ShowDueCommand(powerSetDateTime[i]));
-        }
-    }
-
-    @Test
-    public void parse_invalidFields_failure() {
-        String[] powerSetString = preparePowerSetString(LIST_PREFIX_RUBBISH, true);
-        String expectedMessage = MESSAGE_INVALID_NUMBER;
-        for (String each : powerSetString) {
-            if (each.equals("")) {
-                continue;
-            }
-            assertParseFailure(parser, each, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_february29_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 2, 29);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_29FEBRUARY, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_february30_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 2, 30);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_30FEBRUARY, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_march32_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_32MARCH, expectedMessage);
-    }
-
-    @Test
-    public void parse_april31_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 4, 31);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_31APRIL, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_dayOfMonth32_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_32DAY_OF_MONTH, expectedMessage);
-    }
-
-    @Test
-    public void parse_dayOfMonth0_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_0DAY_OF_MONTH, expectedMessage);
-    }
-
-}
-```
-###### /java/seedu/address/model/card/ScheduleTest.java
+###### /java/seedu/flashy/model/card/ScheduleTest.java
 ``` java
 public class ScheduleTest {
     private static final double delta = 0.000001;
