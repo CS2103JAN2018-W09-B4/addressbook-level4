@@ -544,16 +544,11 @@ Examples:
 * `theme t/dark`
 
 // end::changetheme[]
+
 === Saving the data
 
 All data saved in Flashy's card bank is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 //tag::faq[]
 
