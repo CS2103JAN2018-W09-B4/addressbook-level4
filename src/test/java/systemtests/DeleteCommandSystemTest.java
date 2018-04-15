@@ -1,25 +1,25 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getTag;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TAG;
-import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
+import static seedu.flashy.commons.core.Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX;
+import static seedu.flashy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.flashy.logic.commands.DeleteCommand.MESSAGE_DELETE_TAG_SUCCESS;
+import static seedu.flashy.testutil.TestUtil.getLastIndex;
+import static seedu.flashy.testutil.TestUtil.getMidIndex;
+import static seedu.flashy.testutil.TestUtil.getTag;
+import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_TAG;
+import static seedu.flashy.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
+import seedu.flashy.commons.core.Messages;
+import seedu.flashy.commons.core.index.Index;
+import seedu.flashy.logic.commands.DeleteCommand;
+import seedu.flashy.logic.commands.RedoCommand;
+import seedu.flashy.logic.commands.UndoCommand;
+import seedu.flashy.model.Model;
+import seedu.flashy.model.tag.Tag;
+import seedu.flashy.model.tag.exceptions.TagNotFoundException;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
@@ -59,13 +59,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered tag list, delete index within bounds of address book and tag list -> deleted */
+        /* Case: filtered tag list, delete index within bounds of flashy book and tag list -> deleted */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
         Index index = INDEX_FIRST_TAG;
         assertTrue(index.getZeroBased() < getModel().getFilteredTagList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered tag list, delete index within bounds of address book but out of bounds of tag list
+        /* Case: filtered tag list, delete index within bounds of flashy book but out of bounds of tag list
          * -> rejected
          */
         showTagsWithName(KEYWORD_MATCHING_MIDTERMS);
@@ -113,7 +113,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Tag} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Tag} at the specified {@code index} in {@code model}'s flashy book.
      * @return the removed tag
      */
     private Tag removeTag(Model model, Index index) {

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.flashy.model.Model;
+import seedu.flashy.model.tag.Tag;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.

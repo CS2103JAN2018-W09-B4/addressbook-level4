@@ -49,7 +49,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.flashy.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -711,9 +711,9 @@ The `addc` command is used to add all types of flashcards.
 ===== Aspect: Implementation of add command for MCQ and fill blanks type flashcards.
 * *Alternative 1 (current choice)*: Use `addc` for the adding of MCQ and fill blanks type flashcards.
 ** Pros: There would be less commands to keep track of and combining the command reduces repeated codes since there are similarities between adding of normal and other type cards. +
-One example of similarity is shown in the code snippet for `seedu.address.logic.commands.AddCardCommand: executeUndoableCommand()` below.
+One example of similarity is shown in the code snippet for `seedu.flashy.logic.commands.AddCardCommand: executeUndoableCommand()` below.
 ** Cons: The add card command has to be changed which can result in undesired consequences if mistakes were made. Care has to be taken when implementing the add card feature for MCQ and fill blanks flashcards as both have constraints which cannot be violated. +
-Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for `seedu.address.logic.commands.AddCardCommandParser: parse()` +
+Thus the constraints have to be checked before allowing the flashcard is added, as shown in the code snippet for `seedu.flashy.logic.commands.AddCardCommandParser: parse()` +
 [source,java]
 ----
     public CommandResult executeUndoableCommand() throws CommandException {
@@ -784,7 +784,7 @@ A single `XmlAdaptedCard` class is used to convert the attributes of flashcards 
 * **Alternative 1 (current choice):** Implement a single `XmlAdaptedCard` class to convert all types of flashcards into XML format.
 ** Pros: Flashcards would be stored in the order in which they were added.
 ** Cons: `XmlAdaptedCard` has to be tweaked to take in the `options` attribute from the `McqCard` class, and the `toModelType()` method has to check for the constraints of the MCQ and fill blanks flashcard as shown in the code snippets below: +
-From `src.main.java.seedu.address.storage.XmlAdaptedCard`
+From `src.main.java.seedu.flashy.storage.XmlAdaptedCard`
 [source,java]
 ----
     public class XmlAdaptedCard {
@@ -917,14 +917,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.flashy.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.flashy.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.flashy.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.flashy.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing

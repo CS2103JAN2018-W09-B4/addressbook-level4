@@ -1,24 +1,24 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS;
-import static seedu.address.testutil.TestUtil.getCard;
-import static seedu.address.testutil.TestUtil.getCardLastIndex;
-import static seedu.address.testutil.TestUtil.getCardMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.flashy.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
+import static seedu.flashy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.flashy.logic.commands.DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS;
+import static seedu.flashy.testutil.TestUtil.getCard;
+import static seedu.flashy.testutil.TestUtil.getCardLastIndex;
+import static seedu.flashy.testutil.TestUtil.getCardMidIndex;
+import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCardCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.exceptions.CardNotFoundException;
+import seedu.flashy.commons.core.Messages;
+import seedu.flashy.commons.core.index.Index;
+import seedu.flashy.logic.commands.DeleteCardCommand;
+import seedu.flashy.logic.commands.RedoCommand;
+import seedu.flashy.logic.commands.UndoCommand;
+import seedu.flashy.model.Model;
+import seedu.flashy.model.card.Card;
+import seedu.flashy.model.card.exceptions.CardNotFoundException;
 
 //@@author shawnclq
 public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
@@ -59,7 +59,7 @@ public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(middleCardIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
-        /* Case: filtered card list, delete index within bounds of address book and card list -> deleted */
+        /* Case: filtered card list, delete index within bounds of flashy book and card list -> deleted */
         //showCardsWithName(KEYWORD_MATCHING_MIDTERMS);
         Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredCardList().size());
@@ -92,7 +92,7 @@ public class DeleteCardCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Card} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Card} at the specified {@code index} in {@code model}'s flashy book.
      * @return the removed card
      */
     private Card removeCard(Model model, Index index) {

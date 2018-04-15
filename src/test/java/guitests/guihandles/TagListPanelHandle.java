@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.scene.control.ListView;
-import seedu.address.model.tag.Tag;
-import seedu.address.ui.TagCard;
+import seedu.flashy.model.tag.Tag;
+import seedu.flashy.ui.TagCard;
 
 /**
  * Provides a handle for {@code TagListPanel} containing the list of {@code TagCard}.

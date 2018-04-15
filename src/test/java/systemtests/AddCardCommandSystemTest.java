@@ -1,28 +1,28 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CS2103T_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_MCQ_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2103T_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_BACK_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
-import static seedu.address.testutil.TypicalCards.CS2101_CARD;
-import static seedu.address.testutil.TypicalCards.CS2103T_CARD;
-import static seedu.address.testutil.TypicalCards.ENGLISH_CARD;
-import static seedu.address.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
+import static seedu.flashy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.flashy.logic.commands.CommandTestUtil.BACK_DESC_CS2103T_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.BACK_DESC_MCQ_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CS2103T_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.INVALID_BACK_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
+import static seedu.flashy.testutil.TypicalCards.CS2101_CARD;
+import static seedu.flashy.testutil.TypicalCards.CS2103T_CARD;
+import static seedu.flashy.testutil.TypicalCards.ENGLISH_CARD;
+import static seedu.flashy.testutil.TypicalTags.KEYWORD_MATCHING_MIDTERMS;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCardCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.exceptions.DuplicateCardException;
-import seedu.address.testutil.CardUtil;
+import seedu.flashy.commons.core.Messages;
+import seedu.flashy.commons.core.index.Index;
+import seedu.flashy.logic.commands.AddCardCommand;
+import seedu.flashy.logic.commands.RedoCommand;
+import seedu.flashy.logic.commands.UndoCommand;
+import seedu.flashy.model.Model;
+import seedu.flashy.model.card.Card;
+import seedu.flashy.model.card.exceptions.DuplicateCardException;
+import seedu.flashy.testutil.CardUtil;
 
 //@@author jethrokuan
 public class AddCardCommandSystemTest extends AddressBookSystemTest {
@@ -33,7 +33,7 @@ public class AddCardCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a tag to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a tag to a non-empty flashy book, command with leading spaces and trailing spaces
          * -> added
          */
         Card toAdd = CS2103T_CARD;

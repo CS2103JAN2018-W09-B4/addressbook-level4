@@ -3,9 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.flashy.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.flashy.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.flashy.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -23,17 +23,17 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import guitests.guihandles.TagListPanelHandle;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.testutil.TypicalAddressBook;
-import seedu.address.ui.CommandBox;
+import seedu.flashy.TestApp;
+import seedu.flashy.commons.core.EventsCenter;
+import seedu.flashy.commons.core.index.Index;
+import seedu.flashy.logic.commands.ClearCommand;
+import seedu.flashy.logic.commands.FindCommand;
+import seedu.flashy.logic.commands.ListCommand;
+import seedu.flashy.logic.commands.SelectCommand;
+import seedu.flashy.model.AddressBook;
+import seedu.flashy.model.Model;
+import seedu.flashy.testutil.TypicalAddressBook;
+import seedu.flashy.ui.CommandBox;
 
 
 /**
@@ -129,7 +129,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all tags in the address book.
+     * Displays all tags in the flashy book.
      */
     protected void showAllTags() {
         executeCommand(ListCommand.COMMAND_WORD);

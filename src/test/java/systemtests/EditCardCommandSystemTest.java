@@ -2,28 +2,28 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.BACK_DESC_CHEMISTRY_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CHEMISTRY_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.FRONT_DESC_MATHEMATICS_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
-import static seedu.address.testutil.TypicalCards.CHEMISTRY_CARD;
-import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.BACK_DESC_CHEMISTRY_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CHEMISTRY_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_CS2101_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.FRONT_DESC_MATHEMATICS_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.INVALID_FRONT_CARD;
+import static seedu.flashy.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
+import static seedu.flashy.testutil.TypicalCards.CHEMISTRY_CARD;
+import static seedu.flashy.testutil.TypicalCards.MATHEMATICS_CARD;
+import static seedu.flashy.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCardCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.exceptions.CardNotFoundException;
-import seedu.address.model.card.exceptions.DuplicateCardException;
-import seedu.address.testutil.CardBuilder;
+import seedu.flashy.commons.core.Messages;
+import seedu.flashy.commons.core.index.Index;
+import seedu.flashy.logic.commands.EditCardCommand;
+import seedu.flashy.logic.commands.RedoCommand;
+import seedu.flashy.logic.commands.UndoCommand;
+import seedu.flashy.model.Model;
+import seedu.flashy.model.card.Card;
+import seedu.flashy.model.card.exceptions.CardNotFoundException;
+import seedu.flashy.model.card.exceptions.DuplicateCardException;
+import seedu.flashy.testutil.CardBuilder;
 
 //@@author shawnclq
 public class EditCardCommandSystemTest extends AddressBookSystemTest {
