@@ -589,6 +589,10 @@ _{explain how the user can enable/disable data encryption}_
 |`list`
 |`list`
 
+|List all flashcards without tags
+|list -t
+|list -t
+
 |Add flashcard
 |`addc f/FRONT [o/OPTION] ...  b/BACK [t/TAG]`
 |`addc f/What is the best flashcard application? b/Flashy! t/flashy` +
@@ -597,7 +601,7 @@ _{explain how the user can enable/disable data encryption}_
  +
 `addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right`
 
-|Edit normal flashcard
+|Edit Pflashcard
 |`editc [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]`
 |`editc f/When is National Day in Singapore?` +
  +
