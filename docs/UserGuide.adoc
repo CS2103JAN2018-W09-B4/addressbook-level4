@@ -21,61 +21,59 @@ image::logo.png[width="640"]
 
 == Introduction
 //tag::overview[]
-// comment: add a logo for flashy?
-Flashy, lightning fast flashcard management.
+Flashy -- lightning fast flashcard management.
 // comment: better one liners?
 [TIP]
 ====
-What are flashcards? Traditionally, physical flashcards are actual cards that people use to help memorise things.
-The front will have a question prompt and the back will have an answer.
+What are flashcards? Traditional flashcards are physical cards, used to aid in memorization.
+Each card has two sides: the front contains the question prompt, and the back contains the answer prompt.
 ====
-// comment: Other ways to explain flashcard?
-Physical cards are bulky and hard to search for. They are also very difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards. Flashy helps you organise your flashcards using its *tagging* system. By associating flashcards to different tags, Flashy is able to retrieve all flashcards of a given tag in a flash.
 
-Studies have shown that *spaced repetition* is far more effective than regular studying.
-And we know studying is hard, thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.
-// comment: do we want to add Italisization for Flashy?
-// comment: how do we reference special words like spaced repetition?
+Physical flashcards are bulky and hard to search for. They are also difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards.
+Flashy helps you organise your flashcards with a powerful *tagging* system. Flashy is able to retrieve all flashcards of a given tag in a flash.
+
+As students, we understand that planning out studying sessions is hard. Therefore, we have also built into Flashy an intelligent scheduler, so you can focus on studying, instead of planning your study sessions. Our scheduler uses
+*spaced repetition*, which has been shown to be effective for studying.
+
 [NOTE]
-`Spaced Repetition` is the idea that spreading out study sessions is much more effective than cramming it over one night.
+`Spaced Repetition` embodies the idea behind the phrase "don't burn the midnight oil". Spreading out study sessions is
+shown to be more effective than cramming multiple sessions in a single night.
 To learn more, head over to https://en.wikipedia.org/wiki/Spaced_repetition
 
-Although Flashy is best suited for language learners,
-it is able to handle thousands of cards. Therefore, Flashy should prove useful for any student hoping to improve their flashcard organisation.
+Although Flashy was built for the language learner in mind, it should prove useful for any student, as new studying tool in their arsenal.
 
 Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
 
 Interested? Jump to the <<Quick Start>> to get started.
-// comment: add a preface to everything, need to orientate user
 //end::overview[]
 
-== Usage
-This document is made for users with varying level of technical proficiency in mind.
-As such most portions are stand alone with occasional references here and there.
+== How to Use This Guide
+This document is designed for users with varying levels of technical proficiency.
+Most portions of this guide can be read standalone, with occasional references.
 
-To aid in your understanding of our product, we put in various scenario based uses together with instructions.
-So do not be afraid to read the manual!
+To aid in your understanding of our product, we have devised various scenario-based uses,
+along with detailed instructions. So do not be afraid to read the manual!
 
-Here are some common icons and their meaning:
+We use admonition blocks to draw your attention to blocks of information. Here are the icons used and their meanings:
+
 [NOTE]
-Extra information that you might want to know
+Information that is not crucial, but is useful to know.
 
 [TIP]
-Extra information that can be very helpful to you!
+Snippets of information that can be very helpful.
 
 [IMPORTANT]
-Important information.
+Important information that should not be skimmed over.
 
 [CAUTION]
-Things that might potentially cause issues.
+Important information about our product, where potentially issues may occur.
 
 == Quick Start
-We know your time is valuable; We like to do things efficiently too.
-Here are some things you need to get up and running.
+We value our time as much as yours. Here is what you need to get up and running.
 
 === Installation
-.  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
+.  Ensure you have Java version `1.8.0_60` or later installed in your computer.
 +
 [NOTE]
 Having any Java 8 version is not enough. +
@@ -91,67 +89,70 @@ image::Ui.png[width="790"]
 [TIP]
 Typing *`help`* and pressing kbd:[Enter] will open the help window. Refer to <<Features>> for details of each command.
 
-=== Usage
-This is the most common usage scenario for our users. You probably want to know this as well.
+These are some of the more common commands that you'll encounter in Flashy. Feel free to try them out!
 
 . Use `xref:addc[addc] f/Front b/Back t/tag1 t/tag2` to add card.
 .. Put question in `Front` and answer in `Back`.
 .. Tag it with something meaningful like `t/Mathematics`
+// comment: can we change this
 . Use `xref:list[list]` to list all cards
-. Select card with `xref:selectc[selectc] 1` or by clicking on it.
-. Answer card with `xref:answer[answer] c/2`
+. Select a card with `xref:selectc[selectc] 1` or by clicking on it.
+. Answer a card with `xref:answer[answer] c/2`
+
+// comment: want to describe answer and select?
 
 [[Terminology]]
 == Terminology
-In Flashy, there are three different kinds of flashcards: normal, MCQ and fill-in-the-blanks. +
-Normal flashcards are simple question and answer cards with the question being at the front and answer at the back. +
-Fill-in-the-blanks flashcards are similar to normal flashcards, just that the question has blanks to prompt the users, and the back of the card has answers to the blanks. +
-MCQ flashcards allows you to provide different options as the answer, similar to an MCQ question, and the back will have the number for which option is the correct one.
+In Flashy, there are three different kinds of flashcards:
 
-In Flashy, flashcards are organised with tags. Tags are used to filter down the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.
+1. *Normal flashcards*: Normal flashcards are simple question and answer cards with the question being at the front and answer at the back.
+2. *Multiple Choice Question flashcards*: Fill-in-the-blanks flashcards are similar to normal flashcards, just that the question has blanks to prompt the users, and the back of the card has answers to the blanks.
+3. *Fill-in-the-blanks flashcards*: MCQ flashcards allows you to provide different options as the answer, similar to an MCQ question, and the back will display the correct option.
 
-Cards can have multiple tags.
+In Flashy, flashcards are organised with tags. Tags are used to filter the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.
+Cards can also have multiple tags.
 
 (SHOW LABELLED UI PANEL)
 
 [[Features]]
 == Features
-These are some of Flashy's features to help you with your work!
+Here are some of Flashy's features to help you with your work!
 
-=== How to read Command Format
-This section will teach you how to use and interface with our application.
-We write certain things with consistent `formatting` for example.
-We hope to help users pick them out and understand how to use Flashy easily.
+// tag::commandformat[]
+=== Reading the Command Format
+This section will teach you how to write your own commands to interface with our application.
 
-Let us walk you through the notation with our the command, `addc`
+Let us walk you through the notation with the `addc` command:
 
-* Words in `UPPER_CASE` are parameters to be supplied by the user.
+
+```
+addc f/FRONT b/BACK [t/TAG]…
+```
+
+* Words in `UPPER_CASE` are parameters you supply. These are often user-generated content.
 
 [NOTE.example]
 ====
 In `addc f/FRONT`, `FRONT` is a parameter which can be used as `addc f/ What's the best flashcard application? b/Flashy`.
 ====
 
-* Items in square brackets are optional.
+* Items in square brackets are optional. In this example, tags are
 
 [NOTE.example]
 ====
-`f/FRONT b/BACK [t/TAG]` can be used as `f/Am I awesome? b/Yes! t/selfhelp` or as `f/Am I awesome? /Yes!`.
+`f/FRONT b/BACK [t/TAG]…` can be used as `f/Am I awesome? b/Yes! t/selfhelp` or as `f/Am I awesome? /Yes!`.
 ====
 
-* Items with `…` after them can be used multiple times including zero times.
-
-[NOTE.example]
-====
-`[t/TAG]` can be used as `{nbsp}` (i.e. 0 times), `t/biology`, `t/biology t/midterms2018`.
-====
-
-* Parameters can be specified be in any order.
+* Items with `…` after them can be used multiple times including zero times. In this example, multiple tags
+can be added to the card.
 
 [NOTE.example]
 ====
-If the command specifies `f/FRONT, b/BACK`, `b/BACK f/FRONT` is also acceptable.
+`[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/biology`, `t/biology t/midterms2018`.
 ====
+
+* Parameters can be specified in any order. In this example, `addc f/front b/back` and `addc b/back f/front` are
+equivalent.
 
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
 
@@ -187,8 +188,8 @@ Selects the 1st card in the list.
 ==== Adding a flashcard: `addc`
 
 Adds a flashcard to Flashy. The presence of `o/OPTION` parameters will determine whether it is a normal or MCQ-type flashcard. +
-Format: `addc f/FRONT b/BACK t/TAG` or +
-`addc f/FRONT o/OPTION o/OPTION .. b/BACK t/TAG`
+Format: `addc f/FRONT b/BACK [t/TAG]…` or +
+`addc f/FRONT o/OPTION o/OPTION .. b/BACK [t/TAG]…`
 
 [CAUTION]
 Ensure that the parameter for `b/` falls between 1 the number of options inclusive.
@@ -213,7 +214,7 @@ A flashcard can have any number of tags (including 0). +
 ==== Editing a flashcard : `editc`
 
 Edits an existing flashcard currently stored in Flashy. +
-Format: `editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]`
+Format: `editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG]… [-t/TAG]…`
 
 ****
 * Edits the flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
