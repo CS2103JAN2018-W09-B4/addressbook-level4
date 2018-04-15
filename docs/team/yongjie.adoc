@@ -20,10 +20,10 @@ include::../UserGuide.adoc[tag=overview]
 *** Implemented a 3-panel layout to display more information to the user.
 ** What was done for UX:
 *** Added an autocompletion engine to help users enter commands quickly.
-*** Enabled autosaving of theme preferences to maintain a hassle-free experience.
+*** Added the ability to change themes in Flashy to further improve the customisability of the application.
 ** Justification: This major enhancement directly shapes the user's overall experience of the product. An intuitive interface also reduces the learning curve of the features implemented by other team members.
 
-* *Minor enhancement*: Added the ability to change themes in Flashy to further improve the customisability of the application.
+* *Minor enhancement*: Enabled autosaving of theme preferences to maintain a hassle-free experience.
 
 * *Code contributed*: [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/functional/yong-jie.md[Functional Code]] [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/test/yong-jie.md[Test Code]]
 
@@ -47,6 +47,7 @@ include::../UserGuide.adoc[tag=overview]
 include::../UserGuide.adoc[tag=selectcard]
 include::../UserGuide.adoc[tag=qualityoflife]
 include::../UserGuide.adoc[tag=changetheme]
+include::../UserGuide.adoc[tag=faq]
 
 == Contributions to the Developer Guide
 

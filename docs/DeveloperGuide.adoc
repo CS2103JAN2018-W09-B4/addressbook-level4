@@ -1012,7 +1012,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/flashy/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -1054,12 +1054,14 @@ Minor enhancement: Implementing a list card command so that users would be able 
 for reference
 
 === Foo Yong Jie
-Major enhancement: Improving the UI / UX of the application, including implementing separate panels for tags, cards,
-and the display of cards.
-This allows users to use the application efficiently.
+Major enhancement: Improving the UI / UX of the application. This includes:
 
-Minor enhancement: Implementing the feature to switch the theme of the application between light and dark so users
-can change it to suit their preference.
+- Changing to a green colour scheme to signify growth, efficiency, and focus.
+- Implementing a 3-panel layout to display more information to the user.
+- Adding an autocompletion engine to help users enter commands quickly.
+- Adding the ability to change themes in Flashy to further improve the customisability of the application.
+
+Minor enhancement: Implementing the autosaving of theme preferences to maintain a hassle-free experience.
 
 === Wong Ding Feng
 Major enhancement: Implementing a scheduler to prompt users which card they should review daily so that they are able to prioritise what to
