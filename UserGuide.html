@@ -277,7 +277,8 @@ Typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will ope
 </ol>
 </div>
 <div class="paragraph">
-<p>These are some of the more common commands that you&#8217;ll encounter in Flashy. Feel free to try them out!</p>
+<p>These are some of the more common commands that you&#8217;ll encounter in Flashy.
+Feel free to try them out!</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1210,17 +1211,17 @@ There is no need to save manually.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Show Help Screen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show help screen</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List all Flashcards and Tags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all flashcards and tags</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add Flashcard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add flashcard</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/FRONT [o/OPTION] &#8230;&#8203;  b/BACK [t/TAG]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>addc f/What is the best flashcard application? b/Flashy! t/flashy</code><br>
 <br>
@@ -1229,21 +1230,39 @@ There is no need to save manually.</p>
 <code>addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Edit Normal Flashcard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edit normal flashcard</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>editc [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>editc f/When is National Day in Singapore?</code><br>
 <br>
 <code>editc o/Asia o/Australia o/Africa b/3 +t/Trivia</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reveal Answer to Flashcard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show INDEX</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show 1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show flashcards due by a certain date</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">showdue d/DAY m/MONTH y/YEAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">showdue d/14 m/4 y/2018<br>
+<br>
+showdue d/14<br>
+<br>
+showdue</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Schedule Flashcard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>schedule CONFIDENCE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>schedule 0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reveal answer to flashcard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>selectc INDEX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>selectc 1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Answer selected flashcard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answer c/CONFIDENCE_LEVEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answer c/0</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schedule selected flashcard for a certain date</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">schedule d/DAY m/MONTH y/YEAR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">schedule d/14 m/4 y/2018<br>
+<br>
+schedule d/14<br>
+<br>
+schedule</p></td>
 </tr>
 </tbody>
 </table>
@@ -1263,22 +1282,22 @@ There is no need to save manually.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Example</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Select Tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select tag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>select INDEX</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>select 1</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Filter Tags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filter tags</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>find KEYWORD [MORE_KEYWORDS]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>find Biology Chemistry</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Edit Tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edit tag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit INDEX [t/TAG]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit 1 t/German</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Delete Tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delete tag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete INDEX</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete 3</code></p></td>
 </tr>
@@ -1302,17 +1321,17 @@ There is no need to save manually.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Undo a Command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undo a command</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Redo a Command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redo a command</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Clear Contents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear contents</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
 </tr>
@@ -1329,7 +1348,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 09:48:03 UTC
+Last updated 2018-04-15 11:17:23 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
