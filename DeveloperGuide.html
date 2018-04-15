@@ -1275,7 +1275,7 @@ to contain IDs of <code>Tag</code> and <code>Card</code> objects that have been 
 </div>
 <div class="paragraph">
 <p>Similar to <code>UniqueCardList</code> and <code>UniqueTagList</code>, only one instance of <code>CardTag</code> exists in each
-<code>AddressBook</code>.</p>
+<code>CardBank</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1829,7 +1829,7 @@ If there is a change in implementation, developers would have to change code for
 <h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.11.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The current implementation saves the flashcard data in XML format and reads it back when the card bank is loaded.
-A single <code>XmlAdaptedCard</code> class is used to convert the attributes of flashcards into XML Elements and <code>XmlSerializableAddressBook</code> stores a list of <code>XmlAdaptedCard</code>.</p>
+A single <code>XmlAdaptedCard</code> class is used to convert the attributes of flashcards into XML Elements and <code>XmlSerializableCardBank</code> stores a list of <code>XmlAdaptedCard</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1891,13 +1891,13 @@ From <code>src.main.java.seedu.flashy.storage.XmlAdaptedCard</code></p>
 <ul>
 <li>
 <p><strong>Alternative 2:</strong> Implementing a separate <code>XmlAdaptedMcqCard</code> and <code>XmlAdaptedFillBlanksCard</code> to convert MCQ and fill blanks flashcards into XML format respectively.<br>
-Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAdaptedCard</code>. In <code>XmlSerializableAddressBook</code>, there would be a separate list for <code>XmlAdaptedMcqCard</code>, as shown in the code snippet below (which was implemented initially but later removed from source code):</p>
+Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAdaptedCard</code>. In <code>XmlSerializableCardBank</code>, there would be a separate list for <code>XmlAdaptedMcqCard</code>, as shown in the code snippet below (which was implemented initially but later removed from source code):</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    public class XmlSerializableAddressBook {
+<pre>    public class XmlSerializableCardBank {
         // ... Other attributes ...
 
         @XmlElement
@@ -1910,7 +1910,7 @@ Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAd
         /**
          * Conversion
          */
-        public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+        public XmlSerializableCardBank(ReadOnlyCardBank src) {
             // ...
             for (Card card: src.getCardList()) {
                 if (card.getType().equals(McqCard.TYPE)) {
@@ -2851,7 +2851,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 15:24:09 UTC
+Last updated 2018-04-15 15:33:24 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
