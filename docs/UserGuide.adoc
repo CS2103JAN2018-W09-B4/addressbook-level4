@@ -40,7 +40,7 @@ As students, we understand that planning out studying sessions is hard. Therefor
 shown to be more effective than cramming multiple sessions in a single night.
 To learn more, head over to https://en.wikipedia.org/wiki/Spaced_repetition
 
-Although Flashy was built for the language learner in mind, it should prove useful for any student, as as new studying tool in their arsenal.
+Although Flashy was built for the language learner in mind, it should prove useful for any student, as new studying tool in their arsenal.
 
 Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
@@ -151,7 +151,7 @@ can be added to the card.
 `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/biology`, `t/biology t/midterms2018`.
 ====
 
-* Parameters can be specified be in any order. In this example, `addc f/front b/back` and `addc b/back f/front` are
+* Parameters can be specified in any order. In this example, `addc f/front b/back` and `addc b/back f/front` are
 equivalent.
 
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
