@@ -46,14 +46,15 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#support-for-multiple-themes">3.2. Support for multiple themes</a></li>
-<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
-<li><a href="#card-tag-association">3.6. Card-Tag Association</a></li>
-<li><a href="#schedule-feature">3.7. Schedule feature</a></li>
-<li><a href="#polymorphic-flashcards">3.8. Polymorphic flashcards</a></li>
-<li><a href="#adding-and-editing-of-polymorphic-flashcards">3.9. Adding and editing of polymorphic flashcards</a></li>
-<li><a href="#storage-of-flashcards">3.10. Storage of flashcards</a></li>
+<li><a href="#autocompletion">3.3. Autocompletion</a></li>
+<li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#card-tag-association">3.7. Card-Tag Association</a></li>
+<li><a href="#schedule-feature">3.8. Schedule feature</a></li>
+<li><a href="#polymorphic-flashcards">3.9. Polymorphic flashcards</a></li>
+<li><a href="#adding-and-editing-of-polymorphic-flashcards">3.10. Adding and editing of polymorphic flashcards</a></li>
+<li><a href="#storage-of-flashcards">3.11. Storage of flashcards</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -883,6 +884,30 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div class="sect2">
 <h3 id="support-for-multiple-themes"><a class="link" href="#support-for-multiple-themes">3.2. Support for multiple themes</a></h3>
+<div class="paragraph">
+<p>To allow the user to personalize their experience with Flashy, we have decided to add support for multiple themes. The architecture of this functionality has been designed to allow for maximum extensibility. Should you wish to add more themes to Flashy, simply duplicate and modify one of the existing CSS files. After that, modify the list of accepted themes in <code>UiManager.java</code> and the theme will be supported. This is the current list of supported themes:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class UiManager extends ComponentManager implements Ui {
+    public static final String[] VALID_THEMES = {"light", "dark"};
+
+    // ...
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These theme strings map into the following CSS files in <code>ChangeThemeCommand</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class ChangeThemeCommand extends Command {
+    private final String[] themeStrings = {"view/LightTheme.css", "view/DarkTheme.css"};
+
+    // ...
+}</pre>
+</div>
+</div>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
@@ -896,24 +921,26 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect3">
-<h4 id="aspect-the-decision-to-support-multiple-themes"><a class="link" href="#aspect-the-decision-to-support-multiple-themes">3.2.2. Aspect: The decision to support multiple themes</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-supporting-dynamically-switchable-themes"><a class="link" href="#aspect-supporting-dynamically-switchable-themes">Aspect: Supporting dynamically switchable themes</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1</strong>: Do not support multiple themes</p>
+<p><strong>Alternative 1</strong>: Do not support dynamic switching, ship a separate version for each theme.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Consistent user experience with a single theme.</p>
 </li>
 <li>
-<p>Cons: No ability to customize the look and feel of the application.</p>
+<p>Cons: No ability to customize the look and feel of the application on the fly.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong>: Support multiple themes.</p>
+<p><strong>Alternative 2</strong>: Support dynamic switching of themes.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -927,26 +954,133 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>To allow the user to personalize their experience with Flashy, we have decided to add support for multiple themes. The architecture of this functionality has been designed to allow for maximum extensibility. Should you wish to add more themes to Flashy, simply duplicate and modify one of the existing CSS files. After that, modify the list of accepted themes in UiManager.java and the theme will be supported.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
+<h3 id="autocompletion"><a class="link" href="#autocompletion">3.3. Autocompletion</a></h3>
+<div class="paragraph">
+<p>We built Flashy with an autocompletion feature to save the user the trouble of memorising the parameters of all the possible commands supported by the application. At present, autocompletion is invoked by pressing the <code>TAB</code> key after entering a valid command.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>All autocompletion-related computation is done in the <code>Autocompleter</code> class. It abstracts the logic of validating the eligibility of autocompletion and generating the autocompletion text into two publicly-exposed APIs, as shown in this compressed code segment:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>public class Autocompleter {
+    public static String getAutocompleteText(String input) {
+        // ...
+    }
+
+    public static Boolean isValidAutocomplete(String input) {
+       // ...
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The upon pressing <code>TAB</code>, the <code>CommandBox</code> first checks with <code>Autocompleter</code> to see if it is a valid command. If it is valid, it then generates an autocompletion text for <code>CommandBox</code> to be updated with. <a href="#fig:autocompleteActivityDiagram">Figure 12</a> contains a visual representation of the workflow.</p>
+</div>
+<div id="fig:autocompleteActivityDiagram" class="imageblock">
+<div class="content">
+<img src="images/autocompletion_ActivityDiagram.png" alt="autocompletion ActivityDiagram" width="450">
+</div>
+<div class="title">Figure 12. Activity Diagram for the autocompletion workflow</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="supporting-autocompletion-in-future-commands"><a class="link" href="#supporting-autocompletion-in-future-commands">3.3.2. Supporting autocompletion in future commands</a></h4>
+<div class="paragraph">
+<p>Should you develop more commands in the future, you can let your command support autocompletion by following these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Declare <code>COMMAND_WORD</code> and <code>PARAMS</code> in your class.</p>
+<div class="literalblock">
+<div class="content">
+<pre>public class NewCommand extends Command {
+    public static final String COMMAND_WORD = "command word here";
+    public static final String PARAMS = "parameters here";
+    // ...
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Include your command&#8217;s class in <code>Autocompleter</code>.</p>
+<div class="literalblock">
+<div class="content">
+<pre>private static List&lt;Class&lt;? extends Command&gt;&gt; getCommandClasses() {
+    List&lt;Class&lt;? extends Command&gt;&gt; commands = new ArrayList&lt;&gt;();
+
+    // Must be added in increasing specificity so that add is not
+    // overridden by addc, for example.
+    commands.add(NewCommand.class);
+}</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.3. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-storage-of-command-and-parameters"><a class="link" href="#aspect-storage-of-command-and-parameters">Aspect: Storage of command and parameters</a></h5>
+<div class="paragraph">
+<p>The commands and parameters used by <code>Autocompleter</code> need to be stored somewhere accessible at runtime so that it can validate and generate autocompletion text.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: Hardcode commands and parameters in <code>Autocompleter</code> itself.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This is easy to implement. Simply hardcode the command words and parameters within the <code>Autocompleter</code> class.</p>
+</li>
+<li>
+<p>Cons: Doing so requires the class to be updated whenever any command words or parameters change.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (Current choice)</strong>: Dynamically poll each command class for their command words and parameters at runtime.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Once this is implemented, there is no longer any need to modify <code>Autocompleter</code> 's code. Any changes made in the command class code is automatically reflected in <code>Autocompleter</code>.</p>
+</li>
+<li>
+<p>Cons: This is a little more challenging to implement. It accessing class parameters at runtime with strings require the use of advanced Java features such as the reflection libary.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -977,7 +1111,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name,
 logging level) through the configuration file (default:
@@ -985,7 +1119,7 @@ logging level) through the configuration file (default:
 </div>
 </div>
 <div class="sect2">
-<h3 id="card-tag-association"><a class="link" href="#card-tag-association">3.6. Card-Tag Association</a></h3>
+<h3 id="card-tag-association"><a class="link" href="#card-tag-association">3.7. Card-Tag Association</a></h3>
 <div class="paragraph">
 <p>This section describes the implementation details on how we model the
 association between flashcards and tags.</p>
@@ -997,7 +1131,7 @@ the application. Henceforth, we will use the term "edge" to refer to a
 relation between a flashcard and a tag.</p>
 </div>
 <div class="sect3">
-<h4 id="design-requirements"><a class="link" href="#design-requirements">3.6.1. Design Requirements</a></h4>
+<h4 id="design-requirements"><a class="link" href="#design-requirements">3.7.1. Design Requirements</a></h4>
 <div class="paragraph">
 <p>The software requires that:</p>
 </div>
@@ -1017,26 +1151,26 @@ and can be removed.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>This relationship is illustrated in <a href="#CardTagRelation">Figure 12</a>:</p>
+<p>This relationship is illustrated in <a href="#CardTagRelation">Figure 13</a>:</p>
 </div>
 <div id="CardTagRelation" class="imageblock">
 <div class="content">
 <img src="images/Card_Tag_relation.png" alt="Card Tag relation" width="450">
 </div>
-<div class="title">Figure 12. Class diagram describing association between flashcards and tags.</div>
+<div class="title">Figure 13. Class diagram describing association between flashcards and tags.</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.6.2. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.7.2. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Edges are stored in an instance of <code>CardTag</code>. <code>CardTag</code> is an
-association class, containing two `HashMap`s, as illustrated in <a href="#fig:cardTagCD">Figure 13</a>.</p>
+association class, containing two `HashMap`s, as illustrated in <a href="#fig:cardTagCD">Figure 14</a>.</p>
 </div>
 <div id="fig:cardTagCD" class="imageblock">
 <div class="content">
 <img src="images/cardTag_ClassDiagram.png" alt="cardTag ClassDiagram" width="450">
 </div>
-<div class="title">Figure 13. Class Diagram illustrating relation between <code>Card</code>, <code>Tag</code> and <code>CardTag</code></div>
+<div class="title">Figure 14. Class Diagram illustrating relation between <code>Card</code>, <code>Tag</code> and <code>CardTag</code></div>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -1058,7 +1192,7 @@ to contain IDs of <code>Tag</code> and <code>Card</code> objects that have been 
 </div>
 </div>
 <div class="sect3">
-<h4 id="exposed-apis"><a class="link" href="#exposed-apis">3.6.3. Exposed APIs</a></h4>
+<h4 id="exposed-apis"><a class="link" href="#exposed-apis">3.7.3. Exposed APIs</a></h4>
 <div class="paragraph">
 <p>Interaction with the <code>CardTag</code> instance is performed through the
 <code>Model</code>. The model exposes 3 main methods for creating and removing
@@ -1087,7 +1221,7 @@ in the commands (such as <code>AddCardCommand</code> and <code>EditCardCommand</
 are reusable and their implementations can be easily changed.</p>
 </div>
 <div class="paragraph">
-<p>The sequence diagrams for <code>addTags</code> and <code>removeTags</code> are shown in <a href="#fig:addTags">Figure 14</a>
+<p>The sequence diagrams for <code>addTags</code> and <code>removeTags</code> are shown in <a href="#fig:addTags">Figure 15</a>
 and <a href="#fig::removeTags">[fig::removeTags]</a> respectively. In particular, it is important to note that:</p>
 </div>
 <div class="ulist">
@@ -1124,17 +1258,17 @@ and <a href="#fig::removeTags">[fig::removeTags]</a> respectively. In particular
 <div class="content">
 <img src="images/addTags_SQ.png" alt="addTags SQ" width="800">
 </div>
-<div class="title">Figure 14. Sequence Diagram for <code>addTags</code></div>
+<div class="title">Figure 15. Sequence Diagram for <code>addTags</code></div>
 </div>
 <div id="fig:removeTags" class="imageblock">
 <div class="content">
 <img src="images/removeTags_SQ.png" alt="removeTags SQ" width="800">
 </div>
-<div class="title">Figure 15. Sequence Diagram for <code>removeTags</code></div>
+<div class="title">Figure 16. Sequence Diagram for <code>removeTags</code></div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.6.4. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.7.4. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-storage-of-edges"><a class="link" href="#aspect-storage-of-edges">Aspect: Storage of Edges</a></h5>
 <div class="paragraph">
@@ -1240,7 +1374,7 @@ efficient. Hence, the adjacency list is a natural choice.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="schedule-feature"><a class="link" href="#schedule-feature">3.7. Schedule feature</a></h3>
+<h3 id="schedule-feature"><a class="link" href="#schedule-feature">3.8. Schedule feature</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ScheduleLogic.png" alt="ScheduleLogic" width="800">
@@ -1299,9 +1433,9 @@ If the interval is too long, users might forget cards. Thus lowering the <code>e
 </div>
 </div>
 <div class="sect2">
-<h3 id="polymorphic-flashcards"><a class="link" href="#polymorphic-flashcards">3.8. Polymorphic flashcards</a></h3>
+<h3 id="polymorphic-flashcards"><a class="link" href="#polymorphic-flashcards">3.9. Polymorphic flashcards</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.9.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Allowing different types of cards is essential to Flashy. This enables the user to add and edit a normal, MCQ or fill-in-the-blanks flashcard so that the user can learn more efficiently, and use whichever that suits his learning style.<br>
 New classes <code>McqCard</code> and <code>FillBlanks</code> were created to implement this enhancement, and they inherit the Card class, as shown in Figure 11.</p>
@@ -1310,21 +1444,21 @@ New classes <code>McqCard</code> and <code>FillBlanks</code> were created to imp
 <div class="content">
 <img src="images/ModelClassDiagramBW.png" alt="ModelClassDiagramBW" width="800">
 </div>
-<div class="title">Figure 16. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
+<div class="title">Figure 17. Structure of the Model Component featuring the inheritance of <code>McqCard</code> and <code>FillBlanksCard</code> from the <code>Card</code> class</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/CardInheritanceBW.png" alt="CardInheritanceBW" width="800">
 </div>
-<div class="title">Figure 17. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
+<div class="title">Figure 18. Class diagram featuring attributes and methods of <code>Card</code>, <code>McqCard</code> and <code>FillBlanksCard</code>.</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deisgn-considerations"><a class="link" href="#deisgn-considerations">3.8.2. Deisgn Considerations</a></h4>
+<h4 id="deisgn-considerations"><a class="link" href="#deisgn-considerations">3.9.2. Deisgn Considerations</a></h4>
 
 </div>
 <div class="sect3">
-<h4 id="aspect-implementation-of-polymorphic-flashcards"><a class="link" href="#aspect-implementation-of-polymorphic-flashcards">3.8.3. Aspect: Implementation of polymorphic flashcards</a></h4>
+<h4 id="aspect-implementation-of-polymorphic-flashcards"><a class="link" href="#aspect-implementation-of-polymorphic-flashcards">3.9.3. Aspect: Implementation of polymorphic flashcards</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1360,15 +1494,15 @@ For fill blanks flashcards, the constraint is that the number of answers should 
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-and-editing-of-polymorphic-flashcards"><a class="link" href="#adding-and-editing-of-polymorphic-flashcards">3.9. Adding and editing of polymorphic flashcards</a></h3>
+<h3 id="adding-and-editing-of-polymorphic-flashcards"><a class="link" href="#adding-and-editing-of-polymorphic-flashcards">3.10. Adding and editing of polymorphic flashcards</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.9.1. Current implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.10.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>The <code>addc</code> command is used to add all types of flashcards.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.9.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.10.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-add-command-for-mcq-and-fill-blanks-type-flashcards"><a class="link" href="#aspect-implementation-of-add-command-for-mcq-and-fill-blanks-type-flashcards">Aspect: Implementation of add command for MCQ and fill blanks type flashcards.</a></h5>
 <div class="ulist">
@@ -1464,16 +1598,16 @@ If there is a change in implementation, developers would have to change code for
 </div>
 </div>
 <div class="sect2">
-<h3 id="storage-of-flashcards"><a class="link" href="#storage-of-flashcards">3.10. Storage of flashcards</a></h3>
+<h3 id="storage-of-flashcards"><a class="link" href="#storage-of-flashcards">3.11. Storage of flashcards</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.10.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.11.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The current implementation saves the flashcard data in XML format and reads it back when the card bank is loaded.
 A single <code>XmlAdaptedCard</code> class is used to convert the attributes of flashcards into XML Elements and <code>XmlSerializableAddressBook</code> stores a list of <code>XmlAdaptedCard</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.10.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.11.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-xmladaptedcard-code-class"><a class="link" href="#aspect-implementation-of-code-xmladaptedcard-code-class">Aspect: Implementation of <code>XmlAdaptedCard</code> class</a></h5>
 <div class="ulist">
@@ -1638,7 +1772,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 18. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 19. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 </div>
@@ -2515,7 +2649,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-14 09:50:10 UTC
+Last updated 2018-04-15 01:06:28 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
