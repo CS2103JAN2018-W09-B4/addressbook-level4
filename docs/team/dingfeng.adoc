@@ -44,7 +44,7 @@ The implementation too was challenging as it required changes to existing comman
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=overview]
+include::../UserGuide.adoc[tag=introduction]
 
 include::../UserGuide.adoc[tag=usingflashcards]
 

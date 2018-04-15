@@ -19,6 +19,7 @@ By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 
 image::logo.png[width="640"]
 
+// tag::introduction[]
 == Introduction
 Flashy -- lightning fast flashcard management.
 
@@ -101,6 +102,7 @@ Feel free to try them out!
 . Answer a card with `xref:answer[answer] c/2`
 
 // comment: want to describe answer and select?
+// end::introduction[]
 
 [[Terminology]]
 == Terminology

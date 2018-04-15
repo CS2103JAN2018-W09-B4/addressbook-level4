@@ -1,105 +1,283 @@
 # pukipuki
-###### /java/seedu/address/logic/parser/ShowDueCommandParserTest.java
+###### /java/seedu/address/logic/commands/ShowDueCommandTest.java
 ``` java
-public class ShowDueCommandParserTest {
+public class ShowDueCommandTest {
+    private Model model;
     private LocalDateTime todaysDate;
-    private ShowDueCommandParser parser = new ShowDueCommandParser();
 
     @Before
     public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         todaysDate = LocalDate.now().atStartOfDay();
     }
 
+    @Test
+    public void execute_correctMessage_success() {
+        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
+        String expectedMessage = String.format(ShowDueCommand.MESSAGE_SUCCESS,
+            todaysDate.toLocalDate().toString(), "");
+        assertCommandSuccess(showDueCommand, model, expectedMessage, model);
+    }
+
+    @Test
+    public void execute_listsCorrectly_success() {
+        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
+        ObservableList<Card> list = model.getFilteredCardList();
+        showDueCommand.execute();
+        assert(!list.isEmpty());
+
+        model.showAllCards();
+        showDueCommand = prepareCommand(todaysDate.minusYears(1L));
+        showDueCommand.execute();
+        assert(list.isEmpty());
+
+        model.showAllCards();
+        showDueCommand = prepareCommand(todaysDate.plusYears(1L));
+        showDueCommand.execute();
+        assert(!list.isEmpty());
+    }
+
+    /**
+     * Returns a {@code ShowDueCommand} with parameters {@code date}.
+     */
+    private ShowDueCommand prepareCommand(LocalDateTime date) {
+        ShowDueCommand showDueCommand = new ShowDueCommand(date);
+        showDueCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        return showDueCommand;
+    }
+}
 ```
-###### /java/seedu/address/logic/parser/ShowDueCommandParserTest.java
+###### /java/seedu/address/logic/commands/ScheduleCommandTest.java
 ``` java
-    @Test
-    public void parse_allFieldsNotPresentCard_success() {
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ShowDueCommand(todaysDate));
+public class ScheduleCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private Model model;
+    private LocalDateTime todaysDate;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        todaysDate = LocalDate.now().atStartOfDay();
     }
 
     @Test
-    public void parse_allFieldsEmptyPermutation_success() {
-        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
+    public void execute_noCardSelectedException_throwsCommandException() throws Exception {
+        thrown.expect(CommandException.class);
+        ScheduleCommand scheduleCommand = prepareCommand(todaysDate);
+        scheduleCommand.executeUndoableCommand();
+    }
 
-        for (String each : powerSetString) {
-            assertParseSuccess(parser, each, new ShowDueCommand(todaysDate));
+    @Test
+    public void execute_scheduleUpdate_success() throws Exception {
+        model.showDueCards(LocalDate.now().atStartOfDay());
+        ObservableList<Card> observableList = model.getFilteredCardList();
+        Card selectedCard = observableList.get(0);
+        model.setSelectedCard(selectedCard);
+        LocalDateTime expectedDate = todaysDate.plusYears(1L);
+        ScheduleCommand scheduleCommand = prepareCommand(expectedDate);
+        scheduleCommand.executeUndoableCommand();
+        LocalDateTime actualDate = selectedCard.getSchedule().getNextReview();
+        assertTrue(actualDate.equals(todaysDate.plusYears(1L)));
+    }
+
+    @Test
+    public void equals() {
+
+        ScheduleCommand scheduleCommandOne = new ScheduleCommand(todaysDate);
+        ScheduleCommand scheduleCommandTwo = new ScheduleCommand(todaysDate);
+
+        // same object -> returns true
+        assertTrue(scheduleCommandOne.equals(scheduleCommandOne));
+
+        // different object, same value -> returns true
+        assertTrue(scheduleCommandOne.equals(scheduleCommandTwo));
+
+        // different object, same value -> returns true
+        assertTrue(scheduleCommandTwo.equals(scheduleCommandOne));
+
+        // different object, same values -> returns true
+        ScheduleCommand scheduleCommandOneCopy = new ScheduleCommand(todaysDate);
+        assertTrue(scheduleCommandOne.equals(scheduleCommandOneCopy));
+
+        // different types -> returns false
+        assertFalse(scheduleCommandOne.equals(1));
+
+        // null -> returns false
+        assertFalse(scheduleCommandOne.equals(null));
+
+        ScheduleCommand scheduleCommandDifferent = new ScheduleCommand(todaysDate.plusYears(1L));
+
+        // different card -> returns false
+        assertFalse(scheduleCommandOne.equals(scheduleCommandDifferent));
+    }
+
+    /**
+     * Returns a {@code ScheduleCommand} with parameters {@code date}.
+     */
+    private ScheduleCommand prepareCommand(LocalDateTime date) {
+        ScheduleCommand scheduleCommand = new ScheduleCommand(date);
+        scheduleCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        return scheduleCommand;
+    }
+
+}
+```
+###### /java/seedu/address/logic/commands/AnswerCommandTest.java
+``` java
+
+/**
+ * Contains integration tests (interaction with the Model) for {@code AnswerCommand}.
+ */
+public class AnswerCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private Model model;
+    private LocalDateTime todaysDate;
+    private AnswerCommand answerCommand;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        todaysDate = LocalDate.now().atStartOfDay();
+        answerCommand = new AnswerCommand(0);
+        answerCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+    }
+
+    // error states
+    @Test
+    public void execute_noCardSelected_throwsCommandException() throws Exception {
+        thrown.expect(CommandException.class);
+        answerCommand.executeUndoableCommand();
+    }
+
+    @Test
+    public void execute_answerCommand_noCardSelected() {
+        assertCommandFailure(answerCommand, model, AnswerCommand.MESSAGE_CARD_NOT_SELECTED);
+    }
+
+    @Test
+    public void execute_underRange_failure() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        commandRunner(-1);
+    }
+
+    @Test
+    public void execute_overRange_failure() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        commandRunner(3);
+    }
+
+    @Test
+    public void execute_answerCommand_success() {
+        for (int confidenceLevel = Schedule.VALID_MIN_CONFIDENCE_LEVEL;
+             confidenceLevel <= Schedule.VALID_MAX_CONFIDENCE_LEVEL;
+             confidenceLevel++) {
+            commandRunner(confidenceLevel);
         }
     }
 
-    @Test
-    public void parse_allFieldsValidPermutation_success() {
-        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
-        LocalDateTime[] powerSetDateTime = preparePowerSetDateTime(LIST_VALID_DAY_MONTH_YEAR);
 
-        for (int i = 0; i < powerSetString.length; i++) {
-            assertParseSuccess(parser, powerSetString[i], new ShowDueCommand(powerSetDateTime[i]));
+    @Test
+    public void execute_answer0_checkFilterList() {
+        answerRunner(0);
+    }
+
+    @Test
+    public void execute_answer1_checkFilterList() {
+        answerRunner(1);
+    }
+
+    @Test
+    public void execute_answer2_checkFilterList() {
+        answerRunner(2);
+    }
+
+    /**
+     * runs the test given a {@code confidenceLevel}
+     */
+    private void answerRunner(int confidenceLevel) {
+        model.showDueCards(todaysDate);
+        ObservableList<Card> list = model.getFilteredCardList();
+        Card selectedCard = list.get(0);
+        int initialSize = list.size();
+        commandRunner(confidenceLevel);
+        int finalSize = list.size();
+        if (confidenceLevel <= 1) {
+            // should be same size
+            assertEquals(initialSize, finalSize);
+
+            // card should still be in list
+            assert (list.contains(selectedCard));
+
+            // card should be at last index
+            assertEquals(list.size() - 1, list.indexOf(selectedCard));
+        } else {
+            // should be smaller by 1
+            assertEquals(initialSize - 1, finalSize);
+
+            // card should not be in the list
+            assertFalse(list.contains(selectedCard));
         }
     }
 
+    private void assertFalse(boolean contains) {
+    }
+
+    /**
+     * Returns a {@code AnswerCommand} with parameters {@code date}.
+     */
+    private AnswerCommand prepareCommand(int confidenceLevel) {
+        AnswerCommand answerCommand = new AnswerCommand(confidenceLevel);
+        answerCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        return answerCommand;
+    }
+
+    /**
+     * Runs the answer command, used very often.
+     */
+    private void commandRunner(int confidenceLevel) {
+        model.showDueCards(LocalDate.now().atStartOfDay());
+        AnswerCommand answerCommand = prepareCommand(confidenceLevel);
+        Card selectedCard = model.getFilteredCardList().get(0);
+        model.setSelectedCard(selectedCard);
+        String expectedMessage = AnswerCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(answerCommand, model, expectedMessage, model);
+    }
+}
+```
+###### /java/seedu/address/logic/parser/AnswerCommandParserTest.java
+``` java
+public class AnswerCommandParserTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private AnswerCommandParser parser = new AnswerCommandParser();
+
     @Test
-    public void parse_invalidFields_failure() {
-        String[] powerSetString = preparePowerSetString(LIST_PREFIX_RUBBISH, true);
-        String expectedMessage = MESSAGE_INVALID_NUMBER;
-        for (String each : powerSetString) {
-            if (each.equals("")) {
-                continue;
-            }
-            assertParseFailure(parser, each, expectedMessage);
-        }
+    public void parse_nonsenseArguments_throwIllegalArgumentException() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + PREFIX_CONFIDENCE, new AnswerCommand(0));
     }
 
     @Test
-    public void parse_february29_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 2, 29);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_29FEBRUARY, expectedMessage);
-        }
+    public void parse_outOfRangeMessage_failure() {
+        assertParseFailure(parser, " " + PREFIX_CONFIDENCE
+            + "99", "Confidence Levels should only be 0, 1 or 2");
     }
 
     @Test
-    public void parse_february30_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 2, 30);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_30FEBRUARY, expectedMessage);
-        }
+    public void parse_confidenceLevel_success() {
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + VALID_CONFIDENCE_LEVEL_0, new AnswerCommand(0));
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + VALID_CONFIDENCE_LEVEL_1, new AnswerCommand(1));
+        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
+            + VALID_CONFIDENCE_LEVEL_2, new AnswerCommand(2));
     }
-
-    @Test
-    public void parse_march32_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_32MARCH, expectedMessage);
-    }
-
-    @Test
-    public void parse_april31_failure() {
-        try {
-            int year = LocalDate.now().getYear();
-            LocalDate date = LocalDate.of(year, 4, 31);
-        } catch (DateTimeException dte) {
-            String expectedMessage = dte.getMessage();
-            assertParseFailure(parser, INVALID_31APRIL, expectedMessage);
-        }
-    }
-
-    @Test
-    public void parse_dayOfMonth32_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_32DAY_OF_MONTH, expectedMessage);
-    }
-
-    @Test
-    public void parse_dayOfMonth0_failure() {
-        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
-        assertParseFailure(parser, INVALID_0DAY_OF_MONTH, expectedMessage);
-    }
-
 }
 ```
 ###### /java/seedu/address/logic/parser/ScheduleCommandParserTest.java
@@ -201,268 +379,107 @@ public class ScheduleCommandParserTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AnswerCommandParserTest.java
+###### /java/seedu/address/logic/parser/ShowDueCommandParserTest.java
 ``` java
-public class AnswerCommandParserTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    private AnswerCommandParser parser = new AnswerCommandParser();
-
-    @Test
-    public void parse_nonsenseArguments_throwIllegalArgumentException() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + PREFIX_CONFIDENCE, new AnswerCommand(0));
-    }
-
-    @Test
-    public void parse_outOfRangeMessage_failure() {
-        assertParseFailure(parser, " " + PREFIX_CONFIDENCE
-            + "99", "Confidence Levels should only be 0, 1 or 2");
-    }
-
-    @Test
-    public void parse_confidenceLevel_success() {
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + VALID_CONFIDENCE_LEVEL_0, new AnswerCommand(0));
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + VALID_CONFIDENCE_LEVEL_1, new AnswerCommand(1));
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + VALID_CONFIDENCE_LEVEL_2, new AnswerCommand(2));
-    }
-}
-```
-###### /java/seedu/address/logic/commands/ScheduleCommandTest.java
-``` java
-public class ScheduleCommandTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    private Model model;
+public class ShowDueCommandParserTest {
     private LocalDateTime todaysDate;
+    private ShowDueCommandParser parser = new ShowDueCommandParser();
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         todaysDate = LocalDate.now().atStartOfDay();
     }
 
-    @Test
-    public void execute_noCardSelectedException_throwsCommandException() throws Exception {
-        thrown.expect(CommandException.class);
-        ScheduleCommand scheduleCommand = prepareCommand(todaysDate);
-        scheduleCommand.executeUndoableCommand();
-    }
-
-    @Test
-    public void execute_scheduleUpdate_success() throws Exception {
-        model.showDueCards(LocalDate.now().atStartOfDay());
-        ObservableList<Card> observableList = model.getFilteredCardList();
-        Card selectedCard = observableList.get(0);
-        model.setSelectedCard(selectedCard);
-        LocalDateTime expectedDate = todaysDate.plusYears(1L);
-        ScheduleCommand scheduleCommand = prepareCommand(expectedDate);
-        scheduleCommand.executeUndoableCommand();
-        LocalDateTime actualDate = selectedCard.getSchedule().getNextReview();
-        assertTrue(actualDate.equals(todaysDate.plusYears(1L)));
-    }
-
-    @Test
-    public void equals() {
-
-        ScheduleCommand scheduleCommandOne = new ScheduleCommand(todaysDate);
-        ScheduleCommand scheduleCommandTwo = new ScheduleCommand(todaysDate);
-
-        // same object -> returns true
-        assertTrue(scheduleCommandOne.equals(scheduleCommandOne));
-
-        // different object, same value -> returns true
-        assertTrue(scheduleCommandOne.equals(scheduleCommandTwo));
-
-        // different object, same value -> returns true
-        assertTrue(scheduleCommandTwo.equals(scheduleCommandOne));
-
-        // different object, same values -> returns true
-        ScheduleCommand scheduleCommandOneCopy = new ScheduleCommand(todaysDate);
-        assertTrue(scheduleCommandOne.equals(scheduleCommandOneCopy));
-
-        // different types -> returns false
-        assertFalse(scheduleCommandOne.equals(1));
-
-        // null -> returns false
-        assertFalse(scheduleCommandOne.equals(null));
-
-        ScheduleCommand scheduleCommandDifferent = new ScheduleCommand(todaysDate.plusYears(1L));
-
-        // different card -> returns false
-        assertFalse(scheduleCommandOne.equals(scheduleCommandDifferent));
-    }
-
-    /**
-     * Returns a {@code ScheduleCommand} with parameters {@code date}.
-     */
-    private ScheduleCommand prepareCommand(LocalDateTime date) {
-        ScheduleCommand scheduleCommand = new ScheduleCommand(date);
-        scheduleCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        return scheduleCommand;
-    }
-
-}
 ```
-###### /java/seedu/address/logic/commands/ShowDueCommandTest.java
+###### /java/seedu/address/logic/parser/ShowDueCommandParserTest.java
 ``` java
-public class ShowDueCommandTest {
-    private Model model;
-    private LocalDateTime todaysDate;
-
-    @Before
-    public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        todaysDate = LocalDate.now().atStartOfDay();
+    @Test
+    public void parse_allFieldsNotPresentCard_success() {
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ShowDueCommand(todaysDate));
     }
 
     @Test
-    public void execute_correctMessage_success() {
-        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
-        String expectedMessage = String.format(ShowDueCommand.MESSAGE_SUCCESS,
-            todaysDate.toLocalDate().toString(), "");
-        assertCommandSuccess(showDueCommand, model, expectedMessage, model);
-    }
+    public void parse_allFieldsEmptyPermutation_success() {
+        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
 
-    @Test
-    public void execute_listsCorrectly_success() {
-        ShowDueCommand showDueCommand = prepareCommand(todaysDate);
-        ObservableList<Card> list = model.getFilteredCardList();
-        showDueCommand.execute();
-        assert(!list.isEmpty());
-
-        model.showAllCards();
-        showDueCommand = prepareCommand(todaysDate.minusYears(1L));
-        showDueCommand.execute();
-        assert(list.isEmpty());
-
-        model.showAllCards();
-        showDueCommand = prepareCommand(todaysDate.plusYears(1L));
-        showDueCommand.execute();
-        assert(!list.isEmpty());
-    }
-
-    /**
-     * Returns a {@code ShowDueCommand} with parameters {@code date}.
-     */
-    private ShowDueCommand prepareCommand(LocalDateTime date) {
-        ShowDueCommand showDueCommand = new ShowDueCommand(date);
-        showDueCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        return showDueCommand;
-    }
-}
-```
-###### /java/seedu/address/logic/commands/AnswerCommandTest.java
-``` java
-/**
- * Contains integration tests (interaction with the Model) for {@code AnswerCommand}.
- */
-public class AnswerCommandTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    private Model model;
-    private LocalDateTime todaysDate;
-    private AnswerCommand answerCommand;
-
-    @Before
-    public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        todaysDate = LocalDate.now().atStartOfDay();
-        answerCommand = new AnswerCommand(0);
-        answerCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-    }
-
-    // error states
-
-    @Test
-    public void execute_noCardSelected_throwsCommandException() throws Exception {
-        thrown.expect(CommandException.class);
-        answerCommand.executeUndoableCommand();
-    }
-
-    @Test
-    public void execute_answerCommand_noCardSelected() {
-        assertCommandFailure(answerCommand, model, AnswerCommand.MESSAGE_CARD_NOT_SELECTED);
-    }
-
-    @Test
-    public void execute_answerCommand_success() {
-        for (int confidenceLevel = Schedule.VALID_MIN_CONFIDENCE_LEVEL;
-             confidenceLevel <= Schedule.VALID_MAX_CONFIDENCE_LEVEL;
-             confidenceLevel++) {
-            commandRunner(confidenceLevel);
+        for (String each : powerSetString) {
+            assertParseSuccess(parser, each, new ShowDueCommand(todaysDate));
         }
     }
 
     @Test
-    public void execute_underRange_failure() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
-        commandRunner(-1);
+    public void parse_allFieldsValidPermutation_success() {
+        String[] powerSetString = preparePowerSetString(LIST_DAY_MONTH_YEAR, true);
+        LocalDateTime[] powerSetDateTime = preparePowerSetDateTime(LIST_VALID_DAY_MONTH_YEAR);
+
+        for (int i = 0; i < powerSetString.length; i++) {
+            assertParseSuccess(parser, powerSetString[i], new ShowDueCommand(powerSetDateTime[i]));
+        }
     }
 
     @Test
-    public void execute_overRange_failure() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
-        commandRunner(3);
+    public void parse_invalidFields_failure() {
+        String[] powerSetString = preparePowerSetString(LIST_PREFIX_RUBBISH, true);
+        String expectedMessage = MESSAGE_INVALID_NUMBER;
+        for (String each : powerSetString) {
+            if (each.equals("")) {
+                continue;
+            }
+            assertParseFailure(parser, each, expectedMessage);
+        }
     }
 
     @Test
-    public void execute_answer0_success() {
-        ObservableList<Card> list = model.getFilteredCardList();
-        model.showDueCards(todaysDate);
-        int initialSize = list.size();
-        commandRunner(0);
-        int finalSize = list.size();
-        assertEquals(initialSize, finalSize);
+    public void parse_february29_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 2, 29);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_29FEBRUARY, expectedMessage);
+        }
     }
 
     @Test
-    public void execute_answer1_success() {
-        ObservableList<Card> list = model.getFilteredCardList();
-        model.showDueCards(todaysDate);
-        int initialSize = list.size();
-        commandRunner(1);
-        int finalSize = list.size();
-        assertEquals(initialSize, finalSize);
+    public void parse_february30_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 2, 30);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_30FEBRUARY, expectedMessage);
+        }
     }
 
     @Test
-    public void execute_answer2_success() {
-        ObservableList<Card> list = model.getFilteredCardList();
-        model.showDueCards(todaysDate);
-        int initialSize = list.size();
-        commandRunner(2);
-        int finalSize = list.size();
-        assertEquals(initialSize - 1, finalSize);
+    public void parse_march32_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_32MARCH, expectedMessage);
     }
 
-    /**
-     * Returns a {@code AnswerCommand} with parameters {@code date}.
-     */
-    private AnswerCommand prepareCommand(int confidenceLevel) {
-        AnswerCommand answerCommand = new AnswerCommand(confidenceLevel);
-        answerCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        return answerCommand;
+    @Test
+    public void parse_april31_failure() {
+        try {
+            int year = LocalDate.now().getYear();
+            LocalDate date = LocalDate.of(year, 4, 31);
+        } catch (DateTimeException dte) {
+            String expectedMessage = dte.getMessage();
+            assertParseFailure(parser, INVALID_31APRIL, expectedMessage);
+        }
     }
 
-    /**
-     * Runs the answer command, used very often.
-     */
-    private void commandRunner(int confidenceLevel) {
-        model.showDueCards(LocalDate.now().atStartOfDay());
-        AnswerCommand answerCommand = prepareCommand(confidenceLevel);
-        Card selectedCard = model.getFilteredCardList().get(0);
-        model.setSelectedCard(selectedCard);
-        String expectedMessage = AnswerCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(answerCommand, model, expectedMessage, model);
+    @Test
+    public void parse_dayOfMonth32_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_32DAY_OF_MONTH, expectedMessage);
     }
+
+    @Test
+    public void parse_dayOfMonth0_failure() {
+        String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
+        assertParseFailure(parser, INVALID_0DAY_OF_MONTH, expectedMessage);
+    }
+
 }
 ```
 ###### /java/seedu/address/model/card/ScheduleTest.java

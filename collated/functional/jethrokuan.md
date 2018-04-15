@@ -1,4 +1,49 @@
 # jethrokuan
+###### /java/seedu/address/logic/commands/ListCommand.java
+``` java
+/**
+ * Lists all cards in the card bank.
+ */
+public class ListCommand extends Command {
+    public static final String COMMAND_WORD = "list";
+
+    public static final String MESSAGE_SUCCESS = "Cleared all filters.";
+
+    public static final String MESSAGE_SUCCESS_NO_TAGS_ONLY = "Showing cards with no tags.";
+
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists all cards and tags.\n"
+            + COMMAND_WORD + " " + ListCommandParser.PREFIX_NO_TAGS_ONLY + ": lists only cards without tags.";
+
+    private final boolean untaggedOnly;
+
+    public ListCommand(boolean untaggedOnly) {
+        this.untaggedOnly = untaggedOnly;
+    }
+    @Override
+    public CommandResult execute() {
+        String message;
+        model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
+        if (untaggedOnly) {
+            message = MESSAGE_SUCCESS_NO_TAGS_ONLY;
+            model.showUntaggedCards();
+        } else {
+            message = MESSAGE_SUCCESS;
+            model.showAllCards();
+        }
+
+        EventsCenter.getInstance().post(new EmptyCardBackEvent());
+        return new CommandResult(message);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof ListCommand)
+                && untaggedOnly == ((ListCommand) other).untaggedOnly;
+    }
+}
+```
 ###### /java/seedu/address/logic/parser/ListCommandParser.java
 ``` java
 /**
@@ -47,256 +92,6 @@ public class ListCommandParser implements Parser<Command> {
 
         return Optional.of(tags);
     }
-```
-###### /java/seedu/address/logic/commands/ListCommand.java
-``` java
-/**
- * Lists all cards in the card bank.
- */
-public class ListCommand extends Command {
-    public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_SUCCESS = "Cleared all filters.";
-
-    public static final String MESSAGE_SUCCESS_NO_TAGS_ONLY = "Showing cards with no tags.";
-
-    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists all cards and tags.\n"
-            + COMMAND_WORD + " " + ListCommandParser.PREFIX_NO_TAGS_ONLY + ": lists only cards without tags.";
-
-    private final boolean untaggedOnly;
-
-    public ListCommand(boolean untaggedOnly) {
-        this.untaggedOnly = untaggedOnly;
-    }
-    @Override
-    public CommandResult execute() {
-        String message;
-        model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
-        if (untaggedOnly) {
-            message = MESSAGE_SUCCESS_NO_TAGS_ONLY;
-            model.showUntaggedCards();
-        } else {
-            message = MESSAGE_SUCCESS;
-            model.showAllCards();
-        }
-
-        EventsCenter.getInstance().post(new EmptyCardBackEvent());
-        return new CommandResult(message);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this
-                || (other instanceof ListCommand)
-                && untaggedOnly == ((ListCommand) other).untaggedOnly;
-    }
-}
-```
-###### /java/seedu/address/storage/XmlAdaptedCardMapEntry.java
-``` java
-public class XmlAdaptedCardMapEntry {
-    @XmlElement(required = true)
-    private String cardId;
-
-    @XmlElement(required = true)
-    private List<String> tags;
-
-    public XmlAdaptedCardMapEntry() {
-        tags = new ArrayList<>();
-    }
-
-    /**
-     * Constructs an instance of XMmlAdaptedCardMapEntry from a Map Entry.
-     * @param entry Map Entry for cardMap
-     */
-    public XmlAdaptedCardMapEntry(Map.Entry<String, Set<String>> entry) {
-        this();
-        cardId = entry.getKey();
-        for (String tagId: entry.getValue()) {
-            tags.add(tagId);
-        }
-    }
-
-    public String getCardId() {
-        return cardId;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof XmlAdaptedCardTag)) {
-            return false;
-        }
-
-        XmlAdaptedCardMapEntry otherCardMap = (XmlAdaptedCardMapEntry) other;
-
-        return Objects.equals(otherCardMap.cardId, cardId)
-                && Objects.equals(otherCardMap.tags, tags);
-    }
-}
-```
-###### /java/seedu/address/storage/XmlAdaptedTagMapEntry.java
-``` java
-public class XmlAdaptedTagMapEntry {
-    @XmlElement(required = true)
-    private String tagId;
-
-    @XmlElement(required = true)
-    private List<String> cards;
-
-    public XmlAdaptedTagMapEntry() {
-        cards = new ArrayList<>();
-    }
-
-    /**
-     * Constructs an instance of XmlAdaptedTagMapEntry from a Map Entry in CardTag's tagMap
-     * @param entry Map Entry of tagMap.
-     */
-    public XmlAdaptedTagMapEntry(Map.Entry<String, Set<String>> entry) {
-        this();
-        tagId = entry.getKey();
-        for (String cardId : entry.getValue()) {
-            cards.add(cardId);
-        }
-    }
-
-    public String getTagId() {
-        return tagId;
-    }
-
-    public List<String> getCards() {
-        return cards;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof XmlAdaptedCardTag)) {
-            return false;
-        }
-
-        XmlAdaptedTagMapEntry otherCardMap = (XmlAdaptedTagMapEntry) other;
-
-        return Objects.equals(otherCardMap.tagId, tagId)
-                && Objects.equals(otherCardMap.cards, cards);
-    }
-}
-```
-###### /java/seedu/address/storage/XmlAdaptedCardTag.java
-``` java
-/**
- * JAXB-friendly version of an edge in CardTag
- */
-@XmlRootElement(name = "cardtag")
-public class XmlAdaptedCardTag {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "%s field is missing!";
-
-    @XmlElement(required = true)
-    private List<XmlAdaptedCardMapEntry> cardEntry;
-
-    @XmlElement(required = true)
-    private List<XmlAdaptedTagMapEntry> tagEntry;
-
-    public XmlAdaptedCardTag() {
-        cardEntry = new ArrayList<>();
-        tagEntry = new ArrayList<>();
-    }
-
-    /**
-     * Constructs a new XmlAdaptedCardTag from given edge details.
-     *
-     * @param cardEntry List of Card -> [Tag] entries
-     * @param tagEntry  List of Tag -> [Card] entries
-     */
-    public XmlAdaptedCardTag(List<XmlAdaptedCardMapEntry> cardEntry, List<XmlAdaptedTagMapEntry> tagEntry) {
-        this.cardEntry = cardEntry;
-        this.tagEntry = tagEntry;
-    }
-
-    public XmlAdaptedCardTag(CardTag cardTag) {
-        this();
-        cardEntry.addAll(cardTag.getCardMap().entrySet().stream()
-                .map(XmlAdaptedCardMapEntry::new).collect(Collectors.toList()));
-        tagEntry.addAll(cardTag.getTagMap().entrySet().stream()
-                .map(XmlAdaptedTagMapEntry::new).collect(Collectors.toList()));
-    }
-
-    public List<XmlAdaptedCardMapEntry> getCardEntry() {
-        return cardEntry;
-    }
-
-    public List<XmlAdaptedTagMapEntry> getTagEntry() {
-        return tagEntry;
-    }
-
-    /**
-     * Converts this addressbook into the model's {@code CardTag} object.
-     * @return corresponding CardTag object
-     * @throws IllegalValueException if there are invalid values within the cardTag entries.
-     */
-    public CardTag toModelType() throws IllegalValueException {
-        CardTag cardTag = new CardTag();
-        HashMap<String, Set<String>> cardMap = new HashMap<>();
-        for (XmlAdaptedCardMapEntry entry : cardEntry) {
-            String cardId = entry.getCardId();
-            List<String> tags = entry.getTags();
-            if (cardId == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "card ID"));
-            }
-            if (tags == null || tags.size() == 0) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tags"));
-            }
-
-            cardMap.put(cardId, Sets.newHashSet(tags));
-        }
-
-        HashMap<String, Set<String>> tagMap = new HashMap<>();
-        for (XmlAdaptedTagMapEntry entry : tagEntry) {
-            String tagId = entry.getTagId();
-            List<String> cards = entry.getCards();
-            if (tagId == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tag ID"));
-            }
-            if (cards == null || cards.size() == 0) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "cards"));
-            }
-
-            tagMap.put(tagId, Sets.newHashSet(cards));
-        }
-
-        cardTag.setCardMap(cardMap);
-        cardTag.setTagMap(tagMap);
-
-        return cardTag;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof XmlAdaptedCardTag)) {
-            return false;
-        }
-
-        XmlAdaptedCardTag otherEdge = (XmlAdaptedCardTag) other;
-
-        return Objects.equals(cardEntry, otherEdge.cardEntry)
-                && Objects.equals(tagEntry, otherEdge.tagEntry);
-    }
-}
 ```
 ###### /java/seedu/address/model/cardtag/CardTag.java
 ``` java
@@ -608,4 +403,209 @@ public class CardTag {
         Predicate<Card> predCardsNoTags = card -> getTags(card).isEmpty();
         filteredCards.setAll(this.getAddressBook().getCardList().filtered(predCardsNoTags));
     }
+```
+###### /java/seedu/address/storage/XmlAdaptedCardMapEntry.java
+``` java
+public class XmlAdaptedCardMapEntry {
+    @XmlElement(required = true)
+    private String cardId;
+
+    @XmlElement(required = true)
+    private List<String> tags;
+
+    public XmlAdaptedCardMapEntry() {
+        tags = new ArrayList<>();
+    }
+
+    /**
+     * Constructs an instance of XMmlAdaptedCardMapEntry from a Map Entry.
+     * @param entry Map Entry for cardMap
+     */
+    public XmlAdaptedCardMapEntry(Map.Entry<String, Set<String>> entry) {
+        this();
+        cardId = entry.getKey();
+        for (String tagId: entry.getValue()) {
+            tags.add(tagId);
+        }
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedCardTag)) {
+            return false;
+        }
+
+        XmlAdaptedCardMapEntry otherCardMap = (XmlAdaptedCardMapEntry) other;
+
+        return Objects.equals(otherCardMap.cardId, cardId)
+                && Objects.equals(otherCardMap.tags, tags);
+    }
+}
+```
+###### /java/seedu/address/storage/XmlAdaptedTagMapEntry.java
+``` java
+public class XmlAdaptedTagMapEntry {
+    @XmlElement(required = true)
+    private String tagId;
+
+    @XmlElement(required = true)
+    private List<String> cards;
+
+    public XmlAdaptedTagMapEntry() {
+        cards = new ArrayList<>();
+    }
+
+    /**
+     * Constructs an instance of XmlAdaptedTagMapEntry from a Map Entry in CardTag's tagMap
+     * @param entry Map Entry of tagMap.
+     */
+    public XmlAdaptedTagMapEntry(Map.Entry<String, Set<String>> entry) {
+        this();
+        tagId = entry.getKey();
+        for (String cardId : entry.getValue()) {
+            cards.add(cardId);
+        }
+    }
+
+    public String getTagId() {
+        return tagId;
+    }
+
+    public List<String> getCards() {
+        return cards;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedCardTag)) {
+            return false;
+        }
+
+        XmlAdaptedTagMapEntry otherCardMap = (XmlAdaptedTagMapEntry) other;
+
+        return Objects.equals(otherCardMap.tagId, tagId)
+                && Objects.equals(otherCardMap.cards, cards);
+    }
+}
+```
+###### /java/seedu/address/storage/XmlAdaptedCardTag.java
+``` java
+/**
+ * JAXB-friendly version of an edge in CardTag
+ */
+@XmlRootElement(name = "cardtag")
+public class XmlAdaptedCardTag {
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "%s field is missing!";
+
+    @XmlElement(required = true)
+    private List<XmlAdaptedCardMapEntry> cardEntry;
+
+    @XmlElement(required = true)
+    private List<XmlAdaptedTagMapEntry> tagEntry;
+
+    public XmlAdaptedCardTag() {
+        cardEntry = new ArrayList<>();
+        tagEntry = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a new XmlAdaptedCardTag from given edge details.
+     *
+     * @param cardEntry List of Card -> [Tag] entries
+     * @param tagEntry  List of Tag -> [Card] entries
+     */
+    public XmlAdaptedCardTag(List<XmlAdaptedCardMapEntry> cardEntry, List<XmlAdaptedTagMapEntry> tagEntry) {
+        this.cardEntry = cardEntry;
+        this.tagEntry = tagEntry;
+    }
+
+    public XmlAdaptedCardTag(CardTag cardTag) {
+        this();
+        cardEntry.addAll(cardTag.getCardMap().entrySet().stream()
+                .map(XmlAdaptedCardMapEntry::new).collect(Collectors.toList()));
+        tagEntry.addAll(cardTag.getTagMap().entrySet().stream()
+                .map(XmlAdaptedTagMapEntry::new).collect(Collectors.toList()));
+    }
+
+    public List<XmlAdaptedCardMapEntry> getCardEntry() {
+        return cardEntry;
+    }
+
+    public List<XmlAdaptedTagMapEntry> getTagEntry() {
+        return tagEntry;
+    }
+
+    /**
+     * Converts this addressbook into the model's {@code CardTag} object.
+     * @return corresponding CardTag object
+     * @throws IllegalValueException if there are invalid values within the cardTag entries.
+     */
+    public CardTag toModelType() throws IllegalValueException {
+        CardTag cardTag = new CardTag();
+        HashMap<String, Set<String>> cardMap = new HashMap<>();
+        for (XmlAdaptedCardMapEntry entry : cardEntry) {
+            String cardId = entry.getCardId();
+            List<String> tags = entry.getTags();
+            if (cardId == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "card ID"));
+            }
+            if (tags == null || tags.size() == 0) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tags"));
+            }
+
+            cardMap.put(cardId, Sets.newHashSet(tags));
+        }
+
+        HashMap<String, Set<String>> tagMap = new HashMap<>();
+        for (XmlAdaptedTagMapEntry entry : tagEntry) {
+            String tagId = entry.getTagId();
+            List<String> cards = entry.getCards();
+            if (tagId == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tag ID"));
+            }
+            if (cards == null || cards.size() == 0) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "cards"));
+            }
+
+            tagMap.put(tagId, Sets.newHashSet(cards));
+        }
+
+        cardTag.setCardMap(cardMap);
+        cardTag.setTagMap(tagMap);
+
+        return cardTag;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedCardTag)) {
+            return false;
+        }
+
+        XmlAdaptedCardTag otherEdge = (XmlAdaptedCardTag) other;
+
+        return Objects.equals(cardEntry, otherEdge.cardEntry)
+                && Objects.equals(tagEntry, otherEdge.tagEntry);
+    }
+}
 ```
