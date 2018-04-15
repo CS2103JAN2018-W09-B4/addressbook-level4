@@ -30,17 +30,16 @@
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#usage">2. Usage</a></li>
+<li><a href="#how-to-use-this-guide">2. How to Use This Guide</a></li>
 <li><a href="#quick-start">3. Quick Start</a>
 <ul class="sectlevel2">
 <li><a href="#installation">3.1. Installation</a></li>
-<li><a href="#usage-2">3.2. Usage</a></li>
 </ul>
 </li>
 <li><a href="#Terminology">4. Terminology</a></li>
 <li><a href="#Features">5. Features</a>
 <ul class="sectlevel2">
-<li><a href="#how-to-read-command-format">5.1. How to read Command Format</a></li>
+<li><a href="#reading-the-command-format">5.1. Reading the Command Format</a></li>
 <li><a href="#ManagingCards">5.2. Managing Cards</a>
 <ul class="sectlevel3">
 <li><a href="#selectc">5.2.1. Selecting a flashcard: <code>selectc</code></a></li>
@@ -107,7 +106,7 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Flashy, lightning fast flashcard management.</p>
+<p>Flashy&#8201;&#8212;&#8201;lightning fast flashcard management.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -117,19 +116,20 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>What are flashcards? Traditionally, physical flashcards are actual cards that people use to help memorise things.
-The front will have a question prompt and the back will have an answer.</p>
+<p>What are flashcards? Traditional flashcards are physical cards, used to aid in memorization.
+Each card has two sides: the front contains the question prompt, and the back contains the answer prompt.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Physical cards are bulky and hard to search for. They are also very difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards. Flashy helps you organise your flashcards using its <strong>tagging</strong> system. By associating flashcards to different tags, Flashy is able to retrieve all flashcards of a given tag in a flash.</p>
+<p>Physical flashcards are bulky and hard to search for. They are also difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards.
+Flashy helps you organise your flashcards with a powerful <strong>tagging</strong> system. Flashy is able to retrieve all flashcards of a given tag in a flash.</p>
 </div>
 <div class="paragraph">
-<p>Studies have shown that <strong>spaced repetition</strong> is far more effective than regular studying.
-And we know studying is hard, thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.</p>
+<p>As students, we understand that planning out studying sessions is hard. Therefore, we have also built into Flashy an intelligent scheduler, so you can focus on studying, instead of planning your study sessions. Our scheduler uses
+<strong>spaced repetition</strong>, which has been shown to be effective for studying.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -138,15 +138,15 @@ And we know studying is hard, thus we gave Flashy an intelligent scheduler to he
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>Spaced Repetition</code> is the idea that spreading out study sessions is much more effective than cramming it over one night.
+<code>Spaced Repetition</code> embodies the idea behind the phrase "don&#8217;t burn the midnight oil". Spreading out study sessions is
+shown to be more effective than cramming multiple sessions in a single night.
 To learn more, head over to <a href="https://en.wikipedia.org/wiki/Spaced_repetition" class="bare">https://en.wikipedia.org/wiki/Spaced_repetition</a>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Although Flashy is best suited for language learners,
-it is able to handle thousands of cards. Therefore, Flashy should prove useful for any student hoping to improve their flashcard organisation.</p>
+<p>Although Flashy was built for the language learner in mind, it should prove useful for any student, as new studying tool in their arsenal.</p>
 </div>
 <div class="paragraph">
 <p>Flashy is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI).
@@ -158,18 +158,18 @@ Fast typists will find that Flashy can get their flashcard management tasks done
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">2. Usage</a></h2>
+<h2 id="how-to-use-this-guide"><a class="link" href="#how-to-use-this-guide">2. How to Use This Guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document is made for users with varying level of technical proficiency in mind.
-As such most portions are stand alone with occasional references here and there.</p>
+<p>This document is designed for users with varying levels of technical proficiency.
+Most portions of this guide can be read standalone, with occasional references.</p>
 </div>
 <div class="paragraph">
-<p>To aid in your understanding of our product, we put in various scenario based uses together with instructions.
-So do not be afraid to read the manual!</p>
+<p>To aid in your understanding of our product, we have devised various scenario-based uses,
+along with detailed instructions. So do not be afraid to read the manual!</p>
 </div>
 <div class="paragraph">
-<p>Here are some common icons and their meaning:</p>
+<p>We use admonition blocks to draw your attention to blocks of information. Here are the icons used and their meanings:</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -178,7 +178,7 @@ So do not be afraid to read the manual!</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Extra information that you might want to know
+Information that is not crucial, but is useful to know.
 </td>
 </tr>
 </table>
@@ -190,7 +190,7 @@ Extra information that you might want to know
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Extra information that can be very helpful to you!
+Snippets of information that can be very helpful.
 </td>
 </tr>
 </table>
@@ -202,7 +202,7 @@ Extra information that can be very helpful to you!
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Important information.
+Important information that should not be skimmed over.
 </td>
 </tr>
 </table>
@@ -214,7 +214,7 @@ Important information.
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Things that might potentially cause issues.
+Important information about our product, where potentially issues may occur.
 </td>
 </tr>
 </table>
@@ -225,15 +225,14 @@ Things that might potentially cause issues.
 <h2 id="quick-start"><a class="link" href="#quick-start">3. Quick Start</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We know your time is valuable; We like to do things efficiently too.
-Here are some things you need to get up and running.</p>
+<p>We value our time as much as yours. Here is what you need to get up and running.</p>
 </div>
 <div class="sect2">
 <h3 id="installation"><a class="link" href="#installation">3.1. Installation</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your Computer.</p>
+<p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your computer.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -276,11 +275,8 @@ Typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will ope
 </li>
 </ol>
 </div>
-</div>
-<div class="sect2">
-<h3 id="usage-2"><a class="link" href="#usage-2">3.2. Usage</a></h3>
 <div class="paragraph">
-<p>This is the most common usage scenario for our users. You probably want to know this as well.</p>
+<p>These are some of the more common commands that you&#8217;ll encounter in Flashy. Feel free to try them out!</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -301,10 +297,10 @@ Typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will ope
 <p>Use <code><a href="#list">list</a></code> to list all cards</p>
 </li>
 <li>
-<p>Select card with <code><a href="#selectc">selectc</a> 1</code> or by clicking on it.</p>
+<p>Select a card with <code><a href="#selectc">selectc</a> 1</code> or by clicking on it.</p>
 </li>
 <li>
-<p>Answer card with <code><a href="#answer">answer</a> c/2</code></p>
+<p>Answer a card with <code><a href="#answer">answer</a> c/2</code></p>
 </li>
 </ol>
 </div>
@@ -315,16 +311,24 @@ Typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will ope
 <h2 id="Terminology"><a class="link" href="#Terminology">4. Terminology</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In Flashy, there are three different kinds of flashcards: normal, MCQ and fill-in-the-blanks.<br>
-Normal flashcards are simple question and answer cards with the question being at the front and answer at the back.<br>
-Fill-in-the-blanks flashcards are similar to normal flashcards, just that the question has blanks to prompt the users, and the back of the card has answers to the blanks.<br>
-MCQ flashcards allows you to provide different options as the answer, similar to an MCQ question, and the back will have the number for which option is the correct one.</p>
+<p>In Flashy, there are three different kinds of flashcards:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Normal flashcards</strong>: Normal flashcards are simple question and answer cards with the question being at the front and answer at the back.</p>
+</li>
+<li>
+<p><strong>Multiple Choice Question flashcards</strong>: Fill-in-the-blanks flashcards are similar to normal flashcards, just that the question has blanks to prompt the users, and the back of the card has answers to the blanks.</p>
+</li>
+<li>
+<p><strong>Fill-in-the-blanks flashcards</strong>: MCQ flashcards allows you to provide different options as the answer, similar to an MCQ question, and the back will display the correct option.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>In Flashy, flashcards are organised with tags. Tags are used to filter down the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.</p>
-</div>
-<div class="paragraph">
-<p>Cards can have multiple tags.</p>
+<p>In Flashy, flashcards are organised with tags. Tags are used to filter the card list to a relevant subject. For example, a student studying multiple subjects can create tags for each subject.
+Cards can also have multiple tags.</p>
 </div>
 <div class="paragraph">
 <p>(SHOW LABELLED UI PANEL)</p>
@@ -335,22 +339,25 @@ MCQ flashcards allows you to provide different options as the answer, similar to
 <h2 id="Features"><a class="link" href="#Features">5. Features</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These are some of Flashy&#8217;s features to help you with your work!</p>
+<p>Here are some of Flashy&#8217;s features to help you with your work!</p>
 </div>
 <div class="sect2">
-<h3 id="how-to-read-command-format"><a class="link" href="#how-to-read-command-format">5.1. How to read Command Format</a></h3>
+<h3 id="reading-the-command-format"><a class="link" href="#reading-the-command-format">5.1. Reading the Command Format</a></h3>
 <div class="paragraph">
-<p>This section will teach you how to use and interface with our application.
-We write certain things with consistent <code>formatting</code> for example.
-We hope to help users pick them out and understand how to use Flashy easily.</p>
+<p>This section will teach you how to write your own commands to interface with our application.</p>
 </div>
 <div class="paragraph">
-<p>Let us walk you through the notation with our the command, <code>addc</code></p>
+<p>Let us walk you through the notation with the <code>addc</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>addc f/FRONT b/BACK [t/TAG]…</code></pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are parameters to be supplied by the user.</p>
+<p>Words in <code>UPPER_CASE</code> are parameters you supply. These are often user-generated content.</p>
 </li>
 </ul>
 </div>
@@ -371,7 +378,7 @@ We hope to help users pick them out and understand how to use Flashy easily.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Items in square brackets are optional.</p>
+<p>Items in square brackets are optional. In this example, tags are</p>
 </li>
 </ul>
 </div>
@@ -383,7 +390,7 @@ We hope to help users pick them out and understand how to use Flashy easily.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>f/FRONT b/BACK [t/TAG]</code> can be used as <code>f/Am I awesome? b/Yes! t/selfhelp</code> or as <code>f/Am I awesome? /Yes!</code>.</p>
+<p><code>f/FRONT b/BACK [t/TAG]…</code> can be used as <code>f/Am I awesome? b/Yes! t/selfhelp</code> or as <code>f/Am I awesome? /Yes!</code>.</p>
 </div>
 </td>
 </tr>
@@ -392,7 +399,8 @@ We hope to help users pick them out and understand how to use Flashy easily.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Items with <code>…</code> after them can be used multiple times including zero times.</p>
+<p>Items with <code>…</code> after them can be used multiple times including zero times. In this example, multiple tags
+can be added to the card.</p>
 </li>
 </ul>
 </div>
@@ -404,7 +412,7 @@ We hope to help users pick them out and understand how to use Flashy easily.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>[t/TAG]</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/biology</code>, <code>t/biology t/midterms2018</code>.</p>
+<p><code>[t/TAG]…</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/biology</code>, <code>t/biology t/midterms2018</code>.</p>
 </div>
 </td>
 </tr>
@@ -413,23 +421,10 @@ We hope to help users pick them out and understand how to use Flashy easily.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Parameters can be specified be in any order.</p>
+<p>Parameters can be specified in any order. In this example, <code>addc f/front b/back</code> and <code>addc b/back f/front</code> are
+equivalent.</p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock note example">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If the command specifies <code>f/FRONT, b/BACK</code>, <code>b/BACK f/FRONT</code> is also acceptable.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>To access this help guide at any time, type <code>help</code> into the command box and press <kbd>Enter</kbd>.</p>
@@ -477,8 +472,8 @@ Selects the 1st card in the list.</p>
 <h4 id="addc"><a class="link" href="#addc">5.2.2. Adding a flashcard: <code>addc</code></a></h4>
 <div class="paragraph">
 <p>Adds a flashcard to Flashy. The presence of <code>o/OPTION</code> parameters will determine whether it is a normal or MCQ-type flashcard.<br>
-Format: <code>addc f/FRONT b/BACK t/TAG</code> or<br>
-<code>addc f/FRONT o/OPTION o/OPTION .. b/BACK t/TAG</code></p>
+Format: <code>addc f/FRONT b/BACK [t/TAG]…</code> or<br>
+<code>addc f/FRONT o/OPTION o/OPTION .. b/BACK [t/TAG]…</code></p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -541,7 +536,7 @@ A flashcard can have any number of tags (including 0).<br>
 <h4 id="editing-a-flashcard-code-editc-code"><a class="link" href="#editing-a-flashcard-code-editc-code">5.2.3. Editing a flashcard : <code>editc</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing flashcard currently stored in Flashy.<br>
-Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]</code></p>
+Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG]… [-t/TAG]…</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1324,7 +1319,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 04:15:39 UTC
+Last updated 2018-04-15 07:47:18 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
