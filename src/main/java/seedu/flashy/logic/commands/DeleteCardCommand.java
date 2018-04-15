@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+import seedu.flashy.commons.core.LogsCenter;
 import seedu.flashy.commons.core.Messages;
 import seedu.flashy.commons.core.index.Index;
 import seedu.flashy.logic.commands.exceptions.CommandException;
@@ -29,6 +31,7 @@ public class DeleteCardCommand extends UndoableCommand {
 
     public static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted Card: %1$s";
 
+    private static final Logger logger = LogsCenter.getLogger(DeleteCardCommand.class);
     private final Index targetIndex;
 
     private Card cardToDelete;
@@ -55,6 +58,7 @@ public class DeleteCardCommand extends UndoableCommand {
         List<Card> lastShownList = model.getFilteredCardList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            logger.warning(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 

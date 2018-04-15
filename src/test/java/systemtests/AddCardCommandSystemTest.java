@@ -121,7 +121,7 @@ public class AddCardCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = getModel();
         expectedModel.addCard(toAdd);
 
-        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd.getType(), toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
