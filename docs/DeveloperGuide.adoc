@@ -361,24 +361,115 @@ image::UndoRedoActivityDiagramBW.png[width="650"]
 
 // tag::themesupport[]
 === Support for multiple themes
+
+To allow the user to personalize their experience with Flashy, we have decided to add support for multiple themes. The architecture of this functionality has been designed to allow for maximum extensibility. Should you wish to add more themes to Flashy, simply duplicate and modify one of the existing CSS files. After that, modify the list of accepted themes in `UiManager.java` and the theme will be supported. This is the current list of supported themes:
+
+....
+public class UiManager extends ComponentManager implements Ui {
+    public static final String[] VALID_THEMES = {"light", "dark"};
+
+    // ...
+}
+....
+
+These theme strings map into the following CSS files in `ChangeThemeCommand`:
+
+....
+public class ChangeThemeCommand extends Command {
+    private final String[] themeStrings = {"view/LightTheme.css", "view/DarkTheme.css"};
+
+    // ...
+}
+....
+
 ==== Current Implementation
+
 The current implementation uses a single CSS file per designated theme. Flashy will load the selected theme dynamically. <<fig:changeThemeDiagram>> illustrates the sequence diagram for the theme changing functionality:
 
 [[fig:changeThemeDiagram]]
 .Sequence diagram for `theme`
 image::ChangeThemeSequenceDiagram.png[width="800"]
-
-==== Aspect: The decision to support multiple themes
-* **Alternative 1**: Do not support multiple themes
+==== Design considerations
+===== Aspect: Supporting dynamically switchable themes
+* **Alternative 1**: Do not support dynamic switching, ship a separate version for each theme.
 ** Pros: Consistent user experience with a single theme.
-** Cons: No ability to customize the look and feel of the application.
-* **Alternative 2**: Support multiple themes.
+** Cons: No ability to customize the look and feel of the application on the fly.
+* **Alternative 2**: Support dynamic switching of themes.
 ** Pros: Users get a certain extent of customizability in the application.
 ** Cons: More development effort needed to support multiple themes and ensure that they can be loaded.
 
-To allow the user to personalize their experience with Flashy, we have decided to add support for multiple themes. The architecture of this functionality has been designed to allow for maximum extensibility. Should you wish to add more themes to Flashy, simply duplicate and modify one of the existing CSS files. After that, modify the list of accepted themes in UiManager.java and the theme will be supported.
-
 // end::themesupport[]
+
+// tag::autocompletion[]
+=== Autocompletion
+We built Flashy with an autocompletion feature to save the user the trouble of memorising the parameters of all the possible commands supported by the application. At present, autocompletion is invoked by pressing the `TAB` key after entering a valid command.
+
+
+==== Current Implementation
+
+All autocompletion-related computation is done in the `Autocompleter` class. It abstracts the logic of validating the eligibility of autocompletion and generating the autocompletion text into two publicly-exposed APIs, as shown in this compressed code segment:
+
+....
+public class Autocompleter {
+    public static String getAutocompleteText(String input) {
+        // ...
+    }
+
+    public static Boolean isValidAutocomplete(String input) {
+       // ...
+    }
+}
+....
+
+The upon pressing `TAB`, the `CommandBox` first checks with `Autocompleter` to see if it is a valid command. If it is valid, it then generates an autocompletion text for `CommandBox` to be updated with. <<fig:autocompleteActivityDiagram>> contains a visual representation of the workflow.
+
+[[fig:autocompleteActivityDiagram]]
+.Activity Diagram for the autocompletion workflow
+image::autocompletion_ActivityDiagram.png[width="450"]
+
+==== Supporting autocompletion in future commands
+
+Should you develop more commands in the future, you can let your command support autocompletion by following these steps:
+
+1. Declare `COMMAND_WORD` and `PARAMS` in your class.
++
+....
+public class NewCommand extends Command {
+    public static final String COMMAND_WORD = "command word here";
+    public static final String PARAMS = "parameters here";
+    // ...
+}
+....
++
+2. Include your command's class in `Autocompleter`.
++
+....
+private static List<Class<? extends Command>> getCommandClasses() {
+    List<Class<? extends Command>> commands = new ArrayList<>();
+
+    // Must be added in increasing specificity so that add is not
+    // overridden by addc, for example.
+    commands.add(NewCommand.class);
+}
+....
+
+==== Design Considerations
+===== Aspect: Storage of command and parameters
+
+The commands and parameters used by `Autocompleter` need to be stored somewhere accessible at runtime so that it can validate and generate autocompletion text.
+
+* **Alternative 1**: Hardcode commands and parameters in `Autocompleter` itself.
+** Pros: This is easy to implement. Simply hardcode the command words and parameters within the `Autocompleter` class.
+
+** Cons: Doing so requires the class to be updated whenever any command words or parameters change.
+
+* **Alternative 2 (Current choice)**: Dynamically poll each command class for their command words and parameters at runtime.
+
+** Pros: Once this is implemented, there is no longer any need to modify `Autocompleter` 's code. Any changes made in the command class code is automatically reflected in `Autocompleter`.
+
+** Cons: This is a little more challenging to implement. It accessing class parameters at runtime with strings require the use of advanced Java features such as the reflection libary.
+
+// end::autocompletion[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

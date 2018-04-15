@@ -34,6 +34,9 @@ Flashy is an application to help users organise their flashcards to help them me
 *** Helped with the management of github issues and milestones.
 *** Built the binary executables for Github releases.
 
+** Documentation:
+*** Cosmetic tweaks to existing contents of user guide (Example: https://github.com/CS2103JAN2018-W09-B4/main/pull/176[#176]).
+
 == Contributions to the User Guide
 
 |===
@@ -51,3 +54,4 @@ include::../UserGuide.adoc[tag=changetheme]
 |===
 
 include::../DeveloperGuide.adoc[tag=themesupport]
+include::../DeveloperGuide.adoc[tag=autocompletion]

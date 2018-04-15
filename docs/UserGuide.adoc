@@ -1,4 +1,4 @@
-= Flashy - User Guide
+= Flashy - User guide
 :toc:
 :toclevels: 5
 :toc-title:
@@ -17,6 +17,7 @@ endif::[]
 
 By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 
+image::logo.png[width="640"]
 
 == Introduction
 //tag::overview[]
@@ -32,29 +33,48 @@ The front will have a question prompt and the back will have an answer.
 Physical cards are bulky and hard to search for. They are also very difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards. Flashy helps you organise your flashcards using its *tagging* system. By associating flashcards to different tags, Flashy is able to retrieve all flashcards of a given tag in a flash.
 
 Studies have shown that *spaced repetition* is far more effective than regular studying.
-And thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.
+And we know studying is hard, thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.
 // comment: do we want to add Italisization for Flashy?
 // comment: how do we reference special words like spaced repetition?
+[NOTE]
+`Spaced Repetition` is the idea that spreading out study sessions is much more effective than cramming it over one night.
+To learn more, head over to https://en.wikipedia.org/wiki/Spaced_repetition
 
 Although Flashy is best suited for language learners,
 it is able to handle thousands of cards. Therefore, Flashy should prove useful for any student hoping to improve their flashcard organisation.
 
 Flashy is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
-//end::overview[]
 
 Interested? Jump to the <<Quick Start>> to get started.
 // comment: add a preface to everything, need to orientate user
+//end::overview[]
 
+== Usage
+This document is made for users with varying level of technical proficiency in mind.
+As such most portions are stand alone with occasional references here and there.
+
+To aid in your understanding of our product, we put in various scenario based uses together with instructions.
+So do not be afraid to read the manual!
+
+Here are some common icons and their meaning:
+[NOTE]
+Extra information that you might want to know
+
+[TIP]
+Extra information that can be very helpful to you!
+
+[IMPORTANT]
+Important information.
+
+[CAUTION]
+Things that might potentially cause issues.
 
 == Quick Start
-(ADD PREFACE)
-(PROVIDE LINKS TO RELEVANT DOWNLOADABLES)
+We know your time is valuable; We like to do things efficiently too.
+Here are some things you need to get up and running.
 
-(maybe like how to use the userguide)
-// comment: put introduction to describe what the icons mean.
-(put introduction to describe what the icons mean.)
-
+=== Installation
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
 +
 [NOTE]
@@ -68,15 +88,18 @@ This app will not work with earlier versions of Java 8.
 image::Ui.png[width="790"]
 +
 
-(NEW SECTION HERE)
-.  Here are some example commands you can try:
-
-* *`list`* : lists all tags and cards
-* **`addc`**`f/Front b/Back t/tag1 t/tag2` : adds a flashcard with front as `Front` and back as `Back`, tagged with `tag1` and `tag2`.
-* **`deletec`**`3` : deletes the 3rd flashcard in the visible list
-* *`exit` or `quit`* : exits the application
-
+[TIP]
 Typing *`help`* and pressing kbd:[Enter] will open the help window. Refer to <<Features>> for details of each command.
+
+=== Usage
+This is the most common usage scenario for our users. You probably want to know this as well.
+
+. Use `xref:addc[addc] f/Front b/Back t/tag1 t/tag2` to add card.
+.. Put question in `Front` and answer in `Back`.
+.. Tag it with something meaningful like `t/Mathematics`
+. Use `xref:list[list]` to list all cards
+. Select card with `xref:selectc[selectc] 1` or by clicking on it.
+. Answer card with `xref:answer[answer] c/2`
 
 [[Terminology]]
 == Terminology
@@ -93,16 +116,20 @@ Cards can have multiple tags.
 
 [[Features]]
 == Features
+These are some of Flashy's features to help you with your work!
 
-*Command Format*
+=== How to read Command Format
+This section will teach you how to use and interface with our application.
+We write certain things with consistent `formatting` for example.
+We hope to help users pick them out and understand how to use Flashy easily.
 
-(ADD PREFACE)
+Let us walk you through the notation with our the command, `addc`
 
 * Words in `UPPER_CASE` are parameters to be supplied by the user.
 
 [NOTE.example]
 ====
-In `addc f/FRONT`, `FRONT` is a parameter which can be used as `addc f/ What's the best flash card application? b/Flashy`.
+In `addc f/FRONT`, `FRONT` is a parameter which can be used as `addc f/ What's the best flashcard application? b/Flashy`.
 ====
 
 * Items in square brackets are optional.
@@ -128,10 +155,16 @@ If the command specifies `f/FRONT, b/BACK`, `b/BACK f/FRONT` is also acceptable.
 
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
 
+[[ManagingCards]]
 === Managing Cards
 
+The very first step to using Flashy is to populate Flashy with flashcards.
+After which we will proceed to use it to increase your mental capabilities.
+This section contains all the information you need to add, select, edit cards and more.
+
 // tag::selectcard[]
-==== Selecting a flashcard : `selectc`
+[[selectc]]
+==== Selecting a flashcard: `selectc`
 
 You can select a card that is currently being listed with the `selectc` command. +
 Format: `selectc INDEX`
@@ -149,9 +182,8 @@ Selects the 2nd card in the list.
 * `select 1` +
 Selects the 1st card in the list.
 
-// end::selectcard[]
-
 // tag::addcard[]
+[[addc]]
 ==== Adding a flashcard: `addc`
 
 Adds a flashcard to Flashy. The presence of `o/OPTION` parameters will determine whether it is a normal or MCQ-type flashcard. +
@@ -227,6 +259,10 @@ Deletes the 2nd flashcard in the list.
 // end::deletecard[]
 
 === Managing Tags
+
+Tags allow you to filter for cards that you want to quicky find that needle in the haystack.
+For example you might want to search for cards that are tagged with *Mathematics*, this section can help you with that.
+
 ==== Selecting a tag : `select`
 
 Selects the tag identified by the index number. This will show only flashcards with the tag selected. +
@@ -299,21 +335,28 @@ Examples:
 * `delete 1` deletes the first visible tag.
 * `delete 2` deletes the second visible tag.
 
+// tag::usingflashcards[]
 === Using flashcards
 After adding and managing your flashcards, its time to get your A+!
 This section will teach you how to let Flashy's intelligent scheduling algorithm prompt you the best time to study!
 
+[[showdue]]
 ==== Showing a flashcard : `showdue`
-To start using a flashcard, you have to click on a flashcard first.
+To study effectively, you have to know which cards are more worth it to read first.
+Luckily Flashy's intelligent scheduler takes care of these things for you.
 `showdue` helps you filter out cards that are due by a certain date.
-Using it without any arguments will show cards due by today.
+
+[NOTE]
+These dates are usually automatically scheduled by the xref:spacedRepetition[Spaced Repetiton] algorithm. +
+You do not have to worry about scheduling yourself as Flashy will do it for you! +
+But you could manually do it if you want to, take a look at the xref:schedule[Schedule] command.
 
 Format: `showdue d/DAY m/MONTH y/YEAR`
 
-[NOTE]
+[TIP]
 `showdue` can be used without any options, this will just show the flashcards due by today. +
-You can omit some parameters in `showdue`. suppose to day is `13/04/2018`,
-paramters that you omit would be implicitly assumed to be the current day, month or year.
+You can omit some parameters in `showdue`. suppose today is `13/04/2018`,
+parameters that you omit would be implicitly assumed to be the current day, month or year.
 If you key in `showdue d/28` without typing in `m/04 y/2018`,
 the month and year are assumed to be the current month. +
 This would show you card due before `28/04/2018`.
@@ -326,43 +369,52 @@ Show cards due before 28/04/2018
 Suppose today is 13/04/2018, although `m/04 y/2018` is not typed,
 they are implicitly assumed to be the current month and year.
 
+[[answer]]
 ==== Answering flashcards: `answer`
-After using `showdue` to show a list of flashcards, you have to click on it to use the flashcard.
-`answer` uses our spaced repetition algorithm to intelligently schedule the card to the right time in the future for review.
+After using `showdue` to show a list of flashcards, you have to select a card to answer.
+You can select a card with the xref:selectc[selectc] command.
+You can also simply click on the flashcard.
+
+`answer` uses our xref:spacedRepetition[Spaced Repetition] algorithm to intelligently schedule the card to the right time in the future for review.
 
 Format: `answer c/CONFIDENCE_LEVEL`
 
 [IMPORTANT]
 CONFIDENCE_LEVEL can only be 0, 1 or 2. +
 Card must be selected first before answering.
-// wait for select card to appear then I link here to there wit ha note.
+To learn how to select a card, take a look at xref:selectc[selectc]
 
 ===== What does `CONFIDENCE_LEVEL` mean?
 
 * `answer c/0` Again +
 I don't know the answer to this card. Card will then be requeued into the same session again.
 * `answer c/1` Passable +
-I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
+I think I know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
 * `answer c/2` Easy A+ +
 Card will then be scheduled further into the future. Other cards need more review than this one.
 
-[TIP]
+[NOTE]
 ====
 This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it.
 
 This design is based off the well known forgetting curve, you can read more about it here https://en.wikipedia.org/wiki/Forgetting_curve
 ====
 
+[[schedule]]
 ==== Show flashcards for review: `Schedule`
-Using the `answer` command to answer a flash card will automatically schedule the card based on our spaced repetition algorithm.
-However sometimes when you need to manually `schedule` a card for review you can do so as well.
+Using the `xref:answer[answer]` command to answer a flashcard will automatically schedule the card based on our spaced repetition algorithm.
+However, if you want to manually `schedule` a card for review by a certain date, you can do so as well.
 
-Format: `schedule  d/DAY m/MONTH y/YEAR`
+Format: `schedule d/DAY m/MONTH y/YEAR`
+
+[IMPORTANT]
+Card must be selected first before scheduling.
+To learn how to select a card, take a look at xref:selectc[selectc]
 
 [NOTE]
 `schedule` can be used without any options, this will just schedule the cards for today. +
-You can omit some parameters in `schedule`. suppose to day is `13/04/2018`,
-paramters that you omit would be implicitly assumed to be the current day, month or year.
+You can omit some parameters in `schedule`. suppose today is `13/04/2018`,
+parameters that you omit would be implicitly assumed to be the current day, month or year.
 If you key in `schedule d/28` without typing in `m/04 y/2018`,
 the month and year are assumed to be the current month. +
 This would schedule the card for `28/04/2018`.
@@ -374,6 +426,7 @@ Schedule card for 28/04/2018
 * `schedule d/28` +
 Suppose today is 13/04/2018, although `m/04 y/2018` is not typed,
 they are implicitly assumed to be the current month and year.
+// end::usingflashcards[]
 
 // tag::qualityoflife[]
 === Quality-of-Life features
