@@ -18,61 +18,19 @@
 <div class="sect1">
 <h2 id="project-flashy"><a class="link" href="#project-flashy">PROJECT: Flashy</a></h2>
 <div class="sectionbody">
-
+<hr>
+<div class="imageblock">
+<div class="content">
+<img src="../images/logo.png" alt="logo" width="320">
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Flashy&#8201;&#8212;&#8201;lightning fast flashcard management.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>What are flashcards? Traditional flashcards are physical cards, used to aid in memorization.
-Each card has two sides: the front contains the question prompt, and the back contains the answer prompt.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Physical flashcards are bulky and hard to search for. They are also difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards.
-Flashy helps you organise your flashcards with a powerful <strong>tagging</strong> system. Flashy is able to retrieve all flashcards of a given tag in a flash.</p>
-</div>
-<div class="paragraph">
-<p>As students, we understand that planning out studying sessions is hard. Therefore, we have also built into Flashy an intelligent scheduler, so you can focus on studying, instead of planning your study sessions. Our scheduler uses
-<strong>spaced repetition</strong>, which has been shown to be effective for studying.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>Spaced Repetition</code> embodies the idea behind the phrase "don&#8217;t burn the midnight oil". Spreading out study sessions is
-shown to be more effective than cramming multiple sessions in a single night.
-To learn more, head over to <a href="https://en.wikipedia.org/wiki/Spaced_repetition" class="bare">https://en.wikipedia.org/wiki/Spaced_repetition</a>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Although Flashy was built for the language learner in mind, it should prove useful for any student, as new studying tool in their arsenal.</p>
-</div>
-<div class="paragraph">
-<p>Flashy is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI).
-Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.</p>
-</div>
-<div class="paragraph">
-<p>Interested? Jump to the <a href="#Quick Start">[Quick Start]</a> to get started.</p>
+<p>Flashy is an application to help users organise their flashcards to help them memorise better.</p>
 </div>
 </div>
 </div>
@@ -89,13 +47,17 @@ Fast typists will find that Flashy can get their flashcard management tasks done
 <p>What it does: Models the relationship between flashcards and tags: tags must have at least one flashcard, and flashcards can have any number of tags.</p>
 </li>
 <li>
-<p>Justification: This feature serves as the main organizing system for flashcards in Flashy.</p>
+<p>Justification: This feature serves as the main organizing system for flashcards in Flashy. It allows users to
+filter only flashcards they want to see.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
 <p><strong>Minor enhancement</strong>: updated the list command to be able to clear all filters for flashcards and tags, as well as show only cards without tags.</p>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/functional/jethrokuan.md">Functional Code</a>] [<a href="https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/test/jethrokuan.md">Test Code</a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -145,6 +107,173 @@ Fast typists will find that Flashy can get their flashcard management tasks done
 </div>
 </div>
 <div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="updated-the-command-format-section"><a class="link" href="#updated-the-command-format-section">Updated the Command Format Section</a></h3>
+<div class="paragraph">
+<p><strong>Justification</strong>: Users may be better able to interpret the command format section with an example.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reading-the-command-format"><a class="link" href="#reading-the-command-format">Reading the Command Format</a></h3>
+<div class="paragraph">
+<p>This section will teach you how to write your own commands to interface with our application.</p>
+</div>
+<div class="paragraph">
+<p>Let us walk you through the notation with the <code>addc</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>addc f/FRONT b/BACK [t/TAG]…</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Words in <code>UPPER_CASE</code> are parameters you supply. These are often user-generated content.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note example">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In <code>addc f/FRONT</code>, <code>FRONT</code> is a parameter which can be used as <code>addc f/ What&#8217;s the best flashcard application? b/Flashy</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Items in square brackets are optional. In this example, tags are</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note example">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>f/FRONT b/BACK [t/TAG]…</code> can be used as <code>f/Am I awesome? b/Yes! t/selfhelp</code> or as <code>f/Am I awesome? /Yes!</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Items with <code>…</code> after them can be used multiple times including zero times. In this example, multiple tags
+can be added to the card.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note example">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>[t/TAG]…</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/biology</code>, <code>t/biology t/midterms2018</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Parameters can be specified in any order. In this example, <code>addc f/front b/back</code> and <code>addc b/back f/front</code> are
+equivalent.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To access this help guide at any time, type <code>help</code> into the command box and press <kbd>Enter</kbd>.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="update-the-code-list-code-command"><a class="link" href="#update-the-code-list-code-command">Update the <code>list</code> command</a></h3>
+<div class="paragraph">
+<p><strong>Justification</strong>: the list command</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+<div class="sect3">
+<h4 id="clearing-filters-code-list-code"><a class="link" href="#clearing-filters-code-list-code">Clearing filters: <code>list</code></a></h4>
+<div class="paragraph">
+<p>The usage of <code>list</code> is 2-fold:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>list</code> allows you to see all your flashcards and tags by clearing all filters.</p>
+</li>
+<li>
+<p><code>list</code> can also be invoked with an additional flag as <code>list -t</code>, to list all cards without tags. This allows you to reorganize
+otherwise cards that are otherwise inaccessible.<br></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Format: <code>list [-t]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+Shows all tags and cards.</p>
+</li>
+<li>
+<p><code>list -t</code><br>
+Shows all tags, but shows only cards without tags.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark>
+---</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all spread">
@@ -157,6 +286,10 @@ Fast typists will find that Flashy can get their flashcard management tasks done
 </tr>
 </tbody>
 </table>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
 <div class="sect2">
 <h3 id="card-tag-association"><a class="link" href="#card-tag-association">Card-Tag Association</a></h3>
 <div class="paragraph">
@@ -372,7 +505,7 @@ changes in both the <code>Card</code> object and <code>Tag</code> object.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Adjacency lists provide much better performance&#8201;&#8212;&#8201;O(1) on both
+<p>Adjacency lists provide much better performance&#8201;&#8212;&#8201;<code>O(1)</code> on both
 operations, as compared to an adjacency matrix. In addition, a typical
 <code>CardTag</code> graph is sparse, and adjacency lists are much more memory
 efficient. Hence, the adjacency list is a natural choice.</p>
@@ -402,13 +535,17 @@ efficient. Hence, the adjacency list is a natural choice.</p>
 <p>Pros: Uses minimal amount of memory.</p>
 </li>
 <li>
-<p>Cons: O(1) operation for only one operation.</p>
+<p>Cons: <code>O(1)</code> only for one operation.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
 </div>
 </div>
 </div>
@@ -417,7 +554,7 @@ efficient. Hence, the adjacency list is a natural choice.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 09:34:34 UTC
+Last updated 2018-04-15 09:42:40 UTC
 </div>
 </div>
 </body>
