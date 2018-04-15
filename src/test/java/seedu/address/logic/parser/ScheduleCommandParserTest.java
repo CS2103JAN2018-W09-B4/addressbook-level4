@@ -14,6 +14,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_NUMBER;
 import static seedu.address.model.card.Schedule.MESSAGE_DAY_CONSTRAINTS;
+import static seedu.address.testutil.DateStringPermutationBuilder.preparePowerSetDateTime;
+import static seedu.address.testutil.DateStringPermutationBuilder.preparePowerSetString;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -119,57 +121,5 @@ public class ScheduleCommandParserTest {
     public void parse_dayOfMonth0_failure() {
         String expectedMessage = MESSAGE_DAY_CONSTRAINTS;
         assertParseFailure(parser, INVALID_0DAY_OF_MONTH, expectedMessage);
-    }
-
-    /**
-     * Generates all possible inputs for optional Schedule inputs
-     */
-    public static String[] preparePowerSetString(String[] list, boolean haveSpaces) {
-        int sizeOfSet = (int) Math.pow(2, list.length);
-        String space = "";
-        if (haveSpaces) {
-            space = " ";
-        }
-        String[] powerSet = new String[sizeOfSet];
-        for (int i = 0; i < sizeOfSet; i++) {
-            String temp = "";
-            for (int j = 0; j < list.length; j++) {
-                if ((i & (1L << j)) != 0) {
-                    temp = temp + space + list[j];
-                }
-            }
-            powerSet[i] = temp;
-        }
-        return powerSet;
-    }
-
-    /**
-     * Generates all possible {@code LocalDateTime} answer output for optional Schedule inputs
-     */
-    public static LocalDateTime[] preparePowerSetDateTime(long[] list) {
-        int sizeOfSet = (int) Math.pow(2, list.length);
-        LocalDateTime[] powerSet = new LocalDateTime[sizeOfSet];
-        for (int i = 0; i < sizeOfSet; i++) {
-            LocalDateTime temp = LocalDate.now().atStartOfDay();
-            for (int j = 0; j < list.length; j++) {
-                if ((i & (1L << j)) != 0) {
-                    switch (j) {
-                    case (0):
-                        temp.plusDays(list[j]);
-                        break;
-                    case (1):
-                        temp.plusMonths(list[j]);
-                        break;
-                    case (2):
-                        temp.plusYears(list[j]);
-                        break;
-                    default :
-                        break;
-                    }
-                }
-            }
-            powerSet[i] = temp;
-        }
-        return powerSet;
     }
 }
