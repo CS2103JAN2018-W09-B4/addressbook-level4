@@ -44,13 +44,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: Allows users to add and edit MCQ or fill-in-the-blanks flashcards (instead of normal ones).</p>
+<p>What it does: Allows users to add and edit MCQ or fill-in-the-blanks flashcards (on top of normal ones).</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because different users learn differently (some need prompts) and the ability to add different kinds of cards would allow them to add flashcards that suits their learning style.</p>
+<p>Justification: This feature improves the product significantly because users learn differently (some need prompts) and the ability to add different kinds of flashcards would allow them to add those that suit their learning style.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
+<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands, and care has to be taken so as to not affect the existing features.</p>
 </li>
 </ul>
 </div>
@@ -76,6 +76,16 @@
 </div>
 </li>
 <li>
+<p>Project enhancement:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Performed a refactor from the original addressbook to the current Flashy application.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p>Enhancements to existing features:</p>
 <div class="ulist">
 <ul>
@@ -90,7 +100,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the Developer Guide: <a href="https://github.com/CS2103JAN2018-W09-B4/main/commit/1578c3de904822845d6fb1cd479c967ab0036bad">#76</a></p>
+<p>Did cosmetic tweaks to existing contents of the Developer Guide (Pull Requests <a href="https://github.com/CS2103JAN2018-W09-B4/main/commit/1578c3de904822845d6fb1cd479c967ab0036bad">#76</a>, <a href="https://github.com/CS2103JAN2018-W09-B4/main/commit/f03ce114f6356baec24bf9af75fcd7fbc85f4d43">#200</a>)</p>
 </li>
 </ul>
 </div>
@@ -194,14 +204,11 @@ A flashcard can have any number of tags (including 0).<br>
 <div class="sect3">
 <h4 id="editing-a-flashcard-code-editc-code"><a class="link" href="#editing-a-flashcard-code-editc-code">Editing a flashcard : <code>editc</code></a></h4>
 <div class="paragraph">
-<p>Edits an existing flashcard currently stored in Flashy.<br>
+<p>You can edit an existing flashcard currently stored in Flashy. This comes in handy if you make a mistake when adding a card.<br>
 Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG]… [-t/TAG]…</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="paragraph">
-<p>Before you start editing, take note of the following conditions:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -276,22 +283,8 @@ Edits the options of the 1st flashcard to be <code>Asia</code>, <code>Australia<
 <div class="sect3">
 <h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">Deleting a flashcard : <code>deletec</code></a></h4>
 <div class="paragraph">
-<p>Deletes the specified flashcard.<br></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a tag no longer has associated flashcards, the tag will also be removed. Don&#8217;t be alarmed if some of your tags are also removed in the process!
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Format: <code>deletec INDEX</code></p>
+<p>You can delete cards which you no use for, this helps to declutter your card bank.<br>
+Format: <code>deletec INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -309,6 +302,18 @@ If a tag no longer has associated flashcards, the tag will also be removed. Don&
 </ul>
 </div>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a tag no longer has associated flashcards, the tag will also be removed. Don&#8217;t be alarmed if some of your tags are also removed in the process!
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -644,165 +649,12 @@ Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAd
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="use-case-edit-flashcard"><a class="link" href="#use-case-edit-flashcard">Use case: Edit flashcard</a></h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to filter flashcards associated with a certain tag</p>
-</li>
-<li>
-<p>CardBank shows a list of flashcards</p>
-</li>
-<li>
-<p>User requests to edit a specific flashcard in the list</p>
-</li>
-<li>
-<p>CardBank edits the flashcard</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a. The list is empty.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-<li>
-<p>3a. The given index or parameters supplied are invalid.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>3a1. CardBank shows an error message.</p>
-<div class="paragraph">
-<p>Use case resumes at step 2.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-delete-flashcard"><a class="link" href="#use-case-delete-flashcard">Use case: Delete flashcard</a></h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to filter flashcards associated with a certain tag</p>
-</li>
-<li>
-<p>CardBank shows a list of flashcards</p>
-</li>
-<li>
-<p>User requests to delete a specific flashcard in the list</p>
-</li>
-<li>
-<p>CardBank deletes the flashcard</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a. The list is empty.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-<li>
-<p>3a. The given index is invalid.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>3a1. CardBank shows an error message.</p>
-<div class="paragraph">
-<p>Use case resumes at step 2.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use-case-edit-tag"><a class="link" href="#use-case-edit-tag">Use case: Edit tag</a></h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to view the list of tags</p>
-</li>
-<li>
-<p>CardBank shows a list of tags</p>
-</li>
-<li>
-<p>User requests to edit a specific tag in the list</p>
-</li>
-<li>
-<p>CardBank edits the tag</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a. The list is empty.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-<li>
-<p>3a. The given index or parameters supplied are invalid.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>3a1. CardBank shows an error message.</p>
-<div class="paragraph">
-<p>Use case resumes at step 2.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 13:03:45 UTC
+Last updated 2018-04-15 14:09:18 UTC
 </div>
 </div>
 </body>
