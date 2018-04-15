@@ -118,18 +118,19 @@
 <div class="sect3">
 <h4 id="addc"><a class="link" href="#addc">Adding a flashcard: <code>addc</code></a></h4>
 <div class="paragraph">
-<p>Adds a flashcard to Flashy. The presence of <code>o/OPTION</code> parameters will determine whether it is a normal or MCQ-type flashcard.<br>
-Format: <code>addc f/FRONT b/BACK [t/TAG]…</code> or<br>
-<code>addc f/FRONT o/OPTION o/OPTION .. b/BACK [t/TAG]…</code></p>
+<p>You can add flashcards to Flashy. In Flashy, we support the feature of adding three different types of flashcards: normal, MCQ or fill blanks.<br>
+<strong>To add a normal flashcard</strong>, use <code>addc f/FRONT b/BACK [t/TAGS]&#8230;&#8203;</code><br>
+<strong>To add a fill blanks card</strong>, the input is the same as that for a normal card, the only difference is the presence of blanks <code>_</code> in the <code>f/FRONT</code> parameter.<br>
+<strong>To add a MCQ flashcard</strong>, use <code>addc f/FRONT o/OPTION &#8230;&#8203; b/BACK [t/TAGS] &#8230;&#8203;</code><br></p>
 </div>
-<div class="admonitionblock caution">
+<div id="add-card-caution" class="admonitionblock caution">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Ensure that the parameter for <code>b/</code> falls between 1 the number of options inclusive.
+For a MCQ flashcard, ensure that the parameter for <code>b/</code> falls between 1 the number of options inclusive.
 </td>
 </tr>
 </table>
@@ -141,7 +142,19 @@ Ensure that the parameter for <code>b/</code> falls between 1 the number of opti
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Ensure that if there are blanks, the parameter for <code>b/</code> should have the same number of answers (separated by <code>,</code>) as there are blanks.
+Note that a blank is denoted by a <strong><em>single</em></strong> underscore <code>_</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+For a fill blanks flashcard, ensure that the parameter for <code>b/</code> should have the same number of answers (separated by <code>,</code>) as there are blanks.
 </td>
 </tr>
 </table>
@@ -157,8 +170,7 @@ Adds a normal flashcard with the front and back of the first card being <code>Wh
 </li>
 <li>
 <p><code>addc f/A square is a polygon with _ side meeting at _ angles. b/equal, right</code><br>
-Adds a fill-blanks card with the front and back of the card being <code>A square is a polygon with _ side meeting at _ angles.</code> and <code>equal, right</code> respectively.<br>
-Note that a blank is denoted by a single underscore <code>_</code>.<br></p>
+Adds a fill-blanks card with the front and back of the card being <code>A square is a polygon with _ side meeting at _ angles.</code> and <code>equal, right</code> respectively.<br></p>
 </li>
 <li>
 <p><code>addc f/Which continent is Singapore in? o/Asia o/Africa o/Australia o/South America b/1</code><br>
@@ -187,6 +199,9 @@ Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG]… [-t/TAG]�
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="paragraph">
+<p>Before you start editing, take note of the following conditions:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -198,15 +213,45 @@ Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG]… [-t/TAG]�
 <li>
 <p>This only applies to parameters which you have supplied. If, for example, no parameters for <code>f/</code> are supplied, the front of the card would not be edited.</p>
 </li>
-<li>
-<p>A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (e.g. you cannot edit a normal flashcard to a MCQ flashcard).</p>
-</li>
-<li>
-<p>When removing a tag from a flashcard, ensure that the tag exists and the flashcard is associated with that tag.</p>
-</li>
 </ul>
 </div>
 </div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+A particular type of flashcard (normal, MCQ or fill blanks) can only be edited to the same type of flashcard (e.g. you cannot edit a normal flashcard to a MCQ flashcard).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+When removing a tag from a flashcard, ensure that the tag exists and the flashcard is associated with that tag.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Ensure that the constraints on flashcard is not violated when editing. For constraints, refer to the <strong>Caution</strong> warning under <a href="#add-card-caution">Section 5.2.2</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -226,18 +271,6 @@ Edits the back of the 2nd flashcard to be <code>Lee Hsien Loong</code>, and remo
 Edits the options of the 1st flashcard to be <code>Asia</code>, <code>Australia</code> and <code>Africa</code>. (Only if that flashcard is a MCQ flashcard).</p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Ensure that the constraints on flashcard is not violated when editing. For constraints, refer to the <strong>Caution</strong> warning under Section 4.1.1: Adding a flashcard.
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect3">
@@ -769,7 +802,7 @@ Initially, <code>XmlAdaptedMcqCard</code> was implemented to inherit <code>XmlAd
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 11:43:48 UTC
+Last updated 2018-04-15 11:55:23 UTC
 </div>
 </div>
 </body>
