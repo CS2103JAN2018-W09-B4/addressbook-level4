@@ -184,19 +184,23 @@ Examples:
 Selects the 2nd card in the list.
 * `select 1` +
 Selects the 1st card in the list.
+// end::selectcard[]
 
 // tag::addcard[]
 [[addc]]
 ==== Adding a flashcard: `addc`
 
-Adds a flashcard to Flashy. The presence of `o/OPTION` parameters will determine whether it is a normal or MCQ-type flashcard. +
-Format: `addc f/FRONT b/BACK [t/TAG]…` or +
-`addc f/FRONT o/OPTION o/OPTION .. b/BACK [t/TAG]…`
-
+You can add flashcards to Flashy. In Flashy, we support the feature of adding three different types of flashcards: normal, MCQ or fill blanks. +
+*To add a normal flashcard*, use `addc f/FRONT b/BACK [t/TAGS]...` +
+*To add a fill blanks card*, the input is the same as that for a normal card, the only difference is the presence of blanks `_` in the `f/FRONT` parameter. +
+*To add a MCQ flashcard*, use `addc f/FRONT o/OPTION ... b/BACK [t/TAGS] ...` +
+[[add-card-caution]]
 [CAUTION]
-Ensure that the parameter for `b/` falls between 1 the number of options inclusive.
+For a MCQ flashcard, ensure that the parameter for `b/` falls between 1 the number of options inclusive.
 [CAUTION]
-Ensure that if there are blanks, the parameter for `b/` should have the same number of answers (separated by `,`) as there are blanks.
+Note that a blank is denoted by a *_single_* underscore `_`.
+[CAUTION]
+For a fill blanks flashcard, ensure that the parameter for `b/` should have the same number of answers (separated by `,`) as there are blanks.
 
 Examples:
 
@@ -204,7 +208,6 @@ Examples:
 Adds a normal flashcard with the front and back of the first card being `What is the greatest flashcard application?` and `Flashy` respectively, as well as tagging it as `Trivia`.
 * `addc f/A square is a polygon with _ side meeting at _ angles. b/equal, right` +
 Adds a fill-blanks card with the front and back of the card being `A square is a polygon with _ side meeting at _ angles.` and `equal, right` respectively. +
-Note that a blank is denoted by a single underscore `_`. +
 * `addc f/Which continent is Singapore in? o/Asia o/Africa o/Australia o/South America b/1` +
 Adds a MCQ-type flashcard with the front being `Which continent is Singapore in?`, options includes `Asia`, `Africa`, `Australia` and `South America` and back being `1`.
 
@@ -219,12 +222,19 @@ Edits an existing flashcard currently stored in Flashy. +
 Format: `editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG]… [-t/TAG]…`
 
 ****
+Before you start editing, take note of the following conditions:
+
 * Edits the flashcard at the specified `INDEX`. The index refers to the index number shown in the last card listing. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * This only applies to parameters which you have supplied. If, for example, no parameters for `f/` are supplied, the front of the card would not be edited.
-* A particular type of flashcard (normal, MCQ or fill-in-the-blanks) can only be edited to the same type of flashcard (e.g. you cannot edit a normal flashcard to a MCQ flashcard).
-* When removing a tag from a flashcard, ensure that the tag exists and the flashcard is associated with that tag.
 ****
+
+[CAUTION]
+A particular type of flashcard (normal, MCQ or fill blanks) can only be edited to the same type of flashcard (e.g. you cannot edit a normal flashcard to a MCQ flashcard).
+[CAUTION]
+When removing a tag from a flashcard, ensure that the tag exists and the flashcard is associated with that tag.
+[CAUTION]
+Ensure that the constraints on flashcard is not violated when editing. For constraints, refer to the *Caution* warning under <<add-card-caution, Section 5.2.2>>.
 
 Examples:
 
@@ -234,9 +244,6 @@ Edits the front and back of the 1st flashcard to be `What is the greatest flashc
 Edits the back of the 2nd flashcard to be `Lee Hsien Loong`, and remove its tag Trivia.
 * `editc 1 o/Asia o/Australia o/Africa` +
 Edits the options of the 1st flashcard to be `Asia`, `Australia` and `Africa`. (Only if that flashcard is a MCQ flashcard).
-
-[CAUTION]
-Ensure that the constraints on flashcard is not violated when editing. For constraints, refer to the *Caution* warning under Section 4.1.1: Adding a flashcard.
 // end::editcard[]
 
 // tag::deletecard[]

@@ -12,6 +12,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FillBlanksCard;
 import seedu.address.model.card.McqCard;
 
+//@@author shawnclq
 /**
  * JAXB-friendly version of the Card.
  */
@@ -127,3 +128,4 @@ public class XmlAdaptedCard {
         return type;
     }
 }
+//@@author
