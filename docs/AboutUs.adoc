@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Foo Yong Jie
 image::yong-jie.png[width="150", align="left"]
-{empty}[https://github.com/yong-jie[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yong-jie[github]] [<<yongjie#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
@@ -20,7 +20,7 @@ Responsibilities: UI
 
 === Jethro Kuan
 image::jethro.png[width="150", align="left"]
-{empty}[http://github.com/jethro[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/jethrokuan[github]] [<<jethrokuan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model
@@ -29,7 +29,7 @@ Responsibilities: Model
 
 === Shawn Chua
 image::Shawnclq.png[width="150", align="left"]
-{empty}[http://github.com/shawnclq[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/shawnclq[github]] [<<shawnchua#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic
@@ -38,7 +38,7 @@ Responsibilities: Logic
 
 === Wong Ding Feng
 image::dingfeng.png[width="150", align="left"]
-{empty}[http://github.com/pukipuki[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/pukipuki[github]] [<<dingfeng#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage

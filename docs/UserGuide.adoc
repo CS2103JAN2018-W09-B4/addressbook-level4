@@ -20,15 +20,16 @@ By: `Flashy`      Since: `Mar 2018`      Licence: `MIT`
 image::logo.png[width="640"]
 
 == Introduction
-//tag::overview[]
 Flashy -- lightning fast flashcard management.
-// comment: better one liners?
+
 [TIP]
 ====
 What are flashcards? Traditional flashcards are physical cards, used to aid in memorization.
 Each card has two sides: the front contains the question prompt, and the back contains the answer prompt.
 ====
-
+//tag::overview[]
+Flashy is an application to help users organise their flashcards to help them memorise better.
+//end::overview[]
 Physical flashcards are bulky and hard to search for. They are also difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards.
 Flashy helps you organise your flashcards with a powerful *tagging* system. Flashy is able to retrieve all flashcards of a given tag in a flash.
 
@@ -156,6 +157,7 @@ equivalent.
 
 To access this help guide at any time, type `help` into the command box and press kbd:[Enter].
 
+//end::commandformat[]
 [[ManagingCards]]
 === Managing Cards
 
@@ -296,10 +298,13 @@ Examples:
 * `find biology` will show only tags matching the word `biology`. This will match `Biology`, `biology`, `biOlogy`,
 and `Biology Midterms`, but not `bio`, or `chemistry`.
 
+//tag::listcommand[]
 ==== Clearing filters: `list`
 
-The usage of `list` is 2-fold. `list` allows you to see all your flashcards and tags by clearing all filters. `list`
-can also be invoked with an additional flag as `list -t`, to list all cards without tags. This allows you to reorganize
+The usage of `list` is 2-fold:
+
+1. `list` allows you to see all your flashcards and tags by clearing all filters.
+2. `list` can also be invoked with an additional flag as `list -t`, to list all cards without tags. This allows you to reorganize
 otherwise cards that are otherwise inaccessible. +
 
 Format: `list [-t]`
@@ -310,6 +315,7 @@ Examples:
 Shows all tags and cards.
 * `list -t` +
 Shows all tags, but shows only cards without tags.
+//end::listcommand[]
 
 ==== Editing a tag : `edit`
 

@@ -5,10 +5,11 @@
 == PROJECT: Flashy
 
 ---
+image::logo.png[width="320"]
 
 == Overview
 
-Flashy is an application to help users organise their flashcards to help them memorise better.
+include::../UserGuide.adoc[tag=overview]
 
 == Summary of contributions
 
@@ -19,7 +20,7 @@ Flashy is an application to help users organise their flashcards to help them me
 
 * *Minor enhancement*: Added a delete flashcard feature so that flashcards can be deleted when users no longer have a use for them.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/functional/shawnclq.md[Functional Code]] [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/test/shawnclq.md[Test Code]]
 
 * *Other contributions*:
 

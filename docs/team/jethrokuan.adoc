@@ -4,6 +4,9 @@
 
 == PROJECT: Flashy
 
+---
+image::logo.png[width="320"]
+
 == Overview
 
 include::../UserGuide.adoc[tag=overview]
@@ -12,9 +15,12 @@ include::../UserGuide.adoc[tag=overview]
 
 * *Major enhancement*: Implemented the bidirectional relationship between flashcards and tags.
 ** What it does: Models the relationship between flashcards and tags: tags must have at least one flashcard, and flashcards can have any number of tags.
-** Justification: This feature serves as the main organizing system for flashcards in Flashy.
+** Justification: This feature serves as the main organizing system for flashcards in Flashy. It allows users to
+filter only flashcards they want to see.
 
 * *Minor enhancement*: updated the list command to be able to clear all filters for flashcards and tags, as well as show only cards without tags.
+
+* *Code contributed*: [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/functional/jethrokuan.md[Functional Code]] [https://github.com/CS2103JAN2018-W09-B4/main/blob/master/collated/test/jethrokuan.md[Test Code]]
 
 * *Other contributions*:
 ** Project enhancements:
@@ -26,10 +32,49 @@ include::../UserGuide.adoc[tag=overview]
 **** Reviewed 46 of 89 Pull Requests not created by myself
 **** Examples of more extensive reviews are here: https://github.com/[#18], https://github.com/[#73], https://github.com/[#129]
 
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Updated the Command Format Section
+*Justification*: Users may be better able to interpret the command format section with an example.
+
+---
+
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=commandformat]
+
+#End of Extract#
+
+---
+
+=== Update the `list` command
+*Justification*: the list command
+
+---
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=listcommand]
+
+#End of Extract#
+---
+
+
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+---
+
+#Start of Extract [from: Developer Guide]#
+
 include::../DeveloperGuide.adoc[tag=cardtag]
+
+#End of Extract#
+
+---

@@ -628,7 +628,7 @@ The application requires the following two operations to be fast:
 1. Getting all `Card` instances from a specific `Tag` (operation 1)
 2. Getting all `Tag` instances from a specific `Card` (operation 2)
 
-Adjacency lists provide much better performance -- O(1) on both
+Adjacency lists provide much better performance -- `O(1)` on both
 operations, as compared to an adjacency matrix. In addition, a typical
 `CardTag` graph is sparse, and adjacency lists are much more memory
 efficient. Hence, the adjacency list is a natural choice.
@@ -643,7 +643,7 @@ efficient. Hence, the adjacency list is a natural choice.
   `cardMap` or `tagMap`.
 
   - Pros: Uses minimal amount of memory.
-  - Cons: O(1) operation for only one operation.
+  - Cons: `O(1)` only for one operation.
 
 //end::cardtag[]
 
