@@ -47,7 +47,6 @@ Flashy is *optimized for those who prefer to work with a Command Line Interface*
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.
 
 Interested? Jump to the <<Quick Start>> to get started.
-//end::overview[]
 
 == How to Use This Guide
 This document is designed for users with varying levels of technical proficiency.
@@ -166,27 +165,6 @@ The very first step to using Flashy is to populate Flashy with flashcards.
 After which we will proceed to use it to increase your mental capabilities.
 This section contains all the information you need to add, select, edit cards and more.
 
-// tag::selectcard[]
-[[selectc]]
-==== Selecting a flashcard: `selectc`
-
-You can select a card that is currently being listed with the `selectc` command. +
-Format: `selectc INDEX`
-
-<<fig:cardIndex>> shows where the index of a card can be found at:
-
-[[fig:cardIndex]]
-.Diagram indicating location of the displayed index
-image::cardIndex.png[width="350"]
-
-Examples:
-
-* `selectc 2` +
-Selects the 2nd card in the list.
-* `select 1` +
-Selects the 1st card in the list.
-// end::selectcard[]
-
 // tag::addcard[]
 [[addc]]
 ==== Adding a flashcard: `addc`
@@ -215,6 +193,27 @@ Adds a MCQ-type flashcard with the front being `Which continent is Singapore in?
 [TIP]
 A flashcard can have any number of tags (including 0). +
 // end::addcard[]
+
+// tag::selectcard[]
+[[selectc]]
+==== Selecting a flashcard: `selectc`
+
+You can select a card that is currently being listed with the `selectc` command. +
+Format: `selectc INDEX`
+
+<<fig:cardIndex>> shows where the index of a card can be found at:
+
+[[fig:cardIndex]]
+.Diagram indicating location of the displayed index
+image::cardIndex.png[width="350"]
+
+Examples:
+
+* `selectc 2` +
+Selects the 2nd card in the list.
+* `select 1` +
+Selects the 1st card in the list.
+// end::selectcard[]
 
 // tag::editcard[]
 ==== Editing a flashcard : `editc`
