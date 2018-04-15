@@ -5,14 +5,14 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Flashy - User Guide</title>
+<title>Flashy - User guide</title>
 <link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Flashy - User Guide</h1>
+<h1>Flashy - User guide</h1>
 </div>
 <div id="content">
 <div id="preamble">
@@ -20,72 +20,84 @@
 <div class="paragraph">
 <p>By: <code>Flashy</code>      Since: <code>Mar 2018</code>      Licence: <code>MIT</code></p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo.png" alt="logo" width="640">
+</div>
+</div>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#quick-start">2. Quick Start</a></li>
-<li><a href="#Terminology">3. Terminology</a></li>
-<li><a href="#Features">4. Features</a>
+<li><a href="#usage">2. Usage</a></li>
+<li><a href="#quick-start">3. Quick Start</a>
 <ul class="sectlevel2">
-<li><a href="#managing-cards">4.1. Managing Cards</a>
-<ul class="sectlevel3">
-<li><a href="#selecting-a-flashcard-code-selectc-code">4.1.1. Selecting a flashcard : <code>selectc</code></a></li>
-<li><a href="#adding-a-flashcard-code-addc-code">4.1.2. Adding a flashcard: <code>addc</code></a></li>
-<li><a href="#editing-a-flashcard-code-editc-code">4.1.3. Editing a flashcard : <code>editc</code></a></li>
-<li><a href="#deleting-a-flashcard-code-deletec-code">4.1.4. Deleting a flashcard : <code>deletec</code></a></li>
+<li><a href="#installation">3.1. Installation</a></li>
+<li><a href="#usage-2">3.2. Usage</a></li>
 </ul>
 </li>
-<li><a href="#managing-tags">4.2. Managing Tags</a>
+<li><a href="#Terminology">4. Terminology</a></li>
+<li><a href="#Features">5. Features</a>
+<ul class="sectlevel2">
+<li><a href="#how-to-read-command-format">5.1. How to read Command Format</a></li>
+<li><a href="#ManagingCards">5.2. Managing Cards</a>
 <ul class="sectlevel3">
-<li><a href="#selecting-a-tag-code-select-code">4.2.1. Selecting a tag : <code>select</code></a></li>
-<li><a href="#filtering-tags-code-find-code">4.2.2. Filtering tags: <code>find</code></a></li>
-<li><a href="#clearing-filters-code-list-code">4.2.3. Clearing filters: <code>list</code></a></li>
-<li><a href="#editing-a-tag-code-edit-code">4.2.4. Editing a tag : <code>edit</code></a></li>
-<li><a href="#deleting-a-tag-code-delete-code">4.2.5. Deleting a Tag: <code>delete</code></a></li>
+<li><a href="#selectc">5.2.1. Selecting a flashcard: <code>selectc</code></a></li>
+<li><a href="#addc">5.2.2. Adding a flashcard: <code>addc</code></a></li>
+<li><a href="#editing-a-flashcard-code-editc-code">5.2.3. Editing a flashcard : <code>editc</code></a></li>
+<li><a href="#deleting-a-flashcard-code-deletec-code">5.2.4. Deleting a flashcard : <code>deletec</code></a></li>
 </ul>
 </li>
-<li><a href="#using-flashcards">4.3. Using flashcards</a>
+<li><a href="#managing-tags">5.3. Managing Tags</a>
 <ul class="sectlevel3">
-<li><a href="#showing-a-flashcard-code-showdue-code">4.3.1. Showing a flashcard : <code>showdue</code></a></li>
-<li><a href="#answering-flashcards-code-answer-code">4.3.2. Answering flashcards: <code>answer</code></a>
+<li><a href="#selecting-a-tag-code-select-code">5.3.1. Selecting a tag : <code>select</code></a></li>
+<li><a href="#filtering-tags-code-find-code">5.3.2. Filtering tags: <code>find</code></a></li>
+<li><a href="#clearing-filters-code-list-code">5.3.3. Clearing filters: <code>list</code></a></li>
+<li><a href="#editing-a-tag-code-edit-code">5.3.4. Editing a tag : <code>edit</code></a></li>
+<li><a href="#deleting-a-tag-code-delete-code">5.3.5. Deleting a Tag: <code>delete</code></a></li>
+</ul>
+</li>
+<li><a href="#using-flashcards">5.4. Using flashcards</a>
+<ul class="sectlevel3">
+<li><a href="#showdue">5.4.1. Showing a flashcard : <code>showdue</code></a></li>
+<li><a href="#answer">5.4.2. Answering flashcards: <code>answer</code></a>
 <ul class="sectlevel4">
 <li><a href="#what-does-code-confidence_level-code-mean">What does <code>CONFIDENCE_LEVEL</code> mean?</a></li>
 </ul>
 </li>
-<li><a href="#show-flashcards-for-review-code-schedule-code">4.3.3. Show flashcards for review: <code>Schedule</code></a></li>
+<li><a href="#schedule">5.4.3. Show flashcards for review: <code>Schedule</code></a></li>
 </ul>
 </li>
-<li><a href="#quality-of-life-features">4.4. Quality-of-Life features</a>
+<li><a href="#quality-of-life-features">5.5. Quality-of-Life features</a>
 <ul class="sectlevel3">
-<li><a href="#autocompletion">4.4.1. Autocompletion</a></li>
-<li><a href="#clearing-all-data-code-clear-code">4.4.2. Clearing all data : <code>clear</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.4.3. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undo-and-redo">4.4.4. Undo and Redo</a>
+<li><a href="#autocompletion">5.5.1. Autocompletion</a></li>
+<li><a href="#clearing-all-data-code-clear-code">5.5.2. Clearing all data : <code>clear</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">5.5.3. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undo-and-redo">5.5.4. Undo and Redo</a>
 <ul class="sectlevel4">
 <li><a href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></li>
 </ul>
 </li>
-<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">4.4.5. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code-or-code-quit-code">5.5.5. Exiting the program : <code>exit</code> or <code>quit</code></a></li>
 </ul>
 </li>
-<li><a href="#managing-user-preferences">4.5. Managing User Preferences</a>
+<li><a href="#managing-user-preferences">5.6. Managing User Preferences</a>
 <ul class="sectlevel3">
-<li><a href="#changing-the-theme-code-theme-code">4.5.1. Changing the theme : <code>theme</code></a></li>
+<li><a href="#changing-the-theme-code-theme-code">5.6.1. Changing the theme : <code>theme</code></a></li>
 </ul>
 </li>
-<li><a href="#saving-the-data">4.6. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.7. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#saving-the-data">5.7. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">5.8. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
-<li><a href="#faq">5. FAQ</a></li>
-<li><a href="#command-summary">6. Command Summary</a>
+<li><a href="#faq">6. FAQ</a></li>
+<li><a href="#command-summary">7. Command Summary</a>
 <ul class="sectlevel2">
-<li><a href="#cards">6.1. Cards</a></li>
-<li><a href="#tags">6.2. Tags</a></li>
-<li><a href="#others">6.3. Others</a></li>
+<li><a href="#cards">7.1. Cards</a></li>
+<li><a href="#tags">7.2. Tags</a></li>
+<li><a href="#others">7.3. Others</a></li>
 </ul>
 </li>
 </ul>
@@ -117,7 +129,20 @@ The front will have a question prompt and the back will have an answer.</p>
 </div>
 <div class="paragraph">
 <p>Studies have shown that <strong>spaced repetition</strong> is far more effective than regular studying.
-And thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.</p>
+And we know studying is hard, thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>Spaced Repetition</code> is the idea that spreading out study sessions is much more effective than cramming it over one night.
+To learn more, head over to <a href="https://en.wikipedia.org/wiki/Spaced_repetition" class="bare">https://en.wikipedia.org/wiki/Spaced_repetition</a>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Although Flashy is best suited for language learners,
@@ -128,21 +153,83 @@ it is able to handle thousands of cards. Therefore, Flashy should prove useful f
 Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.</p>
 </div>
 <div class="paragraph">
-<p>Interested? Jump to the <a href="#quick-start">Section 2</a> to get started.</p>
+<p>Interested? Jump to the <a href="#quick-start">Section 3</a> to get started.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
+<h2 id="usage"><a class="link" href="#usage">2. Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>(ADD PREFACE)
-(PROVIDE LINKS TO RELEVANT DOWNLOADABLES)</p>
+<p>This document is made for users with varying level of technical proficiency in mind.
+As such most portions are stand alone with occasional references here and there.</p>
 </div>
 <div class="paragraph">
-<p>(maybe like how to use the userguide)
-(put introduction to describe what the icons mean.)</p>
+<p>To aid in your understanding of our product, we put in various scenario based uses together with instructions.
+So do not be afraid to read the manual!</p>
 </div>
+<div class="paragraph">
+<p>Here are some common icons and their meaning:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Extra information that you might want to know
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Extra information that can be very helpful to you!
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Important information.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Things that might potentially cause issues.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-start"><a class="link" href="#quick-start">3. Quick Start</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We know your time is valuable; We like to do things efficiently too.
+Here are some things you need to get up and running.</p>
+</div>
+<div class="sect2">
+<h3 id="installation"><a class="link" href="#installation">3.1. Installation</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -174,38 +261,58 @@ This app will not work with earlier versions of Java 8.
 <img src="images/Ui.png" alt="Ui" width="790">
 </div>
 </div>
-<div class="paragraph">
-<p>(NEW SECTION HERE)</p>
-</div>
-</li>
-<li>
-<p>Here are some example commands you can try:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>list</code></strong> : lists all tags and cards</p>
-</li>
-<li>
-<p><strong><code>addc</code></strong><code>f/Front b/Back t/tag1 t/tag2</code> : adds a flashcard with front as <code>Front</code> and back as <code>Back</code>, tagged with <code>tag1</code> and <code>tag2</code>.</p>
-</li>
-<li>
-<p><strong><code>deletec</code></strong><code>3</code> : deletes the 3rd flashcard in the visible list</p>
-</li>
-<li>
-<p><strong><code>exit</code> or <code>quit</code></strong> : exits the application</p>
-</li>
-</ul>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window. Refer to <a href="#Features">Section 5</a> for details of each command.
+</td>
+</tr>
+</table>
 </div>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="usage-2"><a class="link" href="#usage-2">3.2. Usage</a></h3>
 <div class="paragraph">
-<p>Typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window. Refer to <a href="#Features">Section 4</a> for details of each command.</p>
+<p>This is the most common usage scenario for our users. You probably want to know this as well.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use <code><a href="#addc">addc</a> f/Front b/Back t/tag1 t/tag2</code> to add card.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Put question in <code>Front</code> and answer in <code>Back</code>.</p>
+</li>
+<li>
+<p>Tag it with something meaningful like <code>t/Mathematics</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Use <code><a href="#list">list</a></code> to list all cards</p>
+</li>
+<li>
+<p>Select card with <code><a href="#selectc">selectc</a> 1</code> or by clicking on it.</p>
+</li>
+<li>
+<p>Answer card with <code><a href="#answer">answer</a> c/2</code></p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Terminology"><a class="link" href="#Terminology">3. Terminology</a></h2>
+<h2 id="Terminology"><a class="link" href="#Terminology">4. Terminology</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In Flashy, there are three different kinds of flashcards: normal, MCQ and fill-in-the-blanks.<br>
@@ -225,13 +332,20 @@ MCQ flashcards allows you to provide different options as the answer, similar to
 </div>
 </div>
 <div class="sect1">
-<h2 id="Features"><a class="link" href="#Features">4. Features</a></h2>
+<h2 id="Features"><a class="link" href="#Features">5. Features</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Command Format</strong></p>
+<p>These are some of Flashy&#8217;s features to help you with your work!</p>
+</div>
+<div class="sect2">
+<h3 id="how-to-read-command-format"><a class="link" href="#how-to-read-command-format">5.1. How to read Command Format</a></h3>
+<div class="paragraph">
+<p>This section will teach you how to use and interface with our application.
+We write certain things with consistent <code>formatting</code> for example.
+We hope to help users pick them out and understand how to use Flashy easily.</p>
 </div>
 <div class="paragraph">
-<p>(ADD PREFACE)</p>
+<p>Let us walk you through the notation with our the command, <code>addc</code></p>
 </div>
 <div class="ulist">
 <ul>
@@ -248,7 +362,7 @@ MCQ flashcards allows you to provide different options as the answer, similar to
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In <code>addc f/FRONT</code>, <code>FRONT</code> is a parameter which can be used as <code>addc f/ What&#8217;s the best flash card application? b/Flashy</code>.</p>
+<p>In <code>addc f/FRONT</code>, <code>FRONT</code> is a parameter which can be used as <code>addc f/ What&#8217;s the best flashcard application? b/Flashy</code>.</p>
 </div>
 </td>
 </tr>
@@ -320,10 +434,16 @@ MCQ flashcards allows you to provide different options as the answer, similar to
 <div class="paragraph">
 <p>To access this help guide at any time, type <code>help</code> into the command box and press <kbd>Enter</kbd>.</p>
 </div>
+</div>
 <div class="sect2">
-<h3 id="managing-cards"><a class="link" href="#managing-cards">4.1. Managing Cards</a></h3>
+<h3 id="ManagingCards"><a class="link" href="#ManagingCards">5.2. Managing Cards</a></h3>
+<div class="paragraph">
+<p>The very first step to using Flashy is to populate Flashy with flashcards.
+After which we will proceed to use it to increase your mental capabilities.
+This section contains all the information you need to add, select, edit cards and more.</p>
+</div>
 <div class="sect3">
-<h4 id="selecting-a-flashcard-code-selectc-code"><a class="link" href="#selecting-a-flashcard-code-selectc-code">4.1.1. Selecting a flashcard : <code>selectc</code></a></h4>
+<h4 id="selectc"><a class="link" href="#selectc">5.2.1. Selecting a flashcard: <code>selectc</code></a></h4>
 <div class="paragraph">
 <p>You can select a card that is currently being listed with the <code>selectc</code> command.<br>
 Format: <code>selectc INDEX</code></p>
@@ -354,7 +474,7 @@ Selects the 1st card in the list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="adding-a-flashcard-code-addc-code"><a class="link" href="#adding-a-flashcard-code-addc-code">4.1.2. Adding a flashcard: <code>addc</code></a></h4>
+<h4 id="addc"><a class="link" href="#addc">5.2.2. Adding a flashcard: <code>addc</code></a></h4>
 <div class="paragraph">
 <p>Adds a flashcard to Flashy. The presence of <code>o/OPTION</code> parameters will determine whether it is a normal or MCQ-type flashcard.<br>
 Format: <code>addc f/FRONT b/BACK t/TAG</code> or<br>
@@ -418,7 +538,7 @@ A flashcard can have any number of tags (including 0).<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-flashcard-code-editc-code"><a class="link" href="#editing-a-flashcard-code-editc-code">4.1.3. Editing a flashcard : <code>editc</code></a></h4>
+<h4 id="editing-a-flashcard-code-editc-code"><a class="link" href="#editing-a-flashcard-code-editc-code">5.2.3. Editing a flashcard : <code>editc</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing flashcard currently stored in Flashy.<br>
 Format: <code>editc INDEX [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]</code></p>
@@ -479,7 +599,7 @@ Ensure that the constraints on flashcard is not violated when editing. For const
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">4.1.4. Deleting a flashcard : <code>deletec</code></a></h4>
+<h4 id="deleting-a-flashcard-code-deletec-code"><a class="link" href="#deleting-a-flashcard-code-deletec-code">5.2.4. Deleting a flashcard : <code>deletec</code></a></h4>
 <div class="paragraph">
 <p>Deletes the specified flashcard.<br></p>
 </div>
@@ -525,9 +645,13 @@ Deletes the 2nd flashcard in the list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing-tags"><a class="link" href="#managing-tags">4.2. Managing Tags</a></h3>
+<h3 id="managing-tags"><a class="link" href="#managing-tags">5.3. Managing Tags</a></h3>
+<div class="paragraph">
+<p>Tags allow you to filter for cards that you want to quicky find that needle in the haystack.
+For example you might want to search for cards that are tagged with <strong>Mathematics</strong>, this section can help you with that.</p>
+</div>
 <div class="sect3">
-<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">4.2.1. Selecting a tag : <code>select</code></a></h4>
+<h4 id="selecting-a-tag-code-select-code"><a class="link" href="#selecting-a-tag-code-select-code">5.3.1. Selecting a tag : <code>select</code></a></h4>
 <div class="paragraph">
 <p>Selects the tag identified by the index number. This will show only flashcards with the tag selected.<br>
 Format: <code>select INDEX</code></p>
@@ -563,7 +687,7 @@ Selects the 1st tag in the list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">4.2.2. Filtering tags: <code>find</code></a></h4>
+<h4 id="filtering-tags-code-find-code"><a class="link" href="#filtering-tags-code-find-code">5.3.2. Filtering tags: <code>find</code></a></h4>
 <div class="paragraph">
 <p>Filters the tag list to contain those that match the search terms.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -595,7 +719,7 @@ and <code>Biology Midterms</code>, but not <code>bio</code>, or <code>chemistry<
 </div>
 </div>
 <div class="sect3">
-<h4 id="clearing-filters-code-list-code"><a class="link" href="#clearing-filters-code-list-code">4.2.3. Clearing filters: <code>list</code></a></h4>
+<h4 id="clearing-filters-code-list-code"><a class="link" href="#clearing-filters-code-list-code">5.3.3. Clearing filters: <code>list</code></a></h4>
 <div class="paragraph">
 <p>The usage of <code>list</code> is 2-fold. <code>list</code> allows you to see all your flashcards and tags by clearing all filters. <code>list</code>
 can also be invoked with an additional flag as <code>list -t</code>, to list all cards without tags. This allows you to reorganize
@@ -621,7 +745,7 @@ Shows all tags, but shows only cards without tags.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">4.2.4. Editing a tag : <code>edit</code></a></h4>
+<h4 id="editing-a-tag-code-edit-code"><a class="link" href="#editing-a-tag-code-edit-code">5.3.4. Editing a tag : <code>edit</code></a></h4>
 <div class="paragraph">
 <p>Updates an existing tag to the specified values.<br>
 Format: <code>edit INDEX n/TAG c/COLOR</code></p>
@@ -656,7 +780,7 @@ Changes the name of the first tag in the list to <code>French</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">4.2.5. Deleting a Tag: <code>delete</code></a></h4>
+<h4 id="deleting-a-tag-code-delete-code"><a class="link" href="#deleting-a-tag-code-delete-code">5.3.5. Deleting a Tag: <code>delete</code></a></h4>
 <div class="paragraph">
 <p>Deletes an existing tag. This will remove the tag from all cards that have the tag.</p>
 </div>
@@ -676,20 +800,17 @@ Changes the name of the first tag in the list to <code>French</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-flashcards"><a class="link" href="#using-flashcards">4.3. Using flashcards</a></h3>
+<h3 id="using-flashcards"><a class="link" href="#using-flashcards">5.4. Using flashcards</a></h3>
 <div class="paragraph">
 <p>After adding and managing your flashcards, its time to get your A+!
 This section will teach you how to let Flashy&#8217;s intelligent scheduling algorithm prompt you the best time to study!</p>
 </div>
 <div class="sect3">
-<h4 id="showing-a-flashcard-code-showdue-code"><a class="link" href="#showing-a-flashcard-code-showdue-code">4.3.1. Showing a flashcard : <code>showdue</code></a></h4>
+<h4 id="showdue"><a class="link" href="#showdue">5.4.1. Showing a flashcard : <code>showdue</code></a></h4>
 <div class="paragraph">
-<p>To start using a flashcard, you have to click on a flashcard first.
-<code>showdue</code> helps you filter out cards that are due by a certain date.
-Using it without any arguments will show cards due by today.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>showdue d/DAY m/MONTH y/YEAR</code></p>
+<p>To study effectively, you have to know which cards are more worth it to read first.
+Luckily Flashy&#8217;s intelligent scheduler takes care of these things for you.
+<code>showdue</code> helps you filter out cards that are due by a certain date.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -698,9 +819,26 @@ Using it without any arguments will show cards due by today.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
+These dates are usually automatically scheduled by the <a href="#spacedRepetition">Spaced Repetiton</a> algorithm.<br>
+You do not have to worry about scheduling yourself as Flashy will do it for you!<br>
+But you could manually do it if you want to, take a look at the <a href="#schedule">Schedule</a> command.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>showdue d/DAY m/MONTH y/YEAR</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <code>showdue</code> can be used without any options, this will just show the flashcards due by today.<br>
-You can omit some parameters in <code>showdue</code>. suppose to day is <code>13/04/2018</code>,
-paramters that you omit would be implicitly assumed to be the current day, month or year.
+You can omit some parameters in <code>showdue</code>. suppose today is <code>13/04/2018</code>,
+parameters that you omit would be implicitly assumed to be the current day, month or year.
 If you key in <code>showdue d/28</code> without typing in <code>m/04 y/2018</code>,
 the month and year are assumed to be the current month.<br>
 This would show you card due before <code>28/04/2018</code>.
@@ -726,10 +864,14 @@ they are implicitly assumed to be the current month and year.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="answering-flashcards-code-answer-code"><a class="link" href="#answering-flashcards-code-answer-code">4.3.2. Answering flashcards: <code>answer</code></a></h4>
+<h4 id="answer"><a class="link" href="#answer">5.4.2. Answering flashcards: <code>answer</code></a></h4>
 <div class="paragraph">
-<p>After using <code>showdue</code> to show a list of flashcards, you have to click on it to use the flashcard.
-<code>answer</code> uses our spaced repetition algorithm to intelligently schedule the card to the right time in the future for review.</p>
+<p>After using <code>showdue</code> to show a list of flashcards, you have to select a card to answer.
+You can select a card with the <a href="#selectc">selectc</a> command.
+You can also simply click on the flashcard.</p>
+</div>
+<div class="paragraph">
+<p><code>answer</code> uses our <a href="#spacedRepetition">Spaced Repetition</a> algorithm to intelligently schedule the card to the right time in the future for review.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>answer c/CONFIDENCE_LEVEL</code></p>
@@ -743,6 +885,7 @@ they are implicitly assumed to be the current month and year.</p>
 <td class="content">
 CONFIDENCE_LEVEL can only be 0, 1 or 2.<br>
 Card must be selected first before answering.
+To learn how to select a card, take a look at <a href="#selectc">selectc</a>
 </td>
 </tr>
 </table>
@@ -757,7 +900,7 @@ I don&#8217;t know the answer to this card. Card will then be requeued into the 
 </li>
 <li>
 <p><code>answer c/1</code> Passable<br>
-I kind of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.</p>
+I think I know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.</p>
 </li>
 <li>
 <p><code>answer c/2</code> Easy A+<br>
@@ -765,11 +908,11 @@ Card will then be scheduled further into the future. Other cards need more revie
 </li>
 </ul>
 </div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -785,13 +928,26 @@ Card will then be scheduled further into the future. Other cards need more revie
 </div>
 </div>
 <div class="sect3">
-<h4 id="show-flashcards-for-review-code-schedule-code"><a class="link" href="#show-flashcards-for-review-code-schedule-code">4.3.3. Show flashcards for review: <code>Schedule</code></a></h4>
+<h4 id="schedule"><a class="link" href="#schedule">5.4.3. Show flashcards for review: <code>Schedule</code></a></h4>
 <div class="paragraph">
-<p>Using the <code>answer</code> command to answer a flash card will automatically schedule the card based on our spaced repetition algorithm.
-However sometimes when you need to manually <code>schedule</code> a card for review you can do so as well.</p>
+<p>Using the <code><a href="#answer">answer</a></code> command to answer a flashcard will automatically schedule the card based on our spaced repetition algorithm.
+However, if you want to manually <code>schedule</code> a card for review by a certain date, you can do so as well.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>schedule  d/DAY m/MONTH y/YEAR</code></p>
+<p>Format: <code>schedule d/DAY m/MONTH y/YEAR</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Card must be selected first before scheduling.
+To learn how to select a card, take a look at <a href="#selectc">selectc</a>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -801,8 +957,8 @@ However sometimes when you need to manually <code>schedule</code> a card for rev
 </td>
 <td class="content">
 <code>schedule</code> can be used without any options, this will just schedule the cards for today.<br>
-You can omit some parameters in <code>schedule</code>. suppose to day is <code>13/04/2018</code>,
-paramters that you omit would be implicitly assumed to be the current day, month or year.
+You can omit some parameters in <code>schedule</code>. suppose today is <code>13/04/2018</code>,
+parameters that you omit would be implicitly assumed to be the current day, month or year.
 If you key in <code>schedule d/28</code> without typing in <code>m/04 y/2018</code>,
 the month and year are assumed to be the current month.<br>
 This would schedule the card for <code>28/04/2018</code>.
@@ -829,18 +985,18 @@ they are implicitly assumed to be the current month and year.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="quality-of-life-features"><a class="link" href="#quality-of-life-features">4.4. Quality-of-Life features</a></h3>
+<h3 id="quality-of-life-features"><a class="link" href="#quality-of-life-features">5.5. Quality-of-Life features</a></h3>
 <div class="paragraph">
 <p>Flashy has many features to speed up your workflow and make your experience as pain-free as possible.</p>
 </div>
 <div class="sect3">
-<h4 id="autocompletion"><a class="link" href="#autocompletion">4.4.1. Autocompletion</a></h4>
+<h4 id="autocompletion"><a class="link" href="#autocompletion">5.5.1. Autocompletion</a></h4>
 <div class="paragraph">
 <p>Instead of memorising the parameters of all the commands, you can instruct Flashy to automatically fill in the relevant parameters for you! After typing a valid command, simply press <code>TAB</code> and let Flashy handle the rest.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">4.4.2. Clearing all data : <code>clear</code></a></h4>
+<h4 id="clearing-all-data-code-clear-code"><a class="link" href="#clearing-all-data-code-clear-code">5.5.2. Clearing all data : <code>clear</code></a></h4>
 <div class="paragraph">
 <p>Rather than manually deleting cards and tags, Flashy is able to clear all of its data for you.<br>
 Format: <code>clear</code></p>
@@ -859,7 +1015,7 @@ This command will instruct Flashy to delete all tags and flashcards. Use this co
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.4.3. Listing entered commands : <code>history</code></a></h4>
+<h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">5.5.3. Listing entered commands : <code>history</code></a></h4>
 <div class="paragraph">
 <p>If you lose track of the actions you have made at any point in time, you can ask Flashy to list them for you in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -880,7 +1036,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="undo-and-redo"><a class="link" href="#undo-and-redo">4.4.4. Undo and Redo</a></h4>
+<h4 id="undo-and-redo"><a class="link" href="#undo-and-redo">5.5.4. Undo and Redo</a></h4>
 <div class="paragraph">
 <p>Flashy does not come built in with an eraser. To compensate for that, some commands support undoing and redoing. The commands are <code>add</code>, <code>addc</code>, <code>addm</code>, <code>edit</code>, <code>editc</code>, <code>editm</code>, <code>delete</code>, <code>deletec</code>, and <code>clear</code>.</p>
 </div>
@@ -963,7 +1119,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect3">
-<h4 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">4.4.5. Exiting the program : <code>exit</code> or <code>quit</code></a></h4>
+<h4 id="exiting-the-program-code-exit-code-or-code-quit-code"><a class="link" href="#exiting-the-program-code-exit-code-or-code-quit-code">5.5.5. Exiting the program : <code>exit</code> or <code>quit</code></a></h4>
 <div class="paragraph">
 <p>Once you are confident in acing that exam, don&#8217;t forget to power down Flashy! When this is done, Flashy will save all changes made to its card bank before gracefully shutting down.<br>
 Format: <code>exit</code> or <code>quit</code></p>
@@ -971,9 +1127,9 @@ Format: <code>exit</code> or <code>quit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">4.5. Managing User Preferences</a></h3>
+<h3 id="managing-user-preferences"><a class="link" href="#managing-user-preferences">5.6. Managing User Preferences</a></h3>
 <div class="sect3">
-<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">4.5.1. Changing the theme : <code>theme</code></a></h4>
+<h4 id="changing-the-theme-code-theme-code"><a class="link" href="#changing-the-theme-code-theme-code">5.6.1. Changing the theme : <code>theme</code></a></h4>
 <div class="paragraph">
 <p>Flashy knows that not all study sessions occur during the day. When carrying out all-nighters, remember that you can always switch the theme of Flashy&#8217;s interface to match the lighting condition of your surroundings!<br>
 Format: <code>theme t/THEME</code></p>
@@ -1006,14 +1162,14 @@ Flashy remembers your most recently used theme and will load it the next time yo
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.6. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">5.7. Saving the data</a></h3>
 <div class="paragraph">
 <p>All data saved in Flashy&#8217;s card bank is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.7. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">5.8. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -1021,7 +1177,7 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">6. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
@@ -1030,10 +1186,10 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">6. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">7. Command Summary</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="cards"><a class="link" href="#cards">6.1. Cards</a></h3>
+<h3 id="cards"><a class="link" href="#cards">7.1. Cards</a></h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1088,7 +1244,7 @@ There is no need to save manually.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="tags"><a class="link" href="#tags">6.2. Tags</a></h3>
+<h3 id="tags"><a class="link" href="#tags">7.2. Tags</a></h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1125,7 +1281,7 @@ There is no need to save manually.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="others"><a class="link" href="#others">6.3. Others</a></h3>
+<h3 id="others"><a class="link" href="#others">7.3. Others</a></h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1168,7 +1324,7 @@ There is no need to save manually.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 01:06:28 UTC
+Last updated 2018-04-15 04:05:01 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">

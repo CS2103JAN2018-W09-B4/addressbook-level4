@@ -144,6 +144,240 @@ The implementation too was challenging as it required changes to existing comman
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>Flashy, lightning fast flashcard management.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>What are flashcards? Traditionally, physical flashcards are actual cards that people use to help memorise things.
+The front will have a question prompt and the back will have an answer.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Physical cards are bulky and hard to search for. They are also very difficult to organise. Flashy is the result of our desire to eliminate these challenges that arise from the use of conventional flashcards. Flashy helps you organise your flashcards using its <strong>tagging</strong> system. By associating flashcards to different tags, Flashy is able to retrieve all flashcards of a given tag in a flash.</p>
+</div>
+<div class="paragraph">
+<p>Studies have shown that <strong>spaced repetition</strong> is far more effective than regular studying.
+And we know studying is hard, thus we gave Flashy an intelligent scheduler to help space out your study sessions and make them more effective.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>Spaced Repetition</code> is the idea that spreading out study sessions is much more effective than cramming it over one night.
+To learn more, head over to <a href="https://en.wikipedia.org/wiki/Spaced_repetition" class="bare">https://en.wikipedia.org/wiki/Spaced_repetition</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Although Flashy is best suited for language learners,
+it is able to handle thousands of cards. Therefore, Flashy should prove useful for any student hoping to improve their flashcard organisation.</p>
+</div>
+<div class="paragraph">
+<p>Flashy is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI).
+Fast typists will find that Flashy can get their flashcard management tasks done faster than traditional GUI apps.</p>
+</div>
+<div class="paragraph">
+<p>Interested? Jump to the <a href="#Quick Start">[Quick Start]</a> to get started.</p>
+</div>
+<div class="sect2">
+<h3 id="using-flashcards"><a class="link" href="#using-flashcards">Using flashcards</a></h3>
+<div class="paragraph">
+<p>After adding and managing your flashcards, its time to get your A+!
+This section will teach you how to let Flashy&#8217;s intelligent scheduling algorithm prompt you the best time to study!</p>
+</div>
+<div class="sect3">
+<h4 id="showdue"><a class="link" href="#showdue">Showing a flashcard : <code>showdue</code></a></h4>
+<div class="paragraph">
+<p>To study effectively, you have to know which cards are more worth it to read first.
+Luckily Flashy&#8217;s intelligent scheduler takes care of these things for you.
+<code>showdue</code> helps you filter out cards that are due by a certain date.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These dates are usually automatically scheduled by the <a href="#spacedRepetition">Spaced Repetiton</a> algorithm.<br>
+You do not have to worry about scheduling yourself as Flashy will do it for you!<br>
+But you could manually do it if you want to, take a look at the <a href="#schedule">Schedule</a> command.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>showdue d/DAY m/MONTH y/YEAR</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<code>showdue</code> can be used without any options, this will just show the flashcards due by today.<br>
+You can omit some parameters in <code>showdue</code>. suppose today is <code>13/04/2018</code>,
+parameters that you omit would be implicitly assumed to be the current day, month or year.
+If you key in <code>showdue d/28</code> without typing in <code>m/04 y/2018</code>,
+the month and year are assumed to be the current month.<br>
+This would show you card due before <code>28/04/2018</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>showdue d/28 m/04 y/2018</code><br>
+Show cards due before 28/04/2018</p>
+</li>
+<li>
+<p><code>showdue d/28</code><br>
+Suppose today is 13/04/2018, although <code>m/04 y/2018</code> is not typed,
+they are implicitly assumed to be the current month and year.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="answer"><a class="link" href="#answer">Answering flashcards: <code>answer</code></a></h4>
+<div class="paragraph">
+<p>After using <code>showdue</code> to show a list of flashcards, you have to select a card to answer.
+You can select a card with the <a href="#selectc">selectc</a> command.
+You can also simply click on the flashcard.</p>
+</div>
+<div class="paragraph">
+<p><code>answer</code> uses our <a href="#spacedRepetition">Spaced Repetition</a> algorithm to intelligently schedule the card to the right time in the future for review.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>answer c/CONFIDENCE_LEVEL</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+CONFIDENCE_LEVEL can only be 0, 1 or 2.<br>
+Card must be selected first before answering.
+To learn how to select a card, take a look at <a href="#selectc">selectc</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="what-does-code-confidence_level-code-mean"><a class="link" href="#what-does-code-confidence_level-code-mean">What does <code>CONFIDENCE_LEVEL</code> mean?</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><code>answer c/0</code> Again<br>
+I don&#8217;t know the answer to this card. Card will then be requeued into the same session again.</p>
+</li>
+<li>
+<p><code>answer c/1</code> Passable<br>
+I think I know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.</p>
+</li>
+<li>
+<p><code>answer c/2</code> Easy A+<br>
+Card will then be scheduled further into the future. Other cards need more review than this one.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This gives feedback to the scheduler algorithm to automatically schedule the card for review at a time when it thinks you are likely to forget it.</p>
+</div>
+<div class="paragraph">
+<p>This design is based off the well known forgetting curve, you can read more about it here <a href="https://en.wikipedia.org/wiki/Forgetting_curve" class="bare">https://en.wikipedia.org/wiki/Forgetting_curve</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="schedule"><a class="link" href="#schedule">Show flashcards for review: <code>Schedule</code></a></h4>
+<div class="paragraph">
+<p>Using the <code><a href="#answer">answer</a></code> command to answer a flashcard will automatically schedule the card based on our spaced repetition algorithm.
+However, if you want to manually <code>schedule</code> a card for review by a certain date, you can do so as well.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>schedule d/DAY m/MONTH y/YEAR</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Card must be selected first before scheduling.
+To learn how to select a card, take a look at <a href="#selectc">selectc</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>schedule</code> can be used without any options, this will just schedule the cards for today.<br>
+You can omit some parameters in <code>schedule</code>. suppose today is <code>13/04/2018</code>,
+parameters that you omit would be implicitly assumed to be the current day, month or year.
+If you key in <code>schedule d/28</code> without typing in <code>m/04 y/2018</code>,
+the month and year are assumed to be the current month.<br>
+This would schedule the card for <code>28/04/2018</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>schedule d/28 m/04 y/2018</code><br>
+Schedule card for 28/04/2018</p>
+</li>
+<li>
+<p><code>schedule d/28</code><br>
+Suppose today is 13/04/2018, although <code>m/04 y/2018</code> is not typed,
+they are implicitly assumed to be the current month and year.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -164,7 +398,7 @@ The implementation too was challenging as it required changes to existing comman
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 01:06:28 UTC
+Last updated 2018-04-15 04:05:01 UTC
 </div>
 </div>
 </body>
